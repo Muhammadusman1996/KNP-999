@@ -1,0 +1,2537 @@
+[
+  {
+    "id": 1,
+    "name": "Fortune Tiger",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "fortune-tiger",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/fortune-tiger.svg"
+  },
+  {
+    "id": 2,
+    "name": "Fortune Rabbit",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "fortune-rabbit",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/fortune-rabbit.svg"
+  },
+  {
+    "id": 3,
+    "name": "Fortune Ox",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "fortune-ox",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/fortune-ox.svg"
+  },
+  {
+    "id": 4,
+    "name": "777 Fruit Slots",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "777-fruit-slots",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/777-fruit-slots.svg"
+  },
+  {
+    "id": 5,
+    "name": "Fortune Gems",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "fortune-gems",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/fortune-gems.svg"
+  },
+  {
+    "id": 6,
+    "name": "Crazy 777",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "crazy-777",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/crazy-777.svg"
+  },
+  {
+    "id": 7,
+    "name": "Super Fruits Slot",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "super-fruits-slot",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/super-fruits-slot.svg"
+  },
+  {
+    "id": 8,
+    "name": "FlyX",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "flyx",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/flyx.svg"
+  },
+  {
+    "id": 9,
+    "name": "Chicken Road 2.0",
+    "category": "Crash",
+    "engine": "steps",
+    "slug": "chicken-road-2-0",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/chicken-road-2-0.svg"
+  },
+  {
+    "id": 10,
+    "name": "Plinko",
+    "category": "Arcade",
+    "engine": "plinko",
+    "slug": "plinko",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/plinko.svg"
+  },
+  {
+    "id": 11,
+    "name": "Crazy Time",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "crazy-time",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/crazy-time.svg"
+  },
+  {
+    "id": 12,
+    "name": "Money Coming",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "money-coming",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/money-coming.svg"
+  },
+  {
+    "id": 13,
+    "name": "Wild Bounty Showdown",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "wild-bounty-showdown",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/wild-bounty-showdown.svg"
+  },
+  {
+    "id": 14,
+    "name": "Star Hunter",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "star-hunter",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/star-hunter.svg"
+  },
+  {
+    "id": 15,
+    "name": "Happy Fishing",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "happy-fishing",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/happy-fishing.svg"
+  },
+  {
+    "id": 16,
+    "name": "Ocean Phoenix",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "ocean-phoenix",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/ocean-phoenix.svg"
+  },
+  {
+    "id": 17,
+    "name": "Super Ace",
+    "category": "Card",
+    "engine": "blackjack",
+    "slug": "super-ace",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/super-ace.svg"
+  },
+  {
+    "id": 18,
+    "name": "7up7down",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "7up7down",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/7up7down.svg"
+  },
+  {
+    "id": 19,
+    "name": "Rummy",
+    "category": "Card",
+    "engine": "rummy",
+    "slug": "rummy",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/rummy.svg"
+  },
+  {
+    "id": 20,
+    "name": "Poker",
+    "category": "Card",
+    "engine": "poker",
+    "slug": "poker",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/poker.svg"
+  },
+  {
+    "id": 21,
+    "name": "Prosperity Fortune Tree",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "prosperity-fortune-tree",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/prosperity-fortune-tree.svg"
+  },
+  {
+    "id": 22,
+    "name": "Rooster Rumble",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "rooster-rumble",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/rooster-rumble.svg"
+  },
+  {
+    "id": 23,
+    "name": "Diamond Hunt",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "diamond-hunt",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/diamond-hunt.svg"
+  },
+  {
+    "id": 24,
+    "name": "Mystic Treasures",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "mystic-treasures",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/mystic-treasures.svg"
+  },
+  {
+    "id": 25,
+    "name": "Wild Safari",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "wild-safari",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/wild-safari.svg"
+  },
+  {
+    "id": 26,
+    "name": "Emerald Adventure",
+    "category": "Card",
+    "engine": "card",
+    "slug": "emerald-adventure",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/emerald-adventure.svg"
+  },
+  {
+    "id": 27,
+    "name": "Neon Challenge",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "neon-challenge",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/neon-challenge.svg"
+  },
+  {
+    "id": 28,
+    "name": "Dragon Kingdom",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "dragon-kingdom",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/dragon-kingdom.svg"
+  },
+  {
+    "id": 29,
+    "name": "Moon Reels",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "moon-reels",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/moon-reels.svg"
+  },
+  {
+    "id": 30,
+    "name": "Solar Dash",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "solar-dash",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/solar-dash.svg"
+  },
+  {
+    "id": 31,
+    "name": "Lucky Fortune",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "lucky-fortune",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/lucky-fortune.svg"
+  },
+  {
+    "id": 32,
+    "name": "Mega Arena",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "mega-arena",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/mega-arena.svg"
+  },
+  {
+    "id": 33,
+    "name": "Sapphire Legends",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "sapphire-legends",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/sapphire-legends.svg"
+  },
+  {
+    "id": 34,
+    "name": "Royal Mystery",
+    "category": "Card",
+    "engine": "card",
+    "slug": "royal-mystery",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/royal-mystery.svg"
+  },
+  {
+    "id": 35,
+    "name": "Ocean Spin",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "ocean-spin",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/ocean-spin.svg"
+  },
+  {
+    "id": 36,
+    "name": "Fire Empire",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "fire-empire",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/fire-empire.svg"
+  },
+  {
+    "id": 37,
+    "name": "Pearl Blitz",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "pearl-blitz",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/pearl-blitz.svg"
+  },
+  {
+    "id": 38,
+    "name": "Crystal World",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "crystal-world",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/crystal-world.svg"
+  },
+  {
+    "id": 39,
+    "name": "Turbo Voyage",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "turbo-voyage",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/turbo-voyage.svg"
+  },
+  {
+    "id": 40,
+    "name": "Velvet Quest",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "velvet-quest",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/velvet-quest.svg"
+  },
+  {
+    "id": 41,
+    "name": "Golden Deluxe",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "golden-deluxe",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/golden-deluxe.svg"
+  },
+  {
+    "id": 42,
+    "name": "Cosmic Rush",
+    "category": "Card",
+    "engine": "card",
+    "slug": "cosmic-rush",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/cosmic-rush.svg"
+  },
+  {
+    "id": 43,
+    "name": "Thunder Jackpot",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "thunder-jackpot",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/thunder-jackpot.svg"
+  },
+  {
+    "id": 44,
+    "name": "Phantom Treasures",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "phantom-treasures",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/phantom-treasures.svg"
+  },
+  {
+    "id": 45,
+    "name": "Jade Safari",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "jade-safari",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/jade-safari.svg"
+  },
+  {
+    "id": 46,
+    "name": "Star Adventure",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "star-adventure",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/star-adventure.svg"
+  },
+  {
+    "id": 47,
+    "name": "Ruby Challenge",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "ruby-challenge",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/ruby-challenge.svg"
+  },
+  {
+    "id": 48,
+    "name": "Mystic Kingdom",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "mystic-kingdom",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/mystic-kingdom.svg"
+  },
+  {
+    "id": 49,
+    "name": "Wild Reels",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "wild-reels",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/wild-reels.svg"
+  },
+  {
+    "id": 50,
+    "name": "Emerald Dash",
+    "category": "Card",
+    "engine": "card",
+    "slug": "emerald-dash",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/emerald-dash.svg"
+  },
+  {
+    "id": 51,
+    "name": "Neon Fortune",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "neon-fortune",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/neon-fortune.svg"
+  },
+  {
+    "id": 52,
+    "name": "Dragon Arena",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "dragon-arena",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/dragon-arena.svg"
+  },
+  {
+    "id": 53,
+    "name": "Moon Legends",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "moon-legends",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/moon-legends.svg"
+  },
+  {
+    "id": 54,
+    "name": "Solar Mystery",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "solar-mystery",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/solar-mystery.svg"
+  },
+  {
+    "id": 55,
+    "name": "Lucky Spin",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "lucky-spin",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/lucky-spin.svg"
+  },
+  {
+    "id": 56,
+    "name": "Mega Empire",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "mega-empire",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/mega-empire.svg"
+  },
+  {
+    "id": 57,
+    "name": "Sapphire Blitz",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "sapphire-blitz",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/sapphire-blitz.svg"
+  },
+  {
+    "id": 58,
+    "name": "Royal World",
+    "category": "Card",
+    "engine": "card",
+    "slug": "royal-world",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/royal-world.svg"
+  },
+  {
+    "id": 59,
+    "name": "Ocean Voyage",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "ocean-voyage",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/ocean-voyage.svg"
+  },
+  {
+    "id": 60,
+    "name": "Fire Quest",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "fire-quest",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/fire-quest.svg"
+  },
+  {
+    "id": 61,
+    "name": "Pearl Deluxe",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "pearl-deluxe",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/pearl-deluxe.svg"
+  },
+  {
+    "id": 62,
+    "name": "Crystal Rush",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "crystal-rush",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/crystal-rush.svg"
+  },
+  {
+    "id": 63,
+    "name": "Turbo Jackpot",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "turbo-jackpot",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/turbo-jackpot.svg"
+  },
+  {
+    "id": 64,
+    "name": "Velvet Treasures",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "velvet-treasures",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/velvet-treasures.svg"
+  },
+  {
+    "id": 65,
+    "name": "Golden Safari",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "golden-safari",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/golden-safari.svg"
+  },
+  {
+    "id": 66,
+    "name": "Cosmic Adventure",
+    "category": "Card",
+    "engine": "card",
+    "slug": "cosmic-adventure",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/cosmic-adventure.svg"
+  },
+  {
+    "id": 67,
+    "name": "Thunder Challenge",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "thunder-challenge",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/thunder-challenge.svg"
+  },
+  {
+    "id": 68,
+    "name": "Phantom Kingdom",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "phantom-kingdom",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/phantom-kingdom.svg"
+  },
+  {
+    "id": 69,
+    "name": "Jade Reels",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "jade-reels",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/jade-reels.svg"
+  },
+  {
+    "id": 70,
+    "name": "Star Dash",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "star-dash",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/star-dash.svg"
+  },
+  {
+    "id": 71,
+    "name": "Ruby Fortune",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "ruby-fortune",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/ruby-fortune.svg"
+  },
+  {
+    "id": 72,
+    "name": "Mystic Arena",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "mystic-arena",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/mystic-arena.svg"
+  },
+  {
+    "id": 73,
+    "name": "Wild Legends",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "wild-legends",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/wild-legends.svg"
+  },
+  {
+    "id": 74,
+    "name": "Emerald Mystery",
+    "category": "Card",
+    "engine": "card",
+    "slug": "emerald-mystery",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/emerald-mystery.svg"
+  },
+  {
+    "id": 75,
+    "name": "Neon Spin",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "neon-spin",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/neon-spin.svg"
+  },
+  {
+    "id": 76,
+    "name": "Dragon Empire",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "dragon-empire",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/dragon-empire.svg"
+  },
+  {
+    "id": 77,
+    "name": "Moon Blitz",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "moon-blitz",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/moon-blitz.svg"
+  },
+  {
+    "id": 78,
+    "name": "Solar World",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "solar-world",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/solar-world.svg"
+  },
+  {
+    "id": 79,
+    "name": "Lucky Voyage",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "lucky-voyage",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/lucky-voyage.svg"
+  },
+  {
+    "id": 80,
+    "name": "Mega Quest",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "mega-quest",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/mega-quest.svg"
+  },
+  {
+    "id": 81,
+    "name": "Sapphire Deluxe",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "sapphire-deluxe",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/sapphire-deluxe.svg"
+  },
+  {
+    "id": 82,
+    "name": "Royal Rush",
+    "category": "Card",
+    "engine": "card",
+    "slug": "royal-rush",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/royal-rush.svg"
+  },
+  {
+    "id": 83,
+    "name": "Ocean Jackpot",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "ocean-jackpot",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/ocean-jackpot.svg"
+  },
+  {
+    "id": 84,
+    "name": "Fire Treasures",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "fire-treasures",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/fire-treasures.svg"
+  },
+  {
+    "id": 85,
+    "name": "Pearl Safari",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "pearl-safari",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/pearl-safari.svg"
+  },
+  {
+    "id": 86,
+    "name": "Crystal Adventure",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "crystal-adventure",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/crystal-adventure.svg"
+  },
+  {
+    "id": 87,
+    "name": "Turbo Challenge",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "turbo-challenge",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/turbo-challenge.svg"
+  },
+  {
+    "id": 88,
+    "name": "Velvet Kingdom",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "velvet-kingdom",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/velvet-kingdom.svg"
+  },
+  {
+    "id": 89,
+    "name": "Golden Reels",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "golden-reels",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/golden-reels.svg"
+  },
+  {
+    "id": 90,
+    "name": "Cosmic Dash",
+    "category": "Card",
+    "engine": "card",
+    "slug": "cosmic-dash",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/cosmic-dash.svg"
+  },
+  {
+    "id": 91,
+    "name": "Thunder Fortune",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "thunder-fortune",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/thunder-fortune.svg"
+  },
+  {
+    "id": 92,
+    "name": "Phantom Arena",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "phantom-arena",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/phantom-arena.svg"
+  },
+  {
+    "id": 93,
+    "name": "Jade Legends",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "jade-legends",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/jade-legends.svg"
+  },
+  {
+    "id": 94,
+    "name": "Star Mystery",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "star-mystery",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/star-mystery.svg"
+  },
+  {
+    "id": 95,
+    "name": "Ruby Spin",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "ruby-spin",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/ruby-spin.svg"
+  },
+  {
+    "id": 96,
+    "name": "Mystic Empire",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "mystic-empire",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/mystic-empire.svg"
+  },
+  {
+    "id": 97,
+    "name": "Wild Blitz",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "wild-blitz",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/wild-blitz.svg"
+  },
+  {
+    "id": 98,
+    "name": "Emerald World",
+    "category": "Card",
+    "engine": "card",
+    "slug": "emerald-world",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/emerald-world.svg"
+  },
+  {
+    "id": 99,
+    "name": "Neon Voyage",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "neon-voyage",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/neon-voyage.svg"
+  },
+  {
+    "id": 100,
+    "name": "Dragon Quest",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "dragon-quest",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/dragon-quest.svg"
+  },
+  {
+    "id": 101,
+    "name": "Moon Deluxe",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "moon-deluxe",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/moon-deluxe.svg"
+  },
+  {
+    "id": 102,
+    "name": "Solar Rush",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "solar-rush",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/solar-rush.svg"
+  },
+  {
+    "id": 103,
+    "name": "Lucky Jackpot",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "lucky-jackpot",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/lucky-jackpot.svg"
+  },
+  {
+    "id": 104,
+    "name": "Mega Treasures",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "mega-treasures",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/mega-treasures.svg"
+  },
+  {
+    "id": 105,
+    "name": "Sapphire Safari",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "sapphire-safari",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/sapphire-safari.svg"
+  },
+  {
+    "id": 106,
+    "name": "Royal Adventure",
+    "category": "Card",
+    "engine": "card",
+    "slug": "royal-adventure",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/royal-adventure.svg"
+  },
+  {
+    "id": 107,
+    "name": "Ocean Challenge",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "ocean-challenge",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/ocean-challenge.svg"
+  },
+  {
+    "id": 108,
+    "name": "Fire Kingdom",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "fire-kingdom",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/fire-kingdom.svg"
+  },
+  {
+    "id": 109,
+    "name": "Pearl Reels",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "pearl-reels",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/pearl-reels.svg"
+  },
+  {
+    "id": 110,
+    "name": "Crystal Dash",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "crystal-dash",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/crystal-dash.svg"
+  },
+  {
+    "id": 111,
+    "name": "Turbo Fortune",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "turbo-fortune",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/turbo-fortune.svg"
+  },
+  {
+    "id": 112,
+    "name": "Velvet Arena",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "velvet-arena",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/velvet-arena.svg"
+  },
+  {
+    "id": 113,
+    "name": "Golden Legends",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "golden-legends",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/golden-legends.svg"
+  },
+  {
+    "id": 114,
+    "name": "Cosmic Mystery",
+    "category": "Card",
+    "engine": "card",
+    "slug": "cosmic-mystery",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/cosmic-mystery.svg"
+  },
+  {
+    "id": 115,
+    "name": "Thunder Spin",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "thunder-spin",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/thunder-spin.svg"
+  },
+  {
+    "id": 116,
+    "name": "Phantom Empire",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "phantom-empire",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/phantom-empire.svg"
+  },
+  {
+    "id": 117,
+    "name": "Jade Blitz",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "jade-blitz",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/jade-blitz.svg"
+  },
+  {
+    "id": 118,
+    "name": "Star World",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "star-world",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/star-world.svg"
+  },
+  {
+    "id": 119,
+    "name": "Ruby Voyage",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "ruby-voyage",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/ruby-voyage.svg"
+  },
+  {
+    "id": 120,
+    "name": "Mystic Quest",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "mystic-quest",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/mystic-quest.svg"
+  },
+  {
+    "id": 121,
+    "name": "Wild Deluxe",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "wild-deluxe",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/wild-deluxe.svg"
+  },
+  {
+    "id": 122,
+    "name": "Emerald Rush",
+    "category": "Card",
+    "engine": "card",
+    "slug": "emerald-rush",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/emerald-rush.svg"
+  },
+  {
+    "id": 123,
+    "name": "Neon Jackpot",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "neon-jackpot",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/neon-jackpot.svg"
+  },
+  {
+    "id": 124,
+    "name": "Dragon Treasures",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "dragon-treasures",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/dragon-treasures.svg"
+  },
+  {
+    "id": 125,
+    "name": "Moon Safari",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "moon-safari",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/moon-safari.svg"
+  },
+  {
+    "id": 126,
+    "name": "Solar Adventure",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "solar-adventure",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/solar-adventure.svg"
+  },
+  {
+    "id": 127,
+    "name": "Lucky Challenge",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "lucky-challenge",
+    "colors": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/lucky-challenge.svg"
+  },
+  {
+    "id": 128,
+    "name": "Mega Kingdom",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "mega-kingdom",
+    "colors": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/mega-kingdom.svg"
+  },
+  {
+    "id": 129,
+    "name": "Sapphire Reels",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "sapphire-reels",
+    "colors": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/sapphire-reels.svg"
+  },
+  {
+    "id": 130,
+    "name": "Royal Dash",
+    "category": "Card",
+    "engine": "card",
+    "slug": "royal-dash",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/royal-dash.svg"
+  },
+  {
+    "id": 131,
+    "name": "Ocean Fortune",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "ocean-fortune",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/ocean-fortune.svg"
+  },
+  {
+    "id": 132,
+    "name": "Fire Arena",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "fire-arena",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/fire-arena.svg"
+  },
+  {
+    "id": 133,
+    "name": "Pearl Legends",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "pearl-legends",
+    "colors": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/pearl-legends.svg"
+  },
+  {
+    "id": 134,
+    "name": "Crystal Mystery",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "crystal-mystery",
+    "colors": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/crystal-mystery.svg"
+  },
+  {
+    "id": 135,
+    "name": "Turbo Spin",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "turbo-spin",
+    "colors": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/turbo-spin.svg"
+  },
+  {
+    "id": 136,
+    "name": "Velvet Empire",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "velvet-empire",
+    "colors": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/velvet-empire.svg"
+  },
+  {
+    "id": 137,
+    "name": "Golden Blitz",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "golden-blitz",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/golden-blitz.svg"
+  },
+  {
+    "id": 138,
+    "name": "Cosmic World",
+    "category": "Card",
+    "engine": "card",
+    "slug": "cosmic-world",
+    "colors": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/cosmic-world.svg"
+  },
+  {
+    "id": 139,
+    "name": "Thunder Voyage",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "thunder-voyage",
+    "colors": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/thunder-voyage.svg"
+  },
+  {
+    "id": 140,
+    "name": "Phantom Quest",
+    "category": "Live",
+    "engine": "wheel",
+    "slug": "phantom-quest",
+    "colors": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/phantom-quest.svg"
+  },
+  {
+    "id": 141,
+    "name": "Dragon Tiger",
+    "category": "Cards",
+    "engine": "card",
+    "slug": "dragon-tiger",
+    "colors": {
+      "background": "#24152f",
+      "accent": "#c46aff",
+      "highlight": "#ffcb73"
+    },
+    "logo": "/logos/dragon-tiger.svg"
+  },
+  {
+    "id": 142,
+    "name": "Birds & Beasts",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "birds-beasts",
+    "colors": {
+      "background": "#12243a",
+      "accent": "#4da9ff",
+      "highlight": "#9be7ff"
+    },
+    "logo": "/logos/birds-beasts.svg"
+  },
+  {
+    "id": 143,
+    "name": "Treasure Digger",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "treasure-digger",
+    "colors": {
+      "background": "#2c1b14",
+      "accent": "#ff934d",
+      "highlight": "#ffe1a1"
+    },
+    "logo": "/logos/treasure-digger.svg"
+  },
+  {
+    "id": 144,
+    "name": "Mercedes & BMW",
+    "category": "Cards",
+    "engine": "card",
+    "slug": "mercedes-bmw",
+    "colors": {
+      "background": "#172b24",
+      "accent": "#57d69c",
+      "highlight": "#d5ff8a"
+    },
+    "logo": "/logos/mercedes-bmw.svg"
+  },
+  {
+    "id": 145,
+    "name": "Big & Small",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "big-small",
+    "colors": {
+      "background": "#27152a",
+      "accent": "#f05eaa",
+      "highlight": "#ffd2ef"
+    },
+    "logo": "/logos/big-small.svg"
+  },
+  {
+    "id": 146,
+    "name": "Red vs Blue",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "red-vs-blue",
+    "colors": {
+      "background": "#171d35",
+      "accent": "#8b8fff",
+      "highlight": "#d4d5ff"
+    },
+    "logo": "/logos/red-vs-blue.svg"
+  },
+  {
+    "id": 147,
+    "name": "Sic Bo",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "sic-bo",
+    "colors": {
+      "background": "#24152f",
+      "accent": "#c46aff",
+      "highlight": "#ffcb73"
+    },
+    "logo": "/logos/sic-bo.svg"
+  },
+  {
+    "id": 148,
+    "name": "Baccarat",
+    "category": "Cards",
+    "engine": "card",
+    "slug": "baccarat",
+    "colors": {
+      "background": "#12243a",
+      "accent": "#4da9ff",
+      "highlight": "#9be7ff"
+    },
+    "logo": "/logos/baccarat.svg"
+  },
+  {
+    "id": 149,
+    "name": "Bull Bull 100",
+    "category": "Cards",
+    "engine": "poker",
+    "slug": "bull-bull-100",
+    "colors": {
+      "background": "#2c1b14",
+      "accent": "#ff934d",
+      "highlight": "#ffe1a1"
+    },
+    "logo": "/logos/bull-bull-100.svg"
+  },
+  {
+    "id": 150,
+    "name": "Texas Hold'em",
+    "category": "Cards",
+    "engine": "poker",
+    "slug": "texas-hold-em",
+    "colors": {
+      "background": "#172b24",
+      "accent": "#57d69c",
+      "highlight": "#d5ff8a"
+    },
+    "logo": "/logos/texas-hold-em.svg"
+  },
+  {
+    "id": 151,
+    "name": "Win Three Cards",
+    "category": "Cards",
+    "engine": "card",
+    "slug": "win-three-cards",
+    "colors": {
+      "background": "#27152a",
+      "accent": "#f05eaa",
+      "highlight": "#ffd2ef"
+    },
+    "logo": "/logos/win-three-cards.svg"
+  },
+  {
+    "id": 152,
+    "name": "Banker Bull Bull",
+    "category": "Cards",
+    "engine": "poker",
+    "slug": "banker-bull-bull",
+    "colors": {
+      "background": "#171d35",
+      "accent": "#8b8fff",
+      "highlight": "#d4d5ff"
+    },
+    "logo": "/logos/banker-bull-bull.svg"
+  },
+  {
+    "id": 153,
+    "name": "Aviator",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "aviator",
+    "colors": {
+      "background": "#24152f",
+      "accent": "#c46aff",
+      "highlight": "#ffcb73"
+    },
+    "logo": "/logos/aviator.svg"
+  },
+  {
+    "id": 154,
+    "name": "WG Slot",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "wg-slot",
+    "colors": {
+      "background": "#12243a",
+      "accent": "#4da9ff",
+      "highlight": "#9be7ff"
+    },
+    "logo": "/logos/wg-slot.svg"
+  },
+  {
+    "id": 155,
+    "name": "9Wickets Sports",
+    "category": "Sports",
+    "engine": "arcade",
+    "slug": "9wickets-sports",
+    "colors": {
+      "background": "#2c1b14",
+      "accent": "#ff934d",
+      "highlight": "#ffe1a1"
+    },
+    "logo": "/logos/9wickets-sports.svg"
+  },
+  {
+    "id": 156,
+    "name": "JILI Slot",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "jili-slot",
+    "colors": {
+      "background": "#172b24",
+      "accent": "#57d69c",
+      "highlight": "#d5ff8a"
+    },
+    "logo": "/logos/jili-slot.svg"
+  },
+  {
+    "id": 157,
+    "name": "PG Slot",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "pg-slot",
+    "colors": {
+      "background": "#27152a",
+      "accent": "#f05eaa",
+      "highlight": "#ffd2ef"
+    },
+    "logo": "/logos/pg-slot.svg"
+  },
+  {
+    "id": 158,
+    "name": "JILI Cards",
+    "category": "Cards",
+    "engine": "card",
+    "slug": "jili-cards",
+    "colors": {
+      "background": "#171d35",
+      "accent": "#8b8fff",
+      "highlight": "#d4d5ff"
+    },
+    "logo": "/logos/jili-cards.svg"
+  },
+  {
+    "id": 159,
+    "name": "Crash",
+    "category": "Crash",
+    "engine": "crash",
+    "slug": "crash",
+    "colors": {
+      "background": "#24152f",
+      "accent": "#c46aff",
+      "highlight": "#ffcb73"
+    },
+    "logo": "/logos/crash.svg"
+  },
+  {
+    "id": 160,
+    "name": "Lightning Storm",
+    "category": "Wheel",
+    "engine": "wheel",
+    "slug": "lightning-storm",
+    "colors": {
+      "background": "#12243a",
+      "accent": "#4da9ff",
+      "highlight": "#9be7ff"
+    },
+    "logo": "/logos/lightning-storm.svg"
+  },
+  {
+    "id": 161,
+    "name": "Ice Fishing",
+    "category": "Fishing",
+    "engine": "fishing",
+    "slug": "ice-fishing",
+    "colors": {
+      "background": "#2c1b14",
+      "accent": "#ff934d",
+      "highlight": "#ffe1a1"
+    },
+    "logo": "/logos/ice-fishing.svg"
+  },
+  {
+    "id": 162,
+    "name": "Bet Stacker Blackjack",
+    "category": "Cards",
+    "engine": "blackjack",
+    "slug": "bet-stacker-blackjack",
+    "colors": {
+      "background": "#172b24",
+      "accent": "#57d69c",
+      "highlight": "#d5ff8a"
+    },
+    "logo": "/logos/bet-stacker-blackjack.svg"
+  },
+  {
+    "id": 163,
+    "name": "Cricket War",
+    "category": "Sports",
+    "engine": "arcade",
+    "slug": "cricket-war",
+    "colors": {
+      "background": "#27152a",
+      "accent": "#f05eaa",
+      "highlight": "#ffd2ef"
+    },
+    "logo": "/logos/cricket-war.svg"
+  },
+  {
+    "id": 164,
+    "name": "Poker King",
+    "category": "Cards",
+    "engine": "poker",
+    "slug": "poker-king",
+    "colors": {
+      "background": "#171d35",
+      "accent": "#8b8fff",
+      "highlight": "#d4d5ff"
+    },
+    "logo": "/logos/poker-king.svg"
+  },
+  {
+    "id": 165,
+    "name": "Teen Patti 20-20",
+    "category": "Cards",
+    "engine": "card",
+    "slug": "teen-patti-20-20",
+    "colors": {
+      "background": "#24152f",
+      "accent": "#c46aff",
+      "highlight": "#ffcb73"
+    },
+    "logo": "/logos/teen-patti-20-20.svg"
+  },
+  {
+    "id": 166,
+    "name": "Calaca Bingo",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "calaca-bingo",
+    "colors": {
+      "background": "#12243a",
+      "accent": "#4da9ff",
+      "highlight": "#9be7ff"
+    },
+    "logo": "/logos/calaca-bingo.svg"
+  },
+  {
+    "id": 167,
+    "name": "Fortune Bingo",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "fortune-bingo",
+    "colors": {
+      "background": "#2c1b14",
+      "accent": "#ff934d",
+      "highlight": "#ffe1a1"
+    },
+    "logo": "/logos/fortune-bingo.svg"
+  },
+  {
+    "id": 168,
+    "name": "Color Prediction",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "color-prediction",
+    "colors": {
+      "background": "#172b24",
+      "accent": "#57d69c",
+      "highlight": "#d5ff8a"
+    },
+    "logo": "/logos/color-prediction.svg"
+  },
+  {
+    "id": 169,
+    "name": "Win Drop",
+    "category": "Plinko",
+    "engine": "plinko",
+    "slug": "win-drop",
+    "colors": {
+      "background": "#27152a",
+      "accent": "#f05eaa",
+      "highlight": "#ffd2ef"
+    },
+    "logo": "/logos/win-drop.svg"
+  },
+  {
+    "id": 170,
+    "name": "Jhandi Munda",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "jhandi-munda",
+    "colors": {
+      "background": "#171d35",
+      "accent": "#8b8fff",
+      "highlight": "#d4d5ff"
+    },
+    "logo": "/logos/jhandi-munda.svg"
+  },
+  {
+    "id": 171,
+    "name": "Fish Prawn Crab",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "fish-prawn-crab",
+    "colors": {
+      "background": "#24152f",
+      "accent": "#c46aff",
+      "highlight": "#ffcb73"
+    },
+    "logo": "/logos/fish-prawn-crab.svg"
+  },
+  {
+    "id": 172,
+    "name": "Cricket Sah 75",
+    "category": "Sports",
+    "engine": "arcade",
+    "slug": "cricket-sah-75",
+    "colors": {
+      "background": "#12243a",
+      "accent": "#4da9ff",
+      "highlight": "#9be7ff"
+    },
+    "logo": "/logos/cricket-sah-75.svg"
+  },
+  {
+    "id": 173,
+    "name": "Video Poker",
+    "category": "Cards",
+    "engine": "poker",
+    "slug": "video-poker",
+    "colors": {
+      "background": "#2c1b14",
+      "accent": "#ff934d",
+      "highlight": "#ffe1a1"
+    },
+    "logo": "/logos/video-poker.svg"
+  },
+  {
+    "id": 174,
+    "name": "Teen Patti",
+    "category": "Cards",
+    "engine": "card",
+    "slug": "teen-patti",
+    "colors": {
+      "background": "#172b24",
+      "accent": "#57d69c",
+      "highlight": "#d5ff8a"
+    },
+    "logo": "/logos/teen-patti.svg"
+  },
+  {
+    "id": 175,
+    "name": "AK47",
+    "category": "Cards",
+    "engine": "card",
+    "slug": "ak47",
+    "colors": {
+      "background": "#27152a",
+      "accent": "#f05eaa",
+      "highlight": "#ffd2ef"
+    },
+    "logo": "/logos/ak47.svg"
+  },
+  {
+    "id": 176,
+    "name": "Callbreak",
+    "category": "Cards",
+    "engine": "card",
+    "slug": "callbreak",
+    "colors": {
+      "background": "#171d35",
+      "accent": "#8b8fff",
+      "highlight": "#d4d5ff"
+    },
+    "logo": "/logos/callbreak.svg"
+  },
+  {
+    "id": 177,
+    "name": "Chicken Dash",
+    "category": "Arcade",
+    "engine": "steps",
+    "slug": "chicken-dash",
+    "colors": {
+      "background": "#24152f",
+      "accent": "#c46aff",
+      "highlight": "#ffcb73"
+    },
+    "logo": "/logos/chicken-dash.svg"
+  },
+  {
+    "id": 178,
+    "name": "European Roulette",
+    "category": "Wheel",
+    "engine": "wheel",
+    "slug": "european-roulette",
+    "colors": {
+      "background": "#12243a",
+      "accent": "#4da9ff",
+      "highlight": "#9be7ff"
+    },
+    "logo": "/logos/european-roulette.svg"
+  },
+  {
+    "id": 179,
+    "name": "Fortune Roulette",
+    "category": "Wheel",
+    "engine": "wheel",
+    "slug": "fortune-roulette",
+    "colors": {
+      "background": "#2c1b14",
+      "accent": "#ff934d",
+      "highlight": "#ffe1a1"
+    },
+    "logo": "/logos/fortune-roulette.svg"
+  },
+  {
+    "id": 180,
+    "name": "Thai Hilo",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "thai-hilo",
+    "colors": {
+      "background": "#172b24",
+      "accent": "#57d69c",
+      "highlight": "#d5ff8a"
+    },
+    "logo": "/logos/thai-hilo.svg"
+  },
+  {
+    "id": 181,
+    "name": "Ludo Quick",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "ludo-quick",
+    "colors": {
+      "background": "#27152a",
+      "accent": "#f05eaa",
+      "highlight": "#ffd2ef"
+    },
+    "logo": "/logos/ludo-quick.svg"
+  },
+  {
+    "id": 182,
+    "name": "Pappu",
+    "category": "Arcade",
+    "engine": "arcade",
+    "slug": "pappu",
+    "colors": {
+      "background": "#171d35",
+      "accent": "#8b8fff",
+      "highlight": "#d4d5ff"
+    },
+    "logo": "/logos/pappu.svg"
+  },
+  {
+    "id": 183,
+    "name": "Cricket Roulette",
+    "category": "Wheel",
+    "engine": "wheel",
+    "slug": "cricket-roulette",
+    "colors": {
+      "background": "#24152f",
+      "accent": "#c46aff",
+      "highlight": "#ffcb73"
+    },
+    "logo": "/logos/cricket-roulette.svg"
+  },
+  {
+    "id": 184,
+    "name": "Cricket King 18",
+    "category": "Sports",
+    "engine": "arcade",
+    "slug": "cricket-king-18",
+    "colors": {
+      "background": "#12243a",
+      "accent": "#4da9ff",
+      "highlight": "#9be7ff"
+    },
+    "logo": "/logos/cricket-king-18.svg"
+  },
+  {
+    "id": 185,
+    "name": "Number King",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "number-king",
+    "colors": {
+      "background": "#2c1b14",
+      "accent": "#ff934d",
+      "highlight": "#ffe1a1"
+    },
+    "logo": "/logos/number-king.svg"
+  },
+  {
+    "id": 186,
+    "name": "Lucky Bingo",
+    "category": "Puzzle",
+    "engine": "puzzle",
+    "slug": "lucky-bingo",
+    "colors": {
+      "background": "#172b24",
+      "accent": "#57d69c",
+      "highlight": "#d5ff8a"
+    },
+    "logo": "/logos/lucky-bingo.svg"
+  },
+  {
+    "id": 187,
+    "name": "Big Small Casino Royale",
+    "category": "Dice",
+    "engine": "dice",
+    "slug": "big-small-casino-royale",
+    "colors": {
+      "background": "#27152a",
+      "accent": "#f05eaa",
+      "highlight": "#ffd2ef"
+    },
+    "logo": "/logos/big-small-casino-royale.svg"
+  },
+  {
+    "id": 188,
+    "name": "Golden Treasure",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "golden-treasure",
+    "colors": {
+      "background": "#171d35",
+      "accent": "#8b8fff",
+      "highlight": "#d4d5ff"
+    },
+    "logo": "/logos/golden-treasure.svg"
+  },
+  {
+    "id": 189,
+    "name": "Drop Ball",
+    "category": "Plinko",
+    "engine": "plinko",
+    "slug": "drop-ball",
+    "colors": {
+      "background": "#24152f",
+      "accent": "#c46aff",
+      "highlight": "#ffcb73"
+    },
+    "logo": "/logos/drop-ball.svg"
+  },
+  {
+    "id": 190,
+    "name": "Gallina Fortunata",
+    "category": "Arcade",
+    "engine": "steps",
+    "slug": "gallina-fortunata",
+    "colors": {
+      "background": "#12243a",
+      "accent": "#4da9ff",
+      "highlight": "#9be7ff"
+    },
+    "logo": "/logos/gallina-fortunata.svg"
+  },
+  {
+    "id": 191,
+    "name": "Speed Andar Bahar",
+    "category": "Cards",
+    "engine": "card",
+    "slug": "speed-andar-bahar",
+    "colors": {
+      "background": "#2c1b14",
+      "accent": "#ff934d",
+      "highlight": "#ffe1a1"
+    },
+    "logo": "/logos/speed-andar-bahar.svg"
+  },
+  {
+    "id": 192,
+    "name": "Frog Dash",
+    "category": "Arcade",
+    "engine": "steps",
+    "slug": "frog-dash",
+    "colors": {
+      "background": "#172b24",
+      "accent": "#57d69c",
+      "highlight": "#d5ff8a"
+    },
+    "logo": "/logos/frog-dash.svg"
+  },
+  {
+    "id": 193,
+    "name": "Grand Golden Treasure",
+    "category": "Slots",
+    "engine": "slot",
+    "slug": "grand-golden-treasure",
+    "colors": {
+      "background": "#27152a",
+      "accent": "#f05eaa",
+      "highlight": "#ffd2ef"
+    },
+    "logo": "/logos/grand-golden-treasure.svg"
+  },
+  {
+    "id": 194,
+    "name": "Chicken Dash 10000",
+    "category": "Arcade",
+    "engine": "steps",
+    "slug": "chicken-dash-10000",
+    "colors": {
+      "background": "#171d35",
+      "accent": "#8b8fff",
+      "highlight": "#d4d5ff"
+    },
+    "logo": "/logos/chicken-dash-10000.svg"
+  },
+  {
+    "id": 195,
+    "name": "Football Golden Cup",
+    "category": "Sports",
+    "engine": "arcade",
+    "slug": "football-golden-cup",
+    "colors": {
+      "background": "#24152f",
+      "accent": "#c46aff",
+      "highlight": "#ffcb73"
+    },
+    "logo": "/logos/football-golden-cup.svg"
+  }
+]
