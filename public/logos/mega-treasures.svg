@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" role="img" aria-label="Mega Treasures game logo">
+<title>Mega Treasures — KNP-999 game logo</title>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102b25"/><stop offset="1" stop-color="#080914"/></linearGradient>
+ <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0b2"/><stop offset=".38" stop-color="#e6b94f"/><stop offset=".72" stop-color="#5bd69c"/><stop offset="1" stop-color="#d6ff8a"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#5bd69c" stop-opacity=".58"/><stop offset="1" stop-color="#5bd69c" stop-opacity="0"/></radialGradient>
+ <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+ <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#d6ff8a" opacity=".16"/></pattern>
+</defs>
+<rect width="480" height="320" rx="28" fill="url(#bg)"/>
+<rect x="8" y="8" width="464" height="304" rx="23" fill="none" stroke="#5bd69c" stroke-opacity=".72" stroke-width="2"/>
+<rect x="17" y="17" width="446" height="286" rx="18" fill="url(#dots)" opacity=".7"/>
+<path d="M28 62H452M28 258H452" stroke="url(#metal)" stroke-opacity=".55" stroke-width="1.5"/>
+<circle cx="240" cy="145" r="103" fill="url(#glow)" filter="url(#shadow)"/>
+<circle cx="240" cy="137" r="88" fill="#090b18" fill-opacity=".78" stroke="url(#metal)" stroke-width="5"/>
+<circle cx="240" cy="137" r="75" fill="none" stroke="#d6ff8a" stroke-opacity=".55" stroke-width="1.5" stroke-dasharray="3 7"/>
+<path d="M240 42l12 17 21-5-5 21 17 12-17 12 5 21-21-5-12 17-12-17-21 5 5-21-17-12 17-12-5-21 21 5z" fill="#5bd69c" opacity=".16"/>
+<text x="240" y="169" text-anchor="middle" font-family="Georgia,serif" font-size="72" font-weight="bold" fill="url(#metal)" stroke="#160f23" stroke-width="1.2" paint-order="stroke">✹</text>
+<path d="M55 42l10 10-10 10-10-10zM425 42l10 10-10 10-10-10zM55 258l10 10-10 10-10-10zM425 258l10 10-10 10-10-10z" fill="url(#metal)"/>
+<text x="240" y="34" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" letter-spacing="4" fill="#d6ff8a" font-weight="700">KNP • PREMIUM GAME</text>
+<text x="240" y="286" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="900" letter-spacing=".4" fill="#fff">Mega Treasures</text>
+
+</svg>
