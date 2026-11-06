@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS rounds(id TEXT PRIMARY KEY,user_id TEXT,game_id INTEG
 CREATE TABLE IF NOT EXISTS stake_options(amount INTEGER PRIMARY KEY, enabled INTEGER NOT NULL DEFAULT 1, sort_order INTEGER NOT NULL DEFAULT 0);
 `);
 app.use(express.json({limit:"100kb"}));
-const defaultStakes=[100,200,400,500,1000,1500,2000,2500,3000,5000,20000,100000];
+const defaultStakes=[10,20,50,100,200,500,1000,2000,5000,10000];
 const stakeCount=db.prepare("SELECT COUNT(*) n FROM stake_options").get().n;
 if(!stakeCount){const addStake=db.prepare("INSERT OR IGNORE INTO stake_options(amount,enabled,sort_order) VALUES(?,1,?)");defaultStakes.forEach((v,i)=>addStake.run(v,i));}
 
@@ -49,26 +49,28 @@ const session=(req,res,next)=>{
 const admin=(req,res,next)=>{const key=process.env.ADMIN_KEY;if(!key)return res.status(503).json({error:"Set ADMIN_KEY on the server before using admin controls"});if(req.header("x-admin-key")!==key)return res.status(403).json({error:"Admin authorization failed"});next();};
 const settingsFor=id=>{const row=db.prepare("SELECT * FROM game_settings WHERE game_id=?").get(id);return row?{enabled:!!row.enabled,...JSON.parse(row.config)}:{enabled:true};};
 for(const s of specs)db.prepare("INSERT OR IGNORE INTO game_settings(game_id,enabled,config) VALUES(?,1,?)").run(s.gameId,JSON.stringify({bonusEnabled:true,maintenance:false}));
-app.get("/api/health",(req,res)=>res.json({ok:true,service:"KNP-999",games:games.length,mode:"practice-coins"}));
+app.get("/api/health",(req,res)=>res.json({ok:true,service:"KNP-999",games:games.length,mode:"virtual-coins"}));
 const issueSession=(req,user)=>{const token=crypto.randomBytes(32).toString("hex");db.prepare("INSERT INTO sessions(token_hash,user_id,ip,user_agent) VALUES(?,?,?,?)").run(hashToken(token),user.id,req.ip,req.get("user-agent")||"");return {token,user:{id:user.id,username:user.username,mobile:user.mobile,email:user.email,coins:user.coins}};};
 app.post("/api/auth/register",(req,res)=>{
-  const username=String(req.body?.username||"").trim(),mobile=String(req.body?.mobile||"").trim(),email=String(req.body?.email||"").trim().toLowerCase(),password=String(req.body?.password||"");
-  if(!/^[a-zA-Z0-9_]{3,24}$/.test(username)||!/^\+?[0-9]{10,15}$/.test(mobile)||!/^\S+@\S+\.\S+$/.test(email)||password.length<8)return res.status(400).json({error:"یوزرنیم (3-24 حروف)، درست موبائل، ای میل اور کم از کم 8 حروف کا پاس ورڈ درج کریں"});
-  if(db.prepare("SELECT id FROM users WHERE mobile=? OR email=? OR username=? COLLATE NOCASE").get(mobile,email,username))return res.status(409).json({error:"یہ Username، موبائل یا ای میل پہلے سے رجسٹرڈ ہے"});
-  const id=crypto.randomUUID(),p=hashPassword(password);
-  db.prepare("INSERT INTO users(id,username,mobile,email,password_hash,coins) VALUES(?,?,?,?,?,100)").run(id,username,mobile,email,p.salt+":"+p.hash);
-  db.prepare("INSERT INTO ledger(user_id,delta,reason) VALUES(?,100,'Welcome demo coins')").run(id);
+  const mobile=String(req.body?.mobile||"").trim(),password=String(req.body?.password||"");
+  if(!/^\+?[0-9]{10,15}$/.test(mobile)||password.length<8)
+    return res.status(400).json({error:"درست موبائل نمبر اور کم از کم 8 حروف کا پاس ورڈ درج کریں"});
+  if(db.prepare("SELECT id FROM users WHERE mobile=?").get(mobile))
+    return res.status(409).json({error:"یہ موبائل نمبر پہلے سے رجسٹرڈ ہے۔ لاگ اِن کریں۔"});
+  const id=crypto.randomUUID(),username="customer_"+crypto.randomUUID().replace(/-/g,"").slice(0,12),p=hashPassword(password);
+  db.prepare("INSERT INTO users(id,username,mobile,email,password_hash,coins) VALUES(?,?,?,NULL,?,100)").run(id,username,mobile,p.salt+":"+p.hash);
+  db.prepare("INSERT INTO ledger(user_id,delta,reason) VALUES(?,100,'Welcome coins')").run(id);
   const issued=issueSession(req,getUser.get(id));
-  db.prepare("INSERT INTO login_history(user_id,success,identifier,ip,user_agent) VALUES(?,1,?,?,?)").run(id,email,req.ip,req.get("user-agent")||"");
+  db.prepare("INSERT INTO login_history(user_id,success,identifier,ip,user_agent) VALUES(?,1,?,?,?)").run(id,mobile,req.ip,req.get("user-agent")||"");
   res.status(201).json(issued);
 });
 app.post("/api/auth/login",(req,res)=>{
-  const identifier=String(req.body?.identifier||"").trim().toLowerCase(),password=String(req.body?.password||"");
-  const u=db.prepare("SELECT * FROM users WHERE lower(email)=? OR mobile=? OR lower(username)=?").get(identifier,identifier,identifier);
+  const mobile=String(req.body?.mobile||"").trim(),password=String(req.body?.password||"");
+  const u=db.prepare("SELECT * FROM users WHERE mobile=?").get(mobile);
   let ok=false;
   if(u?.password_hash){const [salt,hash]=u.password_hash.split(":");try{ok=verifyPassword(password,salt,hash);}catch{}}
-  if(u)db.prepare("INSERT INTO login_history(user_id,success,identifier,ip,user_agent) VALUES(?,?,?,?,?)").run(u.id,ok?1:0,identifier,req.ip,req.get("user-agent")||"");
-  if(!ok)return res.status(401).json({error:"موبائل/ای میل یا پاس ورڈ غلط ہے"});
+  if(u)db.prepare("INSERT INTO login_history(user_id,success,identifier,ip,user_agent) VALUES(?,?,?,?,?)").run(u.id,ok?1:0,mobile,req.ip,req.get("user-agent")||"");
+  if(!ok)return res.status(401).json({error:"موبائل نمبر یا پاس ورڈ غلط ہے۔"});
   res.json(issueSession(req,u));
 });
 app.get("/api/auth/me",session,(req,res)=>res.json({user:{id:req.user.id,username:req.user.username,mobile:req.user.mobile,email:req.user.email,coins:req.user.coins}}));
@@ -83,9 +85,9 @@ app.post("/api/round",session,(req,res)=>{
   const {gameId,stake,action,choice}=req.body||{},g=games.find(x=>x.id===Number(gameId)),s=specs.find(x=>x.gameId===Number(gameId));
   if(!g||!s)return res.status(404).json({error:"Game not found"});
   const cfg=settingsFor(g.id);if(!cfg.enabled||cfg.maintenance)return res.status(423).json({error:"This game is temporarily unavailable"});
-  const amount=Number(stake);if(!Number.isFinite(amount)||amount<1||amount>100000)return res.status(400).json({error:"Invalid practice stake"});
-  const u=getOrCreate(req.playerId);if(u.coins<amount)return res.status(409).json({error:"Insufficient practice coins"});
-  // The server, not the browser, generates this practice result.
+  const amount=Number(stake);if(!Number.isFinite(amount)||amount<1||amount>100000)return res.status(400).json({error:"Invalid coin stake"});
+  const u=getOrCreate(req.playerId);if(u.coins<amount)return res.status(409).json({error:"Insufficient coins"});
+  // The server, not the browser, generates this virtual-coin result.
   let multiplier=0,result={};const rand=n=>crypto.randomInt(0,n);
   switch(g.engine){
     case "slot": {const a=[rand(7),rand(7),rand(7)];multiplier=a.every(x=>x===a[0])?12:new Set(a).size===2?2:0;result={symbols:a};break;}
