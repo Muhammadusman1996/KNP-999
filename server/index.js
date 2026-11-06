@@ -3,6 +3,8 @@ import http from "node:http";
 import { Server as SocketServer } from "socket.io";
 import Database from "better-sqlite3";
 import crypto from "node:crypto";
+import { getEngine } from "./engines/index.js";
+import { NexusGGRClient, nexusMethods } from "./integrations/nexusggr.js";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -50,6 +52,27 @@ const admin=(req,res,next)=>{const key=process.env.ADMIN_KEY;if(!key)return res.
 const settingsFor=id=>{const row=db.prepare("SELECT * FROM game_settings WHERE game_id=?").get(id);return row?{enabled:!!row.enabled,...JSON.parse(row.config)}:{enabled:true};};
 for(const s of specs)db.prepare("INSERT OR IGNORE INTO game_settings(game_id,enabled,config) VALUES(?,1,?)").run(s.gameId,JSON.stringify({bonusEnabled:true,maintenance:false}));
 app.get("/api/health",(req,res)=>res.json({ok:true,service:"KNP-999",games:games.length,mode:"virtual-coins"}));
+const nexus = new NexusGGRClient();
+app.get("/api/admin/nexus/status",admin,(req,res)=>res.json({
+  configured:nexus.configured(),
+  endpoint:nexus.endpoint,
+  methods:nexusMethods,
+  note:"Credentials remain server-side. No customer deposit/withdraw routes are enabled."
+}));
+app.post("/api/admin/nexus/call",admin,async(req,res)=>{
+  const method=String(req.body?.method||"");
+  const fields=req.body?.fields;
+  if(!nexusMethods.includes(method))return res.status(400).json({error:"Unsupported NexusGGR method"});
+  if(!fields||typeof fields!=="object"||Array.isArray(fields))return res.status(400).json({error:"fields must be a JSON object"});
+  // Do not allow clients to override authentication fields.
+  delete fields.agent_code; delete fields.agent_token; delete fields.method;
+  try{
+    const result=await nexus.call(method,fields);
+    res.json({ok:true,result});
+  }catch(error){
+    res.status(error.statusCode||502).json({ok:false,error:error.message,providerCode:error.providerResponse?.code||null});
+  }
+});
 const issueSession=(req,user)=>{const token=crypto.randomBytes(32).toString("hex");db.prepare("INSERT INTO sessions(token_hash,user_id,ip,user_agent) VALUES(?,?,?,?)").run(hashToken(token),user.id,req.ip,req.get("user-agent")||"");return {token,user:{id:user.id,username:user.username,mobile:user.mobile,email:user.email,coins:user.coins}};};
 app.post("/api/auth/register",(req,res)=>{
   const mobile=String(req.body?.mobile||"").trim(),password=String(req.body?.password||"");
@@ -80,6 +103,7 @@ app.get("/api/stakes",(req,res)=>res.json({stakes:db.prepare("SELECT amount FROM
 app.get("/api/wallet",session,(req,res)=>res.json({coins:req.user.coins,ledger:db.prepare("SELECT delta,reason,game_id,round_id,created_at FROM ledger WHERE user_id=? ORDER BY id DESC LIMIT 100").all(req.playerId)}));
 app.post("/api/balance-requests",session,(req,res)=>{const amount=Number(req.body?.amount),note=String(req.body?.note||"").slice(0,240);if(!Number.isFinite(amount)||amount<10||amount>1000000)return res.status(400).json({error:"کم از کم 10 اور زیادہ سے زیادہ 1,000,000 کوائنز کی درخواست دیں"});const id=crypto.randomUUID();db.prepare("INSERT INTO balance_requests(id,user_id,amount,note) VALUES(?,?,?,?)").run(id,req.playerId,amount,note);res.status(201).json({ok:true,id,status:"pending",message:"بیلنس درخواست ایڈمن کو بھیج دی گئی ہے"});});
 app.get("/api/balance-requests",session,(req,res)=>res.json({requests:db.prepare("SELECT id,amount,status,note,created_at,reviewed_at FROM balance_requests WHERE user_id=? ORDER BY created_at DESC LIMIT 50").all(req.playerId)}));
+// Legacy client-payout settlement endpoint removed for security.
 app.get("/api/history",session,(req,res)=>{const rows=db.prepare("SELECT * FROM rounds WHERE user_id=? ORDER BY created_at DESC LIMIT 200").all(req.playerId);res.json({rounds:rows.map(r=>({...r,game_name:games.find(g=>g.id===r.game_id)?.name||"Game"}))});});
 app.post("/api/round",session,(req,res)=>{
   const {gameId,stake,action,choice}=req.body||{},g=games.find(x=>x.id===Number(gameId)),s=specs.find(x=>x.gameId===Number(gameId));
@@ -87,22 +111,23 @@ app.post("/api/round",session,(req,res)=>{
   const cfg=settingsFor(g.id);if(!cfg.enabled||cfg.maintenance)return res.status(423).json({error:"This game is temporarily unavailable"});
   const amount=Number(stake);if(!Number.isFinite(amount)||amount<1||amount>100000)return res.status(400).json({error:"Invalid coin stake"});
   const u=getOrCreate(req.playerId);if(u.coins<amount)return res.status(409).json({error:"Insufficient coins"});
-  // The server, not the browser, generates this virtual-coin result.
-  let multiplier=0,result={};const rand=n=>crypto.randomInt(0,n);
-  switch(g.engine){
-    case "slot": {const a=[rand(7),rand(7),rand(7)];multiplier=a.every(x=>x===a[0])?12:new Set(a).size===2?2:0;result={symbols:a};break;}
-    case "crash": {const crashAt=1.1+rand(500)/100;const cash=Number(choice?.cashout||1);multiplier=cash>1&&cash<crashAt?cash:0;result={crashAt,cashout:cash};break;}
-    case "plinko": {const p=[.2,.5,1,2,5,2,1,.5,.2];multiplier=p[rand(p.length)];result={slot:p.indexOf(multiplier)};break;}
-    case "wheel": {const p=[0,.5,1,2,3,5];multiplier=p[rand(p.length)];result={segment:multiplier};break;}
-    case "dice": {const a=rand(6)+1,b=rand(6)+1,total=a+b;const c=String(choice||"low");multiplier=(c==="low"&&total<=6)||(c==="high"&&total>=8)?2:c==="seven"&&total===7?5:0;result={dice:[a,b],total,choice:c};break;}
-    case "fishing": multiplier=rand(100)>38?1+rand(4):0;result={hit:multiplier>0};break;
-    case "arcade": multiplier=rand(2)?2:0;result={score:multiplier?10:0};break;
-    case "puzzle": multiplier=choice?.correct?2:0;result={correct:!!choice?.correct};break;
-    default: multiplier=rand(2)?2:0;result={practiceOutcome:multiplier>0?"win":"no-win"};
-  }
+  // Each game has its own server-side engine module and per-game configuration.
+  const engine=getEngine(g.id);
+  if(!engine)return res.status(500).json({error:"Game engine is not registered"});
+  let settled;
+  try{settled=engine.resolve({stake:amount,choice:choice||{},action:String(action||"play")});}
+  catch(e){return res.status(400).json({error:e.message||"Invalid game action"});}
+  const multiplier=settled.multiplier,result=settled.result;
   const payout=Math.round(amount*multiplier*100)/100,delta=payout-amount,roundId=crypto.randomUUID();
-  const tx=db.transaction(()=>{db.prepare("UPDATE users SET coins=coins+? WHERE id=?").run(delta,req.playerId);db.prepare("INSERT INTO ledger(user_id,delta,reason) VALUES(?,?,?)").run(req.playerId,delta,`game:${g.id}:${g.name}`);db.prepare("INSERT INTO rounds(id,user_id,game_id,stake,payout,net,result) VALUES(?,?,?,?,?,?,?)").run(roundId,req.playerId,g.id,amount,payout,delta,JSON.stringify(result));});
-  tx();const updated=getUser.get(req.playerId);res.json({roundId,gameId:g.id,stake:amount,multiplier,payout,coins:updated.coins,result});
+  const tx=db.transaction(()=>{
+    const debit=db.prepare("UPDATE users SET coins=coins-? WHERE id=? AND coins>=?").run(amount,req.playerId,amount);
+    if(!debit.changes)throw new Error("Insufficient coins");
+    if(payout>0)db.prepare("UPDATE users SET coins=coins+? WHERE id=?").run(payout,req.playerId);
+    db.prepare("INSERT INTO ledger(user_id,delta,reason,game_id,round_id) VALUES(?,?,?,?,?)").run(req.playerId,delta,`game:${g.id}:${g.name}`,g.id,roundId);
+    db.prepare("INSERT INTO rounds(id,user_id,game_id,stake,payout,net,result) VALUES(?,?,?,?,?,?,?)").run(roundId,req.playerId,g.id,amount,payout,delta,JSON.stringify(result));
+  });
+  try{tx();}catch(e){return res.status(409).json({error:e.message||"Could not settle round"});}
+  const updated=getUser.get(req.playerId);res.json({roundId,gameId:g.id,stake:amount,multiplier,payout,coins:updated.coins,result});
 });
 app.get("/api/admin/users",admin,(req,res)=>{const users=db.prepare("SELECT id,username,coins FROM users ORDER BY created_at DESC").all();res.json(users);});
 app.get("/api/admin/balance-requests",admin,(req,res)=>res.json(db.prepare("SELECT r.id,r.user_id,u.username,r.amount,r.note,r.status,r.created_at FROM balance_requests r JOIN users u ON u.id=r.user_id WHERE r.status='pending' ORDER BY r.created_at ASC").all()));
