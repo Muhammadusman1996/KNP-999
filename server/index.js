@@ -56,7 +56,7 @@ app.post("/api/auth/register",(req,res)=>{
   if(!/^[a-zA-Z0-9_]{3,24}$/.test(username)||!/^\+?[0-9]{10,15}$/.test(mobile)||!/^\S+@\S+\.\S+$/.test(email)||password.length<8)return res.status(400).json({error:"یوزرنیم (3-24 حروف)، درست موبائل، ای میل اور کم از کم 8 حروف کا پاس ورڈ درج کریں"});
   if(db.prepare("SELECT id FROM users WHERE mobile=? OR email=? OR username=? COLLATE NOCASE").get(mobile,email,username))return res.status(409).json({error:"یہ Username، موبائل یا ای میل پہلے سے رجسٹرڈ ہے"});
   const id=crypto.randomUUID(),p=hashPassword(password);
-  db.prepare("INSERT INTO users(id,username,mobile,email,password_hash,coins) VALUES(?,?,?,?,?,100)").run(id,username,mobile,email,p.salt+":"+p.hash,100);
+  db.prepare("INSERT INTO users(id,username,mobile,email,password_hash,coins) VALUES(?,?,?,?,?,100)").run(id,username,mobile,email,p.salt+":"+p.hash);
   db.prepare("INSERT INTO ledger(user_id,delta,reason) VALUES(?,100,'Welcome demo coins')").run(id);
   const issued=issueSession(req,getUser.get(id));
   db.prepare("INSERT INTO login_history(user_id,success,identifier,ip,user_agent) VALUES(?,1,?,?,?)").run(id,email,req.ip,req.get("user-agent")||"");
