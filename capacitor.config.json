@@ -1,8 +1,0 @@
-{
-  "appId": "com.knp999.gamearena",
-  "appName": "KNP-999",
-  "webDir": "dist",
-  "android": {
-    "allowMixedContent": false
-  }
-}
