@@ -1,0 +1,6126 @@
+[
+  {
+    "gameId": 1,
+    "slug": "fortune-tiger",
+    "title": "Fortune Tiger",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/fortune-tiger.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 409,
+      "loseTone": 167,
+      "spinTone": 253
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 19
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 2,
+    "slug": "fortune-rabbit",
+    "title": "Fortune Rabbit",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/fortune-rabbit.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 438,
+      "loseTone": 184,
+      "spinTone": 266
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 20
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 3,
+    "slug": "fortune-ox",
+    "title": "Fortune Ox",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/fortune-ox.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 467,
+      "loseTone": 201,
+      "spinTone": 279
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 21
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 4,
+    "slug": "777-fruit-slots",
+    "title": "777 Fruit Slots",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/777-fruit-slots.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 496,
+      "loseTone": 218,
+      "spinTone": 292
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 22
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 5,
+    "slug": "fortune-gems",
+    "title": "Fortune Gems",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/fortune-gems.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 525,
+      "loseTone": 235,
+      "spinTone": 305
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 23
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 6,
+    "slug": "crazy-777",
+    "title": "Crazy 777",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/crazy-777.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 554,
+      "loseTone": 252,
+      "spinTone": 318
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 24
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 7,
+    "slug": "super-fruits-slot",
+    "title": "Super Fruits Slot",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/super-fruits-slot.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 583,
+      "loseTone": 269,
+      "spinTone": 331
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 25
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 8,
+    "slug": "flyx",
+    "title": "FlyX",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/flyx.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 612,
+      "loseTone": 286,
+      "spinTone": 344
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 26
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 9,
+    "slug": "chicken-road-2-0",
+    "title": "Chicken Road 2.0",
+    "category": "Crash",
+    "engineProfile": "steps",
+    "rules": {
+      "goal": "Advance across safe steps and cash out.",
+      "controls": [
+        "Next Step",
+        "Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "safe-step",
+        "trigger": "reach final step",
+        "rounds": 1
+      },
+      "payouts": {
+        "step_multiplier": 1.65
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/chicken-road-2-0.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 641,
+      "loseTone": 303,
+      "spinTone": 357
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 27
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 10,
+    "slug": "plinko",
+    "title": "Plinko",
+    "category": "Arcade",
+    "engineProfile": "plinko",
+    "rules": {
+      "goal": "Drop a ball through pegs into a multiplier slot.",
+      "controls": [
+        "Drop Ball",
+        "Rows",
+        "Risk",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "bonus-drop",
+        "trigger": "center jackpot slot",
+        "rounds": 1
+      },
+      "payouts": {
+        "slots": [
+          0.2,
+          0.5,
+          1,
+          2,
+          5,
+          2,
+          1,
+          0.5,
+          0.2
+        ]
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/plinko.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 670,
+      "loseTone": 320,
+      "spinTone": 370
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 28
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 11,
+    "slug": "crazy-time",
+    "title": "Crazy Time",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/crazy-time.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 699,
+      "loseTone": 157,
+      "spinTone": 383
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 29
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 12,
+    "slug": "money-coming",
+    "title": "Money Coming",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/money-coming.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 728,
+      "loseTone": 174,
+      "spinTone": 396
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 30
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 13,
+    "slug": "wild-bounty-showdown",
+    "title": "Wild Bounty Showdown",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/wild-bounty-showdown.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 757,
+      "loseTone": 191,
+      "spinTone": 409
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 18
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 14,
+    "slug": "star-hunter",
+    "title": "Star Hunter",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/star-hunter.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 786,
+      "loseTone": 208,
+      "spinTone": 422
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 19
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 15,
+    "slug": "happy-fishing",
+    "title": "Happy Fishing",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/happy-fishing.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 815,
+      "loseTone": 225,
+      "spinTone": 435
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 20
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 16,
+    "slug": "ocean-phoenix",
+    "title": "Ocean Phoenix",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/ocean-phoenix.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 844,
+      "loseTone": 242,
+      "spinTone": 448
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 21
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 17,
+    "slug": "super-ace",
+    "title": "Super Ace",
+    "category": "Card",
+    "engineProfile": "blackjack",
+    "rules": {
+      "goal": "Reach 21 without going over.",
+      "controls": [
+        "Deal",
+        "Hit",
+        "Stand",
+        "Double"
+      ],
+      "bonus": {
+        "type": "blackjack",
+        "trigger": "natural 21",
+        "rounds": 1
+      },
+      "payouts": {
+        "blackjack": 2
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/super-ace.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 873,
+      "loseTone": 259,
+      "spinTone": 461
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 22
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 18,
+    "slug": "7up7down",
+    "title": "7up7down",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/7up7down.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 382,
+      "loseTone": 276,
+      "spinTone": 474
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 23
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 19,
+    "slug": "rummy",
+    "title": "Rummy",
+    "category": "Card",
+    "engineProfile": "rummy",
+    "rules": {
+      "goal": "Build valid sets and runs from cards.",
+      "controls": [
+        "Draw",
+        "Discard",
+        "Sort",
+        "Declare"
+      ],
+      "bonus": {
+        "type": "valid-declaration",
+        "trigger": "valid hand",
+        "rounds": 1
+      },
+      "payouts": {
+        "valid_hand": 3
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/rummy.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 411,
+      "loseTone": 293,
+      "spinTone": 487
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 24
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 20,
+    "slug": "poker",
+    "title": "Poker",
+    "category": "Card",
+    "engineProfile": "poker",
+    "rules": {
+      "goal": "Build the strongest five-card hand.",
+      "controls": [
+        "Deal",
+        "Fold",
+        "Check",
+        "Call",
+        "Raise"
+      ],
+      "bonus": {
+        "type": "strong-hand",
+        "trigger": "three of a kind or better",
+        "rounds": 1
+      },
+      "payouts": {
+        "pair": 2,
+        "trips": 4
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/poker.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 440,
+      "loseTone": 310,
+      "spinTone": 500
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 25
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 21,
+    "slug": "prosperity-fortune-tree",
+    "title": "Prosperity Fortune Tree",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/prosperity-fortune-tree.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 469,
+      "loseTone": 327,
+      "spinTone": 513
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 26
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 22,
+    "slug": "rooster-rumble",
+    "title": "Rooster Rumble",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/rooster-rumble.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 498,
+      "loseTone": 164,
+      "spinTone": 526
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 27
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 23,
+    "slug": "diamond-hunt",
+    "title": "Diamond Hunt",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/diamond-hunt.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 527,
+      "loseTone": 181,
+      "spinTone": 539
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 28
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 24,
+    "slug": "mystic-treasures",
+    "title": "Mystic Treasures",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/mystic-treasures.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 556,
+      "loseTone": 198,
+      "spinTone": 252
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 29
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 25,
+    "slug": "wild-safari",
+    "title": "Wild Safari",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/wild-safari.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 585,
+      "loseTone": 215,
+      "spinTone": 265
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 30
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 26,
+    "slug": "emerald-adventure",
+    "title": "Emerald Adventure",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/emerald-adventure.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 614,
+      "loseTone": 232,
+      "spinTone": 278
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 18
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 27,
+    "slug": "neon-challenge",
+    "title": "Neon Challenge",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/neon-challenge.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 643,
+      "loseTone": 249,
+      "spinTone": 291
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 19
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 28,
+    "slug": "dragon-kingdom",
+    "title": "Dragon Kingdom",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/dragon-kingdom.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 672,
+      "loseTone": 266,
+      "spinTone": 304
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 20
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 29,
+    "slug": "moon-reels",
+    "title": "Moon Reels",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/moon-reels.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 701,
+      "loseTone": 283,
+      "spinTone": 317
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 21
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 30,
+    "slug": "solar-dash",
+    "title": "Solar Dash",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/solar-dash.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 730,
+      "loseTone": 300,
+      "spinTone": 330
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 22
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 31,
+    "slug": "lucky-fortune",
+    "title": "Lucky Fortune",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/lucky-fortune.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 759,
+      "loseTone": 317,
+      "spinTone": 343
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 23
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 32,
+    "slug": "mega-arena",
+    "title": "Mega Arena",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/mega-arena.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 788,
+      "loseTone": 154,
+      "spinTone": 356
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 24
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 33,
+    "slug": "sapphire-legends",
+    "title": "Sapphire Legends",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/sapphire-legends.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 817,
+      "loseTone": 171,
+      "spinTone": 369
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 25
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 34,
+    "slug": "royal-mystery",
+    "title": "Royal Mystery",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/royal-mystery.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 846,
+      "loseTone": 188,
+      "spinTone": 382
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 26
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 35,
+    "slug": "ocean-spin",
+    "title": "Ocean Spin",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/ocean-spin.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 875,
+      "loseTone": 205,
+      "spinTone": 395
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 27
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 36,
+    "slug": "fire-empire",
+    "title": "Fire Empire",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/fire-empire.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 384,
+      "loseTone": 222,
+      "spinTone": 408
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 28
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 37,
+    "slug": "pearl-blitz",
+    "title": "Pearl Blitz",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/pearl-blitz.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 413,
+      "loseTone": 239,
+      "spinTone": 421
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 29
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 38,
+    "slug": "crystal-world",
+    "title": "Crystal World",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/crystal-world.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 442,
+      "loseTone": 256,
+      "spinTone": 434
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 30
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 39,
+    "slug": "turbo-voyage",
+    "title": "Turbo Voyage",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/turbo-voyage.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 471,
+      "loseTone": 273,
+      "spinTone": 447
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 18
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 40,
+    "slug": "velvet-quest",
+    "title": "Velvet Quest",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/velvet-quest.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 500,
+      "loseTone": 290,
+      "spinTone": 460
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 19
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 41,
+    "slug": "golden-deluxe",
+    "title": "Golden Deluxe",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/golden-deluxe.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 529,
+      "loseTone": 307,
+      "spinTone": 473
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 20
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 42,
+    "slug": "cosmic-rush",
+    "title": "Cosmic Rush",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/cosmic-rush.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 558,
+      "loseTone": 324,
+      "spinTone": 486
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 21
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 43,
+    "slug": "thunder-jackpot",
+    "title": "Thunder Jackpot",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/thunder-jackpot.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 587,
+      "loseTone": 161,
+      "spinTone": 499
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 22
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 44,
+    "slug": "phantom-treasures",
+    "title": "Phantom Treasures",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/phantom-treasures.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 616,
+      "loseTone": 178,
+      "spinTone": 512
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 23
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 45,
+    "slug": "jade-safari",
+    "title": "Jade Safari",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/jade-safari.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 645,
+      "loseTone": 195,
+      "spinTone": 525
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 24
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 46,
+    "slug": "star-adventure",
+    "title": "Star Adventure",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/star-adventure.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 674,
+      "loseTone": 212,
+      "spinTone": 538
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 25
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 47,
+    "slug": "ruby-challenge",
+    "title": "Ruby Challenge",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/ruby-challenge.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 703,
+      "loseTone": 229,
+      "spinTone": 251
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 26
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 48,
+    "slug": "mystic-kingdom",
+    "title": "Mystic Kingdom",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/mystic-kingdom.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 732,
+      "loseTone": 246,
+      "spinTone": 264
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 27
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 49,
+    "slug": "wild-reels",
+    "title": "Wild Reels",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/wild-reels.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 761,
+      "loseTone": 263,
+      "spinTone": 277
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 28
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 50,
+    "slug": "emerald-dash",
+    "title": "Emerald Dash",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/emerald-dash.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 790,
+      "loseTone": 280,
+      "spinTone": 290
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 29
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 51,
+    "slug": "neon-fortune",
+    "title": "Neon Fortune",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/neon-fortune.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 819,
+      "loseTone": 297,
+      "spinTone": 303
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 30
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 52,
+    "slug": "dragon-arena",
+    "title": "Dragon Arena",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/dragon-arena.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 848,
+      "loseTone": 314,
+      "spinTone": 316
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 18
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 53,
+    "slug": "moon-legends",
+    "title": "Moon Legends",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/moon-legends.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 877,
+      "loseTone": 151,
+      "spinTone": 329
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 19
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 54,
+    "slug": "solar-mystery",
+    "title": "Solar Mystery",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/solar-mystery.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 386,
+      "loseTone": 168,
+      "spinTone": 342
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 20
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 55,
+    "slug": "lucky-spin",
+    "title": "Lucky Spin",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/lucky-spin.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 415,
+      "loseTone": 185,
+      "spinTone": 355
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 21
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 56,
+    "slug": "mega-empire",
+    "title": "Mega Empire",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/mega-empire.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 444,
+      "loseTone": 202,
+      "spinTone": 368
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 22
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 57,
+    "slug": "sapphire-blitz",
+    "title": "Sapphire Blitz",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/sapphire-blitz.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 473,
+      "loseTone": 219,
+      "spinTone": 381
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 23
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 58,
+    "slug": "royal-world",
+    "title": "Royal World",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/royal-world.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 502,
+      "loseTone": 236,
+      "spinTone": 394
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 24
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 59,
+    "slug": "ocean-voyage",
+    "title": "Ocean Voyage",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/ocean-voyage.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 531,
+      "loseTone": 253,
+      "spinTone": 407
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 25
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 60,
+    "slug": "fire-quest",
+    "title": "Fire Quest",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/fire-quest.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 560,
+      "loseTone": 270,
+      "spinTone": 420
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 26
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 61,
+    "slug": "pearl-deluxe",
+    "title": "Pearl Deluxe",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/pearl-deluxe.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 589,
+      "loseTone": 287,
+      "spinTone": 433
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 27
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 62,
+    "slug": "crystal-rush",
+    "title": "Crystal Rush",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/crystal-rush.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 618,
+      "loseTone": 304,
+      "spinTone": 446
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 28
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 63,
+    "slug": "turbo-jackpot",
+    "title": "Turbo Jackpot",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/turbo-jackpot.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 647,
+      "loseTone": 321,
+      "spinTone": 459
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 29
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 64,
+    "slug": "velvet-treasures",
+    "title": "Velvet Treasures",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/velvet-treasures.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 676,
+      "loseTone": 158,
+      "spinTone": 472
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 30
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 65,
+    "slug": "golden-safari",
+    "title": "Golden Safari",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/golden-safari.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 705,
+      "loseTone": 175,
+      "spinTone": 485
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 18
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 66,
+    "slug": "cosmic-adventure",
+    "title": "Cosmic Adventure",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/cosmic-adventure.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 734,
+      "loseTone": 192,
+      "spinTone": 498
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 19
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 67,
+    "slug": "thunder-challenge",
+    "title": "Thunder Challenge",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/thunder-challenge.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 763,
+      "loseTone": 209,
+      "spinTone": 511
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 20
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 68,
+    "slug": "phantom-kingdom",
+    "title": "Phantom Kingdom",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/phantom-kingdom.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 792,
+      "loseTone": 226,
+      "spinTone": 524
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 21
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 69,
+    "slug": "jade-reels",
+    "title": "Jade Reels",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/jade-reels.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 821,
+      "loseTone": 243,
+      "spinTone": 537
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 22
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 70,
+    "slug": "star-dash",
+    "title": "Star Dash",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/star-dash.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 850,
+      "loseTone": 260,
+      "spinTone": 250
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 23
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 71,
+    "slug": "ruby-fortune",
+    "title": "Ruby Fortune",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/ruby-fortune.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 879,
+      "loseTone": 277,
+      "spinTone": 263
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 24
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 72,
+    "slug": "mystic-arena",
+    "title": "Mystic Arena",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/mystic-arena.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 388,
+      "loseTone": 294,
+      "spinTone": 276
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 25
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 73,
+    "slug": "wild-legends",
+    "title": "Wild Legends",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/wild-legends.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 417,
+      "loseTone": 311,
+      "spinTone": 289
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 26
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 74,
+    "slug": "emerald-mystery",
+    "title": "Emerald Mystery",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/emerald-mystery.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 446,
+      "loseTone": 328,
+      "spinTone": 302
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 27
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 75,
+    "slug": "neon-spin",
+    "title": "Neon Spin",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/neon-spin.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 475,
+      "loseTone": 165,
+      "spinTone": 315
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 28
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 76,
+    "slug": "dragon-empire",
+    "title": "Dragon Empire",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/dragon-empire.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 504,
+      "loseTone": 182,
+      "spinTone": 328
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 29
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 77,
+    "slug": "moon-blitz",
+    "title": "Moon Blitz",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/moon-blitz.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 533,
+      "loseTone": 199,
+      "spinTone": 341
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 30
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 78,
+    "slug": "solar-world",
+    "title": "Solar World",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/solar-world.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 562,
+      "loseTone": 216,
+      "spinTone": 354
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 18
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 79,
+    "slug": "lucky-voyage",
+    "title": "Lucky Voyage",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/lucky-voyage.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 591,
+      "loseTone": 233,
+      "spinTone": 367
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 19
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 80,
+    "slug": "mega-quest",
+    "title": "Mega Quest",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/mega-quest.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 620,
+      "loseTone": 250,
+      "spinTone": 380
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 20
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 81,
+    "slug": "sapphire-deluxe",
+    "title": "Sapphire Deluxe",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/sapphire-deluxe.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 649,
+      "loseTone": 267,
+      "spinTone": 393
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 21
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 82,
+    "slug": "royal-rush",
+    "title": "Royal Rush",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/royal-rush.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 678,
+      "loseTone": 284,
+      "spinTone": 406
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 22
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 83,
+    "slug": "ocean-jackpot",
+    "title": "Ocean Jackpot",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/ocean-jackpot.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 707,
+      "loseTone": 301,
+      "spinTone": 419
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 23
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 84,
+    "slug": "fire-treasures",
+    "title": "Fire Treasures",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/fire-treasures.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 736,
+      "loseTone": 318,
+      "spinTone": 432
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 24
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 85,
+    "slug": "pearl-safari",
+    "title": "Pearl Safari",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/pearl-safari.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 765,
+      "loseTone": 155,
+      "spinTone": 445
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 25
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 86,
+    "slug": "crystal-adventure",
+    "title": "Crystal Adventure",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/crystal-adventure.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 794,
+      "loseTone": 172,
+      "spinTone": 458
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 26
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 87,
+    "slug": "turbo-challenge",
+    "title": "Turbo Challenge",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/turbo-challenge.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 823,
+      "loseTone": 189,
+      "spinTone": 471
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 27
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 88,
+    "slug": "velvet-kingdom",
+    "title": "Velvet Kingdom",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/velvet-kingdom.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 852,
+      "loseTone": 206,
+      "spinTone": 484
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 28
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 89,
+    "slug": "golden-reels",
+    "title": "Golden Reels",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/golden-reels.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 881,
+      "loseTone": 223,
+      "spinTone": 497
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 29
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 90,
+    "slug": "cosmic-dash",
+    "title": "Cosmic Dash",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/cosmic-dash.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 390,
+      "loseTone": 240,
+      "spinTone": 510
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 30
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 91,
+    "slug": "thunder-fortune",
+    "title": "Thunder Fortune",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/thunder-fortune.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 419,
+      "loseTone": 257,
+      "spinTone": 523
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 18
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 92,
+    "slug": "phantom-arena",
+    "title": "Phantom Arena",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/phantom-arena.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 448,
+      "loseTone": 274,
+      "spinTone": 536
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 19
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 93,
+    "slug": "jade-legends",
+    "title": "Jade Legends",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/jade-legends.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 477,
+      "loseTone": 291,
+      "spinTone": 249
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 20
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 94,
+    "slug": "star-mystery",
+    "title": "Star Mystery",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/star-mystery.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 506,
+      "loseTone": 308,
+      "spinTone": 262
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 21
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 95,
+    "slug": "ruby-spin",
+    "title": "Ruby Spin",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/ruby-spin.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 535,
+      "loseTone": 325,
+      "spinTone": 275
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 22
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 96,
+    "slug": "mystic-empire",
+    "title": "Mystic Empire",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/mystic-empire.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 564,
+      "loseTone": 162,
+      "spinTone": 288
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 23
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 97,
+    "slug": "wild-blitz",
+    "title": "Wild Blitz",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/wild-blitz.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 593,
+      "loseTone": 179,
+      "spinTone": 301
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 24
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 98,
+    "slug": "emerald-world",
+    "title": "Emerald World",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/emerald-world.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 622,
+      "loseTone": 196,
+      "spinTone": 314
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 25
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 99,
+    "slug": "neon-voyage",
+    "title": "Neon Voyage",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/neon-voyage.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 651,
+      "loseTone": 213,
+      "spinTone": 327
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 26
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 100,
+    "slug": "dragon-quest",
+    "title": "Dragon Quest",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/dragon-quest.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 680,
+      "loseTone": 230,
+      "spinTone": 340
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 27
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 101,
+    "slug": "moon-deluxe",
+    "title": "Moon Deluxe",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/moon-deluxe.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 709,
+      "loseTone": 247,
+      "spinTone": 353
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 28
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 102,
+    "slug": "solar-rush",
+    "title": "Solar Rush",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/solar-rush.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 738,
+      "loseTone": 264,
+      "spinTone": 366
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 29
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 103,
+    "slug": "lucky-jackpot",
+    "title": "Lucky Jackpot",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/lucky-jackpot.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 767,
+      "loseTone": 281,
+      "spinTone": 379
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 30
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 104,
+    "slug": "mega-treasures",
+    "title": "Mega Treasures",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/mega-treasures.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 796,
+      "loseTone": 298,
+      "spinTone": 392
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 18
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 105,
+    "slug": "sapphire-safari",
+    "title": "Sapphire Safari",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/sapphire-safari.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 825,
+      "loseTone": 315,
+      "spinTone": 405
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 19
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 106,
+    "slug": "royal-adventure",
+    "title": "Royal Adventure",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/royal-adventure.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 854,
+      "loseTone": 152,
+      "spinTone": 418
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 20
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 107,
+    "slug": "ocean-challenge",
+    "title": "Ocean Challenge",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/ocean-challenge.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 883,
+      "loseTone": 169,
+      "spinTone": 431
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 21
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 108,
+    "slug": "fire-kingdom",
+    "title": "Fire Kingdom",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/fire-kingdom.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 392,
+      "loseTone": 186,
+      "spinTone": 444
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 22
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 109,
+    "slug": "pearl-reels",
+    "title": "Pearl Reels",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/pearl-reels.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 421,
+      "loseTone": 203,
+      "spinTone": 457
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 23
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 110,
+    "slug": "crystal-dash",
+    "title": "Crystal Dash",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/crystal-dash.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 450,
+      "loseTone": 220,
+      "spinTone": 470
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 24
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 111,
+    "slug": "turbo-fortune",
+    "title": "Turbo Fortune",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/turbo-fortune.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 479,
+      "loseTone": 237,
+      "spinTone": 483
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 25
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 112,
+    "slug": "velvet-arena",
+    "title": "Velvet Arena",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/velvet-arena.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 508,
+      "loseTone": 254,
+      "spinTone": 496
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 26
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 113,
+    "slug": "golden-legends",
+    "title": "Golden Legends",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/golden-legends.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 537,
+      "loseTone": 271,
+      "spinTone": 509
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 27
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 114,
+    "slug": "cosmic-mystery",
+    "title": "Cosmic Mystery",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/cosmic-mystery.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 566,
+      "loseTone": 288,
+      "spinTone": 522
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 28
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 115,
+    "slug": "thunder-spin",
+    "title": "Thunder Spin",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/thunder-spin.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 595,
+      "loseTone": 305,
+      "spinTone": 535
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 29
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 116,
+    "slug": "phantom-empire",
+    "title": "Phantom Empire",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/phantom-empire.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 624,
+      "loseTone": 322,
+      "spinTone": 248
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 30
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 117,
+    "slug": "jade-blitz",
+    "title": "Jade Blitz",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/jade-blitz.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 653,
+      "loseTone": 159,
+      "spinTone": 261
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 18
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 118,
+    "slug": "star-world",
+    "title": "Star World",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/star-world.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 682,
+      "loseTone": 176,
+      "spinTone": 274
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 19
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 119,
+    "slug": "ruby-voyage",
+    "title": "Ruby Voyage",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/ruby-voyage.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 711,
+      "loseTone": 193,
+      "spinTone": 287
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 20
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 120,
+    "slug": "mystic-quest",
+    "title": "Mystic Quest",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/mystic-quest.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 740,
+      "loseTone": 210,
+      "spinTone": 300
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 21
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 121,
+    "slug": "wild-deluxe",
+    "title": "Wild Deluxe",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/wild-deluxe.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 769,
+      "loseTone": 227,
+      "spinTone": 313
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 22
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 122,
+    "slug": "emerald-rush",
+    "title": "Emerald Rush",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/emerald-rush.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 798,
+      "loseTone": 244,
+      "spinTone": 326
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 23
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 123,
+    "slug": "neon-jackpot",
+    "title": "Neon Jackpot",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/neon-jackpot.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 827,
+      "loseTone": 261,
+      "spinTone": 339
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 24
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 124,
+    "slug": "dragon-treasures",
+    "title": "Dragon Treasures",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/dragon-treasures.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 856,
+      "loseTone": 278,
+      "spinTone": 352
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 25
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 125,
+    "slug": "moon-safari",
+    "title": "Moon Safari",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/moon-safari.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 885,
+      "loseTone": 295,
+      "spinTone": 365
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 26
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 126,
+    "slug": "solar-adventure",
+    "title": "Solar Adventure",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/solar-adventure.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 394,
+      "loseTone": 312,
+      "spinTone": 378
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 27
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 127,
+    "slug": "lucky-challenge",
+    "title": "Lucky Challenge",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#2b1b10",
+      "accent": "#f58b48",
+      "highlight": "#ffe0a8"
+    },
+    "logo": "/logos/lucky-challenge.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 423,
+      "loseTone": 329,
+      "spinTone": 391
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 28
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 128,
+    "slug": "mega-kingdom",
+    "title": "Mega Kingdom",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#26121c",
+      "accent": "#ff668e",
+      "highlight": "#ffd36a"
+    },
+    "logo": "/logos/mega-kingdom.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 452,
+      "loseTone": 166,
+      "spinTone": 404
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 29
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 129,
+    "slug": "sapphire-reels",
+    "title": "Sapphire Reels",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#171c32",
+      "accent": "#7f8cff",
+      "highlight": "#ff8fb2"
+    },
+    "logo": "/logos/sapphire-reels.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 481,
+      "loseTone": 183,
+      "spinTone": 417
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 30
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 130,
+    "slug": "royal-dash",
+    "title": "Royal Dash",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/royal-dash.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 510,
+      "loseTone": 200,
+      "spinTone": 430
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 18
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 131,
+    "slug": "ocean-fortune",
+    "title": "Ocean Fortune",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/ocean-fortune.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 539,
+      "loseTone": 217,
+      "spinTone": 443
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": true,
+      "particleCount": 19
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 132,
+    "slug": "fire-arena",
+    "title": "Fire Arena",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/fire-arena.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 568,
+      "loseTone": 234,
+      "spinTone": 456
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": false,
+      "particleCount": 20
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 133,
+    "slug": "pearl-legends",
+    "title": "Pearl Legends",
+    "category": "Fishing",
+    "engineProfile": "fishing",
+    "rules": {
+      "goal": "Aim and fire at moving sea targets.",
+      "controls": [
+        "Aim",
+        "Fire",
+        "Cannon Power",
+        "Auto Fire"
+      ],
+      "bonus": {
+        "type": "rare-target",
+        "trigger": "rare fish hit",
+        "rounds": 1
+      },
+      "payouts": {
+        "hit": "target-specific practice reward"
+      }
+    },
+    "theme": {
+      "background": "#18212b",
+      "accent": "#80d5ff",
+      "highlight": "#d2f3ff"
+    },
+    "logo": "/logos/pearl-legends.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 597,
+      "loseTone": 251,
+      "spinTone": 469
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": true,
+      "particleCount": 21
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 134,
+    "slug": "crystal-mystery",
+    "title": "Crystal Mystery",
+    "category": "Slots",
+    "engineProfile": "slot",
+    "rules": {
+      "goal": "Match symbols across the reels.",
+      "controls": [
+        "Spin",
+        "Auto Spin",
+        "Bet +",
+        "Bet −",
+        "Paytable",
+        "Bonus"
+      ],
+      "bonus": {
+        "type": "free-spins",
+        "trigger": "three bonus symbols",
+        "rounds": 8
+      },
+      "payouts": {
+        "three_match": 12,
+        "two_match": 2
+      }
+    },
+    "theme": {
+      "background": "#101f2b",
+      "accent": "#39d5c5",
+      "highlight": "#ffb45e"
+    },
+    "logo": "/logos/crystal-mystery.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 626,
+      "loseTone": 268,
+      "spinTone": 482
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": false,
+      "particleCount": 22
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 135,
+    "slug": "turbo-spin",
+    "title": "Turbo Spin",
+    "category": "Dice",
+    "engineProfile": "dice",
+    "rules": {
+      "goal": "Predict the total of two dice.",
+      "controls": [
+        "Low",
+        "Seven",
+        "High",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "exact-total",
+        "trigger": "exact seven",
+        "rounds": 1
+      },
+      "payouts": {
+        "low": 2,
+        "high": 2,
+        "seven": 5
+      }
+    },
+    "theme": {
+      "background": "#251a0e",
+      "accent": "#e5a83b",
+      "highlight": "#fff0b0"
+    },
+    "logo": "/logos/turbo-spin.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 655,
+      "loseTone": 285,
+      "spinTone": 495
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": true,
+      "particleCount": 23
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 136,
+    "slug": "velvet-empire",
+    "title": "Velvet Empire",
+    "category": "Arcade",
+    "engineProfile": "arcade",
+    "rules": {
+      "goal": "Hit targets and build a score.",
+      "controls": [
+        "Start",
+        "Move",
+        "Shoot",
+        "Pause",
+        "Finish"
+      ],
+      "bonus": {
+        "type": "score-streak",
+        "trigger": "score milestone",
+        "rounds": 1
+      },
+      "payouts": {
+        "score": "score-based practice reward"
+      }
+    },
+    "theme": {
+      "background": "#30182a",
+      "accent": "#ed76cb",
+      "highlight": "#ffc4e9"
+    },
+    "logo": "/logos/velvet-empire.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 684,
+      "loseTone": 302,
+      "spinTone": 508
+    },
+    "animationProfile": {
+      "reelDurationMs": 540,
+      "winPulse": false,
+      "particleCount": 24
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 137,
+    "slug": "golden-blitz",
+    "title": "Golden Blitz",
+    "category": "Puzzle",
+    "engineProfile": "puzzle",
+    "rules": {
+      "goal": "Repeat the shown sequence correctly.",
+      "controls": [
+        "Tile 1",
+        "Tile 2",
+        "Tile 3",
+        "Tile 4",
+        "New Round"
+      ],
+      "bonus": {
+        "type": "perfect-sequence",
+        "trigger": "perfect round",
+        "rounds": 1
+      },
+      "payouts": {
+        "perfect": 2
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/golden-blitz.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 713,
+      "loseTone": 319,
+      "spinTone": 521
+    },
+    "animationProfile": {
+      "reelDurationMs": 630,
+      "winPulse": true,
+      "particleCount": 25
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 138,
+    "slug": "cosmic-world",
+    "title": "Cosmic World",
+    "category": "Card",
+    "engineProfile": "card",
+    "rules": {
+      "goal": "Play the title-specific card challenge.",
+      "controls": [
+        "Deal",
+        "Draw",
+        "Hold",
+        "Stand"
+      ],
+      "bonus": {
+        "type": "card-bonus",
+        "trigger": "special card result",
+        "rounds": 1
+      },
+      "payouts": {
+        "face_card": 2
+      }
+    },
+    "theme": {
+      "background": "#10243b",
+      "accent": "#57a7ff",
+      "highlight": "#9ce9d4"
+    },
+    "logo": "/logos/cosmic-world.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 742,
+      "loseTone": 156,
+      "spinTone": 534
+    },
+    "animationProfile": {
+      "reelDurationMs": 720,
+      "winPulse": false,
+      "particleCount": 26
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 139,
+    "slug": "thunder-voyage",
+    "title": "Thunder Voyage",
+    "category": "Crash",
+    "engineProfile": "crash",
+    "rules": {
+      "goal": "Cash out before the multiplier crashes.",
+      "controls": [
+        "Start Round",
+        "Cash Out",
+        "Auto Cash Out",
+        "Bet"
+      ],
+      "bonus": {
+        "type": "streak-multiplier",
+        "trigger": "three successful cashouts",
+        "rounds": 1
+      },
+      "payouts": {
+        "cashout": "bet × locked multiplier"
+      }
+    },
+    "theme": {
+      "background": "#102b25",
+      "accent": "#5bd69c",
+      "highlight": "#d6ff8a"
+    },
+    "logo": "/logos/thunder-voyage.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 771,
+      "loseTone": 173,
+      "spinTone": 247
+    },
+    "animationProfile": {
+      "reelDurationMs": 810,
+      "winPulse": true,
+      "particleCount": 27
+    },
+    "version": "1.0.0"
+  },
+  {
+    "gameId": 140,
+    "slug": "phantom-quest",
+    "title": "Phantom Quest",
+    "category": "Live",
+    "engineProfile": "wheel",
+    "rules": {
+      "goal": "Spin the wheel and land on a segment.",
+      "controls": [
+        "Spin Wheel",
+        "Bet",
+        "History"
+      ],
+      "bonus": {
+        "type": "bonus-segment",
+        "trigger": "special segment",
+        "rounds": 1
+      },
+      "payouts": {
+        "segments": [
+          0,
+          0.5,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    },
+    "theme": {
+      "background": "#17112f",
+      "accent": "#9d7bff",
+      "highlight": "#f7c85c"
+    },
+    "logo": "/logos/phantom-quest.svg",
+    "audioProfile": {
+      "enabled": true,
+      "winTone": 800,
+      "loseTone": 190,
+      "spinTone": 260
+    },
+    "animationProfile": {
+      "reelDurationMs": 450,
+      "winPulse": false,
+      "particleCount": 28
+    },
+    "version": "1.0.0"
+  }
+]
