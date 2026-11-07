@@ -1,0 +1,15 @@
+KNP-999 — 195 INDIVIDUAL ENGINE PLAY PROFILES
+==============================================
+
+This package contains ONLY the 195 changed frontend engine modules under src/engines/.
+Each module now has its own GAMEPLAY_PROFILE keyed to its exact game ID/name, and displays
+a game-specific setup panel on the home and play screens (mode, objective, controls).
+
+Validation:
+- 195 engine modules updated.
+- 195/195 Node.js syntax checks passed.
+- No full browser build or mobile-device QA was run.
+- This is the first implementation milestone, NOT a claim that all 195 games now have
+  fully unique H5-grade gameplay, custom animation/audio, or server-authoritative outcomes.
+- Existing family gameplay branches remain and require game-by-game implementation and QA.
+Virtual coins only.
