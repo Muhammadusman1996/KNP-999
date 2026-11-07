@@ -104,7 +104,15 @@ app.get("/api/wallet",session,(req,res)=>res.json({coins:req.user.coins,ledger:d
 app.post("/api/balance-requests",session,(req,res)=>{const amount=Number(req.body?.amount),note=String(req.body?.note||"").slice(0,240);if(!Number.isFinite(amount)||amount<10||amount>1000000)return res.status(400).json({error:"کم از کم 10 اور زیادہ سے زیادہ 1,000,000 کوائنز کی درخواست دیں"});const id=crypto.randomUUID();db.prepare("INSERT INTO balance_requests(id,user_id,amount,note) VALUES(?,?,?,?)").run(id,req.playerId,amount,note);res.status(201).json({ok:true,id,status:"pending",message:"بیلنس درخواست ایڈمن کو بھیج دی گئی ہے"});});
 app.get("/api/balance-requests",session,(req,res)=>res.json({requests:db.prepare("SELECT id,amount,status,note,created_at,reviewed_at FROM balance_requests WHERE user_id=? ORDER BY created_at DESC LIMIT 50").all(req.playerId)}));
 // Legacy client-payout settlement endpoint removed for security.
-app.get("/api/history",session,(req,res)=>{const rows=db.prepare("SELECT * FROM rounds WHERE user_id=? ORDER BY created_at DESC LIMIT 200").all(req.playerId);res.json({rounds:rows.map(r=>({...r,game_name:games.find(g=>g.id===r.game_id)?.name||"Game"}))});});
+app.get("/api/history",session,(req,res)=>{
+  const raw=req.query.gameId;
+  const gameId=raw===undefined?null:Number(raw);
+  if(raw!==undefined&&(!Number.isInteger(gameId)||gameId<1))return res.status(400).json({error:"Invalid game id"});
+  const rows=gameId===null
+    ?db.prepare("SELECT * FROM rounds WHERE user_id=? ORDER BY created_at DESC LIMIT 200").all(req.playerId)
+    :db.prepare("SELECT * FROM rounds WHERE user_id=? AND game_id=? ORDER BY created_at DESC LIMIT 500").all(req.playerId,gameId);
+  res.json({rounds:rows.map(r=>({...r,game_name:games.find(g=>g.id===r.game_id)?.name||"Game"}))});
+});
 app.post("/api/round",session,(req,res)=>{
   const {gameId,stake,action,choice}=req.body||{},g=games.find(x=>x.id===Number(gameId)),s=specs.find(x=>x.gameId===Number(gameId));
   if(!g||!s)return res.status(404).json({error:"Game not found"});
@@ -181,15 +189,10 @@ io.on("connection",socket=>{
   });
   socket.on("room:status",({status,stake}={})=>{
     const id=socket.data.gameId;if(!id)return;
-    const allowed=["Watching","Choosing bet","Playing","Round complete","Bet Dragon","Bet Tiger","Bet Tie"];
+    const allowed=["Watching","Choosing bet","Playing","Round complete"];
     socket.data.status=allowed.includes(status)?status:"Watching";
     socket.data.stake=Math.max(0,Math.min(100000,Number(stake)||0));
     io.to(`game-${id}`).emit("room:state",publicRoomState(id));
-  });
-  socket.on("room:message",({message}={})=>{
-    const id=socket.data.gameId;if(!id)return;
-    const clean=String(message||"").replace(/[<>]/g,"").slice(0,180);
-    if(clean.trim())io.to(`game-${id}`).emit("room:message",{username:socket.data.username||"Player",message:clean,at:Date.now()});
   });
   socket.on("disconnect",()=>{
     const id=socket.data.gameId;if(id)io.to(`game-${id}`).emit("room:state",publicRoomState(id));
