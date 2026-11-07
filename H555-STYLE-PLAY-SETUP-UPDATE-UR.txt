@@ -1,0 +1,14 @@
+KNP-999 — H555-inspired Play Setup Update
+
+Scope of this delivery:
+- Applied one consistent KNP-999 casino-style presentation layer across all 195 game rooms.
+- Refined game-room backdrop, top HUD, virtual coin balance, home panel, game stage, sticky bet panel, action button feedback, disabled-button state, and mobile layout.
+- Kept each game's existing ID, title, category, game logo, theme colors, and engine-specific controls.
+- This is an original KNP-999 implementation inspired by familiar casino UX patterns (lobby -> game home -> play screen -> result). It does not copy H555 proprietary source, branding, artwork, or assets.
+
+Verification:
+- 195 frontend engine files present.
+- JavaScript syntax validation is performed separately for all engine files.
+- This package does not claim that all 195 games have been browser-tested or certified as exact replicas of H555 games.
+- Some games still use shared engine-family mechanics. Their individual rules, animations, server/client result parity, and multiplayer synchronization require per-game QA before final PASS.
+- Virtual coins only. No real-money deposits, withdrawals, or cash value.

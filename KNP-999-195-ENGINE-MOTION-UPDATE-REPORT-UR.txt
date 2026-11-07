@@ -1,0 +1,19 @@
+KNP-999 — 195 GAME ENGINE MOTION / FEEDBACK UPDATE
+
+اس اپڈیٹ میں کیا کیا گیا:
+1) src/engines کے تمام 195 انفرادی گیم ماڈیولز میں الگ game-feel runtime hook شامل کیا گیا۔
+2) نیا src/engines/game-feel.js شامل کیا گیا، جو گیم ID کے مطابق individualized motion timing، accent aura، idle motion، action pulse، win celebration particles اور lose feedback چلاتا ہے۔
+3) Slot reels، cards، fishing targets، dice، wheel اور arcade targets کے لیے نرم idle motion اور interaction feedback شامل کیا گیا۔
+4) reduced-motion accessibility preference کا احترام شامل کیا گیا۔
+5) موجودہ KNP-999 برانڈنگ، virtual coin نظام، گیم IDs، اور موجودہ 195 frontend modules برقرار رکھے گئے۔
+
+ٹیسٹ:
+- Frontend game modules: 195 موجود
+- Frontend JavaScript syntax: 195/195 پاس
+- Server engine smoke test: 195/195 response checks پاس (audit-engines.mjs)
+- Server index syntax: پاس
+
+اہم حد / دیانت دارانہ نوٹ:
+یہ اپڈیٹ 195 گیمز کے لیے individualized motion اور emotional feedback layer ہے؛ یہ 195 مکمل طور پر نئے، اصل تجارتی گیمز کے برابر الگ الگ gameplay engines یا H555 کے proprietary game logic/assets کی نقل نہیں ہے۔ موجودہ gameplay families ابھی بھی 13 بنیادی engine profiles استعمال کرتی ہیں۔ ہر گیم کے حقیقی rules، animations، sound design، paytable، server/client outcome parity اور multiplayer synchronization کی الگ game-by-game QA باقی ہے۔ Browser/Vite production build اس اپڈیٹ میں نہیں چلایا گیا۔ H555 کے محفوظ assets، source code یا branding نقل نہیں کیے گئے۔
+
+نتیجہ: یہ ایک حقیقی 195-module motion/feedback upgrade ہے، مگر 195/195 final gameplay PASS نہیں۔

@@ -1,0 +1,29 @@
+KNP-999 — European Roulette (Game #178) Update
+تاریخ: 7 نومبر 2026
+
+اس اپڈیٹ میں گیم #178 کے پرانے 12-multiplier wheel کو European Single-Zero Roulette میں تبدیل کیا گیا ہے۔
+
+مکمل کیے گئے کوڈ کی تبدیلیاں:
+1. European Roulette کی اصل 37-pocket ترتیب شامل: 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26۔
+2. درست سرخ/سیاہ/سبز نمبر mapping شامل۔
+3. Straight number، Red/Black، Odd/Even، Low/High، 1st/2nd/3rd Dozen اور 1st/2nd/3rd Column bets شامل۔
+4. Chip denomination selector، متعدد chip placements، bet slip، individual bet removal اور Clear Bets شامل۔
+5. Roulette wheel spin اور ball animation شامل؛ server سے موصول ہونے والے winning pocket کے مطابق result display بنایا۔
+6. نتیجہ صرف server engine پیدا کرتا ہے؛ browser-side random number/payout استعمال نہیں ہوتا۔
+7. Server engine bet types/values/amounts validate کرتا ہے، total stake verify کرتا ہے اور standard roulette payout multipliers لگاتا ہے:
+   - Straight number: 36x total return
+   - Red/Black، Odd/Even، Low/High: 2x total return
+   - Dozen/Column: 3x total return
+8. Server result میں winning number، color، wheel index، winning bets، payout اور net شامل ہیں۔
+
+ٹیسٹ:
+- Front-end roulette module: node --check PASS
+- Server roulette module: node --check PASS
+- Server resolver smoke test: PASS (number/color/payout response shape)
+- ZIP integrity: PASS
+- Full Vite/browser test: اس ماحول میں dependencies دستیاب نہ ہونے کے باعث نہیں چلایا گیا۔
+
+حدود/نوٹس:
+- یہ European single-zero roulette کا KNP-999 implementation ہے، کسی دوسرے برانڈ کی اصل proprietary artwork یا code کی نقل نہیں۔
+- Wheel animation کو server result ملنے کے بعد اسی نمبر پر روکنے کے لیے بنایا گیا ہے؛ حقیقی browser میں frame timing، mobile layout اور end-to-end wallet settlement کی QA ابھی باقی ہے۔
+- یہ Virtual Coins only ہے؛ حقیقی رقم، deposits یا withdrawals اس گیم میں شامل نہیں۔

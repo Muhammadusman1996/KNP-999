@@ -1,0 +1,37 @@
+KNP-999 — European Roulette #178 — Issues 2, 3, 4, 5 Update
+تاریخ: 7 نومبر 2026
+
+اس اپڈیٹ میں صرف گیم #178 European Roulette پر کام کیا گیا ہے۔
+
+2) موبائل لے آؤٹ
+- Roulette table، wheel، chip controls اور bet slip کے لیے touch-friendly CSS شامل کی گئی۔
+- 640px اور 360px تک چھوٹی اسکرینوں کے لیے الگ responsive layout rules شامل ہیں۔
+- بٹنوں کے لیے touch-action اور keyboard focus visibility شامل کی گئی۔
+- حد: حقیقی Android/iPhone device پر visual QA اس ماحول میں ممکن نہیں تھا؛ CSS اور markup code review کیا گیا۔
+
+3) ساؤنڈ
+- ہر sound پر نیا AudioContext بنانے کے بجائے ایک reusable AudioContext استعمال ہوتا ہے۔
+- Suspended AudioContext کو user interaction پر resume کرنے کی کوشش ہوتی ہے، جو mobile browser compatibility بہتر کرتی ہے۔
+- Spin sound اب server round شروع ہوتے ہی بجتی ہے؛ win/lose cues سرور کے settlement response کے بعد چلتے ہیں۔
+- Sound toggle برقرار ہے۔
+- حد: اصل فون کے اسپیکر/براؤزر پر سن کر ٹیسٹ نہیں کیا گیا۔
+
+4) Game History
+- History بٹن اب alert کے بجائے گیم کے اندر history view کھولتا ہے۔
+- API میں اختیاری gameId filter شامل کیا گیا؛ Roulette کے لیے صرف game #178 کے راؤنڈز واپس آتے ہیں۔
+- فی گیم 500 تازہ ترین راؤنڈز تک دکھائے جا سکتے ہیں، newest first۔
+- تاریخ، winning pocket/summary، stake، payout اور net دکھائے جاتے ہیں۔
+- history rows DOM textContent کے ذریعے render ہوتی ہیں تاکہ result text HTML کے طور پر execute نہ ہو۔
+
+5) QA / validation
+- Frontend اور server JavaScript syntax checks PASS۔
+- Server engine test میں 37 منفرد pockets، 10 bet types، wheelIndex/winningNumber consistency، red/black/green mapping، غلط stake total اور invalid color checks PASS۔
+- Project games.json میں کل 195 games موجود ہیں؛ یہ اپڈیٹ صرف #178 پر ہے۔
+- npm run build نہیں چل سکا کیونکہ اس environment میں Vite dependency/node_modules موجود نہیں (vite: not found)۔
+- حقیقی browser، mobile device، logged-in end-to-end wallet/history اور sound playback test ابھی باقی ہے؛ اسے مکمل پاس قرار نہیں دیا جا رہا۔
+
+نتیجہ:
+- Issues 2، 3، 4 کے لیے code changes مکمل۔
+- Issue 5 کے لیے automated/server-side QA checks مکمل؛ browser/device end-to-end QA ماحول نہ ہونے کی وجہ سے باقی ہے۔
+- پہلے کی پانچ fixes بھی اسی project snapshot میں شامل ہیں۔
+- یہ Virtual Coins گیم ہے؛ real-money deposit/withdrawal شامل نہیں۔

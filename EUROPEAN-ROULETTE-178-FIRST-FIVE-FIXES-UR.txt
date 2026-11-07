@@ -1,0 +1,39 @@
+KNP-999 — European Roulette #178 — پہلی پانچ خامیوں کی اصلاح
+تاریخ: 7 نومبر 2026
+
+اس اپڈیٹ میں صرف گیم #178 European Roulette کی پہلی پانچ تکنیکی اصلاحات کی گئی ہیں:
+
+1) Repeat Last Bet اب مکمل یا بالکل نہیں
+- پہلے بیلنس کم ہونے پر کچھ bets لگ سکتی تھیں اور باقی رہ جاتی تھیں۔
+- اب پہلے پوری مطلوبہ رقم چیک ہوتی ہے؛ Coins کم ہوں تو کوئی bet جزوی طور پر نہیں لگتی۔
+- اصل bet slip اور chip amounts محفوظ رہتے ہیں۔
+
+2) Roulette wheel کی landing position درست
+- 37 pockets (0–36) کے server wheelIndex سے stop angle نکالا جاتا ہے۔
+- تمام 37 pockets کے لیے angle alignment کا حسابی ٹیسٹ PASS ہوا۔
+
+3) نتیجے کے وقت wheel غائب نہیں ہوتا
+- پہلے animation لگانے کے فوراً بعد stage کا HTML بدل جاتا تھا، جس سے وہ wheel ہٹ جاتا تھا۔
+- اب server result screen میں wheel markup برقرار رہتا ہے اور اسی server-selected pocket پر گھوم کر رکتا ہے۔
+
+4) Spin کے دوران دوبارہ bet/action روک دی گئی
+- settlement شروع ہوتے ہی table کے buttons اور selectors disable ہوتے ہیں۔
+- pending request کے دوران دوبارہ spin، undo یا clear کی کوشش قبول نہیں ہوتی۔
+
+5) Server request ناکام ہونے پر recovery بہتر
+- error کی صورت میں wallet دوبارہ server سے پڑھا جاتا ہے۔
+- bet slip ضائع نہیں کی جاتی اور controls دوبارہ فعال ہوتے ہیں۔
+- دوبارہ کوشش سے پہلے History اور Wallet چیک کرنے کی ہدایت دی جاتی ہے تاکہ غیر یقینی network response پر duplicate round نہ لگے۔
+
+ٹیسٹ:
+- Frontend JavaScript syntax: PASS
+- Server engine JavaScript syntax: PASS
+- Server smoke test: تمام 10 bet types PASS
+- Server wheel index اور winning number consistency: PASS
+- 37 pockets کے stop-angle alignment حسابی ٹیسٹ: PASS
+- ZIP integrity: الگ سے verify کی گئی
+
+حدود:
+- یہ صرف Game #178 کی کوڈ سطح کی اصلاح ہے؛ باقی 194 گیمز تبدیل نہیں ہوئیں۔
+- حقیقی browser/mobile device end-to-end QA اس ماحول میں نہیں چلایا گیا۔
+- یہ Virtual Coins گیم ہے؛ حقیقی رقم، deposit یا withdrawal شامل نہیں۔

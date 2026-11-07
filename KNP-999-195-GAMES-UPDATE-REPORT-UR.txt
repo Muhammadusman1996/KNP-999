@@ -1,0 +1,27 @@
+KNP-999 — 195 گیمز اپڈیٹ رپورٹ
+================================
+
+اس ZIP میں 195 گیمز کے مشترکہ فرنٹ اینڈ رزلٹ/سیٹلمنٹ فلو پر تبدیلیاں کی گئی ہیں۔
+
+اس اپڈیٹ میں:
+1) src/engines کے تمام 195 گیم ماڈیولز میں سرور سے واپس آنے والے نتیجے کے لیے واضح outcome board شامل کیا گیا ہے۔
+2) Slot کے reels/spins، Dice، Cards/Blackjack، Crash، Fishing، Wheel، Plinko اور دوسرے mechanics کے سرور رزلٹ کو نتیجہ اسکرین پر دکھانے کی mapping شامل کی گئی ہے۔
+3) تمام 195 ماڈیولز میں game choice/action کی تفصیل settlement API تک پہنچانے کا راستہ یکساں کیا گیا ہے۔
+4) تمام 195 ماڈیولز کے Crash cash-out actions میں cashoutAt سرور کو بھیجا جاتا ہے، تاکہ سرور اپنا payout فیصلہ اسی انتخاب کے خلاف کرے۔
+5) سرور نتیجہ بورڈ کے لیے responsive styling شامل کی گئی ہے۔
+
+چیک:
+- 195/195 فرنٹ اینڈ engine JavaScript فائلوں کا node --check پاس۔
+- server/index.js کا node --check پاس۔
+- audit-engines.mjs: 195 total، 0 bad (بنیادی server-engine response smoke test)۔
+- 195/195 frontend modules میں authoritative result board موجود۔
+- 195/195 frontend modules میں cashoutAt action field موجود۔
+
+اہم حدود — اس ZIP کو ابھی مکمل H555-equivalent یا 195/195 browser-tested PASS نہ سمجھیں:
+- اس ماحول میں npm dependencies موجود نہیں تھیں؛ اس لیے Vite production build نہیں چلایا گیا۔
+- حقیقی browser/device end-to-end tests نہیں چلائے گئے۔
+- 40 گیمز میں room/presence connection موجود ہے، مگر تمام multiplayer games کے synchronized shared rounds مکمل نہیں ہیں۔
+- H555 کا proprietary code/artwork نقل نہیں کیا گیا؛ یہ KNP-999 کا اپنا virtual-play implementation ہے۔
+- یہ صرف virtual coins کے لیے ہے؛ حقیقی رقم، deposit، withdrawal یا cash-out شامل نہیں۔
+
+اگلا لازمی مرحلہ: 195 گیمز کی browser-based game-by-game acceptance testing، profile-specific gameplay parity، اور multiplayer shared-round implementation۔

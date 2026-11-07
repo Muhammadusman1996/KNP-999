@@ -1,0 +1,39 @@
+KNP-999 — 195 گیمز کے Engine کی واضح موجودہ حالت
+تاریخ: 7 نومبر 2026
+
+یہ رپورٹ اس ZIP کے اندر موجود سورس کوڈ کی بنیاد پر ہے۔ اس کا مقصد واضح کرنا ہے کہ کون سا کام واقعی موجود ہے اور کس کام کو ابھی مکمل نہیں سمجھنا چاہیے۔
+
+1) اس بلڈ میں کیا موجود ہے؟
+- گیم لسٹ میں 195 گیمز درج ہیں۔
+- src/engines میں 195 گیم ماڈیول فائلیں موجود ہیں (اضافی shared/helper فائلیں الگ ہیں)۔
+- server/engines میں 195 سرور انجن فائلیں موجود ہیں۔
+- سرور سائیڈ پر ہر گیم کے لیے الگ resolver/module رجسٹر کیا گیا ہے۔
+- ہر گیم کے لیے مخصوص configuration/rules metadata موجود ہے۔
+- Motion/feedback کی پچھلی اپڈیٹ کے UI effects بھی اس بلڈ میں شامل ہیں۔
+
+2) کیا چیز ابھی مکمل ہونے کا دعویٰ نہیں کیا جا سکتا؟
+- 195 مکمل طور پر الگ، commercial-grade browser gameplay loops ابھی ثابت نہیں ہیں۔
+- کئی فرنٹ اینڈ گیمز میں مشترکہ engine-family rendering/interaction logic استعمال ہوتا ہے۔
+- ہر گیم کی تمام animations، sound effects، bonus rounds، win/lose sequences اور controls کو اصل گیم کے معیار کے مطابق الگ الگ browser میں verify نہیں کیا گیا۔
+- Server result اور screen animation کے end-to-end parity کی تمام 195 گیمز پر browser testing نہیں ہوئی۔
+- Multiplayer میں صرف room/presence connection کو مکمل synchronized shared gameplay نہیں سمجھنا چاہیے۔
+- H555 کی عین نقل یا اس کے محفوظ code/artwork/assets شامل نہیں کیے گئے؛ مقصد KNP-999 کی اپنی شناخت کے ساتھ مانوس اور معیاری gameplay flow بنانا ہے۔
+
+3) منظوری کا درست مطلب
+- "195 server modules موجود" کا مطلب یہ نہیں کہ 195 گیمز مکمل طور پر PASS ہیں۔
+- "Syntax PASS" کا مطلب صرف JavaScript syntax درست ہونا ہے۔
+- "Smoke test PASS" کا مطلب صرف بنیادی server resolver نے test input پر response دیا؛ یہ مکمل gameplay، animation، sound یا payout correctness کا ثبوت نہیں۔
+- کسی گیم کو FINAL PASS صرف تب کہا جائے جب اس کا Home/Lobby، controls، complete game loop، rules/paytable، bonus features، animations/sound، server settlement، balance update اور mobile browser test کامیاب ہوں۔
+
+4) اگلا کام — ہر گیم کے لیے
+A. اس گیم کی اپنی game loop اور input/control map مکمل کرنا۔
+B. سرور کے authoritative result سے screen animation کو چلانا، تاکہ دکھایا گیا نتیجہ اور settle ہونے والا نتیجہ ایک ہو۔
+C. گیم کے مطابق win/lose/bonus animations اور sound cues بنانا۔
+D. ہر گیم کے rules، payout، bonus اور edge cases test کرنا۔
+E. موبائل browser پر کم از کم ایک مکمل round اور settlement test کرنا۔
+F. multiplayer صرف ان گیمز میں شامل کرنا جن کی design واقعی multiplayer ہے؛ مشترکہ round ID، timer اور server result کے ساتھ۔
+
+5) موجودہ فیصلہ
+یہ ZIP ایک 195-game project ہے جس میں 195 server modules اور 195 front-end game modules موجود ہیں۔ اسے "195 مکمل اور H555 جیسی اصل gameplay والی منظور شدہ گیمز" کہنا ابھی درست نہیں۔ اس وقت اسے ENGINE MODULES + GAMEPLAY FOUNDATION + MOTION/FEEDBACK UPDATE سمجھا جائے، اور ہر گیم کو الگ QA کے بعد ہی PASS دیا جائے۔
+
+اہم: یہ رپورٹ کسی game certification یا production-readiness کی ضمانت نہیں دیتی۔ Virtual coins only؛ real-money wagering/deposit/withdrawal functionality اس رپورٹ کے دائرے میں شامل نہیں۔

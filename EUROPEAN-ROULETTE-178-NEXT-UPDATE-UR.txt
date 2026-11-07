@@ -1,0 +1,43 @@
+KNP-999 — European Roulette #178: اگلی اپڈیٹ
+تاریخ: 7 نومبر 2026
+
+اس بلڈ میں صارف کی منتخب کردہ پانچ چیزوں میں سے کوڈ کی سطح پر درج ذیل کام کیے گئے:
+
+1) Wheel اور Ball animation
+- 37 pockets والے European wheel کی visual segments/number labels شامل۔
+- Result panel میں server-selected winning number کے مطابق wheel stop animation اور ball movement شامل۔
+- Spin sound trigger شامل۔
+- نوٹ: حقیقی موبائل browser میں animation timing/landing position ابھی manually verify نہیں ہوئی۔
+
+2) Additional bets
+- Split (2 numbers)
+- Street (3 numbers)
+- Corner (4 numbers)
+- Six Line (6 numbers)
+- Server validation اور payout multipliers شامل: Split 18x، Street 12x، Corner 9x، Six Line 6x (total-return multipliers، stake سمیت)۔
+
+3) Undo / Repeat
+- Undo Last Chip: آخری لگائی ہوئی chip ہٹاتا اور stake واپس کرتا ہے۔
+- Repeat Last Bet: پچھلے مکمل bet slip کو دوبارہ لگاتا ہے، بشرطیکہ balance کافی ہو۔
+- Clear Bets بھی موجود۔
+
+4) Winning effects / sounds
+- Roulette spin sound trigger۔
+- موجودہ shared win/lose sounds اور result celebration برقرار۔
+- الگ cinematic sound pack یا recorded casino audio شامل نہیں؛ ابھی synthesized UI tones استعمال ہوتے ہیں۔
+
+5) History / Mobile QA
+- موجودہ server game-history action برقرار؛ ہر راؤنڈ کے stake/payout/net/result کی history کھولی جا سکتی ہے۔
+- موبائل کے لیے roulette grid اور toolbar responsive CSS شامل۔
+- Node syntax checks PASS، server smoke test میں تمام 10 bet types PASS، ZIP integrity PASS۔
+- Browser/device end-to-end test نہیں چلایا گیا کیونکہ dependencies/node_modules موجود نہیں تھے۔ اس لیے mobile QA کو ابھی مکمل PASS نہیں کہا جا سکتا۔
+
+فائل میں تبدیلیاں:
+- src/engines/european-roulette.js
+- server/engines/178-european-roulette.js
+- src/style.css
+- یہ اردو اپڈیٹ رپورٹ
+
+حدود:
+- صرف Game #178 European Roulette اپڈیٹ ہوا ہے، باقی 194 گیمز اس تبدیلی میں شامل نہیں۔
+- Virtual Coins only؛ حقیقی رقم، deposit یا withdrawal نہیں۔

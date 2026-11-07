@@ -1,0 +1,7 @@
+KNP-999 — FULL 195 GAME CATALOG
+
+This package contains the complete 195-entry game catalogue from the project base, with the latest first-40 game UI/server patches merged in.
+
+Important implementation note: the catalogue groups games by category and maps them to shared game-engine families. A catalogue entry is not proof of a wholly unique, production-grade implementation. Multiplayer support is only available where the server-side shared-round flow is implemented; do not assume every game is multiplayer.
+
+All gameplay uses virtual coins only. No real-money deposits, withdrawals, or cash-out are included. No in-game chat is intended.
