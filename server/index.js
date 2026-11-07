@@ -127,7 +127,9 @@ app.post("/api/round",session,(req,res)=>{
     db.prepare("INSERT INTO rounds(id,user_id,game_id,stake,payout,net,result) VALUES(?,?,?,?,?,?,?)").run(roundId,req.playerId,g.id,amount,payout,delta,JSON.stringify(result));
   });
   try{tx();}catch(e){return res.status(409).json({error:e.message||"Could not settle round"});}
-  const updated=getUser.get(req.playerId);res.json({roundId,gameId:g.id,stake:amount,multiplier,payout,coins:updated.coins,result});
+  const updated=getUser.get(req.playerId);
+  io.to(`game-${g.id}`).emit("room:activity",{gameId:g.id,username:String(req.user?.username||"Player").slice(0,24),stake:amount,payout,multiplier,summary:payout>0?"Round won":"Round completed",at:Date.now()});
+  res.json({roundId,gameId:g.id,stake:amount,multiplier,payout,coins:updated.coins,result});
 });
 app.get("/api/admin/users",admin,(req,res)=>{const users=db.prepare("SELECT id,username,coins FROM users ORDER BY created_at DESC").all();res.json(users);});
 app.get("/api/admin/balance-requests",admin,(req,res)=>res.json(db.prepare("SELECT r.id,r.user_id,u.username,r.amount,r.note,r.status,r.created_at FROM balance_requests r JOIN users u ON u.id=r.user_id WHERE r.status='pending' ORDER BY r.created_at ASC").all()));
@@ -150,10 +152,48 @@ app.put("/api/admin/stakes",admin,(req,res)=>{
  tx();res.json({ok:true,stakes:clean});
 });
 app.get("/api/admin/summary",admin,(req,res)=>res.json({players:db.prepare("SELECT COUNT(*) n FROM users").get().n,rounds:db.prepare("SELECT COUNT(*) n FROM rounds").get().n,coins:db.prepare("SELECT COALESCE(SUM(coins),0) n FROM users").get().n}));
+io.use((socket,next)=>{
+  const raw=String(socket.handshake.auth?.token||"");
+  if(!raw)return next(new Error("Login required for multiplayer"));
+  const row=db.prepare("SELECT user_id FROM sessions WHERE token_hash=?").get(hashToken(raw));
+  if(!row)return next(new Error("Session expired"));
+  const user=getUser.get(row.user_id);
+  if(!user)return next(new Error("Player not found"));
+  socket.data.userId=user.id;
+  socket.data.username=String(user.username||"Player").slice(0,24);
+  next();
+});
 io.on("connection",socket=>{
-  socket.on("room:join",({gameId,playerName}={})=>{const g=games.find(x=>x.id===Number(gameId));if(!g)return;const room=`game-${g.id}`;socket.join(room);socket.data.gameId=g.id;socket.data.playerName=String(playerName||"Player").slice(0,24);io.to(room).emit("room:players",{gameId:g.id,count:io.sockets.adapter.rooms.get(room)?.size||1});});
-  socket.on("room:message",({message}={})=>{const id=socket.data.gameId;if(!id)return;io.to(`game-${id}`).emit("room:message",{playerName:socket.data.playerName||"Player",message:String(message||"").slice(0,180)});});
-  socket.on("disconnect",()=>{const id=socket.data.gameId;if(id)io.to(`game-${id}`).emit("room:players",{gameId:id,count:io.sockets.adapter.rooms.get(`game-${id}`)?.size||0});});
+  const publicRoomState=gameId=>{
+    const room=`game-${gameId}`;
+    const members=[...(io.sockets.adapter.rooms.get(room)||[])].map(id=>{
+      const s=io.sockets.sockets.get(id);if(!s)return null;
+      return {username:s.data.username||"Player",status:s.data.status||"Watching",stake:s.data.stake||0};
+    }).filter(Boolean);
+    return {gameId,onlineCount:members.length,players:members};
+  };
+  socket.on("room:join",({gameId}={})=>{
+    const g=games.find(x=>x.id===Number(gameId));if(!g)return;
+    if(socket.data.gameId)socket.leave(`game-${socket.data.gameId}`);
+    const room=`game-${g.id}`;socket.join(room);socket.data.gameId=g.id;
+    socket.data.status="Watching";socket.data.stake=0;
+    io.to(room).emit("room:state",publicRoomState(g.id));
+  });
+  socket.on("room:status",({status,stake}={})=>{
+    const id=socket.data.gameId;if(!id)return;
+    const allowed=["Watching","Choosing bet","Playing","Round complete","Bet Dragon","Bet Tiger","Bet Tie"];
+    socket.data.status=allowed.includes(status)?status:"Watching";
+    socket.data.stake=Math.max(0,Math.min(100000,Number(stake)||0));
+    io.to(`game-${id}`).emit("room:state",publicRoomState(id));
+  });
+  socket.on("room:message",({message}={})=>{
+    const id=socket.data.gameId;if(!id)return;
+    const clean=String(message||"").replace(/[<>]/g,"").slice(0,180);
+    if(clean.trim())io.to(`game-${id}`).emit("room:message",{username:socket.data.username||"Player",message:clean,at:Date.now()});
+  });
+  socket.on("disconnect",()=>{
+    const id=socket.data.gameId;if(id)io.to(`game-${id}`).emit("room:state",publicRoomState(id));
+  });
 });
 app.use(express.static(path.join(root,"dist")));
 app.get("*",(req,res)=>res.sendFile(path.join(root,"dist","index.html")));
