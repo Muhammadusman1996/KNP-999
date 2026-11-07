@@ -9,7 +9,7 @@ export async function loginCustomer(mobile,password){const d=await req("/api/aut
 export async function logoutCustomer(){try{await req("/api/auth/logout",{method:"POST"});}finally{localStorage.removeItem(TOKEN_KEY);}}
 export async function getPlayerSession(){if(!token())throw Error("Login required");const d=await req("/api/auth/me");return {playerId:d.user.id,coins:d.user.coins,user:d.user};}
 export async function getServerWallet(){return req("/api/wallet");}
-export async function getGameHistory(){return req("/api/history");}
+export async function getGameHistory(gameId){return req(`/api/history${gameId?`?gameId=${encodeURIComponent(gameId)}`:""}`);}
 export async function playServerRound(gameId,stake,action,choice){return req("/api/round",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId,stake,action,choice})});}
 
 export function connectGameRoom(gameId,handlers={}){
@@ -18,9 +18,8 @@ export function connectGameRoom(gameId,handlers={}){
   socket.on("room:state",data=>handlers.onState?.(data));
   socket.on("room:players",data=>handlers.onPlayers?.(data));
   socket.on("room:activity",data=>handlers.onActivity?.(data));
-  socket.on("room:message",data=>handlers.onMessage?.(data));
   socket.on("connect_error",err=>handlers.onError?.(err));
-  return {socket,close:()=>socket.disconnect(),sendMessage:message=>socket.emit("room:message",{message})};
+  return {socket,close:()=>socket.disconnect()};
 }
 
 export async function requestBalance(amount,note=""){return req("/api/balance-requests",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({amount,note})});}
