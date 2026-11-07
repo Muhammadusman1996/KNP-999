@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320" role="img" aria-labelledby="title desc">
+<title id="title">Frog Dash</title><desc id="desc">Original custom KNP-999 logo for Frog Dash</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#40514b"/><stop offset="1" stop-color="#0e1b17"/></linearGradient>
+ <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d5ff8a"/><stop offset="1" stop-color="#57d69c"/></linearGradient>
+ <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect x="7" y="7" width="466" height="306" rx="34" fill="url(#bg)" stroke="url(#shine)" stroke-width="8"/>
+<rect x="20" y="20" width="440" height="280" rx="26" fill="none" stroke="#57d69c" stroke-opacity=".5" stroke-width="2"/>
+<path d="M30 54 Q240 27 450 54" fill="none" stroke="#d5ff8a" stroke-opacity=".5" stroke-width="3"/>
+<g opacity=".25" fill="#d5ff8a"><circle cx="50" cy="75" r="5"/><circle cx="302" cy="252" r="7"/><circle cx="258" cy="82" r="4"/></g>
+<g filter="url(#glow)"><g transform="translate(120 105)">
+          <path d="M-58 23 L-5 -30 L13 -8 L49 -47 L41 -10 L65 -8 L4 43 L-12 17 Z" fill="#57d69c" stroke="#d5ff8a" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M-32 39 Q0 5 38 -30" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="6 7"/>
+        </g></g>
+<path d="M54 215 H426" stroke="#d5ff8a" stroke-opacity=".6" stroke-width="2"/>
+<text x="240" y="252" text-anchor="middle" font-family="Arial,sans-serif" font-size="31.0" font-weight="900" letter-spacing="1" fill="#fff" stroke="#101018" stroke-width="2" paint-order="stroke">Frog Dash</text>
+<text x="240" y="282" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="4" fill="#d5ff8a">KNP • 999</text>
+</svg>
