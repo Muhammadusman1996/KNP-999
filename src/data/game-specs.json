@@ -30,7 +30,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/fortune-tiger.svg",
+    "logo": "/game-logos/fortune-tiger.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 409,
@@ -92,7 +92,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/fortune-rabbit.svg",
+    "logo": "/game-logos/fortune-rabbit.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 438,
@@ -154,7 +154,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/fortune-ox.svg",
+    "logo": "/game-logos/fortune-ox.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 467,
@@ -216,7 +216,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/777-fruit-slots.svg",
+    "logo": "/game-logos/777-fruit-slots.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 496,
@@ -278,7 +278,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/fortune-gems.svg",
+    "logo": "/game-logos/fortune-gems.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 525,
@@ -340,7 +340,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/crazy-777.svg",
+    "logo": "/game-logos/crazy-777.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 554,
@@ -402,7 +402,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/super-fruits-slot.svg",
+    "logo": "/game-logos/super-fruits-slot.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 583,
@@ -461,7 +461,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/flyx.svg",
+    "logo": "/game-logos/flyx.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 612,
@@ -519,7 +519,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/chicken-road-2-0.svg",
+    "logo": "/game-logos/chicken-road-2-0.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 641,
@@ -588,7 +588,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/plinko.svg",
+    "logo": "/game-logos/plinko.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 670,
@@ -653,7 +653,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/crazy-time.svg",
+    "logo": "/game-logos/crazy-time.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 699,
@@ -715,7 +715,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/money-coming.svg",
+    "logo": "/game-logos/money-coming.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 728,
@@ -777,7 +777,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/wild-bounty-showdown.svg",
+    "logo": "/game-logos/wild-bounty-showdown.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 757,
@@ -837,7 +837,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/star-hunter.svg",
+    "logo": "/game-logos/star-hunter.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 786,
@@ -896,7 +896,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/happy-fishing.svg",
+    "logo": "/game-logos/happy-fishing.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 815,
@@ -955,7 +955,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/ocean-phoenix.svg",
+    "logo": "/game-logos/ocean-phoenix.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 844,
@@ -1014,7 +1014,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/super-ace.svg",
+    "logo": "/game-logos/super-ace.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 873,
@@ -1075,7 +1075,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/7up7down.svg",
+    "logo": "/game-logos/7up7down.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 382,
@@ -1134,7 +1134,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/rummy.svg",
+    "logo": "/game-logos/rummy.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 411,
@@ -1195,7 +1195,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/poker.svg",
+    "logo": "/game-logos/poker.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 440,
@@ -1257,7 +1257,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/prosperity-fortune-tree.svg",
+    "logo": "/game-logos/prosperity-fortune-tree.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 469,
@@ -1319,7 +1319,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/rooster-rumble.svg",
+    "logo": "/game-logos/rooster-rumble.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 498,
@@ -1379,7 +1379,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/diamond-hunt.svg",
+    "logo": "/game-logos/diamond-hunt.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 527,
@@ -1439,7 +1439,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/mystic-treasures.svg",
+    "logo": "/game-logos/mystic-treasures.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 556,
@@ -1499,7 +1499,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/wild-safari.svg",
+    "logo": "/game-logos/wild-safari.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 585,
@@ -1558,7 +1558,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/emerald-adventure.svg",
+    "logo": "/game-logos/emerald-adventure.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 614,
@@ -1617,7 +1617,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/neon-challenge.svg",
+    "logo": "/game-logos/neon-challenge.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 643,
@@ -1682,7 +1682,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/dragon-kingdom.svg",
+    "logo": "/game-logos/dragon-kingdom.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 672,
@@ -1741,7 +1741,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/moon-reels.svg",
+    "logo": "/game-logos/moon-reels.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 701,
@@ -1803,7 +1803,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/solar-dash.svg",
+    "logo": "/game-logos/solar-dash.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 730,
@@ -1864,7 +1864,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/lucky-fortune.svg",
+    "logo": "/game-logos/lucky-fortune.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 759,
@@ -1924,7 +1924,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/mega-arena.svg",
+    "logo": "/game-logos/mega-arena.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 788,
@@ -1984,7 +1984,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/sapphire-legends.svg",
+    "logo": "/game-logos/sapphire-legends.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 817,
@@ -2043,7 +2043,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/royal-mystery.svg",
+    "logo": "/game-logos/royal-mystery.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 846,
@@ -2102,7 +2102,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/ocean-spin.svg",
+    "logo": "/game-logos/ocean-spin.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 875,
@@ -2167,7 +2167,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/fire-empire.svg",
+    "logo": "/game-logos/fire-empire.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 384,
@@ -2226,7 +2226,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/pearl-blitz.svg",
+    "logo": "/game-logos/pearl-blitz.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 413,
@@ -2288,7 +2288,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/crystal-world.svg",
+    "logo": "/game-logos/crystal-world.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 442,
@@ -2349,7 +2349,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/turbo-voyage.svg",
+    "logo": "/game-logos/turbo-voyage.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 471,
@@ -2409,7 +2409,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/velvet-quest.svg",
+    "logo": "/game-logos/velvet-quest.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 500,
@@ -2469,7 +2469,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/golden-deluxe.svg",
+    "logo": "/game-logos/golden-deluxe.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 529,
@@ -2528,7 +2528,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/cosmic-rush.svg",
+    "logo": "/game-logos/cosmic-rush.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 558,
@@ -2587,7 +2587,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/thunder-jackpot.svg",
+    "logo": "/game-logos/thunder-jackpot.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 587,
@@ -2652,7 +2652,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/phantom-treasures.svg",
+    "logo": "/game-logos/phantom-treasures.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 616,
@@ -2711,7 +2711,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/jade-safari.svg",
+    "logo": "/game-logos/jade-safari.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 645,
@@ -2773,7 +2773,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/star-adventure.svg",
+    "logo": "/game-logos/star-adventure.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 674,
@@ -2834,7 +2834,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/ruby-challenge.svg",
+    "logo": "/game-logos/ruby-challenge.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 703,
@@ -2894,7 +2894,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/mystic-kingdom.svg",
+    "logo": "/game-logos/mystic-kingdom.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 732,
@@ -2954,7 +2954,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/wild-reels.svg",
+    "logo": "/game-logos/wild-reels.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 761,
@@ -3013,7 +3013,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/emerald-dash.svg",
+    "logo": "/game-logos/emerald-dash.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 790,
@@ -3072,7 +3072,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/neon-fortune.svg",
+    "logo": "/game-logos/neon-fortune.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 819,
@@ -3137,7 +3137,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/dragon-arena.svg",
+    "logo": "/game-logos/dragon-arena.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 848,
@@ -3196,7 +3196,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/moon-legends.svg",
+    "logo": "/game-logos/moon-legends.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 877,
@@ -3258,7 +3258,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/solar-mystery.svg",
+    "logo": "/game-logos/solar-mystery.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 386,
@@ -3319,7 +3319,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/lucky-spin.svg",
+    "logo": "/game-logos/lucky-spin.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 415,
@@ -3379,7 +3379,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/mega-empire.svg",
+    "logo": "/game-logos/mega-empire.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 444,
@@ -3439,7 +3439,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/sapphire-blitz.svg",
+    "logo": "/game-logos/sapphire-blitz.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 473,
@@ -3498,7 +3498,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/royal-world.svg",
+    "logo": "/game-logos/royal-world.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 502,
@@ -3557,7 +3557,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/ocean-voyage.svg",
+    "logo": "/game-logos/ocean-voyage.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 531,
@@ -3622,7 +3622,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/fire-quest.svg",
+    "logo": "/game-logos/fire-quest.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 560,
@@ -3681,7 +3681,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/pearl-deluxe.svg",
+    "logo": "/game-logos/pearl-deluxe.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 589,
@@ -3743,7 +3743,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/crystal-rush.svg",
+    "logo": "/game-logos/crystal-rush.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 618,
@@ -3804,7 +3804,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/turbo-jackpot.svg",
+    "logo": "/game-logos/turbo-jackpot.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 647,
@@ -3864,7 +3864,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/velvet-treasures.svg",
+    "logo": "/game-logos/velvet-treasures.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 676,
@@ -3924,7 +3924,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/golden-safari.svg",
+    "logo": "/game-logos/golden-safari.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 705,
@@ -3983,7 +3983,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/cosmic-adventure.svg",
+    "logo": "/game-logos/cosmic-adventure.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 734,
@@ -4042,7 +4042,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/thunder-challenge.svg",
+    "logo": "/game-logos/thunder-challenge.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 763,
@@ -4107,7 +4107,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/phantom-kingdom.svg",
+    "logo": "/game-logos/phantom-kingdom.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 792,
@@ -4166,7 +4166,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/jade-reels.svg",
+    "logo": "/game-logos/jade-reels.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 821,
@@ -4228,7 +4228,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/star-dash.svg",
+    "logo": "/game-logos/star-dash.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 850,
@@ -4289,7 +4289,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/ruby-fortune.svg",
+    "logo": "/game-logos/ruby-fortune.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 879,
@@ -4349,7 +4349,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/mystic-arena.svg",
+    "logo": "/game-logos/mystic-arena.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 388,
@@ -4409,7 +4409,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/wild-legends.svg",
+    "logo": "/game-logos/wild-legends.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 417,
@@ -4468,7 +4468,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/emerald-mystery.svg",
+    "logo": "/game-logos/emerald-mystery.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 446,
@@ -4527,7 +4527,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/neon-spin.svg",
+    "logo": "/game-logos/neon-spin.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 475,
@@ -4592,7 +4592,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/dragon-empire.svg",
+    "logo": "/game-logos/dragon-empire.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 504,
@@ -4651,7 +4651,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/moon-blitz.svg",
+    "logo": "/game-logos/moon-blitz.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 533,
@@ -4713,7 +4713,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/solar-world.svg",
+    "logo": "/game-logos/solar-world.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 562,
@@ -4774,7 +4774,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/lucky-voyage.svg",
+    "logo": "/game-logos/lucky-voyage.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 591,
@@ -4834,7 +4834,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/mega-quest.svg",
+    "logo": "/game-logos/mega-quest.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 620,
@@ -4894,7 +4894,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/sapphire-deluxe.svg",
+    "logo": "/game-logos/sapphire-deluxe.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 649,
@@ -4953,7 +4953,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/royal-rush.svg",
+    "logo": "/game-logos/royal-rush.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 678,
@@ -5012,7 +5012,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/ocean-jackpot.svg",
+    "logo": "/game-logos/ocean-jackpot.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 707,
@@ -5077,7 +5077,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/fire-treasures.svg",
+    "logo": "/game-logos/fire-treasures.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 736,
@@ -5136,7 +5136,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/pearl-safari.svg",
+    "logo": "/game-logos/pearl-safari.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 765,
@@ -5198,7 +5198,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/crystal-adventure.svg",
+    "logo": "/game-logos/crystal-adventure.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 794,
@@ -5259,7 +5259,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/turbo-challenge.svg",
+    "logo": "/game-logos/turbo-challenge.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 823,
@@ -5319,7 +5319,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/velvet-kingdom.svg",
+    "logo": "/game-logos/velvet-kingdom.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 852,
@@ -5379,7 +5379,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/golden-reels.svg",
+    "logo": "/game-logos/golden-reels.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 881,
@@ -5438,7 +5438,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/cosmic-dash.svg",
+    "logo": "/game-logos/cosmic-dash.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 390,
@@ -5497,7 +5497,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/thunder-fortune.svg",
+    "logo": "/game-logos/thunder-fortune.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 419,
@@ -5562,7 +5562,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/phantom-arena.svg",
+    "logo": "/game-logos/phantom-arena.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 448,
@@ -5621,7 +5621,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/jade-legends.svg",
+    "logo": "/game-logos/jade-legends.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 477,
@@ -5683,7 +5683,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/star-mystery.svg",
+    "logo": "/game-logos/star-mystery.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 506,
@@ -5744,7 +5744,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/ruby-spin.svg",
+    "logo": "/game-logos/ruby-spin.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 535,
@@ -5804,7 +5804,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/mystic-empire.svg",
+    "logo": "/game-logos/mystic-empire.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 564,
@@ -5864,7 +5864,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/wild-blitz.svg",
+    "logo": "/game-logos/wild-blitz.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 593,
@@ -5923,7 +5923,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/emerald-world.svg",
+    "logo": "/game-logos/emerald-world.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 622,
@@ -5982,7 +5982,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/neon-voyage.svg",
+    "logo": "/game-logos/neon-voyage.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 651,
@@ -6047,7 +6047,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/dragon-quest.svg",
+    "logo": "/game-logos/dragon-quest.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 680,
@@ -6106,7 +6106,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/moon-deluxe.svg",
+    "logo": "/game-logos/moon-deluxe.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 709,
@@ -6168,7 +6168,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/solar-rush.svg",
+    "logo": "/game-logos/solar-rush.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 738,
@@ -6229,7 +6229,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/lucky-jackpot.svg",
+    "logo": "/game-logos/lucky-jackpot.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 767,
@@ -6289,7 +6289,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/mega-treasures.svg",
+    "logo": "/game-logos/mega-treasures.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 796,
@@ -6349,7 +6349,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/sapphire-safari.svg",
+    "logo": "/game-logos/sapphire-safari.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 825,
@@ -6408,7 +6408,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/royal-adventure.svg",
+    "logo": "/game-logos/royal-adventure.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 854,
@@ -6467,7 +6467,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/ocean-challenge.svg",
+    "logo": "/game-logos/ocean-challenge.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 883,
@@ -6532,7 +6532,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/fire-kingdom.svg",
+    "logo": "/game-logos/fire-kingdom.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 392,
@@ -6591,7 +6591,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/pearl-reels.svg",
+    "logo": "/game-logos/pearl-reels.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 421,
@@ -6653,7 +6653,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/crystal-dash.svg",
+    "logo": "/game-logos/crystal-dash.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 450,
@@ -6714,7 +6714,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/turbo-fortune.svg",
+    "logo": "/game-logos/turbo-fortune.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 479,
@@ -6774,7 +6774,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/velvet-arena.svg",
+    "logo": "/game-logos/velvet-arena.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 508,
@@ -6834,7 +6834,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/golden-legends.svg",
+    "logo": "/game-logos/golden-legends.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 537,
@@ -6893,7 +6893,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/cosmic-mystery.svg",
+    "logo": "/game-logos/cosmic-mystery.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 566,
@@ -6952,7 +6952,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/thunder-spin.svg",
+    "logo": "/game-logos/thunder-spin.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 595,
@@ -7017,7 +7017,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/phantom-empire.svg",
+    "logo": "/game-logos/phantom-empire.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 624,
@@ -7076,7 +7076,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/jade-blitz.svg",
+    "logo": "/game-logos/jade-blitz.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 653,
@@ -7138,7 +7138,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/star-world.svg",
+    "logo": "/game-logos/star-world.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 682,
@@ -7199,7 +7199,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/ruby-voyage.svg",
+    "logo": "/game-logos/ruby-voyage.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 711,
@@ -7259,7 +7259,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/mystic-quest.svg",
+    "logo": "/game-logos/mystic-quest.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 740,
@@ -7319,7 +7319,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/wild-deluxe.svg",
+    "logo": "/game-logos/wild-deluxe.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 769,
@@ -7378,7 +7378,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/emerald-rush.svg",
+    "logo": "/game-logos/emerald-rush.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 798,
@@ -7437,7 +7437,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/neon-jackpot.svg",
+    "logo": "/game-logos/neon-jackpot.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 827,
@@ -7502,7 +7502,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/dragon-treasures.svg",
+    "logo": "/game-logos/dragon-treasures.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 856,
@@ -7561,7 +7561,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/moon-safari.svg",
+    "logo": "/game-logos/moon-safari.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 885,
@@ -7623,7 +7623,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/solar-adventure.svg",
+    "logo": "/game-logos/solar-adventure.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 394,
@@ -7684,7 +7684,7 @@
       "accent": "#f58b48",
       "highlight": "#ffe0a8"
     },
-    "logo": "/logos/lucky-challenge.svg",
+    "logo": "/game-logos/lucky-challenge.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 423,
@@ -7744,7 +7744,7 @@
       "accent": "#ff668e",
       "highlight": "#ffd36a"
     },
-    "logo": "/logos/mega-kingdom.svg",
+    "logo": "/game-logos/mega-kingdom.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 452,
@@ -7804,7 +7804,7 @@
       "accent": "#7f8cff",
       "highlight": "#ff8fb2"
     },
-    "logo": "/logos/sapphire-reels.svg",
+    "logo": "/game-logos/sapphire-reels.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 481,
@@ -7863,7 +7863,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/royal-dash.svg",
+    "logo": "/game-logos/royal-dash.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 510,
@@ -7922,7 +7922,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/ocean-fortune.svg",
+    "logo": "/game-logos/ocean-fortune.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 539,
@@ -7987,7 +7987,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/fire-arena.svg",
+    "logo": "/game-logos/fire-arena.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 568,
@@ -8046,7 +8046,7 @@
       "accent": "#80d5ff",
       "highlight": "#d2f3ff"
     },
-    "logo": "/logos/pearl-legends.svg",
+    "logo": "/game-logos/pearl-legends.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 597,
@@ -8108,7 +8108,7 @@
       "accent": "#39d5c5",
       "highlight": "#ffb45e"
     },
-    "logo": "/logos/crystal-mystery.svg",
+    "logo": "/game-logos/crystal-mystery.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 626,
@@ -8169,7 +8169,7 @@
       "accent": "#e5a83b",
       "highlight": "#fff0b0"
     },
-    "logo": "/logos/turbo-spin.svg",
+    "logo": "/game-logos/turbo-spin.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 655,
@@ -8229,7 +8229,7 @@
       "accent": "#ed76cb",
       "highlight": "#ffc4e9"
     },
-    "logo": "/logos/velvet-empire.svg",
+    "logo": "/game-logos/velvet-empire.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 684,
@@ -8289,7 +8289,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/golden-blitz.svg",
+    "logo": "/game-logos/golden-blitz.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 713,
@@ -8348,7 +8348,7 @@
       "accent": "#57a7ff",
       "highlight": "#9ce9d4"
     },
-    "logo": "/logos/cosmic-world.svg",
+    "logo": "/game-logos/cosmic-world.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 742,
@@ -8407,7 +8407,7 @@
       "accent": "#5bd69c",
       "highlight": "#d6ff8a"
     },
-    "logo": "/logos/thunder-voyage.svg",
+    "logo": "/game-logos/thunder-voyage.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 771,
@@ -8472,7 +8472,7 @@
       "accent": "#9d7bff",
       "highlight": "#f7c85c"
     },
-    "logo": "/logos/phantom-quest.svg",
+    "logo": "/game-logos/phantom-quest.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 800,
@@ -8531,7 +8531,7 @@
       "accent": "#c46aff",
       "highlight": "#ffcb73"
     },
-    "logo": "/logos/dragon-tiger.svg",
+    "logo": "/game-logos/dragon-tiger.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 614,
@@ -8591,7 +8591,7 @@
       "accent": "#4da9ff",
       "highlight": "#9be7ff"
     },
-    "logo": "/logos/birds-beasts.svg",
+    "logo": "/game-logos/birds-beasts.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 786,
@@ -8651,7 +8651,7 @@
       "accent": "#ff934d",
       "highlight": "#ffe1a1"
     },
-    "logo": "/logos/treasure-digger.svg",
+    "logo": "/game-logos/treasure-digger.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 585,
@@ -8710,7 +8710,7 @@
       "accent": "#57d69c",
       "highlight": "#d5ff8a"
     },
-    "logo": "/logos/mercedes-bmw.svg",
+    "logo": "/game-logos/mercedes-bmw.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 614,
@@ -8771,7 +8771,7 @@
       "accent": "#f05eaa",
       "highlight": "#ffd2ef"
     },
-    "logo": "/logos/big-small.svg",
+    "logo": "/game-logos/big-small.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 382,
@@ -8831,7 +8831,7 @@
       "accent": "#8b8fff",
       "highlight": "#d4d5ff"
     },
-    "logo": "/logos/red-vs-blue.svg",
+    "logo": "/game-logos/red-vs-blue.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 786,
@@ -8892,7 +8892,7 @@
       "accent": "#c46aff",
       "highlight": "#ffcb73"
     },
-    "logo": "/logos/sic-bo.svg",
+    "logo": "/game-logos/sic-bo.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 382,
@@ -8951,7 +8951,7 @@
       "accent": "#4da9ff",
       "highlight": "#9be7ff"
     },
-    "logo": "/logos/baccarat.svg",
+    "logo": "/game-logos/baccarat.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 614,
@@ -9012,7 +9012,7 @@
       "accent": "#ff934d",
       "highlight": "#ffe1a1"
     },
-    "logo": "/logos/bull-bull-100.svg",
+    "logo": "/game-logos/bull-bull-100.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 440,
@@ -9073,7 +9073,7 @@
       "accent": "#57d69c",
       "highlight": "#d5ff8a"
     },
-    "logo": "/logos/texas-hold-em.svg",
+    "logo": "/game-logos/texas-hold-em.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 440,
@@ -9132,7 +9132,7 @@
       "accent": "#f05eaa",
       "highlight": "#ffd2ef"
     },
-    "logo": "/logos/win-three-cards.svg",
+    "logo": "/game-logos/win-three-cards.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 614,
@@ -9193,7 +9193,7 @@
       "accent": "#8b8fff",
       "highlight": "#d4d5ff"
     },
-    "logo": "/logos/banker-bull-bull.svg",
+    "logo": "/game-logos/banker-bull-bull.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 440,
@@ -9252,7 +9252,7 @@
       "accent": "#c46aff",
       "highlight": "#ffcb73"
     },
-    "logo": "/logos/aviator.svg",
+    "logo": "/game-logos/aviator.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 612,
@@ -9314,7 +9314,7 @@
       "accent": "#4da9ff",
       "highlight": "#9be7ff"
     },
-    "logo": "/logos/wg-slot.svg",
+    "logo": "/game-logos/wg-slot.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 409,
@@ -9374,7 +9374,7 @@
       "accent": "#ff934d",
       "highlight": "#ffe1a1"
     },
-    "logo": "/logos/9wickets-sports.svg",
+    "logo": "/game-logos/9wickets-sports.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 786,
@@ -9436,7 +9436,7 @@
       "accent": "#57d69c",
       "highlight": "#d5ff8a"
     },
-    "logo": "/logos/jili-slot.svg",
+    "logo": "/game-logos/jili-slot.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 409,
@@ -9498,7 +9498,7 @@
       "accent": "#f05eaa",
       "highlight": "#ffd2ef"
     },
-    "logo": "/logos/pg-slot.svg",
+    "logo": "/game-logos/pg-slot.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 409,
@@ -9557,7 +9557,7 @@
       "accent": "#8b8fff",
       "highlight": "#d4d5ff"
     },
-    "logo": "/logos/jili-cards.svg",
+    "logo": "/game-logos/jili-cards.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 614,
@@ -9616,7 +9616,7 @@
       "accent": "#c46aff",
       "highlight": "#ffcb73"
     },
-    "logo": "/logos/crash.svg",
+    "logo": "/game-logos/crash.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 612,
@@ -9681,7 +9681,7 @@
       "accent": "#4da9ff",
       "highlight": "#9be7ff"
     },
-    "logo": "/logos/lightning-storm.svg",
+    "logo": "/game-logos/lightning-storm.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 699,
@@ -9740,7 +9740,7 @@
       "accent": "#ff934d",
       "highlight": "#ffe1a1"
     },
-    "logo": "/logos/ice-fishing.svg",
+    "logo": "/game-logos/ice-fishing.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 815,
@@ -9799,7 +9799,7 @@
       "accent": "#57d69c",
       "highlight": "#d5ff8a"
     },
-    "logo": "/logos/bet-stacker-blackjack.svg",
+    "logo": "/game-logos/bet-stacker-blackjack.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 873,
@@ -9859,7 +9859,7 @@
       "accent": "#f05eaa",
       "highlight": "#ffd2ef"
     },
-    "logo": "/logos/cricket-war.svg",
+    "logo": "/game-logos/cricket-war.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 786,
@@ -9920,7 +9920,7 @@
       "accent": "#8b8fff",
       "highlight": "#d4d5ff"
     },
-    "logo": "/logos/poker-king.svg",
+    "logo": "/game-logos/poker-king.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 440,
@@ -9979,7 +9979,7 @@
       "accent": "#c46aff",
       "highlight": "#ffcb73"
     },
-    "logo": "/logos/teen-patti-20-20.svg",
+    "logo": "/game-logos/teen-patti-20-20.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 614,
@@ -10039,7 +10039,7 @@
       "accent": "#4da9ff",
       "highlight": "#9be7ff"
     },
-    "logo": "/logos/calaca-bingo.svg",
+    "logo": "/game-logos/calaca-bingo.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 585,
@@ -10099,7 +10099,7 @@
       "accent": "#ff934d",
       "highlight": "#ffe1a1"
     },
-    "logo": "/logos/fortune-bingo.svg",
+    "logo": "/game-logos/fortune-bingo.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 585,
@@ -10159,7 +10159,7 @@
       "accent": "#57d69c",
       "highlight": "#d5ff8a"
     },
-    "logo": "/logos/color-prediction.svg",
+    "logo": "/game-logos/color-prediction.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 786,
@@ -10228,7 +10228,7 @@
       "accent": "#f05eaa",
       "highlight": "#ffd2ef"
     },
-    "logo": "/logos/win-drop.svg",
+    "logo": "/game-logos/win-drop.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 670,
@@ -10289,7 +10289,7 @@
       "accent": "#8b8fff",
       "highlight": "#d4d5ff"
     },
-    "logo": "/logos/jhandi-munda.svg",
+    "logo": "/game-logos/jhandi-munda.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 382,
@@ -10350,7 +10350,7 @@
       "accent": "#c46aff",
       "highlight": "#ffcb73"
     },
-    "logo": "/logos/fish-prawn-crab.svg",
+    "logo": "/game-logos/fish-prawn-crab.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 382,
@@ -10410,7 +10410,7 @@
       "accent": "#4da9ff",
       "highlight": "#9be7ff"
     },
-    "logo": "/logos/cricket-sah-75.svg",
+    "logo": "/game-logos/cricket-sah-75.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 786,
@@ -10471,7 +10471,7 @@
       "accent": "#ff934d",
       "highlight": "#ffe1a1"
     },
-    "logo": "/logos/video-poker.svg",
+    "logo": "/game-logos/video-poker.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 440,
@@ -10530,7 +10530,7 @@
       "accent": "#57d69c",
       "highlight": "#d5ff8a"
     },
-    "logo": "/logos/teen-patti.svg",
+    "logo": "/game-logos/teen-patti.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 614,
@@ -10589,7 +10589,7 @@
       "accent": "#f05eaa",
       "highlight": "#ffd2ef"
     },
-    "logo": "/logos/ak47.svg",
+    "logo": "/game-logos/ak47.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 614,
@@ -10648,7 +10648,7 @@
       "accent": "#8b8fff",
       "highlight": "#d4d5ff"
     },
-    "logo": "/logos/callbreak.svg",
+    "logo": "/game-logos/callbreak.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 614,
@@ -10706,7 +10706,7 @@
       "accent": "#c46aff",
       "highlight": "#ffcb73"
     },
-    "logo": "/logos/chicken-dash.svg",
+    "logo": "/game-logos/chicken-dash.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 641,
@@ -10771,7 +10771,7 @@
       "accent": "#4da9ff",
       "highlight": "#9be7ff"
     },
-    "logo": "/logos/european-roulette.svg",
+    "logo": "/game-logos/european-roulette.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 699,
@@ -10836,7 +10836,7 @@
       "accent": "#ff934d",
       "highlight": "#ffe1a1"
     },
-    "logo": "/logos/fortune-roulette.svg",
+    "logo": "/game-logos/fortune-roulette.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 699,
@@ -10897,7 +10897,7 @@
       "accent": "#57d69c",
       "highlight": "#d5ff8a"
     },
-    "logo": "/logos/thai-hilo.svg",
+    "logo": "/game-logos/thai-hilo.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 382,
@@ -10957,7 +10957,7 @@
       "accent": "#f05eaa",
       "highlight": "#ffd2ef"
     },
-    "logo": "/logos/ludo-quick.svg",
+    "logo": "/game-logos/ludo-quick.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 786,
@@ -11017,7 +11017,7 @@
       "accent": "#8b8fff",
       "highlight": "#d4d5ff"
     },
-    "logo": "/logos/pappu.svg",
+    "logo": "/game-logos/pappu.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 786,
@@ -11082,7 +11082,7 @@
       "accent": "#c46aff",
       "highlight": "#ffcb73"
     },
-    "logo": "/logos/cricket-roulette.svg",
+    "logo": "/game-logos/cricket-roulette.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 699,
@@ -11142,7 +11142,7 @@
       "accent": "#4da9ff",
       "highlight": "#9be7ff"
     },
-    "logo": "/logos/cricket-king-18.svg",
+    "logo": "/game-logos/cricket-king-18.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 786,
@@ -11202,7 +11202,7 @@
       "accent": "#ff934d",
       "highlight": "#ffe1a1"
     },
-    "logo": "/logos/number-king.svg",
+    "logo": "/game-logos/number-king.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 585,
@@ -11262,7 +11262,7 @@
       "accent": "#57d69c",
       "highlight": "#d5ff8a"
     },
-    "logo": "/logos/lucky-bingo.svg",
+    "logo": "/game-logos/lucky-bingo.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 585,
@@ -11323,7 +11323,7 @@
       "accent": "#f05eaa",
       "highlight": "#ffd2ef"
     },
-    "logo": "/logos/big-small-casino-royale.svg",
+    "logo": "/game-logos/big-small-casino-royale.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 382,
@@ -11385,7 +11385,7 @@
       "accent": "#8b8fff",
       "highlight": "#d4d5ff"
     },
-    "logo": "/logos/golden-treasure.svg",
+    "logo": "/game-logos/golden-treasure.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 409,
@@ -11454,7 +11454,7 @@
       "accent": "#c46aff",
       "highlight": "#ffcb73"
     },
-    "logo": "/logos/drop-ball.svg",
+    "logo": "/game-logos/drop-ball.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 670,
@@ -11512,7 +11512,7 @@
       "accent": "#4da9ff",
       "highlight": "#9be7ff"
     },
-    "logo": "/logos/gallina-fortunata.svg",
+    "logo": "/game-logos/gallina-fortunata.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 641,
@@ -11571,7 +11571,7 @@
       "accent": "#ff934d",
       "highlight": "#ffe1a1"
     },
-    "logo": "/logos/speed-andar-bahar.svg",
+    "logo": "/game-logos/speed-andar-bahar.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 614,
@@ -11629,7 +11629,7 @@
       "accent": "#57d69c",
       "highlight": "#d5ff8a"
     },
-    "logo": "/logos/frog-dash.svg",
+    "logo": "/game-logos/frog-dash.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 641,
@@ -11691,7 +11691,7 @@
       "accent": "#f05eaa",
       "highlight": "#ffd2ef"
     },
-    "logo": "/logos/grand-golden-treasure.svg",
+    "logo": "/game-logos/grand-golden-treasure.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 409,
@@ -11749,7 +11749,7 @@
       "accent": "#8b8fff",
       "highlight": "#d4d5ff"
     },
-    "logo": "/logos/chicken-dash-10000.svg",
+    "logo": "/game-logos/chicken-dash-10000.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 641,
@@ -11809,7 +11809,7 @@
       "accent": "#c46aff",
       "highlight": "#ffcb73"
     },
-    "logo": "/logos/football-golden-cup.svg",
+    "logo": "/game-logos/football-golden-cup.webp",
     "audioProfile": {
       "enabled": true,
       "winTone": 786,
