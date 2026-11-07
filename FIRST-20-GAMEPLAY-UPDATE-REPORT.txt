@@ -1,0 +1,43 @@
+KNP-999 — FIRST 20 GAMEPLAY UPDATE
+
+Scope:
+- Updated only game IDs 1 through 20.
+- Games 21 through 195 were left unchanged.
+
+Frontend controls and play flows:
+1-7, 12-13: three-reel slots, SPIN, AUTO SPIN x5, bet selector, rules/paytable.
+8 FlyX: START ROUND, rising multiplier, CASH OUT.
+9 Chicken Road 2.0: NEXT STEP and CASH OUT path.
+10 Plinko: DROP BALL and landing-bin multiplier.
+11 Crazy Time: SPIN WHEEL and multiplier segments.
+14 Star Hunter: target practice, score, START / PAY BET, FINISH ROUND.
+15 Happy Fishing and 16 Ocean Phoenix: target selection and FIRE.
+17 Super Ace: DEAL, HIT, STAND.
+18 7up7down: LOW, SEVEN, HIGH dice predictions.
+19 Rummy: DRAW CARD, DISCARD, CHECK SET.
+20 Poker: DEAL FIVE, CHECK, CALL, RAISE, FOLD, SHOWDOWN.
+
+Server:
+- Replaced the first 20 server engine resolvers with matching server-side virtual-game
+  profiles and outcomes.
+- Sent player choices (cashout multiplier, steps, target, prediction, hand/decision)
+  to server settlement where relevant.
+- Slot AUTO SPIN sends a bounded spin count to server settlement.
+- Server calculates the virtual payout; client-provided payout is not trusted.
+
+Validation:
+- All 395 JavaScript files passed `node --check`.
+- First 20 server engine modules were imported and executed with test choices.
+- First 20 game modules contain the expected main controls.
+- Original ZIP structure and all games 1-195 retained.
+
+Limitations:
+- These are original KNP-999 virtual-coin game implementations using familiar game
+  mechanics, not exact copies of proprietary third-party provider games or live casino
+  services. No real-money deposits, cash withdrawals, or cash-out features were added.
+- A Vite production build and browser/device QA were not completed because the uploaded
+  project did not contain node_modules or a package lockfile; dependency installation
+  did not complete in this environment.
+- Multi-step sessions such as crash/steps and card games are a virtual demo flow; the
+  server settles each round and validates the submitted choice, but this is not a
+  licensed external provider integration.

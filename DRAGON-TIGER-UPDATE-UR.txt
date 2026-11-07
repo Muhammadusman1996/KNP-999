@@ -1,0 +1,15 @@
+KNP-999 Dragon Tiger upgrade
+
+- Added dedicated Dragon vs Tiger card-table interface and uses the existing Dragon Tiger logo.
+- Added Dragon, Tiger and Tie selections.
+- Added a 20-second betting countdown, bet locking, card reveal, and explicit virtual-coin win/loss summary.
+- Server now generates both cards and calculates the outcome and payout. Client cannot choose the winning cards or payout.
+- Payout multipliers: Dragon/Tiger 1.95x; Tie 8.00x. These are virtual-coin game settings and may be adjusted.
+- Added live room player presence/status, public bet stake display, recent activity and chat.
+
+Important current limitations:
+- The countdown is currently client-side, not a server-authoritative shared table clock.
+- Each player's cards/result are settled individually; this is not yet one synchronized shared round with identical cards for every member.
+- The update customizes Dragon Tiger only. Games 1-40 need game-specific gameplay work; applying the same card logic to unrelated games would be incorrect.
+- No real-money deposits, withdrawals or cash-out. Virtual coins only.
+- Production build and full browser/mobile end-to-end testing were not run in this environment.
