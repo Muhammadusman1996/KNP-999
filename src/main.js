@@ -61,8 +61,123 @@ async function showHistory(selected="all"){
     const sel=app.querySelector("#history-game");sel.onchange=()=>render(sel.value);app.querySelector("#history-back").onclick=()=>lobby();render(selected);
   }catch(e){alert(e.message||"History could not be loaded.");}
 }
-function lobby(filter="All",query=""){if(cleanup){cleanup();cleanup=null;}const filtered=games.filter(g=>g.name.toLowerCase().includes(query.toLowerCase()));
-app.innerHTML=`<main class="shell"><header class="top"><div class="brand"><img class="brand-logo" src="/assets/knp-999-logo.png" alt="KNP-999"><span>KNP<span>-999</span></span></div><div class="wallet-pill">COIN BALANCE <b>${wallet.value.toFixed(2)}</b></div></header><section class="hero"><p>THE GAME ARENA</p><h1>Find your <em>next game.</em></h1><span>${games.length} individual game rooms · Virtual Coins only</span></section><section class="toolbar"><input id="search" placeholder="Search games..." value="${query}"></section><section class="account-actions"><span>${customer?.mobile||""} · ${customer?.email||""}</span><button id="history">میری گیم ہسٹری</button><button id="logout">لاگ آؤٹ</button></section><section class="grid">${filtered.map(g=>`<button class="game-card" data-id="${g.id}" style="--card-bg:${g.colors.background};--accent:${g.colors.accent};--glow:${g.colors.highlight}"><img src="${g.logo}" alt="${g.name} logo"><span class="category">${g.category}</span><b>${g.name}</b><small>PLAY NOW ↗</small></button>`).join("")}</section><footer>© KNP-999 · Virtual Coins only · <a class="admin-contact" href="https://wa.me/923111810070" target="_blank" rel="noopener">Admin Contact: 03111810070 · WhatsApp</a></footer></main>`;
-app.querySelector("#search").oninput=e=>lobby(filter,e.target.value);app.querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>launch(games.find(g=>g.id===Number(b.dataset.id))));app.querySelector("#history").onclick=showHistory;app.querySelector("#logout").onclick=async()=>{await logoutCustomer();customer=null;auth("آپ لاگ آؤٹ ہو گئے ہیں۔");};}
-async function launch(game){const mod=await import(`./engines/${game.slug}.js`);app.innerHTML=`<main class="game-wrap" id="game-root"></main>`;const root=app.querySelector("#game-root");cleanup=mod.default(root,wallet);root.addEventListener("backtolobby",()=>lobby());}
-getPlayerSession().then(s=>{customer=s.user;wallet.value=Number(s.coins);lobby();}).catch(()=>auth());
+function lobby(filter = "All", query = "") {
+  if (cleanup) {
+    cleanup();
+    cleanup = null;
+  }
+
+  const filtered = games.filter(g =>
+    String(g?.name ?? g?.title ?? "")
+      .toLowerCase()
+      .includes(String(query || "").toLowerCase())
+  );
+
+  app.innerHTML = `
+    <main class="shell">
+      <header class="top">
+        <div class="brand">
+          <img class="brand-logo" src="/assets/knp-999-logo.png" alt="KNP-999">
+          <span>KNP<span>-999</span></span>
+        </div>
+        <div class="wallet-pill">
+          COIN BALANCE <b>${Number(wallet.value || 0).toFixed(2)}</b>
+        </div>
+      </header>
+
+      <section class="hero">
+        <p>THE GAME ARENA</p>
+        <h1>Find your <em>next game.</em></h1>
+        <span>${games.length} individual game rooms · Virtual Coins only</span>
+      </section>
+
+      <section class="toolbar">
+        <input id="search" placeholder="Search games..." value="${String(query).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")}">
+      </section>
+
+      <section class="account-actions">
+        <span>${customer?.mobile || ""} · ${customer?.email || ""}</span>
+        <button id="history">میری گیم ہسٹری</button>
+        <button id="logout">لاگ آؤٹ</button>
+      </section>
+
+      <section class="grid">
+        ${filtered.map(g => `
+          <button
+            class="game-card"
+            data-id="${g.id}"
+            style="
+              --card-bg:${g.colors?.background || "#111827"};
+              --accent:${g.colors?.accent || "#00d9ff"};
+              --glow:${g.colors?.highlight || "#00d9ff"}
+            "
+          >
+            <img src="${g.logo || ""}" alt="${g.name || g.title || "Game"} logo">
+            <span class="category">${g.category || ""}</span>
+            <b>${g.name || g.title || "Game"}</b>
+            <small>PLAY NOW ↗</small>
+          </button>
+        `).join("")}
+      </section>
+
+      <footer>
+        © KNP-999 · Virtual Coins only ·
+        <a class="admin-contact"
+          href="https://wa.me/923111810070"
+          target="_blank"
+          rel="noopener">
+          Admin Contact: 03111810070 · WhatsApp
+        </a>
+      </footer>
+    </main>
+  `;
+
+  app.querySelector("#search").oninput = e => {
+    lobby(filter, e.target.value);
+  };
+
+  app.querySelectorAll("[data-id]").forEach(b => {
+    b.onclick = () => {
+      const game = games.find(g => String(g.id) === String(b.dataset.id));
+      if (game) launch(game);
+    };
+  });
+
+  app.querySelector("#history").onclick = showHistory;
+
+  app.querySelector("#logout").onclick = async () => {
+    await logoutCustomer();
+    customer = null;
+    auth("آپ لاگ آؤٹ ہو گئے ہیں۔");
+  };
+}
+
+async function launch(game) {
+  if (!game?.slug) {
+    console.error("Game slug is missing:", game);
+    return;
+  }
+
+  const mod = await import(`./engines/${game.slug}.js`);
+
+  app.innerHTML = `
+    <main class="game-wrap" id="game-root"></main>
+  `;
+
+  const root = app.querySelector("#game-root");
+
+  cleanup = mod.default(root, wallet);
+
+  root.addEventListener("backtolobby", () => lobby());
+}
+
+getPlayerSession()
+  .then(s => {
+    customer = s?.user || null;
+    wallet.value = Number(s?.coins || 0);
+    lobby();
+  })
+  .catch(error => {
+    console.error("Player session error:", error);
+    auth();
+  });
