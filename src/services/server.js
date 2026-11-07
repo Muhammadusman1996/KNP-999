@@ -1,3 +1,4 @@
+import { io } from "socket.io-client";
 const TOKEN_KEY="knp999-auth-token";
 // Android APK build: set VITE_API_BASE_URL to the deployed HTTPS API origin.
 const API_BASE=(import.meta.env.VITE_API_BASE_URL||"").replace(/\/$/,"");
@@ -10,7 +11,17 @@ export async function getPlayerSession(){if(!token())throw Error("Login required
 export async function getServerWallet(){return req("/api/wallet");}
 export async function getGameHistory(){return req("/api/history");}
 export async function playServerRound(gameId,stake,action,choice){return req("/api/round",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({gameId,stake,action,choice})});}
-export function connectGameRoom(){throw Error("Multiplayer socket authentication not enabled");}
+
+export function connectGameRoom(gameId,handlers={}){
+  const socket=io(API_BASE||window.location.origin,{auth:{token:token()},transports:["websocket","polling"]});
+  socket.on("connect",()=>socket.emit("room:join",{gameId}));
+  socket.on("room:state",data=>handlers.onState?.(data));
+  socket.on("room:players",data=>handlers.onPlayers?.(data));
+  socket.on("room:activity",data=>handlers.onActivity?.(data));
+  socket.on("room:message",data=>handlers.onMessage?.(data));
+  socket.on("connect_error",err=>handlers.onError?.(err));
+  return {socket,close:()=>socket.disconnect(),sendMessage:message=>socket.emit("room:message",{message})};
+}
 
 export async function requestBalance(amount,note=""){return req("/api/balance-requests",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({amount,note})});}
 export async function getBalanceRequests(){return req("/api/balance-requests");}
