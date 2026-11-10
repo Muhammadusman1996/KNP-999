@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chicken Road 2 - Fixed Edition</title>
+    <title>Chicken Road 2 - 30 Steps Edition</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0c0f17; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 10px; }
-        .header { width: 100%; max-width: 950px; display: flex; justify-content: space-between; align-items: center; background: #161b22; padding: 12px 20px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #30363d; }
-        .balance { font-size: 1.5rem; font-weight: bold; color: #39ff14; text-shadow: 0 0 5px rgba(57,255,20,0.5); }
+        body { background-color: #070a13; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 10px; }
+        .header { width: 100%; max-width: 1000px; display: flex; justify-content: space-between; align-items: center; background: #101625; padding: 12px 20px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #384b65; }
+        .balance { font-size: 1.5rem; font-weight: bold; color: #10b981; text-shadow: 0 0 5px rgba(16,185,129,0.5); }
         
         .game-wrapper {
             position: relative;
             width: 100%;
-            max-width: 950px;
-            height: 450px;
-            background: #0d1117;
-            border: 4px solid #30363d;
+            max-width: 1000px;
+            height: 500px;
+            background: #030712;
+            border: 4px solid #1f2937;
             border-radius: 15px;
             overflow: hidden;
             display: flex;
@@ -24,89 +24,105 @@
         .lane { flex: 1; height: 100%; border-right: 1px dashed rgba(255,255,255,0.05); position: relative; }
         .lane:last-child { border-right: none; }
         
-        .road-line { position: absolute; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.1); left: 50%; transform: translateX(-50%); }
+        .road-line { position: absolute; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.05); left: 50%; transform: translateX(-50%); }
 
         #chicken {
             position: absolute;
-            left: 25px;
+            left: 20px;
             top: 50%;
-            transform: translateY(-50%) scaleX(1);
-            width: 50px;
-            height: 50px;
-            font-size: 40px;
+            transform: translateY(-50%) rotate(90deg); /* Facing down */
+            width: 45px;
+            height: 45px;
+            font-size: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: left 0.3s ease;
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 20;
         }
 
         .car {
             position: absolute;
             top: -60px;
-            width: 70px;
-            height: 40px;
-            font-size: 35px;
+            width: 60px;
+            height: 50px;
+            font-size: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transform: rotate(180deg); /* Facing down */
             z-index: 10;
         }
 
-        .steps-container {
+        .breaker {
             position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: space-around;
-            padding: 0 30px;
+            width: 100%;
+            height: 20px;
+            background: repeating-linear-gradient(90deg, #f59e0b, #f59e0b 20px, #000 20px, #000 40px);
+            border-top: 3px solid #fff;
+            border-bottom: 3px solid #fff;
+            z-index: 15;
+            opacity: 0.8;
+        }
+
+        .steps-wrapper {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
             z-index: 5;
         }
+        .steps-container {
+            display: inline-flex;
+            gap: 10px;
+            padding: 5px;
+        }
         .step-node {
-            background: #161b22;
-            color: #d4af37;
-            padding: 8px 12px;
-            border-radius: 20px;
+            background: #1f2937;
+            color: #9ca3af;
+            padding: 6px 12px;
+            border-radius: 15px;
             font-weight: bold;
-            font-size: 0.9rem;
-            border: 2px solid #d4af37;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            border: 1px solid #374151;
+            white-space: nowrap;
+            transition: all 0.2s ease;
         }
 
         .controls-panel {
             width: 100%;
-            max-width: 950px;
-            background: #161b22;
+            max-width: 1000px;
+            background: #101625;
             padding: 20px;
             border-radius: 15px;
             display: flex;
             flex-direction: column;
             gap: 15px;
             margin-top: 15px;
-            border: 1px solid #30363d;
+            border: 1px solid #384b65;
         }
         .control-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
         .input-group { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
-        input { padding: 10px; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: #fff; width: 100px; text-align: center; font-weight: bold; font-size: 1.1rem; }
+        input { padding: 10px; border-radius: 8px; border: 1px solid #384b65; background: #070a13; color: #fff; width: 100px; text-align: center; font-weight: bold; font-size: 1.1rem; }
         .difficulty-group { display: flex; gap: 10px; align-items: center;}
-        .btn-diff { padding: 10px 18px; background: #0d1117; color: #8b949e; border: 1px solid #30363d; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; }
-        .btn-diff.active { background: #d4af37; color: #000; border-color: #d4af37; }
+        .btn-diff { padding: 10px 18px; background: #070a13; color: #9ca3af; border: 1px solid #384b65; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; }
+        .btn-diff.active { background: #3b82f6; color: #fff; border-color: #60a5fa; }
         
         .action-group { display: flex; gap: 15px; width: 100%; }
         button.action-btn { flex: 1; padding: 18px; color: #fff; border: none; border-radius: 10px; font-size: 1.4rem; font-weight: bold; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .btn-go { background: linear-gradient(to bottom, #238636, #2ea043); }
-        .btn-cash { background: linear-gradient(to bottom, #da3633, #b62324); }
-        button:disabled { background: #21262d; color: #484f58; cursor: not-allowed; box-shadow: none; }
+        .btn-go { background: linear-gradient(to bottom, #10b981, #059669); }
+        .btn-cash { background: linear-gradient(to bottom, #f59e0b, #d97706); }
+        button:disabled { background: #374151; color: #9ca3af; cursor: not-allowed; box-shadow: none; }
 
-        #status-bar { text-align: center; font-size: 1.5rem; font-weight: bold; color: #d4af37; height: 40px; display: flex; align-items: center; justify-content: center; text-shadow: 0 0 10px rgba(212,175,55,0.3); }
+        #status-bar { text-align: center; font-size: 1.3rem; font-weight: bold; color: #60a5fa; height: 35px; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h2>Chicken Road 2</h2>
+    <h2>Chicken Road 2 Pro</h2>
     <div class="balance">Balance: $<span id="balance-amount">1000.00</span></div>
 </div>
 
@@ -118,7 +134,9 @@
     <div class="lane"><div class="road-line"></div></div>
     <div class="lane"><div class="road-line"></div></div>
     
-    <div class="steps-container" id="steps-container"></div>
+    <div class="steps-wrapper">
+        <div class="steps-container" id="steps-container"></div>
+    </div>
     <div id="chicken">🐔</div>
 </div>
 
@@ -131,7 +149,7 @@
             <input type="number" id="bet-input" value="10" min="1">
         </div>
         <div class="difficulty-group">
-            <span style="font-weight:bold; color:#8b949e;">Speed:</span>
+            <span style="font-weight:bold; color:#9ca3af;">Speed:</span>
             <button class="btn-diff active" onclick="setDifficulty('easy', this)">Easy</button>
             <button class="btn-diff" onclick="setDifficulty('medium', this)">Medium</button>
             <button class="btn-diff" onclick="setDifficulty('high', this)">High</button>
@@ -152,9 +170,15 @@
     let trafficInterval = null;
     let collisionInterval = null;
     let cars = [];
+    let activeBreakers = [];
     
-    const stepMultipliers = [1.2, 1.3, 1.4, 1.5, 1.65, 1.8, 2.0, 2.2, 2.4, 2.7, 3.0, 3.5, 4.0, 5.0];
-    const carEmojis = ['🏎️', '🚗', '🚙', '🚕', '🛻'];
+    // 30 precise multiplier steps leading up to 10.0x
+    const stepMultipliers = [
+        1.05, 1.10, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75, 1.85,
+        2.00, 2.15, 2.30, 2.45, 2.60, 2.80, 3.00, 3.25, 3.50, 3.75,
+        4.00, 4.30, 4.60, 5.00, 5.50, 6.00, 6.80, 7.60, 8.80, 10.00
+    ];
+    const carEmojis = ['🏎️', '🚗', '🚙', '🚕', '🛻', '🚜', '🚚'];
 
     function updateDisplay() {
         document.getElementById('balance-amount').innerText = Number.isFinite(balance) ? balance.toFixed(2) : "0.00";
@@ -174,7 +198,7 @@
             const div = document.createElement('div');
             div.className = 'step-node';
             div.id = `step-node-${index}`;
-            div.innerText = `${mult}x`;
+            div.innerText = `${mult.toFixed(2)}x`;
             container.appendChild(div);
         });
     }
@@ -186,8 +210,14 @@
         } else {
             const containerWidth = document.getElementById('lane-container').offsetWidth;
             const laneWidth = containerWidth / 6;
-            const targetLeft = (currentStep * laneWidth) + (laneWidth / 2) - 25;
+            const targetLeft = (currentStep * laneWidth) + (laneWidth / 2) - 22;
             chicken.style.left = `${targetLeft}px`;
+            
+            // Auto scroll container if needed
+            const stepNode = document.getElementById(`step-node-${currentStep}`);
+            if(stepNode) {
+                stepNode.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
         }
     }
 
@@ -220,50 +250,70 @@
         document.getElementById('bet-input').disabled = true;
         document.querySelectorAll('.btn-diff').forEach(b => b.style.pointerEvents = 'none');
 
-        document.getElementById('status-bar').innerText = `Stage 1 (${stepMultipliers[0]}x). Keep moving!`;
+        document.getElementById('status-bar').innerText = `Stage 1 (${stepMultipliers[0].toFixed(2)}x). Move forward!`;
 
         highlightCurrentStepUI();
+        spawnSpeedBreakerBehindChicken();
 
         cars = [];
-        const spawnRates = { easy: 1000, medium: 750, high: 500 };
+        activeBreakers = [];
+        const spawnRates = { easy: 1100, medium: 800, high: 550 };
         trafficInterval = setInterval(spawnCar, spawnRates[difficulty]);
     }
 
     function highlightCurrentStepUI() {
         document.querySelectorAll('.step-node').forEach((el, idx) => {
             if(idx === currentStep) {
-                el.style.background = '#d4af37';
-                el.style.color = '#000';
-                el.style.transform = 'scale(1.1)';
-                el.style.borderColor = '#fff';
-            } else {
-                el.style.background = '#161b22';
-                el.style.color = '#d4af37';
+                el.style.background = '#3b82f6';
+                el.style.color = '#fff';
+                el.style.transform = 'scale(1.15)';
+                el.style.borderColor = '#60a5fa';
+                el.style.boxShadow = '0 0 10px rgba(59,130,246,0.5)';
+            } else if (idx < currentStep) {
+                el.style.background = '#059669';
+                el.style.color = '#fff';
                 el.style.transform = 'scale(1)';
-                el.style.borderColor = '#d4af37';
+                el.style.borderColor = '#10b981';
+            } else {
+                el.style.background = '#1f2937';
+                el.style.color = '#9ca3af';
+                el.style.transform = 'scale(1)';
+                el.style.borderColor = '#374151';
+                el.style.boxShadow = 'none';
             }
         });
     }
 
+    function spawnSpeedBreakerBehindChicken() {
+        // Create a visual barrier just behind the chicken's current position to block traffic
+        const container = document.getElementById('lane-container');
+        const breaker = document.createElement('div');
+        breaker.className = 'breaker';
+        breaker.style.top = '220px'; // Positioned safely behind the chicken area
+        container.appendChild(breaker);
+        activeBreakers.push(breaker);
+    }
+
     function spawnCar() {
         if(!gameActive) return;
+        // Spawn in random lanes safely
         for(let i=0; i<6; i++) {
-            if(Math.random() < 0.35) {
+            if(Math.random() < 0.3) {
                 const lane = document.querySelectorAll('.lane')[i];
                 if(lane.querySelector('.car')) continue;
 
                 const car = document.createElement('div');
                 car.className = 'car';
                 car.innerHTML = carEmojis[Math.floor(Math.random() * carEmojis.length)];
-                car.style.top = '-50px';
+                car.style.top = '-60px';
                 
                 const laneRect = lane.getBoundingClientRect();
                 const containerRect = document.getElementById('lane-container').getBoundingClientRect();
-                const centerOffset = laneRect.left - containerRect.left + (laneRect.width / 2) - 35;
+                const centerOffset = laneRect.left - containerRect.left + (laneRect.width / 2) - 30;
                 car.style.left = `${centerOffset}px`;
 
                 lane.appendChild(car);
-                cars.push({ el: car, top: -50, laneIndex: i });
+                cars.push({ el: car, top: -60, laneIndex: i });
             }
         }
     }
@@ -277,9 +327,22 @@
 
         for (let i = cars.length - 1; i >= 0; i--) {
             const carObj = cars[i];
-            carObj.top += speed;
-            carObj.el.style.top = `${carObj.top}px`;
+            
+            // Check collision with speed breakers
+            let stoppedByBreaker = false;
+            activeBreakers.forEach(b => {
+                const bRect = b.getBoundingClientRect();
+                if (carObj.top + 50 >= bRect.top && carObj.top <= bRect.bottom) {
+                    stoppedByBreaker = true;
+                }
+            });
 
+            if(!stoppedByBreaker) {
+                carObj.top += speed;
+                carObj.el.style.top = `${carObj.top}px`;
+            }
+
+            // Crash check only if car is in chicken's current lane and moved past breaker safely
             if (carObj.laneIndex === currentStep) {
                 const carRect = carObj.el.getBoundingClientRect();
                 
@@ -287,12 +350,12 @@
                       chickenRect.left > carRect.right || 
                       chickenRect.bottom < carRect.top || 
                       chickenRect.top > carRect.bottom)) {
-                    endGame(false, "Traffic Crash! Game Over.");
+                    endGame(false, "Crash! Game Over.");
                     return;
                 }
             }
 
-            if(carObj.top > 450) {
+            if(carObj.top > 500) {
                 carObj.el.remove();
                 cars.splice(i, 1);
             }
@@ -304,12 +367,19 @@
         currentStep++;
 
         if (currentStep >= stepMultipliers.length) {
-            endGame(true, `SUCCESS! Crossed safely! Won $${(currentBet * stepMultipliers[stepMultipliers.length - 1]).toFixed(2)}`);
+            endGame(true, `MAX MULTIPLIER REACHED! Won $${(currentBet * stepMultipliers[stepMultipliers.length - 1]).toFixed(2)}`);
         } else {
             updateChickenPosition();
             highlightCurrentStepUI();
             const currentMult = stepMultipliers[currentStep];
-            document.getElementById('status-bar').innerText = `Stage ${currentStep + 1} (${currentMult}x). Keep going!`;
+            document.getElementById('status-bar').innerText = `Stage ${currentStep + 1} (${currentMult.toFixed(2)}x). Keep going!`;
+            
+            // Move safety breaker forward with the chicken
+            if(activeBreakers.length > 0) {
+                activeBreakers.forEach(b => b.remove());
+                activeBreakers = [];
+            }
+            spawnSpeedBreakerBehindChicken();
         }
     }
 
@@ -350,6 +420,8 @@
 
         cars.forEach(c => c.el.remove());
         cars = [];
+        activeBreakers.forEach(b => b.remove());
+        activeBreakers = [];
     }
 
     initStepsUI();
