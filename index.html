@@ -229,3 +229,390 @@
         </div>
     </div>
 </div>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const multiplierDisplay = document.getElementById('multiplier-display');
+    const balanceDisplay = document.getElementById('user-balance');
+
+    let balance = 1000.00;
+    let multiplier = 1.00;
+    let crashPoint = 0;
+    let gameState = 'IDLE'; // IDLE, COUNTDOWN, RUNNING, CRASHED
+    let animationFrameId = null;
+    let startTime = null;
+    let countdownStart = null;
+    const COUNTDOWN_TIME = 3000; // 3 seconds lobby time
+
+    // Background buildings offset
+    let cityOffset = 0;
+    const buildingSpeed = 0.5;
+
+    const bets = {
+        1: { active: false, amount: 0, cashedOut: false, auto: null },
+        2: { active: false, amount: 0, cashedOut: false, auto: null }
+    };
+
+    function updateBalance() {
+        balanceDisplay.innerText = balance.toFixed(2);
+    }
+
+    function adjustBet(panel, value) {
+        if (gameState !== 'IDLE') return;
+        const input = document.getElementById(`bet-amount-${panel}`);
+        const currentVal = parseFloat(input.value || 0);
+        input.value = Math.max(1, currentVal + value);
+    }
+
+    function handleBetClick(panel) {
+        // If running, it acts as cashout
+        if (gameState === 'RUNNING') {
+            if (bets[panel].active && !bets[panel].cashedOut) {
+                cashOut(panel);
+            }
+            return;
+        }
+
+        // If idle or countdown, toggle bet
+        if (gameState === 'IDLE' || gameState === 'COUNTDOWN') {
+            const btn = document.getElementById(`btn-action-${panel}`);
+            const amountInput = document.getElementById(`bet-amount-${panel}`);
+            const autoInput = document.getElementById(`auto-cashout-${panel}`);
+
+            if (!bets[panel].active) {
+                const amount = parseFloat(amountInput.value);
+                if (isNaN(amount) || amount <= 0 || amount > balance) return;
+
+                balance -= amount;
+                updateBalance();
+
+                bets[panel].active = true;
+                bets[panel].amount = amount;
+                bets[panel].cashedOut = false;
+                bets[panel].auto = parseFloat(autoInput.value) || null;
+
+                document.getElementById(`card-${panel}`).classList.add('active-bet');
+                btn.innerText = 'Cancel Bet';
+                btn.classList.remove('btn-bet');
+                btn.classList.add('btn-cashout');
+
+                // If first bet placed, start countdown to launch
+                if (gameState === 'IDLE') {
+                    startCountdown();
+                }
+            } else {
+                // Cancel bet
+                balance += bets[panel].amount;
+                updateBalance();
+
+                bets[panel].active = false;
+                document.getElementById(`card-${panel}`).classList.remove('active-bet');
+                btn.innerText = 'Place Bet';
+                btn.classList.remove('btn-cashout');
+                btn.classList.add('btn-bet');
+
+                // If no bets are active, revert to idle
+                if (!bets[1].active && !bets[2].active) {
+                    gameState = 'IDLE';
+                    cancelAnimationFrame(animationFrameId);
+                    multiplierDisplay.innerText = '1.00x';
+                    drawScene();
+                }
+            }
+        }
+    }
+
+    function startCountdown() {
+        gameState = 'COUNTDOWN';
+        countdownStart = performance.now();
+        [1, 2].forEach(p => document.getElementById(`bet-amount-${p}`).disabled = true);
+        requestAnimationFrame(runCountdown);
+    }
+
+    function runCountdown(timestamp) {
+        if (gameState !== 'COUNTDOWN') return;
+        const elapsed = timestamp - countdownStart;
+        const remaining = Math.max(0, (COUNTDOWN_TIME - elapsed) / 1000);
+
+        multiplierDisplay.innerText = `Starts in ${Math.ceil(remaining)}s`;
+        drawScene();
+
+        if (remaining > 0) {
+            animationFrameId = requestAnimationFrame(runCountdown);
+        } else {
+            startRound();
+        }
+    }
+
+    function startRound() {
+        gameState = 'RUNNING';
+        multiplier = 1.00;
+        crashPoint = generateCrashPoint();
+        startTime = performance.now();
+
+        [1, 2].forEach(panel => {
+            document.getElementById(`bet-amount-${panel}`).disabled = true;
+            document.getElementById(`auto-cashout-${panel}`).disabled = true;
+
+            const btn = document.getElementById(`btn-action-${panel}`);
+            if (bets[panel].active) {
+                btn.innerText = 'Cash Out';
+                btn.classList.remove('btn-bet');
+                btn.classList.add('btn-cashout');
+            } else {
+                btn.disabled = true;
+                btn.innerText = 'Missed';
+            }
+        });
+
+        multiplierDisplay.style.color = '#ffffff';
+        requestAnimationFrame(updateGame);
+    }
+
+    function generateCrashPoint() {
+        const e = 2 ** 32;
+        const h = crypto.getRandomValues(new Uint32Array(1))[0];
+        if (h % 33 === 0) return 1.00;
+        return Math.max(1.00, parseFloat(((100 * e - h) / (e - h) / 100).toFixed(2)));
+    }
+
+    function cashOut(panel) {
+        if (!bets[panel].active || bets[panel].cashedOut || gameState !== 'RUNNING') return;
+
+        bets[panel].cashedOut = true;
+        const winnings = bets[panel].amount * multiplier;
+        balance += winnings;
+        updateBalance();
+
+        const btn = document.getElementById(`btn-action-${panel}`);
+        btn.innerText = `Sold (${multiplier.toFixed(2)}x)`;
+        btn.disabled = true;
+    }
+
+    function updateGame(timestamp) {
+        if (gameState !== 'RUNNING') return;
+        const elapsed = (timestamp - startTime) / 1000;
+        multiplier = Math.pow(Math.E, 0.07 * elapsed); // Growth rate
+
+        [1, 2].forEach(panel => {
+            if (bets[panel].active && !bets[panel].cashedOut && bets[panel].auto) {
+                if (multiplier >= bets[panel].auto) {
+                    cashOut(panel);
+                }
+            }
+        });
+
+        if (multiplier >= crashPoint) {
+            endRound();
+            return;
+        }
+
+        multiplierDisplay.innerText = `${multiplier.toFixed(2)}x`;
+        cityOffset -= buildingSpeed * 2; // Move background faster when flying
+        drawScene();
+        animationFrameId = requestAnimationFrame(updateGame);
+    }
+
+    function endRound() {
+        gameState = 'CRASHED';
+        multiplierDisplay.innerText = `Crashed @ ${crashPoint.toFixed(2)}x`;
+        multiplierDisplay.style.color = '#ff4d4d';
+
+        drawScene(true);
+
+        setTimeout(() => {
+            resetGame();
+        }, 4000);
+    }
+
+    function resetGame() {
+        gameState = 'IDLE';
+        multiplierDisplay.innerText = '1.00x';
+        multiplierDisplay.style.color = '#ffffff';
+        cityOffset = 0;
+        cancelAnimationFrame(animationFrameId);
+
+        [1, 2].forEach(panel => {
+            const btn = document.getElementById(`btn-action-${panel}`);
+            btn.innerText = 'Place Bet';
+            btn.classList.remove('btn-cashout', 'btn-bet');
+            btn.classList.add('btn-bet');
+            btn.disabled = false;
+
+            document.getElementById(`bet-amount-${panel}`).disabled = false;
+            document.getElementById(`auto-cashout-${panel}`).disabled = false;
+            document.getElementById(`card-${panel}`).classList.remove('active-bet');
+
+            bets[panel].active = false;
+            bets[panel].cashedOut = false;
+        });
+        
+        drawScene();
+    }
+
+    function drawScene(crashed = false) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Sky gradient
+        let skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        skyGradient.addColorStop(0, '#003049');
+        skyGradient.addColorStop(0.5, '#0077b6');
+        skyGradient.addColorStop(1, '#90e0ef');
+        ctx.fillStyle = skyGradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw Clouds
+        drawCloud(100 + (cityOffset * 0.1) % (canvas.width + 200) - 100, 100, 80);
+        drawCloud(400 + (cityOffset * 0.1) % (canvas.width + 200) - 100, 150, 120);
+        drawCloud(700 + (cityOffset * 0.1) % (canvas.width + 200) - 100, 80, 100);
+
+        // Draw City Skyline
+        drawCityscape();
+
+        // Calculate Plane Position
+        const progress = gameState === 'RUNNING' ? Math.min(1, (multiplier - 1) / 10) : 0;
+        const startX = 100;
+        const startY = canvas.height - 100;
+        const endX = startX + 500 * progress;
+        const endY = startY - 250 * progress;
+
+        if (gameState === 'RUNNING' && !crashed) {
+            // Draw Flight Trail
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.bezierCurveTo(startX + 150, startY - 50, endX - 100, endY - 50, endX, endY);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = 4;
+            ctx.setLineDash([8, 8]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        if (!crashed) {
+            drawPIAPlane(endX, endY, progress);
+        } else {
+            drawCrashEffect(endX, endY);
+        }
+    }
+
+    function drawCloud(x, y, size) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.beginPath();
+        ctx.arc(x, y, size * 0.4, 0, Math.PI * 2);
+        ctx.arc(x + size * 0.3, y - size * 0.1, size * 0.5, 0, Math.PI * 2);
+        ctx.arc(x + size * 0.6, y, size * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    function drawCityscape() {
+        ctx.fillStyle = '#0a1128';
+        const buildingWidth = 60;
+        const gap = 20;
+        let x = cityOffset % (buildingWidth + gap);
+
+        while (x < canvas.width) {
+            let height = 100 + Math.sin(x) * 60 + Math.cos(x*2) * 40;
+            // Draw building
+            ctx.fillRect(x, canvas.height - height, buildingWidth, height);
+            
+            // Draw simple windows
+            ctx.fillStyle = '#ffb703';
+            for (let wy = canvas.height - height + 10; wy < canvas.height; wy += 20) {
+                for (let wx = x + 10; wx < x + buildingWidth - 10; wx += 15) {
+                    if (Math.random() > 0.3) {
+                        ctx.fillRect(wx, wy, 8, 12);
+                    }
+                }
+            }
+            ctx.fillStyle = '#0a1128';
+
+            x += buildingWidth + gap;
+        }
+    }
+
+    function drawPIAPlane(x, y, progress) {
+        ctx.save();
+        ctx.translate(x, y);
+        
+        // Slight pitch up based on climb
+        const pitch = -Math.PI / 12 + (progress * Math.PI / 8);
+        ctx.rotate(pitch);
+
+        const scale = 0.8;
+        ctx.scale(scale, scale);
+
+        // PIA Liveries Colors
+        const piaGreen = '#01411C';
+        const piaGold = '#D4AF37';
+
+        // Fuselage (Body)
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 50, 16, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#CCCCCC';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Cockpit Window
+        ctx.fillStyle = '#111111';
+        ctx.beginPath();
+        ctx.moveTo(35, -5);
+        ctx.lineTo(45, -2);
+        ctx.lineTo(42, -8);
+        ctx.closePath();
+        ctx.fill();
+
+        // Tail Fin (Curved Islamic Art Style)
+        ctx.fillStyle = piaGreen;
+        ctx.beginPath();
+        ctx.moveTo(-35, 0);
+        ctx.quadraticCurveTo(-50, -35, -35, -45);
+        ctx.lineTo(-20, -45);
+        ctx.lineTo(-30, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        // Golden tail accent
+        ctx.fillStyle = piaGold;
+        ctx.fillRect(-37, -15, 3, 10);
+
+        // Wings
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.moveTo(-10, 0);
+        ctx.lineTo(10, 35);
+        ctx.lineTo(20, 35);
+        ctx.lineTo(0, 0);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = '#CCCCCC';
+        ctx.stroke();
+
+        // Jet Engines
+        ctx.fillStyle = '#6c757d';
+        ctx.fillRect(5, 25, 12, 14);
+        ctx.fillRect(-5, 0, 8, 10); // small underwing
+
+        // Red stripe along body (PIA livery detail)
+        ctx.strokeStyle = '#E31D2B';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(-30, 4);
+        ctx.lineTo(30, 2);
+        ctx.stroke();
+
+        ctx.restore();
+    }
+
+    function drawCrashEffect(x, y) {
+        // Explosion
+        ctx.fillStyle = '#ff4d4d';
+        ctx.beginPath();
+        ctx.arc(x, y, 50, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#ffa500';
+        ctx.beginPath();
+        ctx.arc
