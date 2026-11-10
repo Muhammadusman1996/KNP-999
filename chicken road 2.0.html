@@ -1,405 +1,469 @@
-<pre><code class="language-html"><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chicken Road 2 Ultimate Pro</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-body { background-color: #05070e; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 10px; overflow-x: hidden; }
-.header { width: 100%; max-width: 900px; display: flex; justify-content: space-between; align-items: center; background: #111827; padding: 15px 25px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #1f2937; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-h1 { font-size: 1.8rem; background: linear-gradient(45deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.balance { font-size: 1.6rem; font-weight: bold; color: #10b981; text-shadow: 0 0 10px rgba(16,185,129,0.5); }
-.game-wrapper {
-position: relative;
-width: 100%;
-max-width: 900px;
-height: 350px;
-background: #111827;
-border: 4px solid #374151;
-border-radius: 15px;
-overflow: hidden;
-display: flex;
-box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
-}
-.lane { flex: 1; height: 100%; border-right: 2px dashed #1f2937; position: relative; }
-.lane:last-child { border-right: none; }
-#chicken {
-position: absolute;
-bottom: 20px;
-transform: translateX(-50%) scaleX(1);
-width: 50px;
-height: 50px;
-font-size: 40px;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: left 0.3s ease-out;
-z-index: 20;
-}
-.car {
-position: absolute;
-top: -60px;
-width: 70%;
-left: 15%;
-height: 45px;
-font-size: 35px;
-display: flex;
-align-items: center;
-justify-content: center;
-transform: rotate(180deg);
-z-index: 10;
-}
-.safety-line {
-position: absolute;
-bottom: 75px;
-width: 100%;
-height: 6px;
-background: linear-gradient(90deg, transparent, #eab308, transparent);
-border-top: 2px solid #fff;
-border-bottom: 2px solid #fff;
-z-index: 15;
-box-shadow: 0 0 10px #eab308;
-display: none;
-}
-.steps-section {
-width: 100%;
-max-width: 900px;
-margin: 15px 0;
-background: #111827;
-padding: 10px;
-border-radius: 12px;
-border: 1px solid #374151;
-}
-.steps-grid {
-display: grid;
-grid-template-columns: repeat(10, 1fr);
-gap: 8px;
-}
-.step-node {
-background: #1f2937;
-color: #9ca3af;
-padding: 10px 5px;
-border-radius: 6px;
-font-weight: bold;
-font-size: 0.9rem;
-text-align: center;
-border: 1px solid #374151;
-transition: all 0.3s ease;
-}
-.step-node.active {
-background: #3b82f6;
-color: #fff;
-border-color: #60a5fa;
-box-shadow: 0 0 10px rgba(59,130,246,0.5);
-transform: scale(1.05);
-}
-.step-node.passed {
-background: #059669;
-color: #fff;
-border-color: #10b981;
-}
-.controls-panel {
-width: 100%;
-max-width: 900px;
-background: #111827;
-padding: 20px;
-border-radius: 15px;
-display: flex;
-flex-direction: column;
-gap: 15px;
-border: 1px solid #1f2937;
-}
-.control-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
-.input-group { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; }
-input { padding: 10px; border-radius: 8px; border: 1px solid #374151; background: #05070e; color: #fff; width: 120px; text-align: center; font-weight: bold; font-size: 1.2rem; }
-.difficulty-group { display: flex; gap: 10px; align-items: center;}
-.btn-diff { padding: 10px 20px; background: #1f2937; color: #9ca3af; border: 1px solid #374151; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; }
-.btn-diff.active { background: #3b82f6; color: #fff; border-color: #60a5fa; }
-.action-group { display: flex; gap: 15px; width: 100%; }
-button.action-btn { flex: 1; padding: 20px; color: #fff; border: none; border-radius: 10px; font-size: 1.5rem; font-weight: bold; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-.btn-go { background: linear-gradient(to bottom, #10b981, #047857); }
-.btn-cash { background: linear-gradient(to bottom, #f59e0b, #b45309); }
-button:disabled { background: #374151; color: #6b7280; cursor: not-allowed; box-shadow: none; }
-#status-bar { text-align: center; font-size: 1.5rem; font-weight: bold; color: #60a5fa; height: 40px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
-#win-overlay {
-position: absolute;
-top: 0; left: 0; width: 100%; height: 100%;
-background: rgba(16, 185, 129, 0.95);
-display: none;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-z-index: 100;
-}
-.win-title { font-size: 3.5rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
-.win-amount { font-size: 2.5rem; color: #fef08a; font-weight: bold; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chicken Road 2 Ultimate Pro</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #05070e; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 10px; overflow-x: hidden; }
+        
+        .header { width: 100%; max-width: 900px; display: flex; justify-content: space-between; align-items: center; background: #111827; padding: 15px 25px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #1f2937; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        h1 { font-size: 1.8rem; background: linear-gradient(45deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .balance { font-size: 1.6rem; font-weight: bold; color: #10b981; text-shadow: 0 0 10px rgba(16,185,129,0.5); }
+        
+        .game-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            height: 350px;
+            background: #111827;
+            border: 4px solid #374151;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+        }
+        .lane { flex: 1; height: 100%; border-right: 2px dashed #1f2937; position: relative; }
+        .lane:last-child { border-right: none; }
+        
+        #chicken {
+            position: absolute;
+            bottom: 20px;
+            transform: translateX(-50%) scaleX(1);
+            width: 50px;
+            height: 50px;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: left 0.3s ease-out;
+            z-index: 20;
+        }
+
+        .car {
+            position: absolute;
+            top: -60px;
+            width: 70%;
+            left: 15%;
+            height: 45px;
+            font-size: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(180deg);
+            z-index: 10;
+        }
+
+        .safety-line {
+            position: absolute;
+            bottom: 75px;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, #eab308, transparent);
+            border-top: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            z-index: 15;
+            box-shadow: 0 0 10px #eab308;
+            display: none;
+        }
+
+        .steps-section {
+            width: 100%;
+            max-width: 900px;
+            margin: 15px 0;
+            background: #111827;
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid #374151;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 8px;
+        }
+
+        .step-node {
+            background: #1f2937;
+            color: #9ca3af;
+            padding: 10px 5px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-align: center;
+            border: 1px solid #374151;
+            transition: all 0.3s ease;
+        }
+        .step-node.active {
+            background: #3b82f6;
+            color: #fff;
+            border-color: #60a5fa;
+            box-shadow: 0 0 10px rgba(59,130,246,0.5);
+            transform: scale(1.05);
+        }
+        .step-node.passed {
+            background: #059669;
+            color: #fff;
+            border-color: #10b981;
+        }
+
+        .controls-panel {
+            width: 100%;
+            max-width: 900px;
+            background: #111827;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border: 1px solid #1f2937;
+        }
+        .control-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+        .input-group { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; }
+        input { padding: 10px; border-radius: 8px; border: 1px solid #374151; background: #05070e; color: #fff; width: 120px; text-align: center; font-weight: bold; font-size: 1.2rem; }
+        .difficulty-group { display: flex; gap: 10px; align-items: center;}
+        .btn-diff { padding: 10px 20px; background: #1f2937; color: #9ca3af; border: 1px solid #374151; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; }
+        .btn-diff.active { background: #3b82f6; color: #fff; border-color: #60a5fa; }
+        
+        .action-group { display: flex; gap: 15px; width: 100%; }
+        button.action-btn { flex: 1; padding: 20px; color: #fff; border: none; border-radius: 10px; font-size: 1.5rem; font-weight: bold; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .btn-go { background: linear-gradient(to bottom, #10b981, #047857); }
+        .btn-cash { background: linear-gradient(to bottom, #f59e0b, #b45309); }
+        button:disabled { background: #374151; color: #6b7280; cursor: not-allowed; box-shadow: none; }
+
+        #status-bar { text-align: center; font-size: 1.5rem; font-weight: bold; color: #60a5fa; height: 40px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+        
+        #win-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(16, 185, 129, 0.95);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        .win-title { font-size: 3.5rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
+        .win-amount { font-size: 2.5rem; color: #fef08a; font-weight: bold; }
+    </style>
 </head>
 <body>
+
 <div class="header">
-<h1>Chicken Road 2 Ultimate Pro</h1>
-<div class="balance">Balance: $<span id="balance-amount">1000.00</span></div>
+    <h1>Chicken Road 2 Ultimate Pro</h1>
+    <div class="balance">Balance: $<span id="balance-amount">1000.00</span></div>
 </div>
+
 <div class="game-wrapper" id="lane-container">
-<div id="win-overlay">
-<div class="win-title">🎉 VICTORY! 🎉</div>
-<div class="win-amount" id="win-text">YOU WON $0.00</div>
+    <div id="win-overlay">
+        <div class="win-title">🎉 VICTORY! 🎉</div>
+        <div class="win-amount" id="win-text">YOU WON $0.00</div>
+    </div>
+    <div class="lane"></div>
+    <div class="lane"></div>
+    <div class="lane"></div>
+    <div class="lane"></div>
+    <div class="lane"></div>
+    <div class="lane"></div>
+    
+    <div id="safety-line" class="safety-line"></div>
+    <div id="chicken">🐔</div>
 </div>
-<div class="lane"></div>
-<div class="lane"></div>
-<div class="lane"></div>
-<div class="lane"></div>
-<div class="lane"></div>
-<div class="lane"></div>
-<div id="safety-line" class="safety-line"></div>
-<div id="chicken">🐔</div>
-</div>
+
 <div class="steps-section">
-<div class="steps-grid" id="steps-grid"></div>
+    <div class="steps-grid" id="steps-grid"></div>
 </div>
+
 <div id="status-bar">Set bet, select speed, and Go Chicken!</div>
+
 <div class="controls-panel">
-<div class="control-row">
-<div class="input-group">
-<label>Bet ($):</label>
-<input type="number" id="bet-input" value="10" min="1">
+    <div class="control-row">
+        <div class="input-group">
+            <label>Bet ($):</label>
+            <input type="number" id="bet-input" value="10" min="1">
+        </div>
+        <div class="difficulty-group">
+            <span style="font-weight:bold; color:#9ca3af;">Traffic Speed:</span>
+            <button class="btn-diff active" onclick="setDifficulty('easy', this)">Easy</button>
+            <button class="btn-diff" onclick="setDifficulty('medium', this)">Medium</button>
+            <button class="btn-diff" onclick="setDifficulty('high', this)">High</button>
+        </div>
+    </div>
+    <div class="action-group">
+        <button class="action-btn btn-go" id="go-btn" onclick="handleMainButton()">GO CHICKEN</button>
+        <button class="action-btn btn-cash" id="cash-btn" onclick="cashOut()" disabled>Collect Cash</button>
+    </div>
 </div>
-<div class="difficulty-group">
-<span style="font-weight:bold; color:#9ca3af;">Traffic Speed:</span>
-<button class="btn-diff active" onclick="setDifficulty('easy', this)">Easy</button>
-<button class="btn-diff" onclick="setDifficulty('medium', this)">Medium</button>
-<button class="btn-diff" onclick="setDifficulty('high', this)">High</button>
-</div>
-</div>
-<div class="action-group">
-<button class="action-btn btn-go" id="go-btn" onclick="handleMainButton()">GO CHICKEN</button>
-<button class="action-btn btn-cash" id="cash-btn" onclick="cashOut()" disabled>Collect Cash</button>
-</div>
-</div>
+
 <script>
-let balance = 1000.00;
-let currentBet = 0;
-let currentStep = -1;
-let gameActive = false;
-let difficulty = 'easy';
-let trafficInterval = null;
-let collisionInterval = null;
-let cars = [];
-const stepMultipliers = [
-1.05, 1.10, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75, 1.85,
-2.00, 2.15, 2.30, 2.45, 2.60, 2.80, 3.00, 3.25, 3.50, 3.75,
-4.00, 4.30, 4.60, 5.00, 5.50, 6.00, 6.80, 7.60, 8.80, 10.00
-];
-const carEmojis = ['🏎️', '🚗', '🚙', '🚕', '🛻', '🚜', '🚚'];
-function updateDisplay() {
-document.getElementById('balance-amount').innerText = Number.isFinite(balance) ? balance.toFixed(2) : "0.00";
-}
-function setDifficulty(level, btn) {
-if(gameActive) return;
-difficulty = level;
-document.querySelectorAll('.btn-diff').forEach(b => b.classList.remove('active'));
-btn.classList.add('active');
-}
-function initStepsUI() {
-const container = document.getElementById('steps-grid');
-container.innerHTML = '';
-stepMultipliers.forEach((mult, index) => {
-const div = document.createElement('div');
-div.className = 'step-node';
-div.id = step-node-${index};
-div.innerText = ${mult.toFixed(2)}x;
-container.appendChild(div);
-});
-}
-function updateChickenPosition() {
-const chicken = document.getElementById('chicken');
-const safetyLine = document.getElementById('safety-line');
-if (currentStep === -1) {
-chicken.style.left = 8.33%;
-chicken.style.transform = translateX(-50%) scaleX(1);
-safetyLine.style.display = 'none';
-} else {
-const laneWidth = 100 / 6;
-const targetLeft = (currentStep * laneWidth) + (laneWidth / 2);
-chicken.style.left = ${targetLeft}%;
-chicken.style.display = 'flex'; // Ensure visible
-safetyLine.style.display = 'block';
-const stepNode = document.getElementById(step-node-${currentStep});
-if(stepNode) {
-stepNode.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-}
-}
-function handleMainButton() {
-if (!gameActive) {
-startProcedure();
-} else {
-advanceChicken();
-}
-}
-function startProcedure() {
-const inputVal = document.getElementById('bet-input').value;
-const betInput = parseFloat(inputVal);
-if(isNaN(betInput) || betInput <= 0) { alert("Invalid bet!"); return; }
-if(betInput > balance) { alert("Insufficient balance!"); return; }
-currentBet = betInput;
-balance -= currentBet;
-updateDisplay();
-gameActive = true;
-currentStep = 0;
-updateChickenPosition();
-const chicken = document.getElementById('chicken');
-chicken.innerHTML = '🐔';
-chicken.style.transform = 'translateX(-50%) scaleX(1)';
-document.getElementById('go-btn').innerText = "STEP FORWARD";
-document.getElementById('cash-btn').disabled = false;
-document.getElementById('bet-input').disabled = true;
-document.querySelectorAll('.btn-diff').forEach(b => b.style.pointerEvents = 'none');
-document.getElementById('win-overlay').style.display = 'none';
-document.getElementById('status-bar').innerText = Stage 1 (${stepMultipliers[0].toFixed(2)}x). Move forward!;
-highlightCurrentStepUI();
-cars.forEach(c => c.el.remove());
-cars = [];
-startTrafficSystem();
-}
-function startTrafficSystem() {
-if(trafficInterval) clearInterval(trafficInterval);
-const getInterval = () => {
-const baseIntervals = { easy: 800, medium: 550, high: 350 };
-const progressFactor = 1 - (currentStep / stepMultipliers.length) * 0.4;
-return Math.max(200, baseIntervals[difficulty] * progressFactor);
-};
-const loop = () => {
-if(gameActive) {
-spawnTrafficWave();
-trafficInterval = setTimeout(loop, getInterval());
-}
-};
-trafficInterval = setTimeout(loop, getInterval());
-}
-function highlightCurrentStepUI() {
-document.querySelectorAll('.step-node').forEach((el, idx) => {
-if(idx === currentStep) {
-el.className = 'step-node active';
-} else if (idx < currentStep) {
-el.className = 'step-node passed';
-} else {
-el.className = 'step-node';
-}
-});
-}
-function spawnTrafficWave() {
-if(!gameActive) return;
-// Spawn 1 to 3 cars across random lanes to maintain flow
-const numCars = Math.random() < 0.3 ? 2 : 1;
-const availableLanes = [0,1,2,3,4,5].sort(() => Math.random() - 0.5);
-for(let c = 0; c < numCars; c++) {
-const laneIndex = availableLanes[c];
-const lane = document.querySelectorAll('.lane')[laneIndex];
-const car = document.createElement('div');
-car.className = 'car';
-car.innerHTML = carEmojis[Math.floor(Math.random() * carEmojis.length)];
-lane.appendChild(car);
-cars.push({ el: car, top: -60, laneIndex: laneIndex });
-}
-}
-collisionInterval = setInterval(() => {
-if(!gameActive) return;
-const baseSpeeds = { easy: 5, medium: 8, high: 12 };
-const multiplierScaling = 1 + (stepMultipliers[currentStep] / 10) * 1.5;
-const speed = baseSpeeds[difficulty] * multiplierScaling;
-const chicken = document.getElementById('chicken');
-const safetyLine = document.getElementById('safety-line');
-const chickenRect = chicken.getBoundingClientRect();
-const lineRect = safetyLine.getBoundingClientRect();
-for (let i = cars.length - 1; i >= 0; i--) {
-const carObj = cars[i];
-carObj.top += speed;
-carObj.el.style.top = ${carObj.top}px;
-const carRect = carObj.el.getBoundingClientRect();
-if (carObj.laneIndex === currentStep) {
-// Check collision with safety line above chicken
-let hitLine = !(lineRect.right <= carRect.left ||
-lineRect.left >= carRect.right ||
-lineRect.bottom <= carRect.top ||
-lineRect.top >= carRect.bottom);
-if(hitLine) {
-carObj.el.remove();
-cars.splice(i, 1);
-continue;
-}
-// Crash check with chicken
-let hitChicken = !(chickenRect.right <= carRect.left ||
-chickenRect.left >= carRect.right ||
-chickenRect.bottom <= carRect.top ||
-chickenRect.top >= carRect.bottom);
-if(hitChicken) {
-endGame(false, "Crash! Game Over.");
-return;
-}
-}
-if(carObj.top > 35150) {
-carObj.el.remove();
-cars.splice(i, 1);
-}
-}
-}, 20);
-function advanceChicken() {
-if (!gameActive) return;
-currentStep++;
-if (currentStep >= stepMultipliers.length) {
-const finalPayout = currentBet * stepMultipliers[stepMultipliers.length - 1];
-balance += finalPayout;
-updateDisplay();
-const chicken = document.getElementById('chicken');
-chicken.innerHTML = '🥳';
-chicken.style.transform = 'translateX(-50%) scale(1.3) rotate(-10deg)';
-const winOverlay = document.getElementById('win-overlay');
-document.getElementById('win-text').innerText = YOU WON $${finalPayout.toFixed(2)};
-winOverlay.style.display = 'flex';
-endGame(true, VICTORY! Won $${finalPayout.toFixed(2)});
-} else {
-updateChickenPosition();
-highlightCurrentStepUI();
-const currentMult = stepMultipliers[currentStep];
-document.getElementById('status-bar').innerText = Stage ${currentStep + 1} (${currentMult.toFixed(2)}x). Keep moving!;
-}
-}
-function cashOut() {
-if(!gameActive) return;
-const activeMult = stepMultipliers[currentStep] || 1.0;
-const payout = currentBet * activeMult;
-if (Number.isFinite(payout)) {
-balance += payout;
-document.getElementById('win-text').innerText = CASHED OUT $${payout.toFixed(2)};
-document.getElementById('win-overlay').style.display = 'flex';
-endGame(true, Cashed out $${payout.toFixed(2)}!);
-} else {
-endGame(false, "Error calculating payout.");
-}
-updateDisplay();
-}
-function endGame(win, message) {
-gameActive = false;
-if(trafficInterval) clearTimeout(trafficInterval);
-clearInterval(collisionInterval);
-document.getElementById('status-bar').innerText = message;
-if(!win) {
-document.getElementById('chicken').innerHTML = '💥';
-}
-document.getElementById('go-btn').innerText = "PLAY AGAIN";
-document.getElementById('cash-btn').disabled = true;
-const betInput = document.getElementById('bet-input');
-betInput.disabled = false;
-document.querySelectorAll('.btn-diff').forEach(b => b.style.pointerEvents = 'auto');
-cars.forEach(c => c.el.remove());
-cars = [];
-}
-initStepsUI();
-updateDisplay();
-updateChickenPosition();
+    let balance = 1000.00;
+    let currentBet = 0;
+    let currentStep = -1; 
+    let gameActive = false;
+    let difficulty = 'easy';
+    let trafficInterval = null;
+    let collisionInterval = null;
+    let cars = [];
+    
+    const stepMultipliers = [
+        1.05, 1.10, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75, 1.85,
+        2.00, 2.15, 2.30, 2.45, 2.60, 2.80, 3.00, 3.25, 3.50, 3.75,
+        4.00, 4.30, 4.60, 5.00, 5.50, 6.00, 6.80, 7.60, 8.80, 10.00
+    ];
+    const carEmojis = ['🏎️', '🚗', '🚙', '🚕', '🛻', '🚜', '🚚'];
+
+    function updateDisplay() {
+        document.getElementById('balance-amount').innerText = Number.isFinite(balance) ? balance.toFixed(2) : "0.00";
+    }
+
+    function setDifficulty(level, btn) {
+        if(gameActive) return;
+        difficulty = level;
+        document.querySelectorAll('.btn-diff').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    function initStepsUI() {
+        const container = document.getElementById('steps-grid');
+        container.innerHTML = '';
+        stepMultipliers.forEach((mult, index) => {
+            const div = document.createElement('div');
+            div.className = 'step-node';
+            div.id = `step-node-${index}`;
+            div.innerText = `${mult.toFixed(2)}x`;
+            container.appendChild(div);
+        });
+    }
+
+    function updateChickenPosition() {
+        const chicken = document.getElementById('chicken');
+        const safetyLine = document.getElementById('safety-line');
+        
+        if (currentStep === -1) {
+            chicken.style.left = `8.33%`;
+            chicken.style.transform = `translateX(-50%) scaleX(1)`;
+            safetyLine.style.display = 'none';
+        } else {
+            const laneWidth = 100 / 6;
+            const targetLeft = (currentStep * laneWidth) + (laneWidth / 2);
+            
+            chicken.style.left = `${targetLeft}%`;
+            chicken.style.display = 'flex';
+            safetyLine.style.display = 'block';
+            
+            const stepNode = document.getElementById(`step-node-${currentStep}`);
+            if(stepNode) {
+                stepNode.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+    }
+
+    function handleMainButton() {
+        if (!gameActive) {
+            startProcedure();
+        } else {
+            advanceChicken();
+        }
+    }
+
+    function startProcedure() {
+        const inputVal = document.getElementById('bet-input').value;
+        const betInput = parseFloat(inputVal);
+        
+        if(isNaN(betInput) || betInput <= 0) { alert("Invalid bet!"); return; }
+        if(betInput > balance) { alert("Insufficient balance!"); return; }
+
+        currentBet = betInput;
+        balance -= currentBet;
+        updateDisplay();
+        
+        gameActive = true;
+        currentStep = 0; 
+        updateChickenPosition();
+        
+        const chicken = document.getElementById('chicken');
+        chicken.innerHTML = '🐔';
+        chicken.style.transform = `translateX(-50%) scaleX(1)`; 
+
+        document.getElementById('go-btn').innerText = "STEP FORWARD";
+        document.getElementById('cash-btn').disabled = false;
+        document.getElementById('bet-input').disabled = true;
+        document.querySelectorAll('.btn-diff').forEach(b => b.style.pointerEvents = 'none');
+        document.getElementById('win-overlay').style.display = 'none';
+
+        document.getElementById('status-bar').innerText = `Stage 1 (${stepMultipliers[0].toFixed(2)}x). Move forward!`;
+
+        highlightCurrentStepUI();
+
+        cars.forEach(c => c.el.remove());
+        cars = [];
+        startTrafficSystem();
+    }
+
+    function startTrafficSystem() {
+        if(trafficInterval) clearInterval(trafficInterval);
+        
+        const getInterval = () => {
+            const baseIntervals = { easy: 800, medium: 550, high: 350 };
+            const progressFactor = 1 - (currentStep / stepMultipliers.length) * 0.4;
+            return Math.max(200, baseIntervals[difficulty] * progressFactor);
+        };
+
+        const loop = () => {
+            if(gameActive) {
+                spawnTrafficWave();
+                trafficInterval = setTimeout(loop, getInterval());
+            }
+        };
+        trafficInterval = setTimeout(loop, getInterval());
+    }
+
+    function highlightCurrentStepUI() {
+        document.querySelectorAll('.step-node').forEach((el, idx) => {
+            if(idx === currentStep) {
+                el.className = 'step-node active';
+            } else if (idx < currentStep) {
+                el.className = 'step-node passed';
+            } else {
+                el.className = 'step-node';
+            }
+        });
+    }
+
+    function spawnTrafficWave() {
+        if(!gameActive) return;
+        
+        const numCars = Math.random() < 0.3 ? 2 : 1;
+        const availableLanes = [0,1,2,3,4,5].sort(() => Math.random() - 0.5);
+        
+        for(let c = 0; c < numCars; c++) {
+            const laneIndex = availableLanes[c];
+            const lane = document.querySelectorAll('.lane')[laneIndex];
+            
+            const car = document.createElement('div');
+            car.className = 'car';
+            car.innerHTML = carEmojis[Math.floor(Math.random() * carEmojis.length)];
+            lane.appendChild(car);
+            
+            cars.push({ el: car, top: -60, laneIndex: laneIndex });
+        }
+    }
+
+    collisionInterval = setInterval(() => {
+        if(!gameActive) return;
+        
+        const baseSpeeds = { easy: 5, medium: 8, high: 12 };
+        const multiplierScaling = 1 + (stepMultipliers[currentStep] / 10) * 1.5;
+        const speed = baseSpeeds[difficulty] * multiplierScaling;
+
+        const chicken = document.getElementById('chicken');
+        const safetyLine = document.getElementById('safety-line');
+        const chickenRect = chicken.getBoundingClientRect();
+        const lineRect = safetyLine.getBoundingClientRect();
+
+        for (let i = cars.length - 1; i >= 0; i--) {
+            const carObj = cars[i];
+            carObj.top += speed;
+            carObj.el.style.top = `${carObj.top}px`;
+
+            const carRect = carObj.el.getBoundingClientRect();
+
+            if (carObj.laneIndex === currentStep) {
+                let hitLine = !(lineRect.right <= carRect.left || 
+                                lineRect.left >= carRect.right || 
+                                lineRect.bottom <= carRect.top || 
+                                lineRect.top >= carRect.bottom);
+                
+                if(hitLine) {
+                    carObj.el.remove();
+                    cars.splice(i, 1);
+                    continue;
+                }
+
+                let hitChicken = !(chickenRect.right <= carRect.left || 
+                                   chickenRect.left >= carRect.right || 
+                                   chickenRect.bottom <= carRect.top || 
+                                   chickenRect.top >= carRect.bottom);
+                if(hitChicken) {
+                    endGame(false, "Crash! Game Over.");
+                    return;
+                }
+            }
+
+            if(carObj.top > 35150) {
+                carObj.el.remove();
+                cars.splice(i, 1);
+            }
+        }
+    }, 20);
+
+    function advanceChicken() {
+        if (!gameActive) return;
+        currentStep++;
+
+        if (currentStep >= stepMultipliers.length) {
+            const finalPayout = currentBet * stepMultipliers[stepMultipliers.length - 1];
+            balance += finalPayout;
+            updateDisplay();
+            
+            const chicken = document.getElementById('chicken');
+            chicken.innerHTML = '🥳';
+            chicken.style.transform = `translateX(-50%) scale(1.3) rotate(-10deg)`;
+
+            const winOverlay = document.getElementById('win-overlay');
+            document.getElementById('win-text').innerText = `YOU WON $${finalPayout.toFixed(2)}`;
+            winOverlay.style.display = 'flex';
+
+            endGame(true, `VICTORY! Won $${finalPayout.toFixed(2)}`);
+        } else {
+            updateChickenPosition();
+            highlightCurrentStepUI();
+            const currentMult = stepMultipliers[currentStep];
+            document.getElementById('status-bar').innerText = `Stage ${currentStep + 1} (${currentMult.toFixed(2)}x). Keep moving!`;
+        }
+    }
+
+    function cashOut() {
+        if(!gameActive) return;
+        const activeMult = stepMultipliers[currentStep] || 1.0;
+        const payout = currentBet * activeMult;
+        
+        if (Number.isFinite(payout)) {
+            balance += payout;
+            document.getElementById('win-text').innerText = `CASHED OUT $${payout.toFixed(2)}`;
+            document.getElementById('win-overlay').style.display = 'flex';
+            endGame(true, `Cashed out $${payout.toFixed(2)}!`);
+        } else {
+            endGame(false, "Error calculating payout.");
+        }
+        updateDisplay();
+    }
+
+    function endGame(win, message) {
+        gameActive = false;
+        if(trafficInterval) clearTimeout(trafficInterval);
+        clearInterval(collisionInterval);
+        
+        document.getElementById('status-bar').innerText = message;
+        if(!win) {
+            document.getElementById('chicken').innerHTML = '💥';
+        }
+
+        document.getElementById('go-btn').innerText = "PLAY AGAIN";
+        document.getElementById('cash-btn').disabled = true;
+        const betInput = document.getElementById('bet-input');
+        betInput.disabled = false;
+
+        document.querySelectorAll('.btn-diff').forEach(b => b.style.pointerEvents = 'auto');
+
+        cars.forEach(c => c.el.remove());
+        cars = [];
+    }
+
+    initStepsUI();
+    updateDisplay();
+    updateChickenPosition();
 </script>
 </body>
 </html>
-</code></pre>
