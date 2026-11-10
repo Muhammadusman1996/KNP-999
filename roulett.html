@@ -1,0 +1,278 @@
+میں کوڈ پر کام مکمل کر رہا ہوں، اسے آپ کی ریپوزٹری میں شامل کرنے کے لیے ترتیب دے رہا ہوں۔
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Roulette Pro</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0d1b2a;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .casino-header {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1b263b;
+            padding: 15px 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #415a77;
+        }
+        .balance-box {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #70e000;
+        }
+        .game-area {
+            display: flex;
+            gap: 40px;
+            background: #1b263b;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .character-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .dealer-display {
+            width: 250px;
+            height: 350px;
+            background: #0d1b2a;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #415a77;
+            display: flex;
+            justify-content: center;
+        }
+        .dealer-body {
+            position: absolute;
+            bottom: 10px;
+            width: 60px;
+            height: 140px;
+            background-color: #ffb703;
+            border-radius: 10px 10px 0 0;
+        }
+        .dealer-head {
+            position: absolute;
+            top: 130px;
+            width: 40px;
+            height: 40px;
+            background-color: #ffcca3;
+            border-radius: 50%;
+        }
+        .dealer-hair {
+            position: absolute;
+            top: 125px;
+            width: 44px;
+            height: 25px;
+            background-color: #d90429;
+            border-radius: 20px 20px 0 0;
+        }
+        .dealer-dress {
+            position: absolute;
+            bottom: 10px;
+            width: 60px;
+            height: 80px;
+            background-color: #d90429;
+            clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+        }
+        .arm {
+            position: absolute;
+            top: 160px;
+            width: 15px;
+            height: 60px;
+            background-color: #ffcca3;
+            border-radius: 10px;
+            transform-origin: top center;
+            transition: transform 0.5s;
+        }
+        .arm.left { left: 35px; transform: rotate(30deg); }
+        .arm.right { right: 35px; transform: rotate(-30deg); }
+        .spinning .arm.left { animation: spinArmLeft 1s infinite alternate; }
+        .spinning .arm.right { animation: spinArmRight 1s infinite alternate; }
+
+        @keyframes spinArmLeft { to { transform: rotate(70deg); } }
+        @keyframes spinArmRight { to { transform: rotate(-70deg); } }
+
+        .roulette-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+        #roulette-wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 10px solid #333;
+            position: relative;
+            background: conic-gradient(
+                red 0deg 9.73deg, black 9.73deg 19.46deg, red 19.46deg 29.19deg, black 29.19deg 38.92deg,
+                red 38.92deg 48.65deg, black 48.65deg 58.38deg, red 58.38deg 68.11deg, black 68.11deg 77.84deg,
+                red 77.84deg 87.57deg, black 87.57deg 97.3deg, green 97.3deg 107.03deg
+            );
+            transition: transform 4s cubic-bezier(0.15, 0.95, 0.15, 1);
+        }
+        .ball {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            margin: -10px 0 0 -10px;
+            z-index: 10;
+            display: none;
+        }
+        .betting-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 300px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        input {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #415a77;
+            background: #0d1b2a;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .btn-spin {
+            padding: 15px;
+            background: #d90429;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .btn-spin:active { transform: scale(0.98); }
+        #result-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            color: #ffb703;
+        }
+    </style>
+</head>
+<body>
+
+<div class="casino-header">
+    <h2>Live Roulette Pro</h2>
+    <div class="balance-box">Balance: $<span id="balance">1000.00</span></div>
+</div>
+
+<div class="game-area">
+    <div class="character-section">
+        <div class="dealer-display" id="dealer">
+            <div class="dealer-hair"></div>
+            <div class="dealer-head"></div>
+            <div class="dealer-dress"></div>
+            <div class="arm left"></div>
+            <div class="arm right"></div>
+        </div>
+        <div>Live Dealer</div>
+    </div>
+
+    <div class="roulette-container">
+        <div id="roulette-wheel"></div>
+        <div class="ball" id="ball"></div>
+    </div>
+
+    <div class="betting-section">
+        <div class="input-group">
+            <label>Bet Amount ($)</label>
+            <input type="number" id="bet-input" value="10" min="1">
+        </div>
+        <div class="input-group">
+            <label>Select Number (0-36)</label>
+            <input type="number" id="number-input" value="7" min="0" max="36">
+        </div>
+        <button class="btn-spin" onclick="spinWheel()">Spin & Bet</button>
+        <div id="result-display">Place your bet!</div>
+    </div>
+</div>
+
+<script>
+    let balance = 1000.00;
+    const wheel = document.getElementById('roulette-wheel');
+    const ball = document.getElementById('ball');
+    const dealer = document.getElementById('dealer');
+    const resultDisplay = document.getElementById('result-display');
+
+    function updateBalance(amount) {
+        balance += amount;
+        document.getElementById('balance').innerText = balance.toFixed(2);
+    }
+
+    function spinWheel() {
+        const betAmount = parseFloat(document.getElementById('bet-input').value);
+        const selectedNumber = parseInt(document.getElementById('number-input').value);
+
+        if (isNaN(betAmount) || betAmount <= 0 || betAmount > balance) {
+            resultDisplay.innerText = "Invalid Bet Amount!";
+            return;
+        }
+
+        updateBalance(-betAmount);
+        resultDisplay.innerText = "Spinning...";
+        dealer.classList.add('spinning');
+        ball.style.display = 'none';
+
+        const winningNumber = Math.floor(Math.random() * 37);
+        const degreesPerNumber = 360 / 37;
+        const targetDegree = winningNumber * degreesPerNumber;
+        const totalRotation = 360 * 5 + (360 - targetDegree);
+
+        wheel.style.transform = `rotate(${totalRotation}deg)`;
+
+        setTimeout(() => {
+            dealer.classList.remove('spinning');
+            wheel.style.transition = 'none';
+            const normalizedDegree = totalRotation % 360;
+            wheel.style.transform = `rotate(${normalizedDegree}deg)`;
+            
+            ball.style.display = 'block';
+            resultDisplay.innerText = `Winning Number: ${winningNumber}`;
+
+            if (selectedNumber === winningNumber) {
+                const payout = betAmount * 35;
+                updateBalance(payout + betAmount);
+                resultDisplay.innerText = `JACKPOT! Won $${payout}`;
+            }
+        }, 4000);
+    }
+</script>
+
+</body>
+</html>
