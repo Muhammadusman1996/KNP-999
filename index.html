@@ -128,11 +128,12 @@
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     let balance = 1000.00;
-    let multiplayer = 1.00;
+    let multiplier = 1.00;
     let gameRunning = false;
     let bets = { 1: { active: false, amount: 0 }, 2: { active: false, amount: 0 } };
     let animationId;
     let startTime;
+    let cityOffset = 0;
 
     function updateUI() {
         document.getElementById('balance').innerText = balance.toFixed(2);
@@ -177,7 +178,7 @@
             }
         } else {
             if (bets[panel].active) {
-                let payout = bets[panel].amount * multiplayer;
+                let payout = bets[panel].amount * multiplier;
                 balance += payout;
                 bets[panel].active = false;
                 updateUI();
@@ -189,7 +190,7 @@
 
     function startGame() {
         gameRunning = true;
-        multiplayer = 1.00;
+        multiplier = 1.00;
         startTime = Date.now();
         document.querySelectorAll('input').forEach(i => i.disabled = true);
         animate();
@@ -197,10 +198,10 @@
 
     function animate() {
         const elapsed = (Date.now() - startTime) / 1000;
-        multiplayer = 1.00 + (elapsed * 0.5); // Slow steady growth
+        multiplier = 1.00 + (elapsed * 0.5);
+        cityOffset = (cityOffset - 2) % 100;
         
-        // Random crash between 1.5x and 10x
-        if (multiplayer > 3.5 && Math.random() < 0.05) {
+        if (multiplier > 3.5 && Math.random() < 0.05) {
             endGame(false);
             return;
         }
@@ -212,17 +213,26 @@
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        // Draw text
+        ctx.fillStyle = "#0d1b2a";
+        for (let i = 0; i < canvas.width; i += 40) {
+            let x = (i + cityOffset) % canvas.width;
+            ctx.fillRect(x, 250, 30, 100);
+        }
+
         ctx.fillStyle = "white";
         ctx.font = "bold 50px sans-serif";
         ctx.textAlign = "center";
-        ctx.fillText(multiplayer.toFixed(2) + "x", canvas.width/2, canvas.height/2);
+        ctx.fillText(multiplier.toFixed(2) + "x", canvas.width/2, canvas.height/2 - 20);
 
-        // Simple plane representation
-        let x = 100 + (multiplayer * 50);
-        let y = 300 - (multiplayer * 30);
-        ctx.fillStyle = "#01411C"; // PIA Green
-        ctx.fillRect(x, y, 40, 20);
+        let x = 100 + (multiplier * 40);
+        let y = 280 - (multiplier * 25);
+        
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(Math.PI / 4);
+        ctx.fillStyle = "#01411C";
+        ctx.fillRect(-15, -15, 30, 30);
+        ctx.restore();
     }
 
     function endGame(crashed) {
@@ -230,7 +240,8 @@
         cancelAnimationFrame(animationId);
         
         ctx.fillStyle = crashed ? "red" : "orange";
-        ctx.fillText(crashed ? "CRASHED" : "ENDED", canvas.width/2, canvas.height/2 + 60);
+        ctx.font = "bold 30px sans-serif";
+        ctx.fillText(crashed ? "CRASHED" : "ENDED", canvas.width/2, canvas.height/2 + 30);
 
         setTimeout(() => {
             resetGame();
@@ -238,7 +249,7 @@
     }
 
     function resetGame() {
-        multiplayer = 1.00;
+        multiplier = 1.00;
         document.querySelectorAll('input').forEach(i => i.disabled = false);
         for (let p of [1, 2]) {
             bets[p].active = false;
