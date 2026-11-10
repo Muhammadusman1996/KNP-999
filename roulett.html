@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Bet Roulette Pro with History</title>
+    <title>Horizontal Multi-Bet Roulette</title>
     <style>
         * {
             box-sizing: border-box;
@@ -61,7 +61,6 @@
             display: flex;
             gap: 6px;
             overflow-x: auto;
-            scrollbar-width: thin;
         }
         .history-item {
             min-width: 28px;
@@ -75,11 +74,6 @@
             color: #fff;
             border: 1px solid rgba(255,255,255,0.3);
             box-shadow: 0 2px 4px rgba(0,0,0,0.5);
-            animation: popIn 0.3s ease-out;
-        }
-        @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
         }
         .game-container {
             display: flex;
@@ -97,10 +91,10 @@
         }
         .wheel-wrapper {
             position: relative;
-            width: 280px;
-            height: 280px;
+            width: 240px;
+            height: 240px;
             border-radius: 50%;
-            border: 8px solid #d4af37;
+            border: 6px solid #d4af37;
             box-shadow: 0 5px 15px rgba(0,0,0,0.8);
         }
         #wheel-canvas {
@@ -129,41 +123,49 @@
             border: 4px solid #d4af37;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
             box-shadow: inset 0 0 15px rgba(0,0,0,0.7);
             width: 100%;
             align-items: center;
         }
-        .betting-grid {
+        .zero-section {
+            width: 100%;
+            height: 32px;
+            font-size: 16px;
+        }
+        .horizontal-grid {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
+            width: 100%;
         }
-        .betting-row {
-            display: flex;
-            gap: 4px;
+        .horizontal-row {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 3px;
+            width: 100%;
         }
         .cell {
-            width: 35px;
-            height: 40px;
+            height: 36px;
             border: 1px solid #fff;
-            border-radius: 4px;
+            border-radius: 3px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             user-select: none;
             transition: all 0.2s;
             position: relative;
         }
         .cell:hover {
-            transform: translateY(-2px);
+            transform: translateY(-1px);
             filter: brightness(1.15);
         }
         .cell.selected {
-            outline: 3px solid #00b4d8;
+            outline: 2px solid #00b4d8;
+            box-shadow: 0 0 8px #00b4d8;
             z-index: 5;
         }
         .cell.selected::after {
@@ -171,17 +173,12 @@
             position: absolute;
             top: 1px;
             right: 2px;
-            font-size: 10px;
+            font-size: 9px;
             color: #00b4d8;
         }
         .red { background-color: #d90429; }
         .black { background-color: #111; }
         .green { background-color: #2b9348; }
-        .zero-section {
-            width: 100%;
-            height: 35px;
-            font-size: 18px;
-        }
         .controls-section {
             display: flex;
             width: 100%;
@@ -225,7 +222,7 @@
         .btn-spin:disabled { background: #6c757d; cursor: not-allowed; }
         .btn-clear { background: #d90429; }
         #status-display {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             color: #ffb703;
             text-align: center;
@@ -237,7 +234,7 @@
 <body>
 
 <div class="header">
-    <h2>Compact Multi-Bet Roulette</h2>
+    <h2>Horizontal Multi-Bet Roulette</h2>
     <div class="balance">Balance: $<span id="balance-amount">1000.00</span></div>
 </div>
 
@@ -250,13 +247,13 @@
     <div class="wheel-section">
         <div class="pointer"></div>
         <div class="wheel-wrapper">
-            <canvas id="wheel-canvas" width="300" height="300"></canvas>
+            <canvas id="wheel-canvas" width="240" height="240"></canvas>
         </div>
     </div>
 
     <div class="betting-layout">
         <div class="cell green zero-section" onclick="toggleCell(0, this)">0</div>
-        <div class="betting-grid" id="grid-container"></div>
+        <div class="horizontal-grid" id="grid-container"></div>
     </div>
 
     <div class="controls-section">
@@ -311,15 +308,15 @@
             ctx.rotate(startAngle + anglePerSegment / 2 + Math.PI / 2);
             ctx.textAlign = 'center';
             ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 11px Segoe UI, sans-serif';
-            ctx.fillText(num.toString(), 0, -radius + 15);
+            ctx.font = 'bold 10px Segoe UI, sans-serif';
+            ctx.fillText(num.toString(), 0, -radius + 14);
             ctx.restore();
         });
         ctx.beginPath();
-        ctx.arc(radius, radius, 30, 0, 2 * Math.PI);
+        ctx.arc(radius, radius, 25, 0, 2 * Math.PI);
         ctx.fillStyle = '#0d1b2a';
         ctx.fill();
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 2;
         ctx.strokeStyle = '#d4af37';
         ctx.stroke();
     }
@@ -327,20 +324,27 @@
     function initBoard() {
         const container = document.getElementById('grid-container');
         container.innerHTML = '';
-        for (let row = 0; row < 12; row++) {
+        
+        const rows = [
+            [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36],
+            [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35],
+            [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]
+        ];
+
+        rows.forEach(rowNumbers => {
             const rowDiv = document.createElement('div');
-            rowDiv.className = 'betting-row';
-            for (let col = 0; col < 3; col++) {
-                const num = 36 - (row * 3) - (2 - col);
+            rowDiv.className = 'horizontal-row';
+            rowNumbers.forEach(num => {
                 const color = redNumbers.includes(num) ? 'red' : 'black';
                 const cell = document.createElement('div');
                 cell.className = `cell ${color}`;
                 cell.innerText = num;
                 cell.onclick = () => toggleCell(num, cell);
                 rowDiv.appendChild(cell);
-            }
+            });
             container.appendChild(rowDiv);
-        }
+        });
+        
         drawWheel();
     }
 
