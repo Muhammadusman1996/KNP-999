@@ -29,12 +29,12 @@
         
         #chicken {
             position: absolute;
-            left: 20px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%) scaleX(1);
-            width: 60px;
-            height: 60px;
-            font-size: 45px;
+            width: 50px;
+            height: 50px;
+            font-size: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -44,11 +44,11 @@
 
         .car {
             position: absolute;
-            top: -70px;
-            width: 80%;
-            left: 10%;
-            height: 50px;
-            font-size: 40px;
+            top: -60px;
+            width: 70%;
+            left: 15%;
+            height: 45px;
+            font-size: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -58,49 +58,51 @@
 
         .safety-shield {
             position: absolute;
-            width: 130px;
-            height: 12px;
+            width: 110px;
+            height: 10px;
             background: linear-gradient(90deg, #eab308, #fef08a, #eab308);
-            border-radius: 10px;
-            border: 2px solid #fff;
-            box-shadow: 0 0 15px #eab308;
+            border-radius: 5px;
+            border: 1px solid #fff;
+            box-shadow: 0 0 10px #eab308;
             z-index: 15;
             transform: translate(-50%, -50%);
             pointer-events: none;
             display: none;
         }
 
-        .steps-bar {
+        /* Responsive steps container without horizontal scrolling */
+        .steps-container {
             width: 100%;
             max-width: 900px;
             background: #1f2937;
-            padding: 10px;
+            padding: 8px;
             border-radius: 10px;
             margin: 10px 0;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            overflow-x: auto;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
             border: 1px solid #374151;
         }
         .step-node {
             background: #111827;
             color: #9ca3af;
-            padding: 8px 12px;
-            border-radius: 6px;
+            padding: 6px 10px;
+            border-radius: 4px;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border: 1px solid #374151;
-            margin: 0 4px;
             transition: all 0.3s ease;
-            white-space: nowrap;
+            flex: 1 1 calc(10% - 12px);
+            text-align: center;
+            max-width: 90px;
         }
         .step-node.active {
             background: #3b82f6;
             color: #fff;
-            transform: scale(1.15);
+            transform: scale(1.1);
             border-color: #60a5fa;
-            box-shadow: 0 0 12px rgba(59,130,246,0.8);
+            box-shadow: 0 0 10px rgba(59,130,246,0.8);
         }
         .step-node.passed {
             background: #059669;
@@ -173,7 +175,7 @@
     <div id="chicken">🐔</div>
 </div>
 
-<div class="steps-bar" id="steps-bar"></div>
+<div class="steps-container" id="steps-container"></div>
 
 <div id="status-bar">Set bet, select speed, and Go Chicken!</div>
 
@@ -225,7 +227,7 @@
     }
 
     function initStepsUI() {
-        const container = document.getElementById('steps-bar');
+        const container = document.getElementById('steps-container');
         container.innerHTML = '';
         stepMultipliers.forEach((mult, index) => {
             const div = document.createElement('div');
@@ -248,16 +250,11 @@
             const laneWidth = containerWidth / 6;
             const targetLeft = (currentStep * laneWidth) + (laneWidth / 2);
             
-            chicken.style.left = `${targetLeft - 30}px`;
+            chicken.style.left = `${targetLeft - 25}px`;
             
             shield.style.left = `${targetLeft}px`;
             shield.style.top = `50%`;
             shield.style.display = 'block';
-            
-            const stepNode = document.getElementById(`step-node-${currentStep}`);
-            if(stepNode) {
-                stepNode.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            }
         }
     }
 
@@ -299,16 +296,30 @@
         highlightCurrentStepUI();
 
         cars = [];
-        adjustTrafficSpawnRate();
+        startContinuousTraffic();
     }
 
-    function adjustTrafficSpawnRate() {
+    function startContinuousTraffic() {
         if(trafficInterval) clearInterval(trafficInterval);
-        const baseIntervals = { easy: 1000, medium: 700, high: 450 };
-        const progressFactor = 1 - (currentStep / stepMultipliers.length) * 0.3;
-        const interval = baseIntervals[difficulty] * progressFactor;
         
-        trafficInterval = setInterval(spawnTrafficWave, interval);
+        const spawnWaves = () => {
+            if(!gameActive) return;
+            spawnTrafficWave();
+        };
+
+        const getInterval = () => {
+            const baseIntervals = { easy: 800, medium: 550, high: 350 };
+            const progressFactor = 1 - (currentStep / stepMultipliers.length) * 0.4;
+            return Math.max(200, baseIntervals[difficulty] * progressFactor);
+        };
+
+        const loop = () => {
+            if(gameActive) {
+                spawnTrafficWave();
+                trafficInterval = setTimeout(loop, getInterval());
+            }
+        };
+        trafficInterval = setTimeout(loop, getInterval());
     }
 
     function highlightCurrentStepUI() {
@@ -326,7 +337,8 @@
     function spawnTrafficWave() {
         if(!gameActive) return;
         
-        const numCars = Math.random() < 0.3 ? 2 : 1;
+        // Ensure continuous traffic by spawning 1 to 3 cars across random lanes
+        const numCars = Math.random() < 0.4 ? Math.floor(Math.random() * 2) + 2 : 1;
         const availableLanes = [0,1,2,3,4,5].sort(() => Math.random() - 0.5);
         
         for(let c = 0; c < numCars; c++) {
@@ -338,7 +350,7 @@
             car.innerHTML = carEmojis[Math.floor(Math.random() * carEmojis.length)];
             lane.appendChild(car);
             
-            cars.push({ el: car, top: -70, laneIndex: laneIndex });
+            cars.push({ el: car, top: -60, laneIndex: laneIndex });
         }
     }
 
@@ -391,8 +403,6 @@
         if (!gameActive) return;
         currentStep++;
 
-        adjustTrafficSpawnRate();
-
         if (currentStep >= stepMultipliers.length) {
             const finalPayout = currentBet * stepMultipliers[stepMultipliers.length - 1];
             balance += finalPayout;
@@ -434,7 +444,7 @@
 
     function endGame(win, message) {
         gameActive = false;
-        clearInterval(trafficInterval);
+        if(trafficInterval) clearTimeout(trafficInterval);
         clearInterval(collisionInterval);
         
         document.getElementById('status-bar').innerText = message;
