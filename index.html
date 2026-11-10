@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviator Game</title>
+    <title>PIA Aviator Clone</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,7 +12,7 @@
             font-family: Arial, sans-serif;
         }
         body {
-            background-color: #121318;
+            background-color: #0b132b;
             color: #fff;
             display: flex;
             justify-content: center;
@@ -22,32 +22,32 @@
         .game-wrapper {
             width: 100%;
             max-width: 800px;
-            background-color: #1e2029;
+            background-color: #1c2541;
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.8);
         }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
-            border-bottom: 1px solid #2c2f3e;
+            border-bottom: 1px solid #3a506b;
             padding-bottom: 10px;
         }
         .balance {
             font-size: 18px;
             font-weight: bold;
-            color: #28a745;
+            color: #4ef037;
         }
         .canvas-container {
             position: relative;
             width: 100%;
             height: 350px;
-            background: linear-gradient(180deg, #0f1015 0%, #181a24 100%);
+            background: linear-gradient(180deg, #10002b 0%, #240046 50%, #3c096c 100%);
             border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #2c2f3e;
+            border: 1px solid #5a189a;
         }
         canvas {
             display: block;
@@ -56,13 +56,14 @@
         }
         .multiplier-overlay {
             position: absolute;
-            top: 50%;
+            top: 40%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 48px;
+            font-size: 60px;
             font-weight: bold;
             pointer-events: none;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            text-shadow: 0 0 20px rgba(0,0,0,0.9);
+            color: #ffb703;
         }
         .controls-container {
             display: grid;
@@ -71,13 +72,13 @@
             margin-top: 15px;
         }
         .bet-card {
-            background-color: #262938;
+            background-color: #0b132b;
             border-radius: 8px;
             padding: 15px;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            border: 1px solid #32364a;
+            border: 1px solid #1c2541;
         }
         .input-group {
             display: flex;
@@ -86,18 +87,18 @@
         }
         .input-group label {
             font-size: 12px;
-            color: #a0a5b8;
+            color: #7393b3;
         }
         .input-row {
             display: flex;
-            gap: 8px;
+            gap: 5px;
         }
         input[type="number"] {
             width: 100%;
             padding: 8px;
             border-radius: 4px;
-            border: 1px solid #3e435d;
-            background-color: #171821;
+            border: 1px solid #3a506b;
+            background-color: #1c2541;
             color: #fff;
             font-size: 14px;
         }
@@ -111,38 +112,39 @@
             transition: background 0.2s;
         }
         .btn-bet {
-            background-color: #28a745;
+            background-color: #10b981;
             color: white;
         }
         .btn-bet:hover {
-            background-color: #218838;
+            background-color: #059669;
         }
         .btn-cashout {
-            background-color: #ff9800;
+            background-color: #f59e0b;
             color: white;
         }
         .btn-cashout:hover {
-            background-color: #e68a00;
+            background-color: #d97706;
         }
         .btn:disabled {
-            background-color: #4a4d5d;
+            background-color: #334155;
             cursor: not-allowed;
+            color: #94a3b8;
         }
         .preset-btns {
             display: flex;
-            gap: 5px;
+            gap: 4px;
         }
         .btn-sm {
-            padding: 4px 8px;
+            padding: 4px 6px;
             font-size: 12px;
-            background-color: #32364a;
+            background-color: #334155;
             color: #fff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
         .btn-sm:hover {
-            background-color: #424761;
+            background-color: #475569;
         }
     </style>
 </head>
@@ -150,7 +152,7 @@
 
 <div class="game-wrapper">
     <div class="header">
-        <h2>Aviator</h2>
+        <h2>PIA Aviator</h2>
         <div class="balance">Balance: $<span id="user-balance">1000.00</span></div>
     </div>
 
@@ -165,12 +167,10 @@
             <div class="input-group">
                 <label>Bet Amount ($)</label>
                 <div class="input-row">
+                    <button class="btn-sm" onclick="adjustBet(1, -10)">-10</button>
                     <input type="number" id="bet-amount-1" value="10" min="1" step="1">
-                    <div class="preset-btns">
-                        <button class="btn-sm" onclick="adjustBet(1, -10)">-10</button>
-                        <button class="btn-sm" onclick="adjustBet(1, 10)">+10</button>
-                        <button class="btn-sm" onclick="adjustBet(1, 50)">+50</button>
-                    </div>
+                    <button class="btn-sm" onclick="adjustBet(1, 10)">+10</button>
+                    <button class="btn-sm" onclick="adjustBet(1, 50)">+50</button>
                 </div>
             </div>
             <div class="input-group">
@@ -185,12 +185,10 @@
             <div class="input-group">
                 <label>Bet Amount ($)</label>
                 <div class="input-row">
+                    <button class="btn-sm" onclick="adjustBet(2, -10)">-10</button>
                     <input type="number" id="bet-amount-2" value="10" min="1" step="1">
-                    <div class="preset-btns">
-                        <button class="btn-sm" onclick="adjustBet(2, -10)">-10</button>
-                        <button class="btn-sm" onclick="adjustBet(2, 10)">+10</button>
-                        <button class="btn-sm" onclick="adjustBet(2, 50)">+50</button>
-                    </div>
+                    <button class="btn-sm" onclick="adjustBet(2, 10)">+10</button>
+                    <button class="btn-sm" onclick="adjustBet(2, 50)">+50</button>
                 </div>
             </div>
             <div class="input-group">
@@ -254,10 +252,6 @@
             btn.innerText = 'CANCEL';
             btn.classList.remove('btn-bet');
             btn.classList.add('btn-cashout');
-
-            if (gameState === 'IDLE') {
-                startRound();
-            }
         } else {
             balance += bets[panel].amount;
             updateBalance();
@@ -270,6 +264,7 @@
     }
 
     function startRound() {
+        if (!bets[1].active && !bets[2].active) return;
         gameState = 'RUNNING';
         multiplier = 1.00;
         crashPoint = generateCrashPoint();
@@ -286,10 +281,11 @@
                 btn.classList.add('btn-cashout');
             } else {
                 btn.disabled = true;
+                btn.innerText = 'MISSED';
             }
         });
 
-        multiplierDisplay.style.color = '#ffffff';
+        multiplierDisplay.style.color = '#ffb703';
         requestAnimationFrame(updateGame);
     }
 
@@ -309,7 +305,7 @@
         updateBalance();
 
         const btn = document.getElementById(`btn-action-${panel}`);
-        btn.innerText = `CASH OUT (${multiplier.toFixed(2)}x)`;
+        btn.innerText = `SOLD (${multiplier.toFixed(2)}x)`;
         btn.disabled = true;
     }
 
@@ -337,10 +333,21 @@
 
     function endRound() {
         gameState = 'CRASHED';
-        multiplierDisplay.innerText = `CRASHED @ ${crashPoint.toFixed(2)}x`;
-        multiplierDisplay.style.color = '#ff4d4d';
+        multiplierDisplay.innerText = `FLAPPED @ ${crashPoint.toFixed(2)}x`;
+        multiplierDisplay.style.color = '#ef4444';
 
         renderCanvas(true);
+
+        setTimeout(() => {
+            resetInterfaces();
+        }, 3000);
+    }
+
+    function resetInterfaces() {
+        gameState = 'IDLE';
+        multiplierDisplay.innerText = '1.00x';
+        multiplierDisplay.style.color = '#ffb703';
+        clearCanvas();
 
         [1, 2].forEach(panel => {
             const btn = document.getElementById(`btn-action-${panel}`);
@@ -355,57 +362,96 @@
             bets[panel].active = false;
             bets[panel].cashedOut = false;
         });
-
-        setTimeout(() => {
-            if (gameState === 'CRASHED') {
-                gameState = 'IDLE';
-                multiplierDisplay.innerText = '1.00x';
-                multiplierDisplay.style.color = '#ffffff';
-                clearCanvas();
-            }
-        }, 3000);
     }
 
     function renderCanvas(crashed = false) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        drawBackground();
+
         const progress = Math.min(1, (multiplier - 1) / 10);
-        const startX = 40;
-        const startY = canvas.height - 40;
-        const endX = startX + (canvas.width - 120) * progress;
-        const endY = startY - (canvas.height - 120) * progress;
+        const startX = 50;
+        const startY = canvas.height - 50;
+        const endX = startX + (canvas.width - 150) * progress;
+        const endY = startY - (canvas.height - 150) * progress;
 
         ctx.beginPath();
         ctx.moveTo(startX, startY);
-        ctx.quadraticCurveTo((startX + endX) / 2, startY, endX, endY);
-        ctx.strokeStyle = crashed ? '#ff4d4d' : '#e91e63';
-        ctx.lineWidth = 4;
+        ctx.quadraticCurveTo(endX * 0.5, startY, endX, endY);
+        ctx.strokeStyle = crashed ? '#ef4444' : '#00a8cc';
+        ctx.lineWidth = 5;
+        ctx.setLineDash([10, 10]);
         ctx.stroke();
-
-        ctx.lineTo(endX, startY);
-        ctx.lineTo(startX, startY);
-        ctx.fillStyle = crashed ? 'rgba(255, 77, 77, 0.1)' : 'rgba(233, 30, 99, 0.1)';
-        ctx.fill();
+        ctx.setLineDash([]);
 
         if (!crashed) {
-            drawPlane(endX, endY);
+            drawPIAPlane(endX, endY, progress);
+        } else {
+            drawCrashSite(endX, endY);
         }
     }
 
-    function drawPlane(x, y) {
+    function drawBackground() {
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(100, 50, 2, 2);
+        ctx.fillRect(300, 80, 3, 3);
+        ctx.fillRect(500, 40, 2, 2);
+        ctx.fillRect(650, 100, 4, 4);
+        ctx.fillRect(200, 200, 2, 2);
+        ctx.fillRect(700, 250, 3, 3);
+
+        ctx.beginPath();
+        ctx.arc(700, 80, 30, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
+        ctx.fill();
+    }
+
+    function drawPIAPlane(x, y, progress) {
         ctx.save();
         ctx.translate(x, y);
-        ctx.fillStyle = '#ff4081';
         
+        const angle = -Math.PI / 6 + (progress * Math.PI / 12);
+        ctx.rotate(angle);
+
+        const planeWidth = 60;
+        const planeHeight = 20;
+
+        ctx.fillStyle = "#FFFFFF";
         ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(-28, 12);
-        ctx.lineTo(-20, 0);
-        ctx.lineTo(-28, -12);
+        ctx.ellipse(0, 0, planeWidth/2, planeHeight/2, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#01411C";
+        ctx.beginPath();
+        ctx.moveTo(-planeWidth/2 + 5, 0);
+        ctx.lineTo(-planeWidth/2 - 15, -15);
+        ctx.lineTo(-planeWidth/2 + 5, -15);
         ctx.closePath();
         ctx.fill();
 
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(planeWidth/4, -5, 5, 5);
+
+        ctx.strokeStyle = "#E31D2B";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(-planeWidth/4, 2);
+        ctx.lineTo(planeWidth/4, 2);
+        ctx.stroke();
+
         ctx.restore();
+    }
+
+    function drawCrashSite(x, y) {
+        ctx.fillStyle = "#ef4444";
+        ctx.beginPath();
+        ctx.arc(x, y, 40, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.fillStyle = "#f97316";
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
+        ctx.fill();
     }
 
     function clearCanvas() {
