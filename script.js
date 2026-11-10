@@ -1,61 +1,43 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-const betBtn = document.getElementById('betBtn');
-const cashoutBtn = document.getElementById('cashoutBtn');
 
 let multiplier = 1.0;
 let isFlying = false;
 let crashPoint = 1;
 let animationId;
 let planeX = 0;
-let planeY = 300;
+let planeY = 350;
 
-betBtn.addEventListener('click', () => {
-    isFlying = false;
+// ڈبل بیٹنگ اور آٹو فیچرز کا لاجک یہاں آئے گا
+function startFlight() {
+    isFlying = true;
     multiplier = 1.0;
     planeX = 0;
-    planeY = 300;
-    crashPoint = (Math.random() * 5 + 1.1).toFixed(2);
-    isFlying = true;
-    betBtn.disabled = true;
-    cashoutBtn.disabled = false;
+    planeY = 350;
+    crashPoint = (Math.random() * 4 + 1.2).toFixed(2);
     animate();
-});
-
-cashoutBtn.addEventListener('click', () => {
-    if (isFlying) {
-        isFlying = false;
-        cancelAnimationFrame(animationId);
-        alert('آپ نے ' + multiplier.toFixed(2) + 'x پر کیش آؤٹ کر لیا!');
-        betBtn.disabled = false;
-        cashoutBtn.disabled = true;
-    }
-});
+}
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Draw multiplier
+    // پس منظر اور جہاز کی ڈرائنگ
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 50px Arial';
-    ctx.fillText(multiplier.toFixed(2) + 'x', 50, 100);
+    ctx.font = 'bold 60px Arial';
+    ctx.fillText(multiplier.toFixed(2) + 'x', 200, 150);
 
-    // Draw plane
-    ctx.fillStyle = '#ffcc00';
-    ctx.fillRect(planeX, planeY, 40, 25);
+    ctx.fillStyle = 'red';
+    ctx.fillRect(planeX, planeY, 50, 30);
 
     if (isFlying) {
-        multiplier += 0.02;
-        planeX += 2;
-        planeY -= 1.5;
+        multiplier += 0.03;
+        planeX += 3;
+        planeY -= 2;
 
         if (multiplier >= crashPoint) {
             isFlying = false;
-            ctx.fillStyle = '#FF4136';
-            ctx.font = 'bold 60px Arial';
-            ctx.fillText('CRASHED', 150, 220);
-            betBtn.disabled = false;
-            cashoutBtn.disabled = true;
+            ctx.fillStyle = 'red';
+            ctx.fillText('CRASHED', 150, 250);
         } else {
             animationId = requestAnimationFrame(animate);
         }
