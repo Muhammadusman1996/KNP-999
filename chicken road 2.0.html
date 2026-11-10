@@ -3,144 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chicken Road 2 Ultimate</title>
+    <title>Chicken Road 2 Ultimate Pro</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #070a13; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 10px; }
-        .header { width: 100%; max-width: 1000px; display: flex; justify-content: space-between; align-items: center; background: #101625; padding: 12px 20px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #384b65; }
-        .balance { font-size: 1.5rem; font-weight: bold; color: #10b981; text-shadow: 0 0 5px rgba(16,185,129,0.5); }
+        body { background-color: #05070e; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 10px; overflow-x: hidden; }
+        
+        .header { width: 100%; max-width: 900px; display: flex; justify-content: space-between; align-items: center; background: #111827; padding: 15px 25px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #1f2937; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        h1 { font-size: 1.8rem; background: linear-gradient(45deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .balance { font-size: 1.6rem; font-weight: bold; color: #10b981; text-shadow: 0 0 10px rgba(16,185,129,0.5); }
         
         .game-wrapper {
             position: relative;
             width: 100%;
-            max-width: 1000px;
-            height: 500px;
-            background: #030712;
-            border: 4px solid #1f2937;
+            max-width: 900px;
+            height: 400px;
+            background: #111827;
+            border: 4px solid #374151;
             border-radius: 15px;
             overflow: hidden;
             display: flex;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
         }
-        .lane { flex: 1; height: 100%; border-right: 1px dashed rgba(255,255,255,0.05); position: relative; }
+        .lane { flex: 1; height: 100%; border-right: 2px dashed #1f2937; position: relative; }
         .lane:last-child { border-right: none; }
         
-        .road-line { position: absolute; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.05); left: 50%; transform: translateX(-50%); }
-
         #chicken {
             position: absolute;
             left: 20px;
             top: 50%;
-            transform: translateY(-50%) scaleX(1); /* Facing right */
-            width: 65px;
-            height: 65px;
-            font-size: 50px;
+            transform: translateY(-50%) scaleX(1);
+            width: 60px;
+            height: 60px;
+            font-size: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             z-index: 20;
         }
 
         .car {
             position: absolute;
-            top: -60px;
-            width: 70px;
+            top: -70px;
+            width: 80%;
+            left: 10%;
             height: 50px;
-            font-size: 45px;
+            font-size: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transform: rotate(180deg); /* Facing down */
+            transform: rotate(180deg);
             z-index: 10;
         }
 
-        .breaker {
+        .safety-shield {
             position: absolute;
-            width: 100%;
-            height: 25px;
-            background: repeating-linear-gradient(90deg, #f59e0b, #f59e0b 25px, #000 25px, #000 50px);
-            border-top: 3px solid #fff;
-            border-bottom: 3px solid #fff;
+            width: 130px;
+            height: 12px;
+            background: linear-gradient(90deg, #eab308, #fef08a, #eab308);
+            border-radius: 10px;
+            border: 2px solid #fff;
+            box-shadow: 0 0 15px #eab308;
             z-index: 15;
-            opacity: 0.9;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            display: none;
         }
 
-        .steps-wrapper {
-            position: absolute;
-            bottom: 15px;
-            left: 15px;
-            right: 15px;
+        .steps-bar {
+            width: 100%;
+            max-width: 900px;
+            background: #1f2937;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             overflow-x: auto;
-            padding-bottom: 10px;
-            z-index: 5;
-        }
-        .steps-container {
-            display: inline-flex;
-            gap: 12px;
-            padding: 5px;
+            border: 1px solid #374151;
         }
         .step-node {
-            background: #1f2937;
+            background: #111827;
             color: #9ca3af;
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 8px 12px;
+            border-radius: 6px;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.9rem;
             border: 1px solid #374151;
-            white-space: nowrap;
+            margin: 0 4px;
             transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .step-node.active {
+            background: #3b82f6;
+            color: #fff;
+            transform: scale(1.15);
+            border-color: #60a5fa;
+            box-shadow: 0 0 12px rgba(59,130,246,0.8);
+        }
+        .step-node.passed {
+            background: #059669;
+            color: #fff;
+            border-color: #10b981;
         }
 
         .controls-panel {
             width: 100%;
-            max-width: 1000px;
-            background: #101625;
+            max-width: 900px;
+            background: #111827;
             padding: 20px;
             border-radius: 15px;
             display: flex;
             flex-direction: column;
             gap: 15px;
-            margin-top: 15px;
-            border: 1px solid #384b65;
+            border: 1px solid #1f2937;
         }
         .control-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
-        .input-group { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
-        input { padding: 10px; border-radius: 8px; border: 1px solid #384b65; background: #070a13; color: #fff; width: 100px; text-align: center; font-weight: bold; font-size: 1.1rem; }
+        .input-group { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; }
+        input { padding: 10px; border-radius: 8px; border: 1px solid #374151; background: #05070e; color: #fff; width: 120px; text-align: center; font-weight: bold; font-size: 1.2rem; }
         .difficulty-group { display: flex; gap: 10px; align-items: center;}
-        .btn-diff { padding: 10px 18px; background: #070a13; color: #9ca3af; border: 1px solid #384b65; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; }
+        .btn-diff { padding: 10px 20px; background: #1f2937; color: #9ca3af; border: 1px solid #374151; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; }
         .btn-diff.active { background: #3b82f6; color: #fff; border-color: #60a5fa; }
         
         .action-group { display: flex; gap: 15px; width: 100%; }
-        button.action-btn { flex: 1; padding: 18px; color: #fff; border: none; border-radius: 10px; font-size: 1.4rem; font-weight: bold; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .btn-go { background: linear-gradient(to bottom, #10b981, #059669); }
-        .btn-cash { background: linear-gradient(to bottom, #f59e0b, #d97706); }
-        button:disabled { background: #374151; color: #9ca3af; cursor: not-allowed; box-shadow: none; }
+        button.action-btn { flex: 1; padding: 20px; color: #fff; border: none; border-radius: 10px; font-size: 1.5rem; font-weight: bold; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .btn-go { background: linear-gradient(to bottom, #10b981, #047857); }
+        .btn-cash { background: linear-gradient(to bottom, #f59e0b, #b45309); }
+        button:disabled { background: #374151; color: #6b7280; cursor: not-allowed; box-shadow: none; }
 
-        #status-bar { text-align: center; font-size: 1.5rem; font-weight: bold; color: #60a5fa; height: 40px; display: flex; align-items: center; justify-content: center; }
+        #status-bar { text-align: center; font-size: 1.6rem; font-weight: bold; color: #60a5fa; height: 50px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; text-shadow: 0 0 10px rgba(96,165,250,0.5); }
+        
+        #win-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(16, 185, 129, 0.95);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .win-title { font-size: 4rem; font-weight: 900; color: #fff; text-shadow: 0 0 20px rgba(0,0,0,0.8); margin-bottom: 10px; }
+        .win-amount { font-size: 3rem; color: #fef08a; font-weight: bold; text-shadow: 0 0 15px rgba(0,0,0,0.8); }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h2>Chicken Road 2 Pro</h2>
+    <h1>Chicken Road 2 Ultimate Pro</h1>
     <div class="balance">Balance: $<span id="balance-amount">1000.00</span></div>
 </div>
 
 <div class="game-wrapper" id="lane-container">
-    <div class="lane"><div class="road-line"></div></div>
-    <div class="lane"><div class="road-line"></div></div>
-    <div class="lane"><div class="road-line"></div></div>
-    <div class="lane"><div class="road-line"></div></div>
-    <div class="lane"><div class="road-line"></div></div>
-    <div class="lane"><div class="road-line"></div></div>
-    
-    <div class="steps-wrapper">
-        <div class="steps-container" id="steps-container"></div>
+    <div id="win-overlay">
+        <div class="win-title">🎉 VICTORY! 🎉</div>
+        <div class="win-amount" id="win-text">YOU WON $0.00</div>
     </div>
+    <div class="lane"></div>
+    <div class="lane"></div>
+    <div class="lane"></div>
+    <div class="lane"></div>
+    <div class="lane"></div>
+    <div class="lane"></div>
+    
+    <div id="safety-shield" class="safety-shield"></div>
     <div id="chicken">🐔</div>
 </div>
 
-<div id="status-bar">Set bet, select difficulty, and Go Chicken!</div>
+<div class="steps-bar" id="steps-bar"></div>
+
+<div id="status-bar">Set bet, select speed, and Go Chicken!</div>
 
 <div class="controls-panel">
     <div class="control-row">
@@ -149,7 +184,7 @@
             <input type="number" id="bet-input" value="10" min="1">
         </div>
         <div class="difficulty-group">
-            <span style="font-weight:bold; color:#9ca3af;">Speed:</span>
+            <span style="font-weight:bold; color:#9ca3af;">Traffic Speed:</span>
             <button class="btn-diff active" onclick="setDifficulty('easy', this)">Easy</button>
             <button class="btn-diff" onclick="setDifficulty('medium', this)">Medium</button>
             <button class="btn-diff" onclick="setDifficulty('high', this)">High</button>
@@ -170,9 +205,7 @@
     let trafficInterval = null;
     let collisionInterval = null;
     let cars = [];
-    let currentBreaker = null;
     
-    // Exactly 30 precise multiplier steps leading up to 10.0x
     const stepMultipliers = [
         1.05, 1.10, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75, 1.85,
         2.00, 2.15, 2.30, 2.45, 2.60, 2.80, 3.00, 3.25, 3.50, 3.75,
@@ -192,7 +225,7 @@
     }
 
     function initStepsUI() {
-        const container = document.getElementById('steps-container');
+        const container = document.getElementById('steps-bar');
         container.innerHTML = '';
         stepMultipliers.forEach((mult, index) => {
             const div = document.createElement('div');
@@ -205,13 +238,21 @@
 
     function updateChickenPosition() {
         const chicken = document.getElementById('chicken');
+        const shield = document.getElementById('safety-shield');
+        
         if (currentStep === -1) {
             chicken.style.left = `15px`;
+            shield.style.display = 'none';
         } else {
             const containerWidth = document.getElementById('lane-container').offsetWidth;
             const laneWidth = containerWidth / 6;
-            const targetLeft = (currentStep * laneWidth) + (laneWidth / 2) - 32;
-            chicken.style.left = `${targetLeft}px`;
+            const targetLeft = (currentStep * laneWidth) + (laneWidth / 2);
+            
+            chicken.style.left = `${targetLeft - 30}px`;
+            
+            shield.style.left = `${targetLeft}px`;
+            shield.style.top = `50%`;
+            shield.style.display = 'block';
             
             const stepNode = document.getElementById(`step-node-${currentStep}`);
             if(stepNode) {
@@ -242,146 +283,142 @@
         gameActive = true;
         currentStep = 0; 
         updateChickenPosition();
+        
         const chicken = document.getElementById('chicken');
         chicken.innerHTML = '🐔';
+        chicken.style.transform = 'translateY(-50%) scaleX(1)'; 
 
         document.getElementById('go-btn').innerText = "GO CHICKEN";
         document.getElementById('cash-btn').disabled = false;
         document.getElementById('bet-input').disabled = true;
         document.querySelectorAll('.btn-diff').forEach(b => b.style.pointerEvents = 'none');
+        document.getElementById('win-overlay').style.display = 'none';
 
-        document.getElementById('status-bar').innerText = `Stage 1 (${stepMultipliers[0].toFixed(2)}x). Move forward!`;
+        document.getElementById('status-bar').innerText = `Stage 1 (${stepMultipliers[0].toFixed(2)}x). Advance!`;
 
         highlightCurrentStepUI();
-        updateSafetyBreakerPosition();
 
         cars = [];
-        const spawnRates = { easy: 1100, medium: 800, high: 550 };
-        trafficInterval = setInterval(spawnCar, spawnRates[difficulty]);
+        adjustTrafficSpawnRate();
+    }
+
+    function adjustTrafficSpawnRate() {
+        if(trafficInterval) clearInterval(trafficInterval);
+        // Normalize spawn interval based on difficulty and multiplier progress
+        const baseIntervals = { easy: 1000, medium: 700, high: 450 };
+        // As game progresses, spawn gets slightly tighter
+        const progressFactor = 1 - (currentStep / stepMultipliers.length) * 0.3;
+        const interval = baseIntervals[difficulty] * progressFactor;
+        
+        trafficInterval = setInterval(spawnTrafficWave, interval);
     }
 
     function highlightCurrentStepUI() {
         document.querySelectorAll('.step-node').forEach((el, idx) => {
             if(idx === currentStep) {
-                el.style.background = '#3b82f6';
-                el.style.color = '#fff';
-                el.style.transform = 'scale(1.15)';
-                el.style.borderColor = '#60a5fa';
-                el.style.boxShadow = '0 0 12px rgba(59,130,246,0.7)';
+                el.className = 'step-node active';
             } else if (idx < currentStep) {
-                el.style.background = '#059669';
-                el.style.color = '#fff';
-                el.style.transform = 'scale(1)';
-                el.style.borderColor = '#10b981';
+                el.className = 'step-node passed';
             } else {
-                el.style.background = '#1f2937';
-                el.style.color = '#9ca3af';
-                el.style.transform = 'scale(1)';
-                el.style.borderColor = '#374151';
-                el.style.boxShadow = 'none';
+                el.className = 'step-node';
             }
         });
     }
 
-    function updateSafetyBreakerPosition() {
-        if(currentBreaker) {
-            currentBreaker.remove();
-        }
-        
-        const container = document.getElementById('lane-container');
-        const chicken = document.getElementById('chicken');
-        const chickenRect = chicken.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        
-        const breaker = document.createElement('div');
-        breaker.className = 'breaker';
-        
-        const breakerTop = chickenRect.bottom - containerRect.top + 5;
-        breaker.style.top = `${breakerTop}px`;
-        container.appendChild(breaker);
-        currentBreaker = breaker;
-    }
-
-    function spawnCar() {
+    function spawnTrafficWave() {
         if(!gameActive) return;
-        for(let i=0; i<6; i++) {
-            if(Math.random() < 0.3) {
-                const lane = document.querySelectorAll('.lane')[i];
-                if(lane.querySelector('.car')) continue;
-
-                const car = document.createElement('div');
-                car.className = 'car';
-                car.innerHTML = carEmojis[Math.floor(Math.random() * carEmojis.length)];
-                car.style.top = '-60px';
-                
-                const laneRect = lane.getBoundingClientRect();
-                const containerRect = document.getElementById('lane-container').getBoundingClientRect();
-                const centerOffset = laneRect.left - containerRect.left + (laneRect.width / 2) - 35;
-                car.style.left = `${centerOffset}px`;
-
-                lane.appendChild(car);
-                cars.push({ el: car, top: -60, laneIndex: i });
-            }
+        
+        // Randomly decide to spawn 1 or a cluster of 2 cars
+        const numCars = Math.random() < 0.3 ? 2 : 1;
+        const availableLanes = [0,1,2,3,4,5].sort(() => Math.random() - 0.5);
+        
+        for(let c = 0; c < numCars; c++) {
+            const laneIndex = availableLanes[c];
+            const lane = document.querySelectorAll('.lane')[laneIndex];
+            
+            const car = document.createElement('div');
+            car.className = 'car';
+            car.innerHTML = carEmojis[Math.floor(Math.random() * carEmojis.length)];
+            lane.appendChild(car);
+            
+            cars.push({ el: car, top: -70, laneIndex: laneIndex });
         }
     }
 
     collisionInterval = setInterval(() => {
         if(!gameActive) return;
-        const speeds = { easy: 4, medium: 7, high: 10 };
-        const speed = speeds[difficulty];
+        
+        // Normalize speed: Scales linearly with difficulty and stage multiplier
+        const baseSpeeds = { easy: 4, medium: 7, high: 10 };
+        const multiplierScaling = 1 + (stepMultipliers[currentStep] / 10) * 1.5; // Up to 2.5x speed at 10x stage
+        const speed = baseSpeeds[difficulty] * multiplierScaling;
 
         const chickenRect = document.getElementById('chicken').getBoundingClientRect();
+        const shieldRect = document.getElementById('safety-shield').getBoundingClientRect();
 
         for (let i = cars.length - 1; i >= 0; i--) {
             const carObj = cars[i];
-            
-            let stoppedByBreaker = false;
-            if(currentBreaker) {
-                const bRect = currentBreaker.getBoundingClientRect();
-                if (carObj.top + 50 >= bRect.top && carObj.top <= bRect.bottom) {
-                    stoppedByBreaker = true;
-                }
-            }
+            carObj.top += speed;
+            carObj.el.style.top = `${carObj.top}px`;
 
-            if(!stoppedByBreaker) {
-                carObj.top += speed;
-                carObj.el.style.top = `${carObj.top}px`;
-            }
+            const carRect = carObj.el.getBoundingClientRect();
 
+            // Check collision with localized safety shield
             if (carObj.laneIndex === currentStep) {
-                const carRect = carObj.el.getBoundingClientRect();
-                
-                if (!(chickenRect.right < carRect.left || 
-                      chickenRect.left > carRect.right || 
-                      chickenRect.bottom < carRect.top || 
-                      chickenRect.top > carRect.bottom)) {
+                let hitShield = !(shieldRect.right < carRect.left || 
+                                  shieldRect.left > carRect.right || 
+                                  shieldRect.bottom < carRect.top || 
+                                  shieldRect.top > carRect.bottom);
+                if(hitShield) {
+                    carObj.el.remove();
+                    cars.splice(i, 1);
+                    continue;
+                }
+
+                // Crash check with chicken
+                let hitChicken = !(chickenRect.right < carRect.left || 
+                                   chickenRect.left > carRect.right || 
+                                   chickenRect.bottom < carRect.top || 
+                                   chickenRect.top > carRect.bottom);
+                if(hitChicken) {
                     endGame(false, "Crash! Game Over.");
                     return;
                 }
             }
 
-            if(carObj.top > 500) {
+            if(carObj.top > 400) {
                 carObj.el.remove();
                 cars.splice(i, 1);
             }
         }
-    }, 30);
+    }, 20);
 
     function advanceChicken() {
         if (!gameActive) return;
         currentStep++;
 
+        adjustTrafficSpawnRate();
+
         if (currentStep >= stepMultipliers.length) {
             const finalPayout = currentBet * stepMultipliers[stepMultipliers.length - 1];
             balance += finalPayout;
             updateDisplay();
-            endGame(true, `YOU WIN! Won $${finalPayout.toFixed(2)}`);
+            
+            const chicken = document.getElementById('chicken');
+            chicken.innerHTML = '🥳';
+            chicken.style.transform = 'translateY(-50%) scale(1.3) rotate(-10deg)';
+            document.getElementById('safety-shield').style.display = 'none';
+
+            const winOverlay = document.getElementById('win-overlay');
+            document.getElementById('win-text').innerText = `YOU WON $${finalPayout.toFixed(2)}`;
+            winOverlay.style.display = 'flex';
+
+            endGame(true, `VICTORY! Won $${finalPayout.toFixed(2)}`);
         } else {
             updateChickenPosition();
             highlightCurrentStepUI();
             const currentMult = stepMultipliers[currentStep];
             document.getElementById('status-bar').innerText = `Stage ${currentStep + 1} (${currentMult.toFixed(2)}x). Keep going!`;
-            updateSafetyBreakerPosition();
         }
     }
 
@@ -392,6 +429,8 @@
         
         if (Number.isFinite(payout)) {
             balance += payout;
+            document.getElementById('win-text').innerText = `CASHED OUT $${payout.toFixed(3.2f);
+            document.getElementById('win-overlay').style.display = 'flex';
             endGame(true, `Cashed out $${payout.toFixed(2)}!`);
         } else {
             endGame(false, "Error calculating payout.");
@@ -407,25 +446,18 @@
         document.getElementById('status-bar').innerText = message;
         if(!win) {
             document.getElementById('chicken').innerHTML = '💥';
+            document.getElementById('safety-shield').style.display = 'none';
         }
 
-        document.getElementById('go-btn').innerText = "GO CHICKEN";
+        document.getElementById('go-btn').innerText = "PLAY AGAIN";
         document.getElementById('cash-btn').disabled = true;
         const betInput = document.getElementById('bet-input');
         betInput.disabled = false;
-        
-        if (isNaN(parseFloat(betInput.value))) {
-            betInput.value = "10";
-        }
 
         document.querySelectorAll('.btn-diff').forEach(b => b.style.pointerEvents = 'auto');
 
         cars.forEach(c => c.el.remove());
         cars = [];
-        if(currentBreaker) {
-            currentBreaker.remove();
-            currentBreaker = null;
-        }
     }
 
     initStepsUI();
