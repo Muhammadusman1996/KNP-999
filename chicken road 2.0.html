@@ -30,7 +30,7 @@
         #chicken {
             position: absolute;
             bottom: 20px;
-            transform: translateX(-50%) scaleX(1);
+            transform: translateX(-50%) scaleX(-1); /* Corrected orientation to face right */
             width: 50px;
             height: 50px;
             font-size: 40px;
@@ -242,7 +242,7 @@
         
         if (currentStep === -1) {
             chicken.style.left = `8.33%`;
-            chicken.style.transform = `translateX(-50%) scaleX(1)`;
+            chicken.style.transform = `translateX(-50%) scaleX(-1)`;
             safetyLine.style.display = 'none';
         } else {
             const laneWidth = 100 / 6;
@@ -284,7 +284,7 @@
         
         const chicken = document.getElementById('chicken');
         chicken.innerHTML = '🐔';
-        chicken.style.transform = `translateX(-50%) scaleX(1)`; 
+        chicken.style.transform = `translateX(-50%) scaleX(-1)`; 
 
         document.getElementById('go-btn').innerText = "STEP FORWARD";
         document.getElementById('cash-btn').disabled = false;
