@@ -167,6 +167,7 @@
                 <div class="input-row">
                     <input type="number" id="bet-amount-1" value="10" min="1" step="1">
                     <div class="preset-btns">
+                        <button class="btn-sm" onclick="adjustBet(1, -10)">-10</button>
                         <button class="btn-sm" onclick="adjustBet(1, 10)">+10</button>
                         <button class="btn-sm" onclick="adjustBet(1, 50)">+50</button>
                     </div>
@@ -186,6 +187,7 @@
                 <div class="input-row">
                     <input type="number" id="bet-amount-2" value="10" min="1" step="1">
                     <div class="preset-btns">
+                        <button class="btn-sm" onclick="adjustBet(2, -10)">-10</button>
                         <button class="btn-sm" onclick="adjustBet(2, 10)">+10</button>
                         <button class="btn-sm" onclick="adjustBet(2, 50)">+50</button>
                     </div>
@@ -221,7 +223,8 @@
     function adjustBet(panel, value) {
         if (gameState === 'RUNNING') return;
         const input = document.getElementById(`bet-amount-${panel}`);
-        input.value = Math.max(1, parseFloat(input.value || 0) + value);
+        const currentVal = parseFloat(input.value || 0);
+        input.value = Math.max(1, currentVal + value);
     }
 
     function handleBetClick(panel) {
@@ -306,7 +309,7 @@
         updateBalance();
 
         const btn = document.getElementById(`btn-action-${panel}`);
-        btn.innerText = `CASHED OUT (${multiplier.toFixed(2)}x)`;
+        btn.innerText = `CASH OUT (${multiplier.toFixed(2)}x)`;
         btn.disabled = true;
     }
 
@@ -396,9 +399,9 @@
         
         ctx.beginPath();
         ctx.moveTo(0, 0);
-        ctx.lineTo(-25, 10);
-        ctx.lineTo(-18, 0);
-        ctx.lineTo(-25, -10);
+        ctx.lineTo(-28, 12);
+        ctx.lineTo(-20, 0);
+        ctx.lineTo(-28, -12);
         ctx.closePath();
         ctx.fill();
 
