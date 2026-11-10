@@ -1,342 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live Roulette Pro</title>
-<style>
-* {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-body {
-background-color: #050b14;
-color: #fff;
-display: flex;
-flex-direction: column;
-align-items: center;
-min-height: 100vh;
-padding: 20px;
-}
-.header {
-width: 100%;
-max-width: 1200px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-background: #0d1b2a;
-padding: 15px 30px;
-border-radius: 12px;
-margin-bottom: 20px;
-border: 1px solid #1b263b;
-}
-.balance {
-font-size: 1.5rem;
-font-weight: bold;
-color: #70e000;
-}
-.game-container {
-display: flex;
-gap: 30px;
-flex-wrap: wrap;
-justify-content: center;
-max-width: 1300px;
-width: 100%;
-}
-.live-video-feed {
-width: 320px;
-height: 480px;
-background: #111;
-border-radius: 15px;
-position: relative;
-overflow: hidden;
-border: 4px solid #415a77;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: flex-end;
-}
-.dealer-character {
-position: relative;
-width: 100%;
-height: 380px;
-display: flex;
-justify-content: center;
-}
-.torso {
-position: absolute;
-bottom: 0;
-width: 120px;
-height: 180px;
-background: #d90429;
-border-radius: 60px 60px 0 0;
-}
-.head {
-position: absolute;
-top: 130px;
-width: 70px;
-height: 70px;
-background: #ffcca3;
-border-radius: 50%;
-}
-.hair {
-position: absolute;
-top: 120px;
-width: 76px;
-height: 40px;
-background: #3a0ca3;
-border-radius: 40px 40px 0 0;
-}
-.arm {
-position: absolute;
-top: 200px;
-width: 20px;
-height: 100px;
-background: #ffcca3;
-border-radius: 10px;
-transform-origin: top center;
-transition: transform 0.3s;
-}
-.arm.left { left: 40px; transform: rotate(20deg); }
-.arm.right { right: 40px; transform: rotate(-20deg); }
-.spinning .arm.left { animation: waveLeft 0.5s infinite alternate; }
-.spinning .arm.right { animation: waveRight 0.5s infinite alternate; }
-@keyframes waveLeft { to { transform: rotate(60deg); } }
-@keyframes waveRight { to { transform: rotate(-60deg); } }
-.feed-label {
-background: rgba(0,0,0,0.8);
-width: 100%;
-text-align: center;
-padding: 10px;
-font-weight: bold;
-color: #ffb703;
-}
-.roulette-and-bets {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 20px;
-flex: 1;
-min-width: 600px;
-}
-.wheel-container {
-position: relative;
-width: 350px;
-height: 350px;
-}
-#wheel {
-width: 100%;
-height: 100%;
-border-radius: 50%;
-border: 8px solid #6c757d;
-position: relative;
-transition: transform 4s cubic-bezier(0.1, 0.85, 0.25, 1);
-}
-.ball {
-position: absolute;
-top: 50%;
-left: 50%;
-width: 16px;
-height: 16px;
-background: #fff;
-border-radius: 50%;
-margin: -8px 0 0 -8px;
-z-index: 10;
-display: none;
-box-shadow: 0 0 5px rgba(0,0,0,0.5);
-}
-.betting-layout {
-background: #006622;
-padding: 20px;
-border-radius: 10px;
-border: 4px solid #ffd700;
-display: flex;
-flex-direction: column;
-gap: 10px;
-box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-}
-.betting-row {
-display: flex;
-}
-.cell {
-width: 45px;
-height: 65px;
-border: 1px solid #fff;
-display: flex;
-align-items: center;
-justify-content: center;
-font-weight: bold;
-font-size: 14px;
-cursor: pointer;
-user-select: none;
-transition: background 0.2s;
-}
-.cell:hover { filter: brightness(1.2); }
-.cell.selected { outline: 4px solid #00b4d8; z-index: 5; }
-.red { background-color: #d90429; color: white; }
-.black { background-color: #111; color: white; }
-.green { background-color: #2b9348; color: white; }
-.zero-section { height: 80px; width: 100%; font-size: 20px; }
-.controls-section {
-display: flex;
-width: 100%;
-justify-content: space-between;
-align-items: center;
-background: #0d1b2a;
-padding: 20px;
-border-radius: 10px;
-}
-.input-group { display: flex; flex-direction: column; gap: 5px; }
-input {
-padding: 10px;
-border-radius: 5px;
-border: 1px solid #415a77;
-background: #1b263b;
-color: #fff;
-font-size: 16px;
-width: 120px;
-}
-.btn-action {
-padding: 15px 30px;
-background: #d90429;
-color: white;
-border: none;
-border-radius: 8px;
-font-size: 1.2rem;
-font-weight: bold;
-cursor: pointer;
-text-transform: uppercase;
-}
-.btn-action:disabled { background: #6c757d; cursor: not-allowed; }
-#status-display { font-size: 1.2rem; font-weight: bold; color: #ffb703; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Roulette</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #050b14;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .header {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0d1b2a;
+            padding: 15px 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #1b263b;
+        }
+        .balance {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #70e000;
+        }
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+            max-width: 900px;
+        }
+        .wheel-section {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        #wheel {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            border: 12px solid #333;
+            position: relative;
+            transition: transform 4s cubic-bezier(0.15, 0.95, 0.15, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .ball {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border-radius: 50%;
+            margin: -8px 0 0 -8px;
+            z-index: 10;
+            display: none;
+            box-shadow: 0 0 8px #fff;
+        }
+        .betting-layout {
+            background: #006622;
+            padding: 25px;
+            border-radius: 15px;
+            border: 6px solid #d4af37;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.7);
+            width: 100%;
+            align-items: center;
+        }
+        .betting-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .betting-row {
+            display: flex;
+            gap: 10px;
+        }
+        .cell {
+            width: 60px;
+            height: 80px;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .cell:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+        }
+        .cell.selected {
+            outline: 5px solid #00b4d8;
+            transform: scale(1.05);
+            z-index: 5;
+        }
+        .red { background-color: #d90429; }
+        .black { background-color: #111; }
+        .green { background-color: #2b9348; }
+        .zero-section {
+            width: 100%;
+            height: 60px;
+            font-size: 24px;
+        }
+        .controls-section {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+            background: #0d1b2a;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #415a77;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        label { font-weight: bold; color: #aaa; }
+        input {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #415a77;
+            background: #1b263b;
+            color: #fff;
+            font-size: 18px;
+            width: 150px;
+            text-align: center;
+        }
+        .btn-spin {
+            padding: 15px 40px;
+            background: linear-gradient(to bottom, #70e000, #38b000);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(56, 176, 0, 0.4);
+            transition: transform 0.1s, background 0.2s;
+        }
+        .btn-spin:hover { background: linear-gradient(to bottom, #9ef01a, #38b000); }
+        .btn-spin:active { transform: scale(0.95); }
+        .btn-spin:disabled { background: #6c757d; cursor: not-allowed; box-shadow: none; }
+        #status-display {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ffb703;
+            text-align: center;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
+
 <div class="header">
-<h2>Live Roulette Pro</h2>
-<div class="balance">Balance: $<span id="balance-amount">1000.00</span></div>
+    <h2>Professional Roulette</h2>
+    <div class="balance">Balance: $<span id="balance-amount">1000.00</span></div>
 </div>
+
 <div class="game-container">
-<div class="live-video-feed">
-<div class="dealer-character" id="dealer">
-<div class="hair"></div>
-<div class="head"></div>
-<div class="torso"></div>
-<div class="arm left"></div>
-<div class="arm right"></div>
+    <div class="wheel-section">
+        <div id="wheel"></div>
+        <div class="ball" id="ball"></div>
+    </div>
+
+    <div class="betting-layout">
+        <div class="cell green zero-section" onclick="selectCell(0, 'green', this)">0</div>
+        <div class="betting-grid" id="grid-container"></div>
+    </div>
+
+    <div class="controls-section">
+        <div class="input-group">
+            <label>Bet Amount ($)</label>
+            <input type="number" id="bet-input" value="10" min="1">
+        </div>
+        <div id="status-display">Select a number to bet!</div>
+        <button class="btn-spin" id="spin-btn" onclick="spinRoulette()">Spin</button>
+    </div>
 </div>
-<div class="feed-label">Live Croupier Studio</div>
-</div>
-<div class="roulette-and-bets">
-<div class="wheel-container">
-<div id="wheel"></div>
-<div class="ball" id="ball"></div>
-</div>
-<div class="betting-layout" id="bet-board">
-<div class="cell green zero-section" onclick="selectCell(0, 'green', this)">0</div>
-<div id="grid-container"></div>
-</div>
-<div class="controls-section">
-<div class="input-group">
-<label>Bet Amount ($)</label>
-<input type="number" id="bet-input" value="10" min="1">
-</div>
-<div id="status-display">Select a number to bet!</div>
-<button class="btn-action" id="spin-btn" onclick="spinRoulette()">Spin & Bet</button>
-</div>
-</div>
-</div>
+
 <script>
-let balance = 1000.00;
-let selectedNumber = null;
-let selectedColor = null;
-let isSpinning = false;
-const wheelNumbers = [
-0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10,
-5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
-];
-const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
-function initBoard() {
-const container = document.getElementById('grid-container');
-container.innerHTML = '';
-for (let row = 0; row < 12; row++) {
-const rowDiv = document.createElement('div');
-rowDiv.className = 'betting-row';
-for (let col = 0; col < 3; col++) {
-const num = 36 - (row * 3) - (2 - col);
-const color = num === 0 ? 'green' : (redNumbers.includes(num) ? 'red' : 'black');
-const cell = document.createElement('div');
-cell.className = cell ${color};
-cell.innerText = num;
-cell.onclick = () => selectCell(num, color, cell);
-rowDiv.appendChild(cell);
-}
-container.appendChild(rowDiv);
-}
-const wheel = document.getElementById('wheel');
-const segmentDegree = 360 / 37;
-let conicGradient = 'conic-gradient(';
-wheelNumbers.forEach((num, index) => {
-const color = num === 0 ? '#2b9348' : (redNumbers.includes(num) ? '#d90429' : '#111');
-const start = index * segmentDegree;
-const end = (index + 1) * segmentDegree;
-conicGradient += ${color} ${start}deg ${end}deg${index === wheelNumbers.length - 1 ? ')' : ', '};
-});
-wheel.style.background = conicGradient;
-}
-function selectCell(num, color, element) {
-if(isSpinning) return;
-document.querySelectorAll('.cell').forEach(c => c.classList.remove('selected'));
-if(element) element.classList.add('selected');
-selectedNumber = num;
-selectedColor = color;
-document.getElementById('status-display').innerText = Selected: ${num} (${color.toUpperCase()});
-}
-function spinRoulette() {
-if (selectedNumber === null) {
-alert("Please select a number on the board first!");
-return;
-}
-const betAmount = parseFloat(document.getElementById('bet-input').value);
-if (isNaN(betAmount) || betAmount <= 0 || betAmount > balance) {
-alert("Invalid Bet Amount!");
-return;
-}
-isSpinning = true;
-balance -= betAmount;
-document.getElementById('balance-amount').innerText = balance.toFixed(2);
-const statusDisplay = document.getElementById('status-display');
-statusDisplay.innerText = "Spinning...";
-document.getElementById('spin-btn').disabled = true;
-document.getElementById('dealer').classList.add('spinning');
-const ball = document.getElementById('ball');
-ball.style.display = 'block';
-const winningNum = Math.floor(Math.random() * 37);
-const winningIndex = wheelNumbers.indexOf(winningNum);
-const degreePerNum = 360 / 37;
-const targetDegree = winningIndex * degreePerNum;
-const totalSpin = 360 * 5 + (360 - targetDegree);
-const wheel = document.getElementById('wheel');
-wheel.style.transform = rotate(${totalSpin}deg);
-setTimeout(() => {
-document.getElementById('dealer').classList.remove('spinning');
-wheel.style.transition = 'none';
-wheel.style.transform = rotate(${totalSpin % 360}deg);
-isSpinning = false;
-document.getElementById('spin-btn').disabled = false;
-const winColor = winningNum === 0 ? 'green' : (redNumbers.includes(winningNum) ? 'red' : 'black');
-statusDisplay.innerText = Winning Number: ${winningNum} (${winColor.toUpperCase()});
-if (selectedNumber === winningNum) {
-const payout = betAmount * 36;
-balance += payout;
-statusDisplay.innerText = JACKPOT! Won $${payout}!;
-document.getElementById('balance-amount').innerText = balance.toFixed(2);
-}
-}, 4000);
-}
-initBoard();
+    let balance = 1000.00;
+    let selectedNumber = null;
+    let selectedColor = null;
+    let isSpinning = false;
+
+    const wheelNumbers = [
+        0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10,
+        5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
+    ];
+
+    const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+
+    function initBoard() {
+        const container = document.getElementById('grid-container');
+        container.innerHTML = '';
+        
+        for (let row = 0; row < 12; row++) {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'betting-row';
+            for (let col = 0; col < 3; col++) {
+                const num = 36 - (row * 3) - (2 - col);
+                const color = redNumbers.includes(num) ? 'red' : 'black';
+                const cell = document.createElement('div');
+                cell.className = `cell ${color}`;
+                cell.innerText = num;
+                cell.onclick = () => selectCell(num, color, cell);
+                rowDiv.appendChild(cell);
+            }
+            container.appendChild(rowDiv);
+        }
+
+        const wheel = document.getElementById('wheel');
+        const segmentDegree = 360 / 37;
+        let conicGradient = 'conic-gradient(';
+        wheelNumbers.forEach((num, index) => {
+            const color = num === 0 ? '#2b9348' : (redNumbers.includes(num) ? '#d90429' : '#111');
+            const start = index * segmentDegree;
+            const end = (index + 1) * segmentDegree;
+            conicGradient += `${color} ${start}deg ${end}deg${index === wheelNumbers.length - 1 ? ')' : ', '}`;
+        });
+        wheel.style.background = conicGradient;
+    }
+
+    function selectCell(num, color, element) {
+        if(isSpinning) return;
+        document.querySelectorAll('.cell').forEach(c => c.classList.remove('selected'));
+        if(element) element.classList.add('selected');
+        
+        selectedNumber = num;
+        selectedColor = color;
+        document.getElementById('status-display').innerText = `Selected: ${num} (${color.toUpperCase()})`;
+    }
+
+    function spinRoulette() {
+        if (selectedNumber === null) {
+            alert("Please select a number on the board first!");
+            return;
+        }
+        const betAmount = parseFloat(document.getElementById('bet-input').value);
+        if (isNaN(betAmount) || betAmount <= 0 || betAmount > balance) {
+            alert("Invalid Bet Amount!");
+            return;
+        }
+
+        isSpinning = true;
+        balance -= betAmount;
+        document.getElementById('balance-amount').innerText = balance.toFixed(2);
+        
+        const statusDisplay = document.getElementById('status-display');
+        statusDisplay.innerText = "Spinning...";
+        document.getElementById('spin-btn').disabled = true;
+        
+        const ball = document.getElementById('ball');
+        ball.style.display = 'block';
+        ball.style.animation = 'none';
+
+        const winningNum = Math.floor(Math.random() * 37);
+        const winningIndex = wheelNumbers.indexOf(winningNum);
+        const degreePerNum = 360 / 37;
+        const targetDegree = winningIndex * degreePerNum;
+        const totalSpin = 360 * 6 + (360 - targetDegree);
+
+        const wheel = document.getElementById('wheel');
+        wheel.style.transition = 'transform 4s cubic-bezier(0.15, 0.95, 0.15, 1)';
+        wheel.style.transform = `rotate(${totalSpin}deg)`;
+
+        setTimeout(() => {
+            wheel.style.transition = 'none';
+            wheel.style.transform = `rotate(${totalSpin % 360}deg)`;
+            
+            isSpinning = false;
+            document.getElementById('spin-btn').disabled = false;
+            
+            const winColor = winningNum === 0 ? 'green' : (redNumbers.includes(winningNum) ? 'red' : 'black');
+            statusDisplay.innerText = `Winning Number: ${winningNum} (${winColor.toUpperCase()})`;
+
+            if (selectedNumber === winningNum) {
+                const payout = betAmount * 36;
+                balance += payout;
+                statusDisplay.innerText = `JACKPOT! Won $${payout}!`;
+                document.getElementById('balance-amount').innerText = balance.toFixed(2);
+            }
+        }, 4000);
+    }
+
+    initBoard();
 </script>
+
 </body>
 </html>
