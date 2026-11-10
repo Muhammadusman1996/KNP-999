@@ -304,9 +304,7 @@
 
     function adjustTrafficSpawnRate() {
         if(trafficInterval) clearInterval(trafficInterval);
-        // Normalize spawn interval based on difficulty and multiplier progress
         const baseIntervals = { easy: 1000, medium: 700, high: 450 };
-        // As game progresses, spawn gets slightly tighter
         const progressFactor = 1 - (currentStep / stepMultipliers.length) * 0.3;
         const interval = baseIntervals[difficulty] * progressFactor;
         
@@ -328,7 +326,6 @@
     function spawnTrafficWave() {
         if(!gameActive) return;
         
-        // Randomly decide to spawn 1 or a cluster of 2 cars
         const numCars = Math.random() < 0.3 ? 2 : 1;
         const availableLanes = [0,1,2,3,4,5].sort(() => Math.random() - 0.5);
         
@@ -348,9 +345,8 @@
     collisionInterval = setInterval(() => {
         if(!gameActive) return;
         
-        // Normalize speed: Scales linearly with difficulty and stage multiplier
         const baseSpeeds = { easy: 4, medium: 7, high: 10 };
-        const multiplierScaling = 1 + (stepMultipliers[currentStep] / 10) * 1.5; // Up to 2.5x speed at 10x stage
+        const multiplierScaling = 1 + (stepMultipliers[currentStep] / 10) * 1.5;
         const speed = baseSpeeds[difficulty] * multiplierScaling;
 
         const chickenRect = document.getElementById('chicken').getBoundingClientRect();
@@ -363,7 +359,6 @@
 
             const carRect = carObj.el.getBoundingClientRect();
 
-            // Check collision with localized safety shield
             if (carObj.laneIndex === currentStep) {
                 let hitShield = !(shieldRect.right < carRect.left || 
                                   shieldRect.left > carRect.right || 
@@ -375,7 +370,6 @@
                     continue;
                 }
 
-                // Crash check with chicken
                 let hitChicken = !(chickenRect.right < carRect.left || 
                                    chickenRect.left > carRect.right || 
                                    chickenRect.bottom < carRect.top || 
@@ -429,7 +423,7 @@
         
         if (Number.isFinite(payout)) {
             balance += payout;
-            document.getElementById('win-text').innerText = `CASHED OUT $${payout.toFixed(3.2f);
+            document.getElementById('win-text').innerText = `CASHED OUT $${payout.toFixed(2)}`;
             document.getElementById('win-overlay').style.display = 'flex';
             endGame(true, `Cashed out $${payout.toFixed(2)}!`);
         } else {
