@@ -3,106 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chicken Road 2 Simulation</title>
+    <title>Chicken Road 2 Pro</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #0d1b2a;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 10px;
-        }
-        .header {
-            width: 100%;
-            max-width: 800px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #1b263b;
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #415a77;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #050b14; color: #fff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 10px; }
+        .header { width: 100%; max-width: 800px; display: flex; justify-content: space-between; align-items: center; background: #0d1b2a; padding: 10px 20px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #d4af37; }
         .balance { font-size: 1.3rem; font-weight: bold; color: #70e000; }
         
         .game-wrapper {
             position: relative;
             width: 100%;
             max-width: 800px;
-            height: 450px;
-            background: #343a40;
-            border: 6px solid #495057;
+            height: 550px;
+            background: #1a1a2e;
+            border: 6px solid #d4af37;
             border-radius: 15px;
             overflow: hidden;
             display: flex;
         }
-        /* Lanes */
-        .lane {
-            flex: 1;
-            height: 100%;
-            border-right: 2px dashed rgba(255,255,255,0.3);
-            position: relative;
-        }
+        .lane { flex: 1; height: 100%; border-right: 2px dashed rgba(255,255,255,0.1); position: relative; }
         .lane:last-child { border-right: none; }
         
-        /* Entities */
         #chicken {
             position: absolute;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            font-size: 35px;
+            width: 40px;
+            height: 40px;
+            font-size: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: left 0.1s ease, bottom 0.2s ease;
+            transition: bottom 0.3s ease, left 0.3s ease;
             z-index: 10;
         }
-        . obstacle {
+        .obstacle {
             position: absolute;
             top: -60px;
-            width: 80%;
-            left: 10%;
+            width: 85%;
+            left: 7.5%;
             height: 50px;
             border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
         }
-        .car-red { background: #d90429; border: 2px solid #ef233c; }
-        .car-blue { background: #0077b6; border: 2px solid #0096c7; }
-        .car-yellow { background: #ffb703; border: 2px solid #fb8500; }
-        .breaker { background: #6c757d; height: 30px; border-top: 4px dashed #fff; }
-
-        .multiplier-node {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #212529;
-            color: #ffb703;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            border: 1px solid #ffb703;
-        }
+        .car-red { background: linear-gradient(180deg, #ff4757, #ff5252); border: 2px solid #ffda79; }
+        .car-blue { background: linear-gradient(180deg, #2ed573, #7bed9f); border: 2px solid #ffffff; }
+        .car-yellow { background: linear-gradient(180deg, #ffa502, #eccc68); border: 2px solid #ff4757; }
 
         .controls-panel {
             width: 100%;
             max-width: 800px;
-            background: #1b263b;
+            background: #0d1b2a;
             padding: 15px;
             border-radius: 12px;
             display: flex;
@@ -111,77 +67,39 @@
             margin-top: 10px;
             border: 1px solid #415a77;
         }
-        .control-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+        .control-row { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
         .input-group { display: flex; align-items: center; gap: 10px; }
-        input {
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #415a77;
-            background: #0d1b2a;
-            color: #fff;
-            width: 100px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .difficulty-group { display: flex; gap: 5px; }
-        .btn-diff {
-            padding: 8px 12px;
-            background: #0d1b2a;
-            color: #fff;
-            border: 1px solid #415a77;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .btn-diff.active { background: #415a77; border-color: #fff; font-weight: bold; }
+        input { padding: 8px; border-radius: 5px; border: 1px solid #415a77; background: #1b263b; color: #fff; width: 90px; text-align: center; font-weight: bold; font-size: 1rem; }
+        .difficulty-group { display: flex; gap: 5px; align-items: center;}
+        .btn-diff { padding: 8px 12px; background: #1b263b; color: #fff; border: 1px solid #415a77; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-diff.active { background: #d4af37; color: #050b14; }
         
         .action-group { display: flex; gap: 10px; width: 100%; }
-        button.action-btn {
-            flex: 1;
-            padding: 15px;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
+        button.action-btn { flex: 1; padding: 15px; color: white; border: none; border-radius: 8px; font-size: 1.2rem; font-weight: bold; cursor: pointer; text-transform: uppercase; }
         .btn-go { background: linear-gradient(to bottom, #70e000, #38b000); }
         .btn-cash { background: linear-gradient(to bottom, #ffb703, #fb8500); }
         button:disabled { background: #555; color: #888; cursor: not-allowed; }
 
-        #status-bar {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #ffb703;
-            min-height: 28px;
-        }
+        #status-bar { text-align: center; font-size: 1.2rem; font-weight: bold; color: #ffb703; height: 35px; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h2>Chicken Road 2</h2>
+    <h2>Chicken Road 2 Pro</h2>
     <div class="balance">Balance: $<span id="balance-amount">1000.00</span></div>
 </div>
 
 <div class="game-wrapper" id="lane-container">
-    <div class="lane" id="lane-0"><div class="multiplier-node">1.2x</div></div>
-    <div class="lane" id="lane-1"><div class="multiplier-node">1.5x</div></div>
-    <div class="lane" id="lane-2"><div class="multiplier-node">2.0x</div></div>
-    <div class="lane" id="lane-3"><div class="multiplier-node">3.0x</div></div>
-    <div class="lane" id="lane-4"><div class="multiplier-node">5.0x</div></div>
+    <div class="lane" id="lane-0"></div>
+    <div class="lane" id="lane-1"></div>
+    <div class="lane" id="lane-2"></div>
+    <div class="lane" id="lane-3"></div>
+    <div class="lane" id="lane-4"></div>
     <div id="chicken">🐔</div>
 </div>
 
-<div id="status-bar">Select difficulty, set bet, and press GO!</div>
+<div id="status-bar">Set bet, select difficulty, and start!</div>
 
 <div class="controls-panel">
     <div class="control-row">
@@ -190,14 +108,14 @@
             <input type="number" id="bet-input" value="10" min="1">
         </div>
         <div class="difficulty-group">
-            <span style="align-self: center; font-size: 0.9rem; color: #aaa;">Speed:</span>
+            <span>Speed:</span>
             <button class="btn-diff active" onclick="setDifficulty('easy', this)">Easy</button>
             <button class="btn-diff" onclick="setDifficulty('medium', this)">Medium</button>
             <button class="btn-diff" onclick="setDifficulty('high', this)">High</button>
         </div>
     </div>
     <div class="action-group">
-        <button class="action-btn btn-go" id="go-btn" onclick="startGame()">GO</button>
+        <button class="action-btn btn-go" id="go-btn" onclick="startOrStep()">START</button>
         <button class="action-btn btn-cash" id="cash-btn" onclick="cashOut()" disabled>Collect Cash</button>
     </div>
 </div>
@@ -205,13 +123,16 @@
 <script>
     let balance = 1000.00;
     let currentBet = 0;
-    let currentLane = 2; // Middle lane
+    let currentLane = 2;
+    let currentStep = 0;
+    const maxSteps = 15;
     let gameActive = false;
     let difficulty = 'easy';
+    let trafficLoop = null;
     let gameLoop = null;
     let obstacles = [];
-    const multipliers = [1.2, 1.5, 2.0, 3.0, 5.0];
     const carTypes = ['car-red', 'car-blue', 'car-yellow'];
+    const multipliers = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.3, 2.6, 3.0, 3.5, 4.0, 5.0, 6.5, 8.0, 10.0, 15.0];
 
     function updateDisplay() {
         document.getElementById('balance-amount').innerText = balance.toFixed(2);
@@ -224,7 +145,7 @@
         btn.classList.add('active');
     }
 
-    // Controls for moving chicken
+    // Keyboard controls
     window.addEventListener('keydown', (e) => {
         if(!gameActive) return;
         if(e.key === 'ArrowLeft' && currentLane > 0) currentLane--;
@@ -235,14 +156,23 @@
     function updateChickenPosition() {
         const chicken = document.getElementById('chicken');
         const laneWidth = document.getElementById('lane-0').offsetWidth;
-        const targetLeft = (currentLane * laneWidth) + (laneWidth / 2) - 25;
+        const bottomOffset = 20 + (currentStep * 32);
+        const targetLeft = (currentLane * laneWidth) + (laneWidth / 2) - 20;
         chicken.style.left = `${targetLeft}px`;
+        chicken.style.bottom = `${bottomOffset}px`;
+    }
+
+    function startOrStep() {
+        if(!gameActive) {
+            startGame();
+        } else {
+            advanceChicken();
+        }
     }
 
     function startGame() {
-        if(gameActive) return;
         const betInput = parseFloat(document.getElementById('bet-input').value);
-        if(isNaN(betInput) || betInput <= 0) { alert("Invalid bet!"); return; }
+        if(isNaN(betInput) || bet <= 0) { alert("Invalid bet!"); return; }
         if(betInput > balance) { alert("Insufficient balance!"); return; }
 
         currentBet = betInput;
@@ -251,42 +181,36 @@
         
         gameActive = true;
         currentLane = 2;
+        currentStep = 0;
         updateChickenPosition();
         document.getElementById('chicken').innerHTML = '🐔';
 
-        document.getElementById('go-btn').disabled = true;
+        document.getElementById('go-btn').innerText = "GO CHICKEN";
         document.getElementById('cash-btn').disabled = false;
         document.getElementById('bet-input').disabled = true;
-        document.getElementById('status-bar').innerText = "Game Started! Dodge traffic!";
+        document.getElementById('status-bar').innerText = `Step 1 (Next: ${multipliers[1]}x). Dodge traffic!`;
 
         obstacles = [];
-        const speedMap = { easy: 5, medium: 8, high: 12 };
-        const spawnRate = speedMap[difficulty] * 10;
-
+        const spawnRateMap = { easy: 1000, medium: 700, high: 500 };
+         trafficLoop = setInterval(spawnObstacle, spawnRateMap[difficulty]);
+        
         gameLoop = setInterval(() => {
-            spawnObstacles();
             moveObstacles();
             checkCollision();
-        }, 50);
+        }, 30);
     }
 
-    function spawnObstacles() {
-        // Randomly spawn in lanes
-        for(let i=0; i<5; i++) {
-            if(Math.random() < 0.05) { // Spawn chance
-                // Check if already has obstacle near top
-                const lane = document.getElementById(`lane-${i}`);
-                if(lane.querySelector('.obstacle')) continue;
-
-                const obs = document.createElement('div');
-                const isBreaker = Math.random() < 0.2;
-                obs.className = `obstacle ${isBreaker ? 'breaker' : carTypes[Math.floor(Math.random()*carTypes.length)]}`;
-                if(!isBreaker) obs.innerHTML = '🚗';
-                obs.style.top = '-60px';
-                lane.appendChild(obs);
-                obstacles.push({ el: obs, lane: i, top: -60, isBreaker: isBreaker });
-            }
-        }
+    function spawnObstacle() {
+        if(!gameActive) return;
+        const laneIndex = Math.floor(Math.random() * 5);
+        const lane = document.getElementById(`lane-${laneIndex}`);
+        
+        const obs = document.createElement('div');
+        obs.className = `obstacle ${carTypes[Math.floor(Math.random()*carTypes.length)]}`;
+        obs.innerHTML = '🚗';
+        obs.style.top = '-60px';
+        lane.appendChild(obs);
+        obstacles.push({ el: obs, top: -60, lane: laneIndex });
     }
 
     function moveObstacles() {
@@ -298,12 +222,23 @@
             obs.top += speed;
             obs.el.style.top = `${obs.top}px`;
 
-            // Remove if off screen
-            if(obs.top > 450) {
+            if(obs.top > 550) {
                 obs.el.remove();
                 obstacles.splice(i, 1);
             }
         }
+    }
+
+    function advanceChicken() {
+        currentStep++;
+        if (currentStep >= maxSteps) {
+            endGame(true, `MAX STAGE REACHED! Won $${(currentBet * multipliers[maxSteps]).toFixed(2)}`);
+            return;
+        }
+
+        updateChickenPosition();
+        const nextMult = multipliers[currentStep + 1] || 15.0;
+        document.getElementById('status-bar').innerText = `Stage ${currentStep} Clear! Next Target: ${nextMult}x`;
     }
 
     function checkCollision() {
@@ -313,37 +248,36 @@
         obstacles.forEach(obs => {
             const obsRect = obs.el.getBoundingClientRect();
             
-            // Simple overlap check
             if (!(chickenRect.right < obsRect.left || 
                   chickenRect.left > obsRect.right || 
                   chickenRect.bottom < obsRect.top || 
                   chickenRect.top > obsRect.bottom)) {
                 
-                endGame(false, "Crash! Game Over.");
+                endGame(false, "Traffic Crash! Game Over.");
             }
         });
     }
 
     function cashOut() {
         if(!gameActive) return;
-        // Calculate payout based on time survived or fixed stage
-        const payout = currentBet * multipliers[Math.floor(Math.random() * multipliers.length)];
-        endGame(true, `Collected $${payout.toFixed(2)}!`);
+        const payout = currentBet * multipliers[currentStep];
+        endGame(true, `Cashed out $${payout.toFixed(2)}!`);
         balance += payout;
         updateDisplay();
     }
 
     function endGame(win, message) {
-        clearInterval(gameLoop);
         gameActive = false;
+        clearInterval(trafficLoop);
+        clearInterval(gameLoop);
+        
         document.getElementById('status-bar').innerText = message;
         if(!win) document.getElementById('chicken').innerHTML = '💥';
 
-        document.getElementById('go-btn').disabled = false;
+        document.getElementById('go-btn').innerText = "START";
         document.getElementById('cash-btn').disabled = true;
         document.getElementById('bet-input').disabled = false;
 
-        // Clear all obstacles
         obstacles.forEach(obs => obs.el.remove());
         obstacles = [];
     }
