@@ -1,84 +1,418 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Aviator Clone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviator Game</title>
     <style>
-        body { text-align: center; background: #222; color: white; font-family: sans-serif; }
-        canvas { background: #000; display: block; margin: 20px auto; border: 2px solid #555; }
-        button { padding: 15px 30px; font-size: 20px; cursor: pointer; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #121318;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .game-wrapper {
+            width: 100%;
+            max-width: 800px;
+            background-color: #1e2029;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #2c2f3e;
+            padding-bottom: 10px;
+        }
+        .balance {
+            font-size: 18px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(180deg, #0f1015 0%, #181a24 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #2c2f3e;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .multiplier-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: bold;
+            pointer-events: none;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+        .controls-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .bet-card {
+            background-color: #262938;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #32364a;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .input-group label {
+            font-size: 12px;
+            color: #a0a5b8;
+        }
+        .input-row {
+            display: flex;
+            gap: 8px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #3e435d;
+            background-color: #171821;
+            color: #fff;
+            font-size: 14px;
+        }
+        .btn {
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-bet {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-bet:hover {
+            background-color: #218838;
+        }
+        .btn-cashout {
+            background-color: #ff9800;
+            color: white;
+        }
+        .btn-cashout:hover {
+            background-color: #e68a00;
+        }
+        .btn:disabled {
+            background-color: #4a4d5d;
+            cursor: not-allowed;
+        }
+        .preset-btns {
+            display: flex;
+            gap: 5px;
+        }
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 12px;
+            background-color: #32364a;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-sm:hover {
+            background-color: #424761;
+        }
     </style>
 </head>
 <body>
-    <h1>Aviator Game</h1>
-    <canvas id="gameCanvas" width="600" height="400"></canvas>
-    <div>
-        <button id="betBtn">Bet</button>
-        <button id="cashoutBtn" disabled>Cash Out</button>
+
+<div class="game-wrapper">
+    <div class="header">
+        <h2>Aviator</h2>
+        <div class="balance">Balance: $<span id="user-balance">1000.00</span></div>
     </div>
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const betBtn = document.getElementById('betBtn');
-        const cashoutBtn = document.getElementById('cashoutBtn');
 
-        let multiplier = 1.0;
-        let isFlying = false;
-        let crashPoint = 1;
-        let animationId;
-        let planeX = 0;
-        let planeY = 300;
+    <div class="canvas-container">
+        <canvas id="gameCanvas" width="760" height="350"></canvas>
+        <div class="multiplier-overlay" id="multiplier-display">1.00x</div>
+    </div>
 
-        betBtn.addEventListener('click', () => {
-            isFlying = false;
-            multiplier = 1.0;
-            planeX = 0;
-            planeY = 300;
-            crashPoint = (Math.random() * 5 + 1.1).toFixed(2);
-            isFlying = true;
-            betBtn.disabled = true;
-            cashoutBtn.disabled = false;
-            animate();
-        });
+    <div class="controls-container">
+        <!-- Bet Panel 1 -->
+        <div class="bet-card">
+            <div class="input-group">
+                <label>Bet Amount ($)</label>
+                <div class="input-row">
+                    <input type="number" id="bet-amount-1" value="10" min="1" step="1">
+                    <div class="preset-btns">
+                        <button class="btn-sm" onclick="adjustBet(1, 10)">+10</button>
+                        <button class="btn-sm" onclick="adjustBet(1, 50)">+50</button>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Auto Cashout (x)</label>
+                <input type="number" id="auto-cashout-1" placeholder="Disabled" min="1.01" step="0.1">
+            </div>
+            <button id="btn-action-1" class="btn btn-bet" onclick="handleBetClick(1)">BET</button>
+        </div>
 
-        cashoutBtn.addEventListener('click', () => {
-            if (isFlying) {
-                isFlying = false;
-                cancelAnimationFrame(animationId);
-                alert('You won! Cash out at: ' + multiplier.toFixed(2) + 'x');
-                betBtn.disabled = false;
-                cashoutBtn.disabled = true;
+        <!-- Bet Panel 2 -->
+        <div class="bet-card">
+            <div class="input-group">
+                <label>Bet Amount ($)</label>
+                <div class="input-row">
+                    <input type="number" id="bet-amount-2" value="10" min="1" step="1">
+                    <div class="preset-btns">
+                        <button class="btn-sm" onclick="adjustBet(2, 10)">+10</button>
+                        <button class="btn-sm" onclick="adjustBet(2, 50)">+50</button>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Auto Cashout (x)</label>
+                <input type="number" id="auto-cashout-2" placeholder="Disabled" min="1.01" step="0.1">
+            </div>
+            <button id="btn-action-2" class="btn btn-bet" onclick="handleBetClick(2)">BET</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const multiplierDisplay = document.getElementById('multiplier-display');
+    const balanceDisplay = document.getElementById('user-balance');
+
+    let balance = 1000.00;
+    let multiplier = 1.00;
+    let crashPoint = 0;
+    let gameState = 'IDLE'; // IDLE, RUNNING, CRASHED
+    let animationFrameId = null;
+    let startTime = null;
+
+    const bets = {
+        1: { active: false, amount: 0, cashedOut: false, auto: null },
+        2: { active: false, amount: 0, cashedOut: false, auto: null }
+    };
+
+    function adjustBet(panel, value) {
+        if (gameState === 'RUNNING') return;
+        const input = document.getElementById(`bet-amount-${panel}`);
+        input.value = Math.max(1, parseFloat(input.value || 0) + value);
+    }
+
+    function handleBetClick(panel) {
+        const btn = document.getElementById(`btn-action-${panel}`);
+        const amountInput = document.getElementById(`bet-amount-${panel}`);
+        const autoInput = document.getElementById(`auto-cashout-${panel}`);
+
+        if (gameState === 'RUNNING') {
+            if (bets[panel].active && !bets[panel].cashedOut) {
+                cashOut(panel);
+            }
+            return;
+        }
+
+        if (!bets[panel].active) {
+            const amount = parseFloat(amountInput.value);
+            if (isNaN(amount) || amount <= 0 || amount > balance) return;
+
+            balance -= amount;
+            updateBalance();
+
+            bets[panel].active = true;
+            bets[panel].amount = amount;
+            bets[panel].cashedOut = false;
+            bets[panel].auto = parseFloat(autoInput.value) || null;
+
+            btn.innerText = 'CANCEL';
+            btn.classList.remove('btn-bet');
+            btn.classList.add('btn-cashout');
+
+            if (gameState === 'IDLE') {
+                startRound();
+            }
+        } else {
+            balance += bets[panel].amount;
+            updateBalance();
+
+            bets[panel].active = false;
+            btn.innerText = 'BET';
+            btn.classList.remove('btn-cashout');
+            btn.classList.add('btn-bet');
+        }
+    }
+
+    function startRound() {
+        gameState = 'RUNNING';
+        multiplier = 1.00;
+        crashPoint = generateCrashPoint();
+        startTime = performance.now();
+
+        [1, 2].forEach(panel => {
+            document.getElementById(`bet-amount-${panel}`).disabled = true;
+            document.getElementById(`auto-cashout-${panel}`).disabled = true;
+
+            const btn = document.getElementById(`btn-action-${panel}`);
+            if (bets[panel].active) {
+                btn.innerText = 'CASH OUT';
+                btn.classList.remove('btn-bet');
+                btn.classList.add('btn-cashout');
+            } else {
+                btn.disabled = true;
             }
         });
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw multiplier
-            ctx.fillStyle = 'white';
-            ctx.font = '40px Arial';
-            ctx.fillText(multiplier.toFixed(2) + 'x', 50, 100);
+        multiplierDisplay.style.color = '#ffffff';
+        requestAnimationFrame(updateGame);
+    }
 
-            // Draw plane
-            ctx.fillStyle = 'red';
-            ctx.fillRect(planeX, planeY, 30, 20);
+    function generateCrashPoint() {
+        const e = 2 ** 32;
+        const h = crypto.getRandomValues(new Uint32Array(1))[0];
+        if (h % 33 === 0) return 1.00;
+        return Math.max(1.00, parseFloat(((100 * e - h) / (e - h) / 100).toFixed(2)));
+    }
 
-            if (isFlying) {
-                multiplier += 0.02;
-                planeX += 2;
-                planeY -= 1;
+    function cashOut(panel) {
+        if (!bets[panel].active || bets[panel].cashedOut || gameState !== 'RUNNING') return;
 
-                if (multiplier >= crashPoint) {
-                    isFlying = false;
-                    ctx.fillStyle = 'red';
-                    ctx.fillText('CRASHED', 200, 200);
-                    betBtn.disabled = false;
-                    cashoutBtn.disabled = true;
-                } else {
-                    animationId = requestAnimationFrame(animate);
+        bets[panel].cashedOut = true;
+        const winnings = bets[panel].amount * multiplier;
+        balance += winnings;
+        updateBalance();
+
+        const btn = document.getElementById(`btn-action-${panel}`);
+        btn.innerText = `CASHED OUT (${multiplier.toFixed(2)}x)`;
+        btn.disabled = true;
+    }
+
+    function updateGame(timestamp) {
+        const elapsed = (timestamp - startTime) / 1000;
+        multiplier = Math.pow(Math.E, 0.06 * elapsed);
+
+        [1, 2].forEach(panel => {
+            if (bets[panel].active && !bets[panel].cashedOut && bets[panel].auto) {
+                if (multiplier >= bets[panel].auto) {
+                    cashOut(panel);
                 }
             }
+        });
+
+        if (multiplier >= crashPoint) {
+            endRound();
+            return;
         }
-    </script>
+
+        multiplierDisplay.innerText = `${multiplier.toFixed(2)}x`;
+        renderCanvas();
+        animationFrameId = requestAnimationFrame(updateGame);
+    }
+
+    function endRound() {
+        gameState = 'CRASHED';
+        multiplierDisplay.innerText = `CRASHED @ ${crashPoint.toFixed(2)}x`;
+        multiplierDisplay.style.color = '#ff4d4d';
+
+        renderCanvas(true);
+
+        [1, 2].forEach(panel => {
+            const btn = document.getElementById(`btn-action-${panel}`);
+            btn.innerText = 'BET';
+            btn.classList.remove('btn-cashout');
+            btn.classList.add('btn-bet');
+            btn.disabled = false;
+
+            document.getElementById(`bet-amount-${panel}`).disabled = false;
+            document.getElementById(`auto-cashout-${panel}`).disabled = false;
+
+            bets[panel].active = false;
+            bets[panel].cashedOut = false;
+        });
+
+        setTimeout(() => {
+            if (gameState === 'CRASHED') {
+                gameState = 'IDLE';
+                multiplierDisplay.innerText = '1.00x';
+                multiplierDisplay.style.color = '#ffffff';
+                clearCanvas();
+            }
+        }, 3000);
+    }
+
+    function renderCanvas(crashed = false) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const progress = Math.min(1, (multiplier - 1) / 10);
+        const startX = 40;
+        const startY = canvas.height - 40;
+        const endX = startX + (canvas.width - 120) * progress;
+        const endY = startY - (canvas.height - 120) * progress;
+
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.quadraticCurveTo((startX + endX) / 2, startY, endX, endY);
+        ctx.strokeStyle = crashed ? '#ff4d4d' : '#e91e63';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        ctx.lineTo(endX, startY);
+        ctx.lineTo(startX, startY);
+        ctx.fillStyle = crashed ? 'rgba(255, 77, 77, 0.1)' : 'rgba(233, 30, 99, 0.1)';
+        ctx.fill();
+
+        if (!crashed) {
+            drawPlane(endX, endY);
+        }
+    }
+
+    function drawPlane(x, y) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.fillStyle = '#ff4081';
+        
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(-25, 10);
+        ctx.lineTo(-18, 0);
+        ctx.lineTo(-25, -10);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.restore();
+    }
+
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function updateBalance() {
+        balanceDisplay.innerText = balance.toFixed(2);
+    }
+</script>
+
 </body>
 </html>
