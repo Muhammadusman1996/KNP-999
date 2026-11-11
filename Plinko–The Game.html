@@ -254,9 +254,9 @@
     const lastWinDisplay = document.getElementById('last-win');
 
     const modes = {
-        green: { speed: 1.2, color: '#2e7d32', gravity: 0.25, spread: 0.3, bias: 0.5 },
-        orange: { speed: 2.0, color: '#ef6c00', gravity: 0.45, spread: 0.8, bias: 0.4 },
-        red: { speed: 3.5, color: '#c62828', gravity: 0.75, spread: 1.8, bias: 0.3 }
+        green: { speed: 1.2, color: '#2e7d32', gravity: 0.25, spread: 0.3, bias: 0.65 },
+        orange: { speed: 2.0, color: '#ef6c00', gravity: 0.45, spread: 0.8, bias: 0.55 },
+        red: { speed: 3.5, color: '#c62828', gravity: 0.75, spread: 1.8, bias: 0.45 }
     };
 
     function updateBalance(amount) {
@@ -311,9 +311,9 @@
         let startX = width / 2;
         
         if (currentMode === 'orange') {
-            startX += (Math.random() - 0.5) * 40;
+            startX += (Math.random() - 0.5) * 20;
         } else if (currentMode === 'red') {
-            startX += (Math.random() - 0.5) * 120;
+            startX += (Math.random() - 0.5) * 60;
         }
 
         balls.push({
@@ -375,7 +375,7 @@
                     b.vy = Math.sin(angle) * force;
                     
                     if (Math.random() < modeCfg.bias) {
-                        b.vx += (width / 2 - b.x) * 0.05;
+                        b.vx += (width / 2 - b.x) * 0.08;
                     }
                     
                     b.y = p.y + (b.radius + p.size) * Math.sin(angle);
