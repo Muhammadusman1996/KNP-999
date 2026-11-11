@@ -1,300 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Treasure Island - Slot Game</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      background: #2a0800;
+      background: #1a0500;
       color: #ffd700;
-      font-family: 'Georgia', serif;
-      user-select: none;
+      font-family: 'Arial', sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      margin: 0;
     }
-
-    .slot-machine-container {
-      border: 16px solid #8B4513;
-      box-shadow: 0 0 50px rgba(0,0,0,0.9), inset 0 0 30px rgba(0,0,0,0.5);
-      border-radius: 40px;
-      background: linear-gradient(135deg, #4A1200 0%, #290A00 100%);
-      width: 95vw;
-      max-width: 1000px;
+    .slot-container {
+      border: 15px solid #8b4513;
+      border-radius: 30px;
       padding: 20px;
-      position: relative;
+      background: #4a1500;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+      width: 90%;
+      max-width: 900px;
     }
-
-    .title-banner {
-      font-family: 'Impact', sans-serif;
-      font-size: 3.5rem;
-      color: #FFD700;
-      text-shadow: 3px 3px 0px #000, -2px -2px 0px #FF4500;
-      letter-spacing: 2px;
+    .reel-window {
+      background: #fff6d1;
+      border: 5px solid #d4af37;
+      border-radius: 15px;
+      overflow: hidden;
+      height: 300px;
+      display: flex;
     }
-
-    .reel-strip {
+    .reel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       transition: transform 3s cubic-bezier(0.1, 0.8, 0.3, 1);
     }
-
     .symbol {
-      height: 90px;
+      height: 100px;
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-size: 2.5rem;
-      border-bottom: 2px solid rgba(139, 69, 19, 0.3);
-      background: #FFE4B5;
+      align-items: center;
+      font-size: 3rem;
+      border-bottom: 2px solid #ecd0a8;
     }
-
-    .pirate-btn {
-      background: linear-gradient(180deg, #CD853F 0%, #8B4513 100%);
-      border: 2px solid #FFD700;
-      box-shadow: 0 4px 0 #5C2E0B;
-      font-weight: bold;
-      color: #FFF;
-      cursor: pointer;
-    }
-    .pirate-btn:active {
-      transform: translateY(4px);
-      box-shadow: 0 0 0 #5C2E0B;
-    }
-
     .btn-spin {
-      background: radial-gradient(circle, #FF4500 0%, #8B0000 100%);
-      border: 6px solid #FFD700;
-      box-shadow: 0 8px 0 #4A0000, 0 12px 20px rgba(0,0,0,0.7);
-      font-family: 'Impact', sans-serif;
+      background: linear-gradient(180deg, #ff4500, #8b0000);
+      border: 4px solid #ffd700;
+      color: white;
+      font-weight: bold;
+      font-size: 1.5rem;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
       cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }
     .btn-spin:active {
-      transform: translateY(6px);
-      box-shadow: 0 2px 0 #4A0000;
+      transform: translateY(4px);
     }
-
-    .side-badge {
-      width: 48px;
-      height: 48px;
-      border: 3px solid #FFD700;
-      border-radius: 50%;
-      background: #5C2E0B;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-    }
-
-    .panel-bg {
-      background: rgba(0, 0, 0, 0.6);
-      border: 2px solid #8B4513;
+    .jackpot-box {
+      background: #000;
+      border: 3px solid #ff0000;
+      color: #ff0000;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <div class="slot-machine-container flex flex-col items-center">
-    
-    <!-- Header with Title -->
-    <div class="text-center mb-4">
-      <div class="text-xs tracking-widest text-amber-400 font-bold uppercase">Video Slot Machine</div>
-      <h1 class="title-banner">TREASURE ISLAND</h1>
-    </div>
-
-    <!-- Top Displays -->
-    <div class="w-full flex justify-between px-6 mb-4">
-      <div class="panel-bg px-4 py-1.5 rounded-lg text-center">
-        <div class="text-[10px] text-amber-500 uppercase">Jackpot</div>
-        <div class="text-xl font-bold text-red-500">$500,000</div>
-      </div>
-      <div class="panel-bg px-4 py-1.5 rounded-lg text-center">
-        <div class="text-[10px] text-amber-500 uppercase">Total Win</div>
-        <div id="win-display" class="text-xl font-bold text-green-400">$0.00</div>
-      </div>
-      <div class="panel-bg px-4 py-1.5 rounded-lg text-center">
-        <div class="text-[10px] text-amber-500 uppercase">Balance</div>
-        <div id="balance-display" class="text-xl font-bold text-white">$1,000.00</div>
-      </div>
-    </div>
-
-    <!-- Main Game Area -->
-    <div class="w-full bg-amber-950/80 rounded-3xl p-4 border-4 border-amber-800 shadow-2xl relative mb-4 flex items-center justify-center">
-      
-      <!-- Left Badges -->
-      <div class="absolute left-4 top-1/2 -transforms -translate-y-1/2 hidden md:flex flex-col space-y-3 z-10">
-        <div class="side-badge">🏴‍☠️</div>
-        <div class="side-badge">🦜</div>
-        <div class="side-badge">⚓</div>
-        <div class="side-badge">🗡️</div>
-      </div>
-
-      <!-- Reels Arena -->
-      <div class="grid grid-cols-5 gap-2 bg-black p-3 rounded-xl border-4 border-amber-900 h-[280px] overflow-hidden w-full max-w-2xl">
-        <div class="bg-white rounded overflow-hidden relative"><div id="reel-1" class="reel-strip absolute w-full flex flex-col"></div></div>
-        <div class="bg-white rounded overflow-hidden relative"><div id="reel-2" class="reel-strip absolute w-full flex flex-col"></div></div>
-        <div class="bg-white rounded overflow-hidden relative"><div id="reel-3" class="reel-strip absolute w-full flex flex-col"></div></div>
-        <div class="bg-white rounded overflow-hidden relative"><div id="reel-4" class="reel-strip absolute w-full flex flex-col"></div></div>
-        <div class="bg-white rounded overflow-hidden relative"><div id="reel-5" class="reel-strip absolute w-full flex flex-col"></div></div>
-      </div>
-
-      <!-- Right Badges -->
-      <div class="absolute right-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col space-y-3 z-10">
-        <div class="side-badge">🗡️</div>
-        <div class="side-badge">⚓</div>
-        <div class="side-badge">🦜</div>
-        <div class="side-badge">🏴‍☠️</div>
-      </div>
-
-    </div>
-
-    <!-- Bottom Controls Deck -->
-    <div class="w-full panel-bg p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
-      
-      <!-- Navigation Buttons -->
-      <div class="flex space-x-2">
-        <button onclick="showAlert('BET')" class="pirate-btn px-4 py-2 rounded-lg text-sm">BET</button>
-        <button onclick="showAlert('PAYTABLE')" class="pirate-btn px-4 py-2 rounded-lg text-sm">PAY</button>
-        <button onclick="showAlert('VIEW')" class="pirate-btn px-4 py-2 rounded-lg text-sm">VIEW</button>
-      </div>
-
-      <!-- Bet Adjuster -->
-      <div class="flex flex-col items-center bg-black/40 px-4 py-2 rounded-xl border border-amber-800">
-        <span class="text-[10px] text-amber-500 font-bold uppercase mb-1">Current Wager</span>
-        <div class="flex items-center space-x-3">
-          <button onclick="adjustBet(-1)" class="w-8 h-8 rounded bg-red-900 border border-red-500 text-white font-bold text-lg flex items-center justify-center active:translate-y-0.5">-</button>
-          <div class="w-24 text-center">
-            <span id="current-bet-display" class="text-xl font-bold text-white">$10.00</span>
-          </div>
-          <button onclick="adjustBet(1)" class="w-8 h-8 rounded bg-green-900 border border-green-500 text-white font-bold text-lg flex items-center justify-center active:translate-y-0.5">+</button>
-        </div>
-      </div>
-
-      <!-- Spin Button -->
-      <div>
-        <button id="btn-spin" onclick="startSpin()" class="btn-spin w-24 h-24 rounded-full flex flex-col items-center justify-center text-center">
-          <span class="text-[10px] tracking-widest uppercase font-bold text-amber-200">TAP TO</span>
-          <span class="text-xl font-black text-white tracking-wider">SPIN</span>
-        </button>
-      </div>
-
-    </div>
-
+<div class="slot-container">
+  <h1 class="text-center text-4xl font-black text-amber-500 mb-4" style="text-shadow: 2px 2px #000;">TREASURE ISLAND</h1>
+  
+  <div class="flex justify-between items-center mb-4">
+    <div class="jackpot-box">باکس جیک پاٹ: $500,000</div>
+    <div class="text-xl font-bold">بیلنس: <span id="balance">1000$</span></div>
   </div>
 
-  <script>
-    const SYMBOLS = [
-      { name: 'Skull', icon: '☠️', value: 200 },
-      { name: 'Captain', icon: '🏴‍☠️', value: 100 },
-      { name: 'Chest', icon: '🪙', value: 50 },
-      { name: 'Parrot', icon: '🦜', value: 20 },
-      { name: 'Anchor', icon: '⚓', value: 10 },
-      { name: 'Sword', icon: '🗡️', value: 5 }
-    ];
+  <div class="reel-window mb-4">
+    <div class="reel" id="reel1"></div>
+    <div class="reel" id="reel2"></div>
+    <div class="reel" id="reel3"></div>
+    <div class="reel" id="reel4"></div>
+    <div class="reel" id="reel5"></div>
+  </div>
 
-    const ALLOWED_BETS = [10.00, 20.00, 50.00, 100.00];
-    let currentBetIndex = 0;
-    let userBalance = 1000.00;
-    let isSpinning = false;
+  <div class="flex justify-between items-center bg-black/40 p-4 rounded-xl">
+    <div>بیٹ: <span id="bet">10$</span></div>
+    <button class="btn-spin" onclick="spinReels()">SPIN</button>
+  </div>
+</div>
 
-    const REEL_CONFIG = [
-      [0, 1, 2, 3, 4, 5, 0, 2, 4],
-      [5, 4, 3, 2, 1, 0, 3, 1, 5],
-      [1, 3, 5, 0, 2, 4, 1, 4, 0],
-      [2, 0, 4, 1, 3, 5, 2, 5, 1],
-      [4, 2, 0, 5, 3, 1, 0, 3, 2]
-    ];
-
-    window.onload = () => {
-      initReels();
-      updateDisplay();
-    };
-
-    function updateDisplay() {
-      document.getElementById('balance-display').innerText = `$${userBalance.toFixed(2)}`;
-      document.getElementById('current-bet-display').innerText = `$${ALLOWED_BETS[currentBetIndex].toFixed(2)}`;
-    }
-
-    function adjustBet(direction) {
-      if (isSpinning) return;
-      currentBetIndex = (currentBetIndex + direction + ALLOWED_BETS.length) % ALLOWED_BETS.length;
-      updateDisplay();
-    }
-
-    function initReels() {
-      for (let i = 1; i <= 5; i++) {
-        const strip = document.getElementById(`reel-${i}`);
-        strip.innerHTML = '';
-        const sequence = [...REEL_CONFIG[i-1], ...REEL_CONFIG[i-1], ...REEL_CONFIG[i-1]];
-        sequence.forEach(idx => {
-          const sym = SYMBOLS[idx];
-          const el = document.createElement('div');
-          el.className = 'symbol drop-shadow';
-          el.innerText = sym.icon;
-          strip.appendChild(el);
-        });
+<script>
+  const symbols = ['🏴‍☠️', '🦜', '🪙', '⚓', '🗡️', '💎'];
+  
+  function createReels() {
+    for(let i=1; i<=5; i++) {
+      const reel = document.getElementById(`reel${i}`);
+      let html = '';
+      for(let j=0; j<20; j++) {
+        const randomSym = symbols[Math.floor(Math.random() * symbols.length)];
+        html += `<div class="symbol">${randomSym}</div>`;
       }
+      reel.innerHTML = html;
     }
+  }
 
-    function startSpin() {
-      if (isSpinning) return;
-      const bet = ALLOWED_BETS[currentBetIndex];
-      if (userBalance < bet) {
-        alert("Gold insufficient!");
-        return;
-      }
-
-      isSpinning = true;
-      userBalance -= bet;
-      updateDisplay();
-      document.getElementById('win-display').innerText = "$0.00";
-      document.getElementById('btn-spin').style.opacity = "0.6";
-
-      const stoppedIndices = [];
-      const symbolHeight = 90;
-
-      for (let i = 1; i <= 5; i++) {
-        const strip = document.getElementById(`reel-${i}`);
-        const randomIndex = Math.floor(Math.random() * REEL_CONFIG[i-1].length);
-        stoppedIndices.push(REEL_CONFIG[i-1][randomIndex]);
-
-        const totalSymbols = REEL_CONFIG[i-1].length;
-        const offset = (totalSymbols * 2 + randomIndex) * symbolHeight;
-
-        strip.style.transition = `transform ${2 + i * 0.4}s cubic-bezier(0.1, 0.8, 0.3, 1)`;
-        strip.style.transform = `translateY(-${offset}px)`;
-      }
-
-      setTimeout(() => {
-        checkWin(stoppedIndices, bet);
-        isSpinning = false;
-        document.getElementById('btn-spin').style.opacity = "1";
-      }, 4000);
+  function spinReels() {
+    for(let i=1; i<=5; i++) {
+      const reel = document.getElementById(`reel${i}`);
+      const randomOffset = Math.floor(Math.random() * 15) * 100;
+      reel.style.transition = `transform ${2 + i*0.5}s cubic-bezier(0.1, 0.8, 0.3, 1)`;
+      reel.style.transform = `translateY(-${randomOffset}px)`;
     }
+  }
 
-    function checkWin(stoppedIndices, bet) {
-      const first = stoppedIndices[0];
-      const matches = stoppedIndices.filter(idx => idx === first).length;
+  createReels();
+</script>
 
-      if (matches >= 3) {
-        const win = bet * SYMBOLS[first].value * (matches * 0.1);
-        userBalance += win;
-        document.getElementById('win-display').innerText = `+$${win.toFixed(2)}`;
-        updateDisplay();
-      }
-    }
-
-    function showAlert(action) {
-      alert(`[${action}] Panel opened.`);
-    }
-  </script>
 </body>
 </html>
