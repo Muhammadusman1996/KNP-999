@@ -3,40 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIA Aviator Pro</title>
+    <title>Multi-Game Casino Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
+
         body {
-            background-color: #050b14;
+            background: radial-gradient(circle at center, #1a0f2e 0%, #090312 100%);
             color: #fff;
+            user-select: none;
+            min-height: 100vh;
+        }
+
+        .cinzel-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Dragon Tiger Specific Animations */
+        @keyframes dragonGlow {
+            0%, 100% { filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.8)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 25px rgba(147, 197, 253, 1)); transform: scale(1.03); }
+        }
+
+        @keyframes tigerGlow {
+            0%, 100% { filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.8)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 25px rgba(252, 211, 77, 1)); transform: scale(1.03); }
+        }
+
+        @keyframes floatAnim {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .animate-dragon {
+            animation: dragonGlow 3s infinite ease-in-out, floatAnim 4s infinite ease-in-out;
+        }
+
+        .animate-tiger {
+            animation: tigerGlow 3s infinite ease-in-out, floatAnim 4s infinite ease-in-out;
+        }
+
+        /* Card Flip Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #1e1e2f 0%, #0f0c1b 100%);
+            border: 2px solid #eab308;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-front {
+            background: #ffffff;
+            color: #111;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0.5rem;
+            border: 2px solid #d1d5db;
+        }
+
+        /* Custom Scrollbar for Chips */
+        .chip-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .chip-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 10px;
+        }
+        .chip-scroll::-webkit-scrollbar-thumb {
+            background: #eab308;
+            border-radius: 10px;
+        }
+
+        /* Chip Buttons */
+        .chip-btn {
+            position: relative;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.3);
+        }
+        .chip-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+        }
+        .chip-btn.active-chip {
+            transform: translateY(-6px) scale(1.12);
+            box-shadow: 0 0 18px #f59e0b, inset 0 2px 6px rgba(255,255,255,0.5);
+            border-color: #ffffff !important;
+        }
+
+        /* Betting Area Hover Effects */
+        .bet-zone {
+            transition: all 0.3s ease;
+        }
+        .bet-zone:not(.disabled):hover {
+            filter: brightness(1.15);
+            cursor: pointer;
+            transform: scale(1.01);
+        }
+
+        /* Aviator Styles */
+        .aviator-body {
+            background-color: #050b14;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            padding: 20px;
         }
         .game-wrapper {
-            width: 90%;
+            width: 100%;
             max-width: 800px;
             background-color: #0d1b2a;
             padding: 20px;
             border-radius: 15px;
             text-align: center;
         }
-        .header {
+        .aviator-header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 15px;
         }
-        .balance {
+        .balance-aviator {
             color: #70e000;
             font-weight: bold;
         }
-        canvas {
+        #canvas {
             background: linear-gradient(to top, #001219, #005f73);
             width: 100%;
             height: 350px;
@@ -57,13 +183,13 @@
             flex-direction: column;
             gap: 10px;
         }
-        input, button {
+        .aviator-input, .aviator-btn {
             padding: 10px;
             font-size: 16px;
             border-radius: 5px;
             border: none;
         }
-        input {
+        .aviator-input {
             background: #0d1b2a;
             color: #fff;
             text-align: center;
@@ -92,177 +218,192 @@
         }
     </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 
-<div class="game-wrapper">
-    <div class="header">
-        <h2>PIA Aviator Pro</h2>
-        <div>Balance: $<span id="balance" class="balance">1000.00</span></div>
-    </div>
-
-    <canvas id="canvas" width="800" height="350"></canvas>
-
-    <div class="controls">
-        <div class="bet-panel">
-            <label>Bet Amount ($)</label>
-            <div class="btn-row">
-                <button onclick="changeBet(1, -10)">-10</button>
-                <input type="number" id="input-1" value="10">
-                <button onclick="changeBet(1, 10)">+10</button>
-            </div>
-            <button id="btn-1" class="btn-bet" onclick="toggleBet(1)">Place Bet</button>
+    <!-- Global Top Navigation -->
+    <header class="w-full bg-slate-900 border-b border-amber-500/30 px-4 py-3 flex justify-between items-center shadow-lg">
+        <div class="flex items-center space-x-3">
+            <span class="cinzel-font font-black text-xl text-amber-400 tracking-wider">CASINO HUB</span>
         </div>
-        <div class="bet-panel">
-            <label>Bet Amount ($)</label>
-            <div class="btn-row">
-                <button onclick="changeBet(2, -10)">-10</button>
-                <input type="number" id="input-2" value="10">
-                <button onclick="changeBet(2, 10)">+10</button>
-            </div>
-            <button id="btn-2" class="btn-bet" onclick="toggleBet(2)">Place Bet</button>
+        <div class="flex space-x-3">
+            <button onclick="switchGame('dragon-tiger')" class="bg-gradient-to-r from-blue-600 to-amber-600 hover:opacity-90 px-4 py-1.5 rounded-lg text-xs font-bold transition">
+                Dragon Tiger
+            </button>
+            <button onclick="switchGame('aviator')" class="bg-gradient-to-r from-teal-600 to-cyan-600 hover:opacity-90 px-4 py-1.5 rounded-lg text-xs font-bold transition">
+                PIA Aviator Pro
+            </button>
         </div>
-    </div>
-</div>
+    </header>
 
-<script>
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    let balance = 1000.00;
-    let multiplier = 1.00;
-    let gameRunning = false;
-    let bets = { 1: { active: false, amount: 0 }, 2: { active: false, amount: 0 } };
-    let animationId;
-    let startTime;
-    let cityOffset = 0;
+    <!-- Game View: Dragon Tiger -->
+    <div id="game-dragon-tiger" class="flex-1 flex flex-col justify-between">
+        <main class="flex-1 max-w-7xl w-full mx-auto p-3 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+            
+            <!-- Left Side Panel: Live Players -->
+            <div class="lg:col-span-3 bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-2xl p-3 shadow-xl">
+                <div class="flex justify-between items-center mb-3 px-1">
+                    <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                        <i class="fa-solid fa-users text-amber-400 mr-1.5"></i> Live Players
+                    </span>
+                    <span class="text-[11px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/30">
+                        <i class="fa-solid fa-circle text-[8px] animate-pulse mr-1"></i> Online: 142
+                    </span>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-1 gap-2.5" id="players-grid"></div>
+            </div>
 
-    function updateUI() {
-        document.getElementById('balance').innerText = balance.toFixed(2);
-    }
+            <!-- Center Main Game Area -->
+            <div class="lg:col-span-9 flex flex-col space-y-4">
+                <div class="relative bg-gradient-to-r from-blue-950/80 via-slate-900/90 to-amber-950/80 border border-slate-700/60 rounded-2xl p-4 shadow-2xl flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex items-center space-x-3 mb-2 md:mb-0 animate-dragon">
+                        <div class="w-12 h-12 rounded-full bg-blue-600/20 border-2 border-blue-400 flex items-center justify-center text-blue-400 shadow-lg">
+                            <i class="fa-solid fa-dragon text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="cinzel-font text-2xl font-black text-blue-400 tracking-wider">DRAGON</h2>
+                            <span class="text-[11px] text-blue-300/80 font-mono">PAYOUT 1:1</span>
+                        </div>
+                    </div>
 
-    function changeBet(panel, amount) {
-        if (gameRunning) return;
-        const input = document.getElementById(`input-${panel}`);
-        let val = parseInt(input.value) + amount;
-        if (val < 10) val = 10;
-        input.value = val;
-    }
+                    <div class="flex flex-col items-center my-2 md:my-0 z-10">
+                        <div id="status-badge" class="px-4 py-1 rounded-full text-xs font-extrabold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 mb-1">
+                            BETTING OPEN
+                        </div>
+                        <div class="relative flex items-center justify-center">
+                            <div id="timer-display" class="cinzel-font text-4xl font-black text-amber-400 drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]">
+                                10
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider mt-0.5">Seconds Remaining</span>
+                    </div>
 
-    function toggleBet(panel) {
-        const btn = document.getElementById(`btn-${panel}`);
-        const input = document.getElementById(`input-${panel}`);
-        
-        if (!gameRunning) {
-            if (!bets[panel].active) {
-                let amount = parseFloat(input.value);
-                if (amount > balance || amount <= 0) return;
-                balance -= amount;
-                bets[panel].amount = amount;
-                bets[panel].active = true;
-                updateUI();
-                btn.innerText = "Cancel";
-                btn.className = "btn-cashout";
-                
-                if (!bets[1].active && !bets[2].active == false) {
-                   startGame();
-                } else if (bets[1].active && !bets[2].active) {
-                    startGame();
-                } else if (!bets[1].active && bets[2].active) {
-                    startGame();
-                }
-            } else {
-                balance += bets[panel].amount;
-                bets[panel].active = false;
-                updateUI();
-                btn.innerText = "Place Bet";
-                btn.className = "btn-bet";
-            }
-        } else {
-            if (bets[panel].active) {
-                let payout = bets[panel].amount * multiplier;
-                balance += payout;
-                bets[panel].active = false;
-                updateUI();
-                btn.innerText = "Cashed Out";
-                btn.disabled = true;
-            }
-        }
-    }
+                    <div class="flex items-center space-x-3 animate-tiger">
+                        <div class="text-right">
+                            <h2 class="cinzel-font text-2xl font-black text-amber-400 tracking-wider">TIGER</h2>
+                            <span class="text-[11px] text-amber-300/80 font-mono">PAYOUT 1:1</span>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-amber-600/20 border-2 border-amber-400 flex items-center justify-center text-amber-400 shadow-lg">
+                            <i class="fa-solid fa-cat text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
 
-    function startGame() {
-        gameRunning = true;
-        multiplier = 1.00;
-        startTime = Date.now();
-        document.querySelectorAll('input').forEach(i => i.disabled = true);
-        animate();
-    }
+                <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 shadow-2xl relative flex flex-col md:flex-row justify-around items-center gap-6 min-h-[220px]">
+                    <div class="flex flex-col items-center space-y-2">
+                        <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">Dragon Card</span>
+                        <div class="w-28 h-40 perspective-1000">
+                            <div id="dragon-card" class="card-inner">
+                                <div class="card-back"><i class="fa-solid fa-dragon text-amber-500/40 text-4xl"></i></div>
+                                <div class="card-front" id="dragon-card-front"></div>
+                            </div>
+                        </div>
+                        <span id="dragon-card-val" class="text-sm font-extrabold text-blue-300 h-5">?</span>
+                    </div>
 
-    function animate() {
-        const elapsed = (Date.now() - startTime) / 1000;
-        multiplier = 1.00 + (elapsed * 0.5);
-        cityOffset = (cityOffset - 2) % 100;
-        
-        if (multiplier > 3.5 && Math.random() < 0.05) {
-            endGame(false);
-            return;
-        }
+                    <div id="result-overlay" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm rounded-2xl flex items-center justify-center hidden z-20">
+                        <div class="text-center p-6 rounded-2xl border border-amber-500/50 bg-slate-900 shadow-2xl max-w-sm w-full mx-4">
+                            <h3 id="result-title" class="cinzel-font text-3xl font-black mb-2 text-amber-400">DRAGON WINS!</h3>
+                            <p id="result-subtitle" class="text-sm text-slate-300 mb-4"></p>
+                            <div id="result-payout" class="text-lg font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 py-1.5 rounded-lg">+ ₹0</div>
+                        </div>
+                    </div>
 
-        draw();
-        animationId = requestAnimationFrame(animate);
-    }
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="w-16 h-16 rounded-full border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-center mb-1">
+                            <span class="cinzel-font text-emerald-400 font-extrabold text-sm">VS</span>
+                        </div>
+                        <span class="text-[11px] text-slate-400">Tie Pays 8:1</span>
+                    </div>
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.fillStyle = "#0d1b2a";
-        for (let i = 0; i < canvas.width; i += 40) {
-            let x = (i + cityOffset) % canvas.width;
-            ctx.fillRect(x, 250, 30, 100);
-        }
+                    <div class="flex flex-col items-center space-y-2">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Tiger Card</span>
+                        <div class="w-28 h-40 perspective-1000">
+                            <div id="tiger-card" class="card-inner">
+                                <div class="card-back"><i class="fa-solid fa-cat text-amber-500/40 text-4xl"></i></div>
+                                <div class="card-front" id="tiger-card-front"></div>
+                            </div>
+                        </div>
+                        <span id="tiger-card-val" class="text-sm font-extrabold text-amber-300 h-5">?</span>
+                    </div>
+                </div>
 
-        ctx.fillStyle = "white";
-        ctx.font = "bold 50px sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(multiplier.toFixed(2) + "x", canvas.width/2, canvas.height/2 - 20);
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div id="zone-dragon" onclick="placeBet('dragon')" class="bet-zone bg-gradient-to-br from-blue-950/80 to-blue-900/40 border-2 border-blue-500/50 rounded-2xl p-4 flex flex-col justify-between h-32 relative overflow-hidden shadow-lg">
+                        <div class="flex justify-between items-start">
+                            <span class="cinzel-font font-black text-lg text-blue-400">DRAGON</span>
+                            <span class="text-xs font-mono bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded border border-blue-400/30">1 : 1</span>
+                        </div>
+                        <div class="text-center my-1">
+                            <span class="text-[10px] text-slate-400 uppercase block">Total Table Bet</span>
+                            <span id="total-dragon-bet" class="text-sm font-bold text-blue-200">₹ 0</span>
+                        </div>
+                        <div class="flex justify-between items-end border-t border-blue-500/20 pt-2">
+                            <span class="text-xs text-blue-300/80">Your Bet:</span>
+                            <span id="user-dragon-bet" class="text-base font-black text-amber-400">₹ 0</span>
+                        </div>
+                    </div>
 
-        let x = 100 + (multiplier * 40);
-        let y = 280 - (multiplier * 25);
-        
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(Math.PI / 4);
-        ctx.fillStyle = "#01411C";
-        ctx.fillRect(-15, -15, 30, 30);
-        ctx.restore();
-    }
+                    <div id="zone-tie" onclick="placeBet('tie')" class="bet-zone bg-gradient-to-br from-emerald-950/80 to-emerald-900/40 border-2 border-emerald-500/50 rounded-2xl p-4 flex flex-col justify-between h-32 relative overflow-hidden shadow-lg">
+                        <div class="flex justify-between items-start">
+                            <span class="cinzel-font font-black text-lg text-emerald-400">TIE</span>
+                            <span class="text-xs font-mono bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded border border-emerald-400/30">8 : 1</span>
+                        </div>
+                        <div class="text-center my-1">
+                            <span class="text-[10px] text-slate-400 uppercase block">Total Table Bet</span>
+                            <span id="total-tie-bet" class="text-sm font-bold text-emerald-200">₹ 0</span>
+                        </div>
+                        <div class="flex justify-between items-end border-t border-emerald-500/20 pt-2">
+                            <span class="text-xs text-emerald-300/80">Your Bet:</span>
+                            <span id="user-tie-bet" class="text-base font-black text-amber-400">₹ 0</span>
+                        </div>
+                    </div>
 
-    function endGame(crashed) {
-        gameRunning = false;
-        cancelAnimationFrame(animationId);
-        
-        ctx.fillStyle = crashed ? "red" : "orange";
-        ctx.font = "bold 30px sans-serif";
-        ctx.fillText(crashed ? "CRASHED" : "ENDED", canvas.width/2, canvas.height/2 + 30);
+                    <div id="zone-tiger" onclick="placeBet('tiger')" class="bet-zone bg-gradient-to-br from-amber-950/80 to-amber-900/40 border-2 border-amber-500/50 rounded-2xl p-4 flex flex-col justify-between h-32 relative overflow-hidden shadow-lg">
+                        <div class="flex justify-between items-start">
+                            <span class="cinzel-font font-black text-lg text-amber-400">TIGER</span>
+                            <span class="text-xs font-mono bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded border border-amber-400/30">1 : 1</span>
+                        </div>
+                        <div class="text-center my-1">
+                            <span class="text-[10px] text-slate-400 uppercase block">Total Table Bet</span>
+                            <span id="total-tiger-bet" class="text-sm font-bold text-amber-200">₹ 0</span>
+                        </div>
+                        <div class="flex justify-between items-end border-t border-amber-500/20 pt-2">
+                            <span class="text-xs text-amber-300/80">Your Bet:</span>
+                            <span id="user-tiger-bet" class="text-base font-black text-amber-400">₹ 0</span>
+                        </div>
+                    </div>
+                </div>
 
-        setTimeout(() => {
-            resetGame();
-        }, 3000);
-    }
+                <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3 shadow-xl">
+                    <div class="flex justify-between items-center mb-2 px-2">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Select Betting Chip:</span>
+                        <button onclick="clearBets()" id="clear-bets-btn" class="text-xs text-rose-400 hover:text-rose-300 font-semibold transition">Clear Selection</button>
+                    </div>
+                    <div class="chip-scroll flex space-x-3 overflow-x-auto py-2 px-1" id="chips-container"></div>
+                </div>
+            </div>
+        </main>
 
-    function resetGame() {
-        multiplier = 1.00;
-        document.querySelectorAll('input').forEach(i => i.disabled = false);
-        for (let p of [1, 2]) {
-            bets[p].active = false;
-            const btn = document.getElementById(`btn-${p}`);
-            btn.innerText = "Place Bet";
-            btn.className = "btn-bet";
-            btn.disabled = false;
-        }
-        draw();
-    }
-
-    draw();
-</script>
-
-</body>
-</html>
+        <footer class="bg-slate-900 border-t border-slate-800 px-4 py-3 shadow-2xl">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-amber-500 p-0.5">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=YouPlayer" class="w-full h-full rounded-full bg-slate-900">
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Player</h4>
+                        <span class="text-[11px] text-emerald-400 font-mono">VIP Level 4</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6 md:space-x-12">
+                    <div>
+                        <span class="text-[10px] text-slate-400 uppercase block font-semibold">Wallet Balance</span>
+                        <span id="user-balance" class="text-lg font-black text-amber-400">₹ 5,000</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 uppercase block font-semibold">Total Bet</span>
+                        <span id="user-total-bet" class="text-lg font-black text-blue-400">₹ 0</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 uppercase block font-semibold">Last Round Win</span>
+                        <span id="user-last-win" class="text-lg font-black text-emerald-400">₹ 0</span
