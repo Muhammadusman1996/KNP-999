@@ -16,21 +16,23 @@
             font-family: 'Arial', sans-serif;
         }
         .info-panel {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px 30px;
-            border-radius: 15px;
-            border: 2px solid #9d00ff;
-            font-size: 24px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 12px 25px;
+            border-radius: 12px;
+            border: 2px solid #00e1ff;
+            font-size: 20px;
+            font-weight: bold;
             margin-bottom: 20px;
             box-shadow: 0 0 15px #00e1ff;
+            letter-spacing: 1px;
         }
         .machine-container {
             background: linear-gradient(180deg, #18093c, #0b061a);
             border: 4px solid #00e1ff;
             border-radius: 20px;
-            width: 400px;
-            padding: 30px;
-            box-shadow: 0 0 30px #9d00ff;
+            width: 420px;
+            padding: 25px;
+            box-shadow: 0 0 35px #9d00ff;
             text-align: center;
         }
         .reels-screen {
@@ -39,16 +41,16 @@
             border-radius: 15px;
             display: flex;
             justify-content: space-around;
-            padding: 20px 10px;
-            margin-bottom: 30px;
+            padding: 15px 8px;
+            margin-bottom: 25px;
         }
         .reel {
             background: #fff;
             color: #000;
-            font-size: 32px;
+            font-size: 30px;
             font-weight: bold;
-            width: 70px;
-            height: 90px;
+            width: 75px;
+            height: 95px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -65,21 +67,21 @@
             background: radial-gradient(circle, #ff0077, #990044);
             color: white;
             border: none;
-            padding: 20px 60px;
-            font-size: 28px;
+            padding: 18px 50px;
+            font-size: 26px;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255,0,119,0.6);
+            box-shadow: 0 8px 20px rgba(255,0,119,0.6);
             transition: transform 0.1s, box-shadow 0.1s;
         }
         .spin-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 25px rgba(255,0,119,0.8);
+            box-shadow: 0 12px 25px rgba(255,0,119,0.8);
         }
         .spin-btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 5px 10px rgba(255,0,119,0.6);
+            transform: translateY(3px);
+            box-shadow: 0 4px 10px rgba(255,0,119,0.6);
         }
         .spin-btn:disabled {
             background: #555;
@@ -92,21 +94,21 @@
 <body>
 
 <div class="info-panel">
-    Balance: $<span id="balance">100.00</span> | Bet: $<span id="bet">1.50</span>
+    Balance: $<span id="balance">95.50</span> | Bet: $<span id="bet">1.50</span>
 </div>
 
 <div class="machine-container">
     <div class="reels-screen">
-        <div class="reel" id="reel1">7</div>
-        <div class="reel" id="reel2">7</div>
+        <div class="reel" id="reel1">BAR</div>
+        <div class="reel" id="reel2">🍒</div>
         <div class="reel" id="reel3">7</div>
-        <div class="reel special-reel" id="reel4">10x</div>
+        <div class="reel special-reel" id="reel4">1x</div>
     </div>
     <button class="spin-btn" id="spinBtn" onclick="spinGame()">SPIN</button>
 </div>
 
 <script>
-    let balance = 100.00;
+    let balance = 95.50;
     const currentBet = 1.50;
 
     function updateDisplay() {
