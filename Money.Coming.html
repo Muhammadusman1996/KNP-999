@@ -17,31 +17,47 @@
         .game-container {
             width: 100%;
             max-width: 400px;
-            background: radial-gradient(circle, #590000, #1a0000);
+            background: linear-gradient(180deg, #590000, #1a0000);
             border: 6px solid #d4af37;
             border-radius: 20px;
             padding: 20px;
             text-align: center;
             box-shadow: 0 0 30px #d4af37;
         }
-        .header h1 {
-            color: #e50914;
-            text-shadow: 0 0 10px #ff0055;
-            margin-bottom: 10px;
-        }
         .wheel-container {
             position: relative;
-            width: 250px;
-            height: 250px;
+            width: 240px;
+            height: 240px;
             margin: 10px auto;
             border-radius: 50%;
             border: 8px solid #d4af37;
             overflow: hidden;
-            background: conic-gradient(#2e7d32 0deg 90deg, #c62828 90deg 180deg, #2e7d32 180deg 270deg, #fbc02d 270deg 360deg);
+            background: conic-gradient(
+                #2e7d32 0deg 90deg, 
+                #c62828 90deg 180deg, 
+                #f57c00 180deg 270deg, 
+                #fbc02d 270deg 360deg
+            );
             box-shadow: inset 0 0 20px #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .wheel-inner {
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            border: 4px dashed #ffd700;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffd700;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #000;
         }
         .wheel-container.spinning {
-            animation: spinWheel 2s linear infinite;
+            animation: spinWheel 1s linear infinite;
         }
         @keyframes spinWheel {
             0% { transform: rotate(0deg); }
@@ -50,35 +66,44 @@
         .wheel-overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.9);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: #d4af37;
             font-weight: bold;
-            padding: 20px;
-            text-align: center;
+            z-index: 10;
             border-radius: 50%;
-            border: 4px dashed #d4af37;
         }
         .wheel-overlay.unlocked { display: none; }
-        .chain-gfx {
+        
+        .multiplier-badge {
             position: absolute;
-            width: 100%; height: 100%;
-            background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(212,175,55,0.3) 20px, rgba(212,175,55,0.3) 40px);
+            background: #ffd700;
+            color: #000;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 12px;
+            display: none;
         }
+        .wheel-container.unlocked .multiplier-badge { display: block; }
+        #mult-2x { top: 20%; left: 25%; }
+        #mult-5x { top: 20%; right: 25%; }
+        #mult-free { bottom: 20%; }
+
         .reels-container {
             display: flex;
             justify-content: space-around;
-            background: #0d0d0d;
+            background: #000;
             padding: 15px;
             border-radius: 10px;
             border: 3px solid #d4af37;
             margin: 15px 0;
         }
         .reel {
-            width: 20%;
+            width: 22%;
             height: 70px;
             background: linear-gradient(180deg, #004d40, #00796b);
             border: 2px solid #d4af37;
@@ -86,22 +111,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             color: #ffd700;
             position: relative;
-            text-shadow: 0 0 5px #000;
         }
-        .reel.locked::after {
-            content: '🔒';
-            position: absolute;
-            font-size: 20px;
-            background: rgba(0,0,0,0.6);
-            width: 100%; height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 6px;
+        .reel.locked {
+            filter: grayscale(100%) brightness(0.5);
         }
         .status-panel {
             background: #4a0e0e;
@@ -114,77 +130,72 @@
             font-weight: bold;
         }
         .status-panel span { color: #ffd700; }
-        .bet-adjuster {
+        
+        .bet-controls {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 15px;
             margin-bottom: 15px;
-            background: #2a0808;
+            background: #3a0d0d;
             padding: 10px;
             border-radius: 10px;
-            border: 1px solid #d4af37;
         }
         .bet-btn {
             background: #b71c1c;
             color: #fff;
-            border: 2px solid #d4af37;
-            padding: 10px 20px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .bet-btn:active { transform: scale(0.95); }
-        #betDisplay {
+            border: 2px solid #ffd700;
+            width: 45px;
+            height: 45px;
             font-size: 24px;
+            font-weight: bold;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        #betDisplay {
+            font-size: 28px;
             color: #ffd700;
             min-width: 60px;
-            font-weight: bold;
         }
-        .action-panel {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
+        
+        .action-panel { display: flex; gap: 10px; }
         .spin-btn {
             flex: 2;
-            background: linear-gradient(90deg, #2e7d32, #4caf50);
+            background: linear-gradient(180deg, #4caf50, #1b5e20);
             color: white;
-            border: 3px solid #d4af37;
+            border: 3px solid #ffd700;
             padding: 15px;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 5px #1b5e20;
         }
         .auto-btn {
             flex: 1;
-            background: #f57c00;
+            background: #e65100;
             color: white;
-            border: 2px solid #d4af37;
+            border: 3px solid #ffd700;
             padding: 15px;
             font-weight: bold;
             border-radius: 30px;
             cursor: pointer;
         }
-        .auto-btn.active { background: #e65100; border-color: #fff; }
+        .auto-btn.active { background: #ff5722; border-color: #fff; }
     </style>
 </head>
 <body>
 
 <div class="game-container">
-    <div class="header">
-        <h1>Money Coming</h1>
-    </div>
-
-    <div class="wheel-container" id="mainWheel">
-        <div class="chain-gfx"></div>
+    <div class="wheel-container id="mainWheel">
         <div id="wheelOverlay" class="wheel-overlay">
-            <span>Bet 5 Up Game</span>
-            <span>To unlock Lucky Wheel</span>
+            <span style="font-size: 16px;">Bet 50 Up Game</span>
+            <span style="font-size: 14px;">To unlock Lucky Wheel</span>
+        </div>
+        <div class="multiplier-badge" id="mult-2x">2X</div>
+        <div class="multiplier-badge" id="mult-5x">5X</div>
+        <div class="multiplier-badge" id="mult-free">FREE SPIN</div>
+        <div class="wheel-inner">
+            <span>LUCKY</span><span>WHEEL</span>
         </div>
     </div>
 
@@ -192,7 +203,7 @@
         <div class="reel" id="r1">1</div>
         <div class="reel" id="r2">0</div>
         <div class="reel" id="r3">0</div>
-        <div class="reel locked" id="r4">?</div>
+        <div class="reel locked" id="r4">50</div>
     </div>
 
     <div class="status-panel">
@@ -200,7 +211,7 @@
         <div>WIN: <span id="winDisplay">0</span></div>
     </div>
 
-    <div class="bet-adjuster">
+    <div class="bet-controls">
         <button class="bet-btn" onclick="adjustBet(-5)">-</button>
         <div>BET: <span id="betDisplay">5</span></div>
         <button class="bet-btn" onclick="adjustBet(5)">+</button>
@@ -217,75 +228,105 @@
     let currentBet = 5;
     let isAuto = false;
     let autoInterval = null;
-    const symbols = ['1', '5', '10', '50', '100', '777'];
+    let isSpinning = false;
+    const symbols = ['1', '5', '10', '50', '100', '777', 'ALL'];
 
     function adjustBet(amount) {
-        let newBet = currentBet + amount;
-        if (newBet < 5) newBet = 5;
-        currentBet = newBet;
+        if (isSpinning) return;
+        currentBet = Math.max(5, currentBet + amount);
         document.getElementById('betDisplay').innerText = currentBet;
-        
-        const overlay = document.getElementById('wheelOverlay');
-        const r4 = document.getElementById('r4');
-        const wheel = document.getElementById('mainWheel');
+        updateUI();
+    }
 
-        if(currentBet >= 5) {
+    function updateUI() {
+        const overlay = document.getElementById('wheelOverlay');
+        const wheel = document.getElementById('mainWheel');
+        const r4 = document.getElementById('r4');
+
+        if(currentBet >= 50) {
             overlay.classList.add('unlocked');
+            wheel.classList.add('unlocked');
             r4.classList.remove('locked');
-            if(r4.innerText === '?') r4.innerText = '50';
+        } else {
+            overlay.classList.remove('unlocked');
+            wheel.classList.remove('unlocked');
+            r4.classList.add('locked');
+            wheel.classList.remove('spinning');
         }
     }
 
     function toggleAuto() {
         isAuto = !isAuto;
-        const autoBtn = document.getElementById('autoBtn');
-        if(isAuto) {
-            autoBtn.classList.add('active');
-            autoInterval = setInterval(spinGame, 2000);
-        } else {
-            autoBtn.classList.remove('active');
-            clearInterval(autoInterval);
-        }
+        const btn = document.getElementById('autoBtn');
+        btn.classList.toggle('active', isAuto);
+        if(isAuto && !isSpinning) spinGame();
+        else if(!isAuto) clearInterval(autoInterval);
     }
 
     function spinGame() {
-        if(balance < currentBet) {
-            alert("Balance khatam ho gaya!");
-            if(isAuto) toggleAuto();
+        if(isSpinning || balance < currentBet) {
+            if(balance < currentBet && !isSpinning) alert("Balance khatam ho gaya!");
             return;
         }
 
+        isSpinning = true;
         balance -= currentBet;
         document.getElementById('balDisplay').innerText = balance;
+        document.getElementById('winDisplay').innerText = "0";
         
         const wheel = document.getElementById('mainWheel');
-        if(currentBet >= 5) wheel.classList.add('spinning');
+        if(currentBet >= 50) wheel.classList.add('spinning');
+
+        document.querySelectorAll('.reel').forEach(r => r.innerText = '.');
 
         setTimeout(() => {
-            if(currentBet >= 5) wheel.classList.remove('spinning');
+            if(currentBet >= 50) wheel.classList.remove('spinning');
             
             let s1 = symbols[Math.floor(Math.random() * symbols.length)];
             let s2 = symbols[Math.floor(Math.random() * symbols.length)];
             let s3 = symbols[Math.floor(Math.random() * symbols.length)];
-            let s4 = currentBet >= 5 ? symbols[Math.floor(Math.random() * symbols.length)] : '?';
+            let s4 = currentBet >= 50 ? symbols[Math.floor(Math.random() * symbols.length)] : '50';
 
             document.getElementById('r1').innerText = s1;
             document.getElementById('r2').innerText = s2;
             document.getElementById('r3').innerText = s3;
-            if(currentBet >= 5) document.getElementById('r4').innerText = s4;
+            document.getElementById('r4').innerText = s4;
 
-            let winnings = 0;
-            if(s1 === s2 && s2 === s3) {
-                winnings = currentBet * 10;
-            } else if(s1 === '777' || s2 === '777' || s3 === '777') {
-                winnings = currentBet * 5;
-            }
-
-            balance += winnings;
-            document.getElementById('balDisplay').innerText = balance;
-            document.getElementById('winDisplay').innerText = winnings;
+            calculate(s1, s2, s3, s4);
         }, 1500);
     }
+
+    function calculate(s1, s2, s3, s4) {
+        if(s1 === 'ALL' || s2 === 'ALL' || s3 === 'ALL') {
+            document.getElementById('winDisplay').innerText = "ALL TRIGGERED!";
+            setTimeout(spinGame, 1000);
+            return;
+        }
+
+        let win = 0;
+        if(s1 === s2 && s2 === s3) {
+            win = currentBet * (s1 === '777' ? 50 : 10);
+        }
+
+        if(win > 0 && currentBet >= 50) {
+            let mults = [1, 2, 5];
+            let m = mults[Math.floor(Math.random() * mults.length)];
+            win *= m;
+            if(m > 1) alert(m + "X MULTIPLIER HIT!");
+        }
+
+        balance += win;
+        document.getElementById('balDisplay').innerText = balance;
+        document.getElementById('winDisplay').innerText = win;
+        isSpinning = false;
+
+        if(isAuto && balance >= currentBet) {
+            autoInterval = setTimeout(spinGame, 1000);
+        } else if(isAuto) {
+            toggleAuto();
+        }
+    }
+    updateUI();
 </script>
 
 </body>
