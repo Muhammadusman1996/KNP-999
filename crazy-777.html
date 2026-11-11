@@ -4,146 +4,186 @@
     <meta charset="UTF-8">
     <title>Crazy 777 Clone</title>
     <style>
-        bodybody {
-    background: radial-gradient(circle, #1a0933, #05020a);
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        body {
+            background: radial-gradient(circle, #1a0933, #05020a);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+        }
+        .info-panel {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            border-radius: 15px;
+            border: 2px solid #9d00ff;
+            font-size: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px #00e1ff;
+        }
         .machine-container {
             background: linear-gradient(180deg, #18093c, #0b061a);
             border: 4px solid #00e1ff;
             border-radius: 20px;
-            width: 360px;
-            margin: 0 auto;
-            padding: 20px;
-            box-shadow: 0 0 20px #9d00ff;
+            width: 400px;
+            padding: 30px;
+            box-shadow: 0 0 30px #9d00ff;
+            text-align: center;
         }
         .reels-screen {
             background-color: #000;
-            border: 2px solid #555;
-            border-radius: 10px;
+            border: 4px solid #555;
+            border-radius: 15px;
             display: flex;
             justify-content: space-around;
             padding: 20px 10px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         .reel {
             background: #fff;
             color: #000;
-            font-size: 30px;
+            font-size: 32px;
             font-weight: bold;
-            width: 60px;
-            height: 80px;
+            width: 70px;
+            height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 5px;
-            border: 2px inset #aaa;
+            border-radius: 10px;
+            border: 3px inset #888;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .special-reel {
+            border-color: gold;
+            color: #d4af37;
+            background: #2b1d0c;
         }
         .spin-btn {
             background: radial-gradient(circle, #ff0077, #990044);
             color: white;
             border: none;
-            padding: 15px 40px;
-            font-size: 24px;
+            padding: 20px 60px;
+            font-size: 28px;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255,0,119,0.5);
+            box-shadow: 0 10px 20px rgba(255,0,119,0.6);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .spin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(255,0,119,0.8);
         }
         .spin-btn:active {
-            transform: scale(0.95);
+            transform: translateY(4px);
+            box-shadow: 0 5px 10px rgba(255,0,119,0.6);
+        }
+        .spin-btn:disabled {
+            background: #555;
+            color: #aaa;
+            cursor: not-allowed;
+            box-shadow: none;
         }
     </style>
 </head>
 <body>
+
+<div class="info-panel">
+    Balance: $<span id="balance">100.00</span> | Bet: $<span id="bet">1.50</span>
+</div>
 
 <div class="machine-container">
     <div class="reels-screen">
         <div class="reel" id="reel1">7</div>
         <div class="reel" id="reel2">7</div>
         <div class="reel" id="reel3">7</div>
-        <div class="reel" id="reel4" style="border-color: gold; color: gold;">10x</div>
+        <div class="reel special-reel" id="reel4">10x</div>
     </div>
-    <button class="spin-btn" onclick="spinGame()">SPIN</button>
+    <button class="spin-btn" id="spinBtn" onclick="spinGame()">SPIN</button>
 </div>
 
 <script>
-    function spinGame() {
-        const symbols = ['777', '7', 'BAR', '🍒', '10x'];
-        document.getElementById('reel1').innerText = symbols[Math.floor(Math.random() * symbols.length)];
-        document.getElementById('reel2').innerText = symbols[Math.floor(Math.random() * symbols.length)];
-        document.getElementById('reel3').innerText = symbols[Math.floor(Math.random() * symbols.length)];
-        // Fourth reel logic can be customized
+    let balance = 100.00;
+    const currentBet = 1.50;
+
+    function updateDisplay() {
+        document.getElementById('balance').innerText = balance.toFixed(2);
+        document.getElementById('bet').innerText = currentBet.toFixed(2);
     }
-</script>
-const fourthReelSymbols = ['1x', '10x', '2x', '5x', '100x'];
-    const fourthReel = fourthReelSymbols[Math.floor(Math.random() * fourthReelSymbols.length)];
-    document.getElementById('reel4').innerText = fourthReel;
 
-    checkWin(symbols[Math.floor(Math.random() * symbols.length)], fourthReel);
-}
+    function disableSpin(disable) {
+        document.getElementById('spinBtn').disabled = disable;
+    }
 
-function checkWin(r1, feature) {
-    // Basic win logic placeholder
-    console.log("Checking win with feature:", feature);
-}
-     // Add this before </body>
-    <div style="margin-top: 20px; font-size: 20px;">
-        Balance: $<span id="balance">100.00</span> | 
-        Bet: $<span id="bet">1.50</span>
-    </div>
-
-    <script>
-        let balance = 100.00;
-        let currentBet = 1.50;
-
-        function updateDisplay() {
-            document.getElementById('balance').innerText = balance.toFixed(2);
-            document.getElementById('bet').innerText = currentBet.toFixed(2);
+    function spinGame() {
+        if (balance < currentBet) {
+            alert("Insufficient balance!");
+            return;
         }
 
-        // Initialize display
+        disableSpin(true);
+        const symbols = ['777', '7', 'BAR', '🍒'];
+        
+        let counter = 0;
+        const interval = setInterval(() => {
+            document.getElementById('reel1').innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            document.getElementById('reel2').innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            document.getElementById('reel3').innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            counter++;
+            if (counter > 15) {
+                clearInterval(interval);
+                finalizeSpin();
+            }
+        }, 80);
+    }
+
+    function finalizeSpin() {
+        const symbols = ['777', '7', 'BAR', '🍒'];
+        const finalR1 = symbols[Math.floor(Math.random() * symbols.length)];
+        const finalR2 = symbols[Math.floor(Math.random() * symbols.length)];
+        const finalR3 = symbols[Math.floor(Math.random() * symbols.length)];
+        
+        document.getElementById('reel1').innerText = finalR1;
+        document.getElementById('reel2').innerText = finalR2;
+        document.getElementById('reel3').innerText = finalR3;
+        
+        const fourthReelSymbols = ['1x', '10x', '2x', '5x', '100x'];
+        const finalFeature = fourthReelSymbols[Math.floor(Math.random() * fourthReelSymbols.length)];
+        document.getElementById('reel4').innerText = finalFeature;
+
+        calculatePayout(finalR1, finalR2, finalR3, finalFeature);
+        disableSpin(false);
+    }
+
+    function calculatePayout(r1, r2, r3, feature) {
+        let multiplier = parseInt(feature) || 1;
+        let baseWin = 0;
+
+        if (r1 === '777' && r2 === '777' && r3 === '777') {
+            baseWin = 50;
+        } else if (r1 === '7' && r2 === '7' && r3 === '7') {
+            baseWin = 20;
+        } else if (r1 === r2 && r2 === r3) {
+            baseWin = 10;
+        }
+        
+        const totalWin = baseWin * multiplier;
+        
+        if (totalWin > 0) {
+            balance += totalWin;
+            alert("BIG WIN! You won: $" + totalWin.toFixed(2));
+        } else {
+            balance -= currentBet;
+        }
         updateDisplay();
-    </script>
-  <script>
-function spinGame() {
-    disableSpin(true);
-    const symbols = ['777', '7', 'BAR', '🍒', '10x'];
-    
-    // Animate spinning effect
-    let counter = 0;
-    const interval = setInterval(() => {
-        document.getElementById('reel1').innerText = symbols[Math.floor(Math.random() * symbols.length)];
-        document.getElementById('reel2').innerText = symbols[Math.floor(Math.random() * symbols.length)];
-        document.getElementById('reel3').innerText = symbols[Math.floor(Math.random() * symbols.length)];
-        counter++;
-        if (counter > 10) {
-            clearInterval(interval);
-            finalizeSpin(symbols);
-        }
-    }, 100);
-}
+    }
 
-function finalizeSpin(symbols) {
-    const finalR1 = symbols[Math.floor(Math.random() * symbols.length)];
-    const finalR2 = symbols[Math.floor(Math.random() * symbols.length)];
-    const finalR3 = symbols[Math.floor(Math.random() * symbols.length)];
-    
-    document.getElementById('reel1').innerText = finalR1;
-    document.getElementById('reel2').innerText = finalR2;
-    document.getElementById('reel3').innerText = finalR3;
-    
-    const fourthReelSymbols = ['1x', '10x', '2x', '5x', '100x'];
-    const finalFeature = fourthReelSymbols[Math.floor(Math.random() * fourthReelSymbols.length)];
-    document.getElementById('reel4').innerText = finalFeature;
-
-    calculatePayout(finalR1, finalR2, finalR3, finalFeature);
-    disableSpin(false);
-}
+    // Initialize display on load
+    updateDisplay();
 </script>
+
 </body>
 </html>
