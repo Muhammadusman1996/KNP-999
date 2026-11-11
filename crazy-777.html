@@ -1,1 +1,149 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <title>Crazy 777 Clone</title>
+    <style>
+        bodybody {
+    background: radial-gradient(circle, #1a0933, #05020a);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+        .machine-container {
+            background: linear-gradient(180deg, #18093c, #0b061a);
+            border: 4px solid #00e1ff;
+            border-radius: 20px;
+            width: 360px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 20px #9d00ff;
+        }
+        .reels-screen {
+            background-color: #000;
+            border: 2px solid #555;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-around;
+            padding: 20px 10px;
+            margin-bottom: 20px;
+        }
+        .reel {
+            background: #fff;
+            color: #000;
+            font-size: 30px;
+            font-weight: bold;
+            width: 60px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            border: 2px inset #aaa;
+        }
+        .spin-btn {
+            background: radial-gradient(circle, #ff0077, #990044);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255,0,119,0.5);
+        }
+        .spin-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
 
+<div class="machine-container">
+    <div class="reels-screen">
+        <div class="reel" id="reel1">7</div>
+        <div class="reel" id="reel2">7</div>
+        <div class="reel" id="reel3">7</div>
+        <div class="reel" id="reel4" style="border-color: gold; color: gold;">10x</div>
+    </div>
+    <button class="spin-btn" onclick="spinGame()">SPIN</button>
+</div>
+
+<script>
+    function spinGame() {
+        const symbols = ['777', '7', 'BAR', '🍒', '10x'];
+        document.getElementById('reel1').innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        document.getElementById('reel2').innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        document.getElementById('reel3').innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        // Fourth reel logic can be customized
+    }
+</script>
+const fourthReelSymbols = ['1x', '10x', '2x', '5x', '100x'];
+    const fourthReel = fourthReelSymbols[Math.floor(Math.random() * fourthReelSymbols.length)];
+    document.getElementById('reel4').innerText = fourthReel;
+
+    checkWin(symbols[Math.floor(Math.random() * symbols.length)], fourthReel);
+}
+
+function checkWin(r1, feature) {
+    // Basic win logic placeholder
+    console.log("Checking win with feature:", feature);
+}
+     // Add this before </body>
+    <div style="margin-top: 20px; font-size: 20px;">
+        Balance: $<span id="balance">100.00</span> | 
+        Bet: $<span id="bet">1.50</span>
+    </div>
+
+    <script>
+        let balance = 100.00;
+        let currentBet = 1.50;
+
+        function updateDisplay() {
+            document.getElementById('balance').innerText = balance.toFixed(2);
+            document.getElementById('bet').innerText = currentBet.toFixed(2);
+        }
+
+        // Initialize display
+        updateDisplay();
+    </script>
+  <script>
+function spinGame() {
+    disableSpin(true);
+    const symbols = ['777', '7', 'BAR', '🍒', '10x'];
+    
+    // Animate spinning effect
+    let counter = 0;
+    const interval = setInterval(() => {
+        document.getElementById('reel1').innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        document.getElementById('reel2').innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        document.getElementById('reel3').innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        counter++;
+        if (counter > 10) {
+            clearInterval(interval);
+            finalizeSpin(symbols);
+        }
+    }, 100);
+}
+
+function finalizeSpin(symbols) {
+    const finalR1 = symbols[Math.floor(Math.random() * symbols.length)];
+    const finalR2 = symbols[Math.floor(Math.random() * symbols.length)];
+    const finalR3 = symbols[Math.floor(Math.random() * symbols.length)];
+    
+    document.getElementById('reel1').innerText = finalR1;
+    document.getElementById('reel2').innerText = finalR2;
+    document.getElementById('reel3').innerText = finalR3;
+    
+    const fourthReelSymbols = ['1x', '10x', '2x', '5x', '100x'];
+    const finalFeature = fourthReelSymbols[Math.floor(Math.random() * fourthReelSymbols.length)];
+    document.getElementById('reel4').innerText = finalFeature;
+
+    calculatePayout(finalR1, finalR2, finalR3, finalFeature);
+    disableSpin(false);
+}
+</script>
+</body>
+</html>
