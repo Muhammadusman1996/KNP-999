@@ -224,7 +224,16 @@
             </button>
             <button onclick="switchGame('aviator')" class="bg-gradient-to-r from-teal-600 to-cyan-600 hover:opacity-90 px-4 py-1.5 rounded-lg text-xs font-bold transition shadow-md">
                 PIA Aviator Pro
-            </button>
+           <div class="flex space-x-4 items-center bg-slate-800/80 px-4 py-1.5 rounded-xl border border-slate-700">
+    <div class="flex items-center space-x-1.5 text-blue-400 font-bold">
+        <span>Dragon Wins:</span>
+        <span id="dragon-wins" class="text-white bg-blue-900/60 px-2 py-0.5 rounded-lg border border-blue-500/30">0</span>
+    </div>
+    <div class="flex items-center space-x-1.5 text-amber-400 font-bold">
+        <span>Tiger Wins:</span>
+        <span id="tiger-wins" class="text-white bg-amber-900/60 px-2 py-0.5 rounded-lg border border-amber-500/30">0</span>
+    </div>
+</div> </button>
         </div>
     </header>
     <!-- DRAGON TIGER GAME VIEW -->
@@ -826,7 +835,18 @@
             drawAviator();
         }
 
-        drawAviator();
+        drawAviator();let dragonWins = 0;
+let tigerWins = 0;
+
+function updateWinCounters(winner) {
+    if (winner === 'dragon') {
+        dragonWins++;
+        document.getElementById('dragon-wins').innerText = dragonWins;
+    } else if (winner === 'tiger') {
+        tigerWins++;
+        document.getElementById('tiger-wins').innerText = tigerWins;
+    }
+}
     </script>
 </body>
 </html>
