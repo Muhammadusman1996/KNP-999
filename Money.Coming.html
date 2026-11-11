@@ -114,26 +114,34 @@
             font-weight: bold;
         }
         .status-panel span { color: #ffd700; }
-        .bet- tiers {
+        .bet-adjuster {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            align-items: center;
+            gap: 15px;
             margin-bottom: 15px;
+            background: #2a0808;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #d4af37;
         }
         .bet-btn {
             background: #b71c1c;
             color: #fff;
             border: 2px solid #d4af37;
-            padding: 10px 15px;
+            padding: 10px 20px;
+            font-size: 18px;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             transition: 0.2s;
         }
-        .bet-btn.active {
-            background: #d4af37;
-            color: #000;
-            transform: scale(1.1);
+        .bet-btn:active { transform: scale(0.95); }
+        #betDisplay {
+            font-size: 24px;
+            color: #ffd700;
+            min-width: 60px;
+            font-weight: bold;
         }
         .action-panel {
             display: flex;
@@ -192,10 +200,10 @@
         <div>WIN: <span id="winDisplay">0</span></div>
     </div>
 
-    <div class="bet- tiers">
-        <button class="bet-btn active" onclick="setBet(1, this)">Bet 1</button>
-        <button class="bet-btn" onclick="setBet(5, this)">Bet 5</button>
-        <button class="bet-btn" onclick="setBet(10, this)">Bet 10</button>
+    <div class="bet-adjuster">
+        <button class="bet-btn" onclick="adjustBet(-5)">-</button>
+        <div>BET: <span id="betDisplay">5</span></div>
+        <button class="bet-btn" onclick="adjustBet(5)">+</button>
     </div>
 
     <div class="action-panel">
@@ -206,15 +214,16 @@
 
 <script>
     let balance = 100;
-    let currentBet = 1;
+    let currentBet = 5;
     let isAuto = false;
     let autoInterval = null;
     const symbols = ['1', '5', '10', '50', '100', '777'];
 
-    function setBet(amount, btnElement) {
-        currentBet = amount;
-        document.querySelectorAll('.bet-btn').forEach(btn => btn.classList.remove('active'));
-        btnElement.classList.add('active');
+    function adjustBet(amount) {
+        let newBet = currentBet + amount;
+        if (newBet < 5) newBet = 5;
+        currentBet = newBet;
+        document.getElementById('betDisplay').innerText = currentBet;
         
         const overlay = document.getElementById('wheelOverlay');
         const r4 = document.getElementById('r4');
@@ -223,12 +232,7 @@
         if(currentBet >= 5) {
             overlay.classList.add('unlocked');
             r4.classList.remove('locked');
-            r4.innerText = '50';
-        } else {
-            overlay.classList.remove('unlocked');
-            r4.classList.add('locked');
-            r4.innerText = '?';
-            wheel.classList.remove('spinning');
+            if(r4.innerText === '?') r4.innerText = '50';
         }
     }
 
