@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Treasure Island - Slot Game</title>
+  <title>Treasure Island - Full Features Slot</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -16,112 +16,218 @@
       align-items: center;
       margin: 0;
     }
-    .slot-container {
-      border: 15px solid #8b4513;
-      border-radius: 30px;
+    .slot-machine-container {
+      border: 16px solid #8b4513;
+      box-shadow: 0 0 50px rgba(0,0,0,0.9), inset 0 0 30px rgba(0,0,0,0.5);
+      border-radius: 40px;
+      background: linear-gradient(135deg, #4a1200 0%, #290a00 100%);
+      width: 95vw;
+      max-width: 1000px;
       padding: 20px;
-      background: #4a1500;
-      box-shadow: 0 0 30px rgba(0,0,0,0.8);
-      width: 90%;
-      max-width: 900px;
+      position: relative;
     }
-    .reel-window {
-      background: #fff6d1;
-      border: 5px solid #d4af37;
-      border-radius: 15px;
-      overflow: hidden;
-      height: 300px;
-      display: flex;
-    }
-    .reel {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
+    .reel-strip {
       transition: transform 3s cubic-bezier(0.1, 0.8, 0.3, 1);
     }
     .symbol {
       height: 100px;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       font-size: 3rem;
-      border-bottom: 2px solid #ecd0a8;
+      border-bottom: 2px solid rgba(139, 69, 19, 0.3);
+      background: #ffe4b5;
     }
-    .btn-spin {
-      background: linear-gradient(180deg, #ff4500, #8b0000);
-      border: 4px solid #ffd700;
-      color: white;
+    .pirate-btn {
+      background: linear-gradient(180deg, #cd853f 0%, #8b4513 100%);
+      border: 2px solid #ffd700;
+      box-shadow: 0 4px 0 #5c2e0b;
       font-weight: bold;
-      font-size: 1.5rem;
-      border-radius: 50%;
-      width: 120px;
-      height: 120px;
+      color: #fff;
       cursor: pointer;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }
-    .btn-spin:active {
+    .pirate-btn:active {
       transform: translateY(4px);
     }
-    .jackpot-box {
-      background: #000;
-      border: 3px solid #ff0000;
-      color: #ff0000;
-      padding: 10px;
-      border-radius: 10px;
+    .btn-spin {
+      background: radial-gradient(circle, #ff4500 0%, #8b0000 100%);
+      border: 6px solid #ffd700;
+      box-shadow: 0 8px 0 #4a0000, 0 12px 20px rgba(0,0,0,0.7);
       font-weight: bold;
-      text-align: center;
+      color: white;
+      cursor: pointer;
+    }
+    .btn-spin:active {
+      transform: translateY(6px);
     }
   </style>
 </head>
 <body>
 
-<div class="slot-container">
-  <h1 class="text-center text-4xl font-black text-amber-500 mb-4" style="text-shadow: 2px 2px #000;">TREASURE ISLAND</h1>
-  
-  <div class="flex justify-between items-center mb-4">
-    <div class="jackpot-box">باکس جیک پاٹ: $500,000</div>
-    <div class="text-xl font-bold">بیلنس: <span id="balance">1000$</span></div>
+<div class="slot-machine-container flex flex-col items-center">
+  <!-- Header -->
+  <div class="text-center mb-4">
+    <h1 class="text-4xl font-black text-amber-400 tracking-wider" style="text-shadow: 3px 3px #000;">TREASURE ISLAND</h1>
   </div>
 
-  <div class="reel-window mb-4">
-    <div class="reel" id="reel1"></div>
-    <div class="reel" id="reel2"></div>
-    <div class="reel" id="reel3"></div>
-    <div class="reel" id="reel4"></div>
-    <div class="reel" id="reel5"></div>
+  <!-- Displays -->
+  <div class="w-full flex justify-between px-6 mb-4 bg-black/60 p-3 rounded-xl border border-amber-800">
+    <div class="text-center border-l border-amber-800 px-4">
+      <div class="text-xs text-amber-500 font-bold">جیک پاٹ</div>
+      <div class="text-xl font-bold text-red-500">$500,000</div>
+    </div>
+    <div class="text-center border-l border-amber-800 px-4">
+      <div class="text-xs text-amber-500 font-bold">کل جیت</div>
+      <div id="win-display" class="text-xl font-bold text-green-400">$0.00</div>
+    </div>
+    <div class="text-center px-4">
+      <div class="text-xs text-amber-500 font-bold">بیلنس</div>
+      <div id="balance-display" class="text-xl font-bold text-white">$1,000.00</div>
+    </div>
   </div>
 
-  <div class="flex justify-between items-center bg-black/40 p-4 rounded-xl">
-    <div>بیٹ: <span id="bet">10$</span></div>
-    <button class="btn-spin" onclick="spinReels()">SPIN</button>
+  <!-- Reels Area -->
+  <div class="grid grid-cols-5 gap-2 bg-black p-3 rounded-xl border-4 border-amber-900 h-[300px] overflow-hidden w-full max-w-3xl mb-4">
+    <div class="bg-white rounded relative overflow-hidden"><div id="reel-1" class="reel-strip absolute w-full flex flex-col"></div></div>
+    <div class="bg-white rounded relative overflow-hidden"><div id="reel-2" class="reel-strip absolute w-full flex flex-col"></div></div>
+    <div class="bg-white rounded relative overflow-hidden"><div id="reel-3" class="reel-strip absolute w-full flex flex-col"></div></div>
+    <div class="bg-white rounded relative overflow-hidden"><div id="reel-4" class="reel-strip absolute w-full flex flex-col"></div></div>
+    <div class="bg-white rounded relative overflow-hidden"><div id="reel-5" class="reel-strip absolute w-full flex flex-col"></div></div>
+  </div>
+
+  <!-- Controls Deck -->
+  <div class="w-full bg-black/60 p-4 rounded-2xl border border-amber-800 flex items-center justify-between">
+    <div class="flex space-x-2">
+      <button onclick="showAlert('BET')" class="pirate-btn px-4 py-2 rounded-lg">بیٹ</button>
+      <button onclick="showAlert('PAYTABLE')" class="pirate-btn px-4 py-2 rounded-lg">پے ٹیبل</button>
+      <button onclick="showAlert('VIEW')" class="pirate-btn px-4 py-2 rounded-lg">ویو</button>
+    </div>
+
+    <div class="flex flex-col items-center bg-black/40 px-4 py-2 rounded-xl border border-amber-800">
+      <span class="text-xs text-amber-500 font-bold mb-1">موجودہ شرط</span>
+      <div class="flex items-center space-x-3">
+        <button onclick="adjustBet(-1)" class="w-8 h-8 rounded bg-red-900 border border-red-500 text-white font-bold text-lg flex items-center justify-center">-</button>
+        <div class="w-24 text-center">
+          <span id="current-bet-display" class="text-xl font-bold text-white">$10.00</span>
+        </div>
+        <button onclick="adjustBet(1)" class="w-8 h-8 rounded bg-green-900 border border-green-500 text-white font-bold text-lg flex items-center justify-center">+</button>
+      </div>
+    </div>
+
+    <div>
+      <button id="btn-spin" onclick="startSpin()" class="btn-spin w-24 h-24 rounded-full flex flex-col items-center justify-center text-center">
+        <span class="text-xs font-bold text-amber-200">چلائیں</span>
+        <span class="text-xl font-black text-white">SPIN</span>
+      </button>
+    </div>
   </div>
 </div>
 
 <script>
-  const symbols = ['🏴‍☠️', '🦜', '🪙', '⚓', '🗡️', '💎'];
-  
-  function createReels() {
-    for(let i=1; i<=5; i++) {
-      const reel = document.getElementById(`reel${i}`);
-      let html = '';
-      for(let j=0; j<20; j++) {
-        const randomSym = symbols[Math.floor(Math.random() * symbols.length)];
-        html += `<div class="symbol">${randomSym}</div>`;
-      }
-      reel.innerHTML = html;
+  const SYMBOLS = [
+    { name: 'Skull', icon: '☠️', value: 200 },
+    { name: 'Captain', icon: '🏴‍☠️', value: 100 },
+    { name: 'Chest', icon: '🪙', value: 50 },
+    { name: 'Parrot', icon: '🦜', value: 20 },
+    { name: 'Anchor', icon: '⚓', value: 10 },
+    { name: 'Sword', icon: '🗡️', value: 5 }
+  ];
+
+  const ALLOWED_BETS = [10.00, 20.00, 50.00, 100.00];
+  let currentBetIndex = 0;
+  let userBalance = 1000.00;
+  let isSpinning = false;
+
+  const REEL_CONFIG = [
+    [0, 1, 2, 3, 4, 5, 0, 2, 4],
+    [5, 4, 3, 2, 1, 0, 3, 1, 5],
+    [1, 3, 5, 0, 2, 4, 1, 4, 0],
+    [2, 0, 4, 1, 3, 5, 2, 5, 1],
+    [4, 2, 0, 5, 3, 1, 0, 3, 2]
+  ];
+
+  window.onload = () => {
+    initReels();
+    updateDisplay();
+  };
+
+  function updateDisplay() {
+    document.getElementById('balance-display').innerText = `$${userBalance.toFixed(2)}`;
+    document.getElementById('current-bet-display').innerText = `$${ALLOWED_BETS[currentBetIndex].toFixed(2)}`;
+  }
+
+  function adjustBet(direction) {
+    if (isSpinning) return;
+    currentBetIndex = (currentBetIndex + direction + ALLOWED_BETS.length) % ALLOWED_BETS.length;
+    updateDisplay();
+  }
+
+  function initReels() {
+    for (let i = 1; i <= 5; i++) {
+      const strip = document.getElementById(`reel-${i}`);
+      strip.innerHTML = '';
+      const sequence = [...REEL_CONFIG[i-1], ...REEL_CONFIG[i-1], ...REEL_CONFIG[i-1]];
+      sequence.forEach(idx => {
+        const sym = SYMBOLS[idx];
+        const el = document.createElement('div');
+        el.className = 'symbol drop-shadow-lg';
+        el.innerText = sym.icon;
+        strip.appendChild(el);
+      });
     }
   }
 
-  function spinReels() {
-    for(let i=1; i<=5; i++) {
-      const reel = document.getElementById(`reel${i}`);
-      const randomOffset = Math.floor(Math.random() * 15) * 100;
-      reel.style.transition = `transform ${2 + i*0.5}s cubic-bezier(0.1, 0.8, 0.3, 1)`;
-      reel.style.transform = `translateY(-${randomOffset}px)`;
+  function startSpin() {
+    if (isSpinning) return;
+    const bet = ALLOWED_BETS[currentBetIndex];
+    if (userBalance < bet) {
+      alert("بیلنس ناکافی ہے!");
+      return;
+    }
+
+    isSpinning = true;
+    userBalance -= bet;
+    updateDisplay();
+    document.getElementById('win-display').innerText = "$0.00";
+    document.getElementById('btn-spin').style.opacity = "0.6";
+
+    const stoppedIndices = [];
+    const symbolHeight = 100;
+
+    for (let i = 1; i <= 5; i++) {
+      const strip = document.getElementById(`reel-${i}`);
+      const randomIndex = Math.floor(Math.random() * REEL_CONFIG[i-1].length);
+      stoppedIndices.push(REEL_CONFIG[i-1][randomIndex]);
+
+      const totalSymbols = REEL_CONFIG[i-1].length;
+      const offset = (totalSymbols * 2 + randomIndex) * symbolHeight;
+
+      strip.style.transition = `transform ${2 + i * 0.4}s cubic-bezier(0.1, 0.8, 0.3, 1)`;
+      strip.style.transform = `translateY(-${offset}px)`;
+    }
+
+    setTimeout(() => {
+      checkWin(stoppedIndices, bet);
+      isSpinning = false;
+      document.getElementById('btn-spin').style.opacity = "1";
+    }, 4000);
+  }
+
+  function checkWin(stoppedIndices, bet) {
+    const first = stoppedIndices[0];
+    const matches = stoppedIndices.filter(idx => idx === first).length;
+
+    if (matches >= 3) {
+      const win = bet * SYMBOLS[first].value * (matches * 0.1);
+      userBalance += win;
+      document.getElementById('win-display').innerText = `+$${win.toFixed(2)}`;
+      updateDisplay();
     }
   }
 
-  createReels();
+  function showAlert(action) {
+    alert(`[${action}] پینل فعال ہے۔`);
+  }
 </script>
 
 </body>
