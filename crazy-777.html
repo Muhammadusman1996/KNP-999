@@ -2,7 +2,7 @@
 <html lang="ur">
 <head>
     <meta charset="UTF-8">
-    <title>Crazy 777 Full Interface</title>
+    <title>Crazy 777 Pro Interface</title>
     <style>
         body {
             background: #05020a;
@@ -19,7 +19,7 @@
             background: linear-gradient(180deg, #0d0426, #05020a);
             border: 3px solid #00e1ff;
             border-radius: 25px;
-            width: 420px;
+            width: 450px;
             padding: 20px;
             box-shadow: 0 0 40px #9d00ff;
             display: flex;
@@ -28,39 +28,45 @@
         }
         .jackpot-bar {
             background: linear-gradient(90deg, #ff0055, #9d00ff, #00e1ff);
-            padding: 10px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 12px;
             text-align: center;
             font-weight: bold;
             font-size: 18px;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid #fff;
         }
         .multipliers-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 5px;
+            gap: 6px;
             background: #110724;
             padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #555;
+            border-radius: 12px;
+            border: 1px solid #444;
         }
         .mult-item {
             background: #1a0b36;
             text-align: center;
             padding: 8px 0;
-            border-radius: 5px;
-            font-size: 14px;
+            border-radius: 6px;
+            font-size: 13px;
             border: 1px solid #333;
             color: #ffd700;
-        }
-        .feature-banner {
-            background: #1e1147;
-            border: 2px solid #ffd700;
-            color: #ffd700;
-            padding: 8px;
-            text-align: center;
-            border-radius: 8px;
             font-weight: bold;
+        }
+        .status-display {
+            background: #1e1147;
+            border: 2px solid #00e1ff;
+            color: #00e1ff;
+            padding: 12px;
+            text-align: center;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            min-height: 24px;
+            box-shadow: inset 0 0 10px rgba(0,225,255,0.3);
         }
         .reels-container {
             background-color: #000;
@@ -68,97 +74,134 @@
             border-radius: 15px;
             display: flex;
             justify-content: space-around;
-            padding: 15px 10px;
+            align-items: center;
+            padding: 20px 15px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
         }
         .reel {
-            background: #fff;
+            background: linear-gradient(180deg, #ffffff, #dcdcdc);
             color: #000;
-            font-size: 28px;
-            font-weight: bold;
-            width: 70px;
-            height: 90px;
+            font-size: 36px;
+            font-weight: 900;
+            width: 80px;
+            height: 110px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+            border-radius: 10px;
+            border: 4px solid #333;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
         }
         .special-reel {
-            background: #2b1d0c;
-            border: 2px solid #ffd700;
+            background: linear-gradient(180deg, #3d250d, #1a0f05);
+            border: 4px solid #ffd700;
             color: #ffd700;
+            text-shadow: 0 0 10px #ffaa00;
         }
         .controls-panel {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             background: #0d0426;
             padding: 15px;
             border-radius: 15px;
+            border: 1px solid #333;
         }
         .bet-control {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
         .btn-bet {
-            background: #2a1b54;
+            background: radial-gradient(circle, #00e1ff, #0055ff);
             color: white;
-            border: 1px solid #00e1ff;
-            width: 40px;
-            height: 40px;
+            border: none;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 24px;
+            font-weight: bold;
             cursor: pointer;
+            box-shadow: 0 0 10px #00e1ff;
+        }
+        .btn-bet:active {
+            transform: scale(0.9);
         }
         .bet-display {
             background: #000;
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: 1px solid #555;
+            padding: 12px 25px;
+            border-radius: 12px;
+            border: 2px solid #555;
             font-weight: bold;
+            font-size: 20px;
+            color: #fff;
+            min-width: 120px;
+            text-align: center;
         }
         .action-buttons {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-top: 5px;
         }
         .secondary-btns {
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            gap: 8px;
         }
         .btn-sec {
             background: #1a0b36;
             color: #00e1ff;
-            border: 1px solid #00e1ff;
-            padding: 10px 15px;
-            border-radius: 8px;
+            border: 2px solid #00e1ff;
+            padding: 10px 20px;
+            border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .btn-sec.active {
+            background: #00e1ff;
+            color: #000;
+            box-shadow: 0 0 15px #00e1ff;
         }
         .spin-btn {
-            background: radial-gradient(circle, #00ffff, #0055ff);
+            background: radial-gradient(circle, #00ffff, #0077ff);
             color: #000;
-            border: none;
-            width: 90px;
-            height: 90px;
+            border: 4px solid #fff;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 900;
             cursor: pointer;
-            box-shadow: 0 0 20px #00e1ff;
+            box-shadow: 0 0 25px #00e1ff, inset 0 0 10px #fff;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+        }
+        .spin-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px #00e1ff;
         }
         .spin-btn:active {
             transform: scale(0.95);
         }
+        .spin-btn:disabled {
+            background: #555;
+            border-color: #333;
+            color: #888;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
         .balance-bar {
             background: #110724;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
-            border-radius: 8px;
-            font-size: 18px;
-            border: 1px solid #333;
+            border-radius: 10px;
+            font-size: 20px;
+            border: 1px solid #444;
+            font-weight: bold;
+            color: #00ffcc;
         }
     </style>
 </head>
@@ -168,24 +211,24 @@
     <div class="jackpot-bar">GRAND JACKPOT: $443,776,710.96</div>
     
     <div class="multipliers-grid">
-        <div class="mult-item">777x1000</div>
-        <div class="mult-item">77x200</div>
-        <div class="mult-item">7x100</div>
-        <div class="mult-item">Any7x40</div>
-        <div class="mult-item">BARx40</div>
-        <div class="mult-item">AnyBarx20</div>
-        <div class="mult-item">Anyx10</div>
-        <div class="mult-item">Symx4</div>
+        <div class="mult-item">777 x1000</div>
+        <div class="mult-item">77 x200</div>
+        <div class="mult-item">7 x100</div>
+        <div class="mult-item">Any 7 x40</div>
+        <div class="mult-item">BAR x40</div>
+        <div class="mult-item">Any BAR x20</div>
+        <div class="mult-item">Any x10</div>
+        <div class="mult-item">Sym x4</div>
         <div class="mult-item">2x</div>
         <div class="mult-item">10x</div>
     </div>
 
-    <div class="feature-banner">★ Get an extra 10x bonus ★</div>
+    <div class="status-display" id="statusDisplay">WELCOME TO CRAZY 777</div>
 
     <div class="reels-container">
-        <div class="mult-item" id="reel1">BAR</div>
-        <div class="mult-item" id="reel2">7</div>
-        <div class="mult-item" id="reel3">777</div>
+        <div class="reel" id="reel1">BAR</div>
+        <div class="reel" id="reel2">7</div>
+        <div class="reel" id="reel3">777</div>
         <div class="reel special-reel" id="reel4">10x</div>
     </div>
 
@@ -202,11 +245,11 @@
         
         <div class="action-buttons">
             <div class="secondary-btns">
-                <button class="btn-sec" onclick="toggleTurbo()">TURBO</button>
-                <button class="btn-sec" onclick="toggleAuto()">AUTO</button>
+                <button class="btn-sec" id="turboBtn" onclick="toggleTurbo()">TURBO</button>
+                <button class="btn-sec" id="autoBtn" onclick="toggleAuto()">AUTO</button>
             </div>
             <button class="spin-btn" id="spinBtn" onclick="spinGame()">SPIN</button>
-            <div style="width: 130px;"></div> <!-- Spacer to center spin button -->
+            <div style="width: 130px; display: flex; justify-content: center;"></div> 
         </div>
     </div>
 </div>
@@ -218,9 +261,18 @@
     let isAuto = false;
     let autoInterval = null;
 
+    const symbols = ['777', '7', 'BAR', '🍒'];
+    const fourthReelSymbols = ['1x', '10x', '2x', '5x', '100x'];
+
     function updateDisplay() {
         document.getElementById('balance').innerText = balance.toFixed(2);
         document.getElementById('bet').innerText = currentBet.toFixed(2);
+    }
+
+    function setStatus(text, isWin = false) {
+        const display = document.getElementById('statusDisplay');
+        display.innerText = text;
+        display.style.color = isWin ? '#00ff00' : '#00e1ff';
     }
 
     function adjustBet(amount) {
@@ -231,17 +283,25 @@
 
     function toggleTurbo() {
         isTurbo = !isTurbo;
-        document.querySelectorAll('.btn-sec')[0].style.borderColor = isTurbo ? '#ff0055' : '#00e1ff';
+        document.getElementById('turboBtn').className = 'btn-sec' + (isTurbo ? ' active' : '');
     }
 
     function toggleAuto() {
         isAuto = !isAuto;
-        const autoBtn = document.querySelectorAll('.btn-sec')[1];
-        autoBtn.style.borderColor = isAuto ? '#ff0055' : '#00e1ff';
+        const btn = document.getElementById('autoBtn');
+        btn.className = 'btn-sec' + (isAuto ? ' active' : '');
+        
         if (isAuto) {
-            autoInterval = setInterval(spinGame, isTurbo ? 1000 : 2000);
+            if (balance < currentBet) {
+                alert("Insufficient balance for Auto Spin!");
+                toggleAuto();
+                return;
+            }
+            setStatus("AUTO SPIN ACTIVE");
+            spinGame();
         } else {
             clearInterval(autoInterval);
+            setStatus("AUTO SPIN STOPPED");
         }
     }
 
@@ -256,17 +316,20 @@
             return;
         }
 
+        balance -= currentBet;
+        updateDisplay();
         disableSpin(true);
-        const symbols = ['777', '7', 'BAR', '🍒'];
-        const speed = isTurbo ? 30 : 100;
-        
+        setStatus("SPINNING...");
+
+        const speed = isTurbo ? 40 : 100;
         let counter = 0;
+        
         const interval = setInterval(() => {
             document.getElementById('reel1').innerText = symbols[Math.floor(Math.random() * symbols.length)];
             document.getElementById('reel2').innerText = symbols[Math.floor(Math.random() * symbols.length)];
             document.getElementById('reel3').innerText = symbols[Math.floor(Math.random() * symbols.length)];
             counter++;
-            if (counter > (isTurbo ? 5 : 15)) {
+            if (counter > (isTurbo ? 6 : 16)) {
                 clearInterval(interval);
                 finalizeSpin();
             }
@@ -274,7 +337,6 @@
     }
 
     function finalizeSpin() {
-        const symbols = ['777', '7', 'BAR', '🍒'];
         const finalR1 = symbols[Math.floor(Math.random() * symbols.length)];
         const finalR2 = symbols[Math.floor(Math.random() * symbols.length)];
         const finalR3 = symbols[Math.floor(Math.random() * symbols.length)];
@@ -283,12 +345,18 @@
         document.getElementById('reel2').innerText = finalR2;
         document.getElementById('reel3').innerText = finalR3;
         
-        const fourthReelSymbols = ['1x', '10x', '2x', '5x', '100x'];
         const finalFeature = fourthReelSymbols[Math.floor(Math.random() * fourthReelSymbols.length)];
         document.getElementById('reel4').innerText = finalFeature;
 
         calculatePayout(finalR1, finalR2, finalR3, finalFeature);
-        if (!isAuto) disableSpin(false);
+
+        if (isAuto && balance >= currentBet) {
+            autoInterval = setTimeout(spinGame, isTurbo ? 800 : 1500);
+        } else if (isAuto) {
+            toggleAuto();
+            alert("Auto Spin stopped due to low balance.");
+        }
+        disableSpin(false);
     }
 
     function calculatePayout(r1, r2, r3, feature) {
@@ -307,11 +375,11 @@
         
         if (totalWin > 0) {
             balance += totalWin;
-            alert("BIG WIN! You won: $" + totalWin.toFixed(2));
+            updateDisplay();
+            setStatus("BIG WIN! Won $" + totalWin.toFixed(2), true);
         } else {
-            balance -= currentBet;
+            setStatus("NO WIN - Try Again");
         }
-        updateDisplay();
     }
 
     updateDisplay();
