@@ -1,1 +1,377 @@
+tion Buttons -->
+            <div class="flex items-center space-x-2">
+                <button onclick="doubleBets()" id="double-btn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs px-3 py-2 rounded-xl transition font-bold">
+                    2x Double
+                </button>
+            </div>
+        </div>
+    </footer>
 
+    <!-- JavaScript Logic Integration -->
+    <script>
+        // Game Configuration & State
+        const CHIP_VALUES = [20, 50, 100, 150, 200, 150, 300, 350, 400, 450, 500, 550 600];
+        const CHIP_COLORS = [
+            'from-blue-600 to-blue-400 border-blue-300 text-white',
+            'from-emerald-600 to-emerald-400 border-emerald-300 text-white',
+            'from-red-600 to-red-400 border-red-300 text-white',
+            'from-purple-600 to-purple-400 border-purple-300 text-white',
+            'from-amber-600 to-amber-400 border-amber-300 text-white',
+            'from-indigo-600 to-indigo-400 border-indigo-300 text-white',
+            'from-pink-600 to-pink-400 border-pink-300 text-white',
+            'from-teal-600 to-teal-400 border-teal-300 text-white',
+            'from-orange-600 to-orange-400 border-orange-300 text-white',
+            'from-cyan-600 to-cyan-400 border-cyan-300 text-white',
+            'from-yellow-500 to-amber-300 border-yellow-200 text-slate-900 font-extrabold'
+        ];
+
+        let selectedChip = 20;
+        let userBalance = 5000;
+        let bets = { dragon: 0, tie: 0, tiger: 0 };
+        let totalTableBets = { dragon: 1240, tie: 300, tiger: 1890 };
+        let isBettingOpen = true;
+        let countdownTimer = 10;
+        let timerInterval = null;
+        let history = ['dragon', 'tiger', 'dragon', 'dragon', 'tie', 'tiger', 'dragon'];
+
+        // Card Suits and Values
+        const SUITS = [
+            { name: 'spades', icon: '♠', color: 'text-slate-900' },
+            { name: 'hearts', icon: '♥', color: 'text-red-600' },
+            { name: 'clubs', icon: '♣', color: 'text-slate-900' },
+            { name: 'diamonds', icon: '♦', color: 'text-red-600' }
+        ];
+
+        const RANKS = [
+            { label: 'A', val: 1 }, { label: '2', val: 2 }, { label: '3', val: 3 },
+            { label: '4', val: 4 }, { label: '5', val: 5 }, { label: '6', val: 6 },
+            { label: '7', val: 7 }, { label: '8', val: 8 }, { label: '9', val: 9 },
+            { label: '10', val: 10 }, { label: 'J', val: 11 }, { label: 'Q', val: 12 }, { label: 'K', val: 13 }
+        ];
+
+        // 6 Simulated Live Online Players Data
+        let otherPlayers = [
+            { id: 1, name: 'Rahul S.', balance: 14200, avatar: 'Rahul', bet: 0, zone: '' },
+            { id: 2, name: 'Vikas K.', balance: 8900, avatar: 'Vikas', bet: 0, zone: '' },
+            { id: 3, name: 'Ananya M.', balance: 25400, avatar: 'Ananya', bet: 0, zone: '' },
+            { id: 4, name: 'Amit P.', balance: 3100, avatar: 'Amit', bet: 0, zone: '' },
+            { id: 5, name: 'Pooja R.', balance: 11800, avatar: 'Pooja', bet: 0, zone: '' },
+            { id: 6, name: 'Sanjay B.', balance: 45000, avatar: 'Sanjay', bet: 0, zone: '' }
+        ];
+
+        // Initialize DOM Elements on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChips();
+            renderPlayers();
+            renderHistory();
+            updateUI();
+            startRoundTimer();
+
+            document.getElementById('reset-balance-btn').addEventListener('click', () => {
+                userBalance += 2000;
+                updateUI();
+            });
+        });
+
+        // Render Custom Chips Selector
+        function renderChips() {
+            const container = document.getElementById('chips-container');
+            container.innerHTML = '';
+            
+            CHIP_VALUES.forEach((val, idx) => {
+                const bgGradient = CHIP_COLORS[idx % CHIP_COLORS.length];
+                const btn = document.createElement('button');
+                btn.className = `chip-btn flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-tr ${bgGradient} border-2 shadow-md flex items-center justify-center font-bold text-xs ${val === selectedChip ? 'active-chip' : ''}`;
+                btn.innerHTML = `<span>${val}</span>`;
+                btn.onclick = () => selectChip(val, btn);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectChip(val, el) {
+            selectedChip = val;
+            document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active-chip'));
+            el.classList.add('active-chip');
+        }
+
+        // Render 6 Live Player Blocks in Left Side Panel
+        function renderPlayers() {
+            const grid = document.getElementById('players-grid');
+            grid.innerHTML = '';
+
+            otherPlayers.forEach(p => {
+                const block = document.createElement('div');
+                block.className = 'bg-slate-950/70 border border-slate-800 rounded-xl p-2 flex items-center space-x-2 shadow-inner';
+                block.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-amber-500/30 overflow-hidden flex-shrink-0">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${p.avatar}" alt="${p.name}" class="w-full h-full">
+                    </div>
+                    <div class="overflow-hidden flex-1">
+                        <div class="text-xs font-bold text-slate-200 truncate">${p.name}</div>
+                        <div class="text-[10px] text-amber-400 font-mono">₹ ${p.balance.toLocaleString()}</div>
+                    </div>
+                    <div class="text-[10px] font-bold ${p.zone === 'dragon' ? 'text-blue-400' : p.zone === 'tiger' ? 'text-amber-400' : p.zone === 'tie' ? 'text-emerald-400' : 'text-slate-500'} font-mono">
+                        ${p.bet > 0 ? '₹' + p.bet : 'IDLE'}
+                    </div>
+                `;
+                grid.appendChild(block);
+            });
+        }
+
+        // Render Past Outcome History Bar
+        function renderHistory() {
+            const container = document.getElementById('history-container');
+            container.innerHTML = '';
+            
+            history.slice(-10).forEach(res => {
+                const dot = document.createElement('div');
+                dot.className = `w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-extrabold text-white flex-shrink-0 ${
+                    res === 'dragon' ? 'bg-blue-600 border border-blue-300' :
+                    res === 'tiger' ? 'bg-amber-600 border border-amber-300' :
+                    'bg-emerald-600 border border-emerald-300'
+                }`;
+                dot.innerText = res === 'dragon' ? 'D' : res === 'tiger' ? 'T' : 'X';
+                container.appendChild(dot);
+            });
+        }
+
+        // Handle User Betting Logic
+        function placeBet(zone) {
+            if (!isBettingOpen) return;
+
+            if (userBalance < selectedChip) {
+                alert('Insufficient Balance! Click "+ Add Cash" to reload.');
+                return;
+            }
+
+            userBalance -= selectedChip;
+            bets[zone] += selectedChip;
+            totalTableBets[zone] += selectedChip;
+
+            // Randomly update other live players' bets for realism
+            simulateOtherPlayersBet();
+
+            updateUI();
+        }
+
+        function simulateOtherPlayersBet() {
+            const randomPlayerIndex = Math.floor(Math.random() * otherPlayers.length);
+            const zones = ['dragon', 'tiger', 'tie'];
+            const randZone = zones[Math.floor(Math.random() * zones.length)];
+            const randChip = CHIP_VALUES[Math.floor(Math.random() * 5)];
+
+            otherPlayers[randomPlayerIndex].bet += randChip;
+            otherPlayers[randomPlayerIndex].zone = randZone;
+            totalTableBets[randZone] += randChip;
+            renderPlayers();
+        }
+
+        function clearBets() {
+            if (!isBettingOpen) return;
+            const totalRefund = bets.dragon + bets.tie + bets.tiger;
+            userBalance += totalRefund;
+            bets = { dragon: 0, tie: 0, tiger: 0 };
+            updateUI();
+        }
+
+        function doubleBets() {
+            if (!isBettingOpen) return;
+            const currentTotal = bets.dragon + bets.tie + bets.tiger;
+            if (currentTotal === 0) return;
+
+            if (userBalance < currentTotal) {
+                alert('Insufficient Balance to double bets!');
+                return;
+            }
+
+            userBalance -= currentTotal;
+            bets.dragon *= 2;
+            bets.tie *= 2;
+            bets.tiger *= 2;
+            updateUI();
+        }
+
+        // Update UI Displays
+        function updateUI() {
+            document.getElementById('user-balance').innerText = `₹ ${userBalance.toLocaleString()}`;
+            
+            const totalBet = bets.dragon + bets.tie + bets.tiger;
+            document.getElementById('user-total-bet').innerText = `₹ ${totalBet.toLocaleString()}`;
+
+            document.getElementById('user-dragon-bet').innerText = `₹ ${bets.dragon.toLocaleString()}`;
+            document.getElementById('user-tie-bet').innerText = `₹ ${bets.tie.toLocaleString()}`;
+            document.getElementById('user-tiger-bet').innerText = `₹ ${bets.tiger.toLocaleString()}`;
+
+            document.getElementById('total-dragon-bet').innerText = `₹ ${totalTableBets.dragon.toLocaleString()}`;
+            document.getElementById('total-tie-bet').innerText = `₹ ${totalTableBets.tie.toLocaleString()}`;
+            document.getElementById('total-tiger-bet').innerText = `₹ ${totalTableBets.tiger.toLocaleString()}`;
+        }
+
+        // Master 10-Second Timer & Betting State Control
+        function startRoundTimer() {
+            isBettingOpen = true;
+            countdownTimer = 10;
+            
+            // Reset Cards to Face Down
+            document.getElementById('dragon-card').classList.remove('flipped');
+            document.getElementById('tiger-card').classList.remove('flipped');
+            document.getElementById('dragon-card-val').innerText = '?';
+            document.getElementById('tiger-card-val').innerText = '?';
+            document.getElementById('result-overlay').classList.add('hidden');
+
+            const statusBadge = document.getElementById('status-badge');
+            statusBadge.className = "px-4 py-1 rounded-full text-xs font-extrabold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 mb-1 animate-pulse";
+            statusBadge.innerText = "BETTING OPEN";
+
+            enableBettingZones(true);
+
+            timerInterval = setInterval(() => {
+                countdownTimer--;
+                document.getElementById('timer-display').innerText = countdownTimer;
+
+                if (countdownTimer <= 0) {
+                    clearInterval(timerInterval);
+                    lockBetsAndReveal();
+                }
+            }, 1000);
+        }
+
+        function enableBettingZones(enabled) {
+            const zones = document.querySelectorAll('.bet-zone');
+            zones.forEach(z => {
+                if (enabled) {
+                    z.classList.remove('disabled', 'opacity-60', 'cursor-not-allowed');
+                } else {
+                    z.classList.add('disabled', 'opacity-60', 'cursor-not-allowed');
+                }
+            });
+        }
+
+        // Lock Bets & Reveal Cards Sequence
+        function lockBetsAndReveal() {
+            isBettingOpen = false;
+            enableBettingZones(false);
+
+            const statusBadge = document.getElementById('status-badge');
+            statusBadge.className = "px-4 py-1 rounded-full text-xs font-extrabold uppercase tracking-widest bg-rose-500/20 text-rose-400 border border-rose-500/40 mb-1";
+            statusBadge.innerText = "BETTING CLOSED - REVEALING CARDS";
+
+            // Generate Random Cards
+            const dragonCard = drawRandomCard();
+            const tigerCard = drawRandomCard();
+
+            // Populate Card Faces
+            populateCardFace('dragon-card-front', dragonCard);
+            populateCardFace('tiger-card-front', tigerCard);
+
+            // Flip Cards with sequential animation
+            setTimeout(() => {
+                document.getElementById('dragon-card').classList.add('flipped');
+                document.getElementById('dragon-card-val').innerText = `${dragonCard.rank.label} (${dragonCard.rank.val})`;
+            }, 500);
+
+            setTimeout(() => {
+                document.getElementById('tiger-card').classList.add('flipped');
+                document.getElementById('tiger-card-val').innerText = `${tigerCard.rank.label} (${tigerCard.rank.val})`;
+            }, 1200);
+
+            // Evaluate Winner after cards are flipped
+            setTimeout(() => {
+                evaluateResult(dragonCard, tigerCard);
+            }, 2300);
+        }
+
+        function drawRandomCard() {
+            const suit = SUITS[Math.floor(Math.random() * SUITS.length)];
+            const rank = RANKS[Math.floor(Math.random() * RANKS.length)];
+            return { suit, rank };
+        }
+
+        function populateCardFace(elementId, card) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = `
+                <div class="flex justify-between items-start font-bold text-base leading-none ${card.suit.color}">
+                    <div>
+                        <div>${card.rank.label}</div>
+                        <div class="text-xs">${card.suit.icon}</div>
+                    </div>
+                </div>
+                <div class="text-3xl text-center ${card.suit.color}">
+                    ${card.suit.icon}
+                </div>
+                <div class="flex justify-between items-end font-bold text-base leading-none ${card.suit.color} rotate-180">
+                    <div>
+                        <div>${card.rank.label}</div>
+                        <div class="text-xs">${card.suit.icon}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Result & Payout Evaluation Logic
+        function evaluateResult(dragonCard, tigerCard) {
+            let winner = '';
+            let subtitle = '';
+
+            if (dragonCard.rank.val > tigerCard.rank.val) {
+                winner = 'dragon';
+                subtitle = `Dragon (${dragonCard.rank.label}) beats Tiger (${tigerCard.rank.label})`;
+            } else if (tigerCard.rank.val > dragonCard.rank.val) {
+                winner = 'tiger';
+                subtitle = `Tiger (${tigerCard.rank.label}) beats Dragon (${dragonCard.rank.label})`;
+            } else {
+                winner = 'tie';
+                subtitle = `Tie! Both drawn ${dragonCard.rank.label}`;
+            }
+
+            // Update History
+            history.push(winner);
+            renderHistory();
+
+            // Calculate User Payout
+            let winAmount = 0;
+            if (winner === 'dragon' && bets.dragon > 0) {
+                winAmount = bets.dragon * 2;
+            } else if (winner === 'tiger' && bets.tiger > 0) {
+                winAmount = bets.tiger * 2;
+            } else if (winner === 'tie' && bets.tie > 0) {
+                winAmount = bets.tie * 9; // 8:1 payout plus original bet returned
+            }
+
+            userBalance += winAmount;
+            document.getElementById('user-last-win').innerText = `₹ ${winAmount.toLocaleString()}`;
+
+            // Show Result Banner
+            const resultTitle = document.getElementById('result-title');
+            const resultSubtitle = document.getElementById('result-subtitle');
+            const resultPayout = document.getElementById('result-payout');
+
+            if (winner === 'dragon') {
+                resultTitle.innerText = "DRAGON WINS!";
+                resultTitle.className = "cinzel-font text-3xl font-black mb-2 text-blue-400";
+            } else if (winner === 'tiger') {
+                resultTitle.innerText = "TIGER WINS!";
+                resultTitle.className = "cinzel-font text-3xl font-black mb-2 text-amber-400";
+            } else {
+                resultTitle.innerText = "ROUND TIE!";
+                resultTitle.className = "cinzel-font text-3xl font-black mb-2 text-emerald-400";
+            }
+
+            resultSubtitle.innerText = subtitle;
+            resultPayout.innerText = winAmount > 0 ? `+ ₹ ${winAmount.toLocaleString()}` : `₹ 0`;
+
+            document.getElementById('result-overlay').classList.remove('hidden');
+
+            // Reset Round & Restart Timer after 4 Seconds Display
+            setTimeout(() => {
+                bets = { dragon: 0, tie: 0, tiger: 0 };
+                // Reset live players bets
+                otherPlayers.forEach(p => { p.bet = 0; p.zone = ''; });
+                renderPlayers();
+                updateUI();
+                startRoundTimer();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
