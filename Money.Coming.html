@@ -1,217 +1,288 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Money Coming Slot Game</title>
+    <title>Money Coming Game</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
         body {
-            background-color: #121212;
+            background-color: #1a0000;
             color: #fff;
-            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
         .game-container {
-            width: 360px;
-            background: linear-gradient(180deg, #500 0%, #1a0000 100%);
-            border: 4px solid #ffd700;
-            border-radius: 12px;
-            padding: 15px;
+            width: 100%;
+            max-width: 400px;
+            background: radial-gradient(circle, #590000, #1a0000);
+            border: 6px solid #d4af37;
+            border-radius: 20px;
+            padding: 20px;
             text-align: center;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 30px #d4af37;
         }
-      @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-.spinning {
-    animation: spin 2s linear infinite;
-}
         .header h1 {
-            color: #ff3333;
-            font-size: 24px;
-            text-shadow: 0 0 5px #fff;
+            color: #e50914;
+            text-shadow: 0 0 10px #ff0055;
+            margin-bottom: 10px;
         }
         .wheel-container {
             position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 15px auto;
+            width: 250px;
+            height: 250px;
+            margin: 10px auto;
             border-radius: 50%;
-            border: 6px solid #ffd700;
+            border: 8px solid #d4af37;
             overflow: hidden;
-            background: conic-gradient(#4caf50 0deg 90deg, #f44336 90deg 180deg, #4caf50 180deg 270deg, #ffeb3b 270deg 360deg);
+            background: conic-gradient(#2e7d32 0deg 90deg, #c62828 90deg 180deg, #2e7d32 180deg 270deg, #fbc02d 270deg 360deg);
+            box-shadow: inset 0 0 20px #000;
         }
-        .wheel-lock {
+        .wheel-container.spinning {
+            animation: spinWheel 2s linear infinite;
+        }
+        @keyframes spinWheel {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .wheel-overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.85);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #ffd700;
+            color: #d4af37;
             font-weight: bold;
-            font-size: 14px;
-            padding: 10px;
+            padding: 20px;
+            text-align: center;
+            border-radius: 50%;
+            border: 4px dashed #d4af37;
         }
-        .wheel-lock.unlocked { display: none; }
+        .wheel-overlay.unlocked { display: none; }
+        .chain-gfx {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(212,175,55,0.3) 20px, rgba(212,175,55,0.3) 40px);
+        }
         .reels-container {
             display: flex;
-            justify-content: space-between;
-            background: #000;
-            padding: 10px;
-            border-radius: 8px;
-            border: 2px solid #ffd700;
-            margin-bottom: 15px;
+            justify-content: space-around;
+            background: #0d0d0d;
+            padding: 15px;
+            border-radius: 10px;
+            border: 3px solid #d4af37;
+            margin: 15px 0;
         }
         .reel {
-            width: 22%;
-            height: 60px;
-            background: #222;
-            border: 1px solid #444;
-            border-radius: 4px;
+            width: 20%;
+            height: 70px;
+            background: linear-gradient(180deg, #004d40, #00796b);
+            border: 2px solid #d4af37;
+            border-radius: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 20px;
+            font-size: 28px;
             font-weight: bold;
             color: #ffd700;
             position: relative;
+            text-shadow: 0 0 5px #000;
         }
         .reel.locked::after {
             content: '🔒';
             position: absolute;
-            font-size: 14px;
-        }
-        .controls {
+            font-size: 20px;
+            background: rgba(0,0,0,0.6);
+            width: 100%; height: 100%;
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 6px;
         }
-        .bet-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-        }
-        .spin-btn {
-            background: linear-gradient(180deg, #4caf50 0%, #2e7d32 100%);
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-        }
-        .spin-btn:disabled { background: #555; }
-        .bet-buttons {
+        .status-panel {
+            background: #4a0e0e;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #d4af37;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-around;
+            font-weight: bold;
+        }
+        .status-panel span { color: #ffd700; }
+        .bet- tiers {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
         }
         .bet-btn {
-            background: #ffd700;
-            color: #000;
-            border: none;
-            padding: 6px 12px;
+            background: #b71c1c;
+            color: #fff;
+            border: 2px solid #d4af37;
+            padding: 10px 15px;
             font-weight: bold;
-            border-radius: 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .bet-btn.active {
+            background: #d4af37;
+            color: #000;
+            transform: scale(1.1);
+        }
+        .action-panel {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .spin-btn {
+            flex: 2;
+            background: linear-gradient(90deg, #2e7d32, #4caf50);
+            color: white;
+            border: 3px solid #d4af37;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px #1b5e20;
+        }
+        .auto-btn {
+            flex: 1;
+            background: #f57c00;
+            color: white;
+            border: 2px solid #d4af37;
+            padding: 15px;
+            font-weight: bold;
+            border-radius: 30px;
             cursor: pointer;
         }
+        .auto-btn.active { background: #e65100; border-color: #fff; }
     </style>
 </head>
 <body>
-    <div class="game-container">
-        <div class="header">
-            <h1>Money Coming</h1>
-        </div>
-        <div class="wheel-container">
-            <div id="wheelLock" class="wheel-lock">Bet 5 to Unlock Lucky Wheel</div>
-        </div>
-        <div class="reels-container">
-            <div class="reel" id="reel1">1</div>
-            <div class="reel" id="reel2">0</div>
-            <div class="reel" id="reel3">0</div>
-            <div class="reel locked" id="reel4">?</div>
-        </div>
-        <div class="controls">
-            <div class="bet-info">
-                <span>Balance: Rs <span id="balance">100</span></span>
-                <span>Win: Rs <span id="winDisplay">0</span></span>
-            </div>
-            <div class="bet-buttons">
-                <button class="bet-btn" onclick="setBet(1)">Bet Rs 1</button>
-                <button class="bet-btn" onclick="setBet(5)">Bet Rs 5</button>
-                <button class="bet-btn" onclick="setBet(10)">Bet Rs 10</button>
-            </div>
-            <button id="spinBtn" class="spin-btn" onclick="spin()">SPIN (Bet: Rs <span id="currentBet">1</span>)</button>
+
+<div class="game-container">
+    <div class="header">
+        <h1>Money Coming</h1>
+    </div>
+
+    <div class="wheel-container" id="mainWheel">
+        <div class="chain-gfx"></div>
+        <div id="wheelOverlay" class="wheel-overlay">
+            <span>Bet 5 Up Game</span>
+            <span>To unlock Lucky Wheel</span>
         </div>
     </div>
 
-    <script>
-        let balance = 100;
-        let bet = 1;
-        const symbols = ['0', '1', '5', '10', '50', '100'];
+    <div class="reels-container">
+        <div class="reel" id="r1">1</div>
+        <div class="reel" id="r2">0</div>
+        <div class="reel" id="r3">0</div>
+        <div class="reel locked" id="r4">?</div>
+    </div>
 
-        function setBet(amount) {
-            bet = amount;
-            document.getElementById('currentBet').innerText = bet;
-            const wheelLock = document.getElementById('wheelLock');
-            const reel4 = document.getElementById('reel4');
-            
-            if (bet >= 5) {
-                wheelLock.classList.add('unlocked');
-                reel4.classList.remove('locked');
-            } else {
-                wheelLock.classList.remove('unlocked');
-                reel4.classList.add('locked');
-            }
+    <div class="status-panel">
+        <div>BALANCE: <span id="balDisplay">100</span></div>
+        <div>WIN: <span id="winDisplay">0</span></div>
+    </div>
+
+    <div class="bet- tiers">
+        <button class="bet-btn active" onclick="setBet(1, this)">Bet 1</button>
+        <button class="bet-btn" onclick="setBet(5, this)">Bet 5</button>
+        <button class="bet-btn" onclick="setBet(10, this)">Bet 10</button>
+    </div>
+
+    <div class="action-panel">
+        <button class="spin-btn" id="spinBtn" onclick="spinGame()">SPIN</button>
+        <button class="auto-btn" id="autoBtn" onclick="toggleAuto()">AUTO</button>
+    </div>
+</div>
+
+<script>
+    let balance = 100;
+    let currentBet = 1;
+    let isAuto = false;
+    let autoInterval = null;
+    const symbols = ['1', '5', '10', '50', '100', '777'];
+
+    function setBet(amount, btnElement) {
+        currentBet = amount;
+        document.querySelectorAll('.bet-btn').forEach(btn => btn.classList.remove('active'));
+        btnElement.classList.add('active');
+        
+        const overlay = document.getElementById('wheelOverlay');
+        const r4 = document.getElementById('r4');
+        const wheel = document.getElementById('mainWheel');
+
+        if(currentBet >= 5) {
+            overlay.classList.add('unlocked');
+            r4.classList.remove('locked');
+            r4.innerText = '50';
+        } else {
+            overlay.classList.remove('unlocked');
+            r4.classList.add('locked');
+            r4.innerText = '?';
+            wheel.classList.remove('spinning');
+        }
+    }
+
+    function toggleAuto() {
+        isAuto = !isAuto;
+        const autoBtn = document.getElementById('autoBtn');
+        if(isAuto) {
+            autoBtn.classList.add('active');
+            autoInterval = setInterval(spinGame, 2000);
+        } else {
+            autoBtn.classList.remove('active');
+            clearInterval(autoInterval);
+        }
+    }
+
+    function spinGame() {
+        if(balance < currentBet) {
+            alert("Balance khatam ho gaya!");
+            if(isAuto) toggleAuto();
+            return;
         }
 
-        function spin() {
-            if (balance < bet) {
-                alert("Insufficient Balance!");
-                return;
-            }
-            balance -= bet;
-            document.getElementById('balance').innerText = balance;
+        balance -= currentBet;
+        document.getElementById('balDisplay').innerText = balance;
+        
+        const wheel = document.getElementById('mainWheel');
+        if(currentBet >= 5) wheel.classList.add('spinning');
+
+        setTimeout(() => {
+            if(currentBet >= 5) wheel.classList.remove('spinning');
             
-            let r1 = symbols[Math.floor(Math.random() * symbols.length)];
-            let r2 = symbols[Math.floor(Math.random() * symbols.length)];
-            let r3 = symbols[Math.floor(Math.random() * symbols.length)];
-            let r4 = bet >= 5 ? symbols[Math.floor(Math.random() * symbols.length)] : '?';
+            let s1 = symbols[Math.floor(Math.random() * symbols.length)];
+            let s2 = symbols[Math.floor(Math.random() * symbols.length)];
+            let s3 = symbols[Math.floor(Math.random() * symbols.length)];
+            let s4 = currentBet >= 5 ? symbols[Math.floor(Math.random() * symbols.length)] : '?';
 
-            document.getElementById('reel1').innerText = r1;
-            document.getElementById('reel2').innerText = r2;
-            document.getElementById('reel3').innerText = r3;
-            document.getElementById('reel4').innerText = r4;
+            document.getElementById('r1').innerText = s1;
+            document.getElementById('r2').innerText = s2;
+            document.getElementById('r3').innerText = s3;
+            if(currentBet >= 5) document.getElementById('r4').innerText = s4;
 
-            let winAmount = 0;
-            if (r1 === r2 && r2 === r3) {
-                winAmount = bet * parseInt(r1 || 1) * 10;
-            } else {
-                winAmount = (r1 === '10' || r2 === '10' || r3 === '10') ? bet * 2 : 0;
+            let winnings = 0;
+            if(s1 === s2 && s2 === s3) {
+                winnings = currentBet * 10;
+            } else if(s1 === '777' || s2 === '777' || s3 === '777') {
+                winnings = currentBet * 5;
             }
 
-            balance += winAmount;
-            document.getElementById('balance').innerText = balance;
-            document.getElementById('winDisplay').innerText = winAmount;
-        }
-   <div class="controls">
-    <div class="bet-info">
-        <span>Balance: Rs <span id="balance">100</span></span>
-        <span>Win: Rs <span id="winDisplay">0</span></span>
-    </div>
-    <div class="bet-buttons">
-        <button class="bet-btn" onclick="setBet(1)">Bet Rs 1</button>
-        <button class="bet-btn" onclick="setBet(5)">Bet Rs 5</button>
-        <button class="bet-btn" onclick="setBet(10)">Bet Rs 10</button>
-    </div>
-    <button id="spinBtn" class="spin-btn" onclick="spin()">SPIN</button>
-</div>   
-    </script>
+            balance += winnings;
+            document.getElementById('balDisplay').innerText = balance;
+            document.getElementById('winDisplay').innerText = winnings;
+        }, 1500);
+    }
+</script>
+
 </body>
 </html>
