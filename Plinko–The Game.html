@@ -22,18 +22,38 @@
             width: 100%;
             max-width: 600px;
             height: 100vh;
-            background: radial-gradient(circle, #3b2308 0%, #170d02 100%);
+            background: radial-gradient(circle, #4a2f13 0%, #0f0701 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            border-left: 2px solid #8B4513;
-            border-right: 2px solid #8B4513;
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            border-left: 3px solid #b5651d;
+            border-right: 3px solid #b5651d;
+        }
+        #top-bar {
+            width: 100%;
+            height: 50px;
+            background: #2b1700;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: 3px solid #d4a373;
+            font-size: 18px;
+            font-weight: bold;
+            box-sizing: border-box;
+            padding: 0 20px;
+        }
+        #balance-display {
+            background: #4a2511;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #dda15e;
+            color: #74c69d;
         }
         #aztec-header {
             width: 100%;
-            height: 120px;
-            background: url('https://www.transparenttextures.com/patterns/aztec-unified-weave.png'), linear-gradient(to bottom, #d4a373, #8B4513);
+            height: 100px;
+            background: linear-gradient(to bottom, #d4a373, #5c3818);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -41,34 +61,36 @@
             border-bottom: 4px solid #dda15e;
         }
         #aztec-idol {
-            width: 80px;
-            height: 80px;
-            background: #b5838d;
-            border-radius: 50% 50% 10px 10px;
-            border: 4px solid #3a5a40;
+            width: 70px;
+            height: 70px;
+            background: #eddcd2;
+            border-radius: 50%;
+            border: 4px solid #6c584c;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            font-size: 35px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.5));
         }
         #multipliers-arch {
             position: absolute;
-            top: 10px;
+            top: 5px;
             display: flex;
-            gap: 5px;
+            gap: 4px;
         }
         .arch-slot {
-            width: 25px;
-            height: 25px;
+            width: 26px;
+            height: 26px;
             background: #283618;
             border: 1px solid #606c38;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: bold;
+            color: #fefae0;
         }
         #plinko-board {
             flex-grow: 1;
@@ -80,90 +102,116 @@
         }
         #control-panel {
             width: 100%;
-            height: 180px;
-            background: #2a1100;
+            height: 200px;
+            background: #1f0d05;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 10px 0;
-            border-top: 4px solid #dda15e;
+            padding: 15px 0;
+            border-top: 4px solid #d4a373;
             box-sizing: border-box;
+            gap: 15px;
         }
         .mode-buttons {
             display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 15px;
         }
         .btn {
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 16px;
             font-weight: bold;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             color: white;
             text-shadow: 1px 1px 2px black;
             transition: transform 0.1s, filter 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.4);
         }
         .btn:active { transform: scale(0.95); }
         #btn-green { background-color: #2e7d32; border: 2px solid #81c784; }
         #btn-orange { background-color: #ef6c00; border: 2px solid #ffb74d; }
         #btn-red { background-color: #c62828; border: 2px solid #e57373; }
-        .btn.active { filter: brightness(1.3); box-shadow: 0 0 10px white; }
+        .btn.active { filter: brightness(1.3); box-shadow: 0 0 15px #dda15e; border-color: white; }
         
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        .action-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            border: 2px solid #dda15e;
+            cursor: pointer;
+            color: #fff;
+            background: linear-gradient(to bottom, #b5651d, #5c3818);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: transform 0.1s;
+        }
+        .action-btn:active { transform: scale(0.92); }
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
         .bet-controls {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: #4a2511;
-            padding: 10px 20px;
+            gap: 15px;
+            background: #361a0b;
+            padding: 8px 20px;
             border-radius: 30px;
-            border: 1px solid #dda15e;
+            border: 1px solid #d4a373;
         }
         .bet-btn {
-            background: #dda15e;
-            color: #4a2511;
+            background: #d4a373;
+            color: #361a0b;
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
         }
         #bet-display {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             width: 80px;
             text-align: center;
-            color: #fefae0;
+            color: #faedcd;
         }
     </style>
 </head>
 <body>
 
 <div id="game-container">
+    <div id="top-bar">
+        <div>بیلنس: <span id="balance-display">1000.00</span>$</div>
+        <div id="last-win" style="color: #ffd700;"></div>
+    </div>
+
     <div id="aztec-header">
         <div id="multipliers-arch">
-            <div class="arch-slot" style="background:#588157;">29</div>
-            <div class="arch-slot" style="background:#588157;">18</div>
-            <div class="arch-slot" style="background:#a3b18a;">10</div>
-            <div class="arch-slot" style="background:#a3b18a;">5</div>
-            <div class="arch-slot" style="background:#dad7cd;">2</div>
-            <div class="arch-slot" style="background:#dad7cd;">0.5</div>
-            <div class="arch-slot" style="background:#dad7cd;">0.2</div>
-            <div class="arch-slot" style="background:#dda15e;">0.2</div>
-            <div class="arch-slot" style="background:#dda15e;">0.2</div>
-            <div class="arch-slot" style="background:#dad7cd;">0.2</div>
-            <div class="arch-slot" style="background:#dad7cd;">0.5</div>
-            <div class="arch-slot" style="background:#dad7cd;">2</div>
-            <div class="arch-slot" style="background:#a3b18a;">5</div>
-            <div class="arch-slot" style="background:#a3b18a;">10</div>
-            <div class="arch-slot" style="background:#588157;">18</div>
-            <div class="arch-slot" style="background:#588157;">29</div>
+            <div class="arch-slot" style="background:#55a630;">35</div>
+            <div class="arch-slot" style="background:#55a630;">20</div>
+            <div class="arch-slot" style="background:#80b918;">10</div>
+            <div class="arch-slot" style="background:#bfd200;">5</div>
+            <div class="arch-slot" style="background:#d4d700;">2</div>
+            <div class="arch-slot" style="background:#ee9b00;">0.5</div>
+            <div class="arch-slot" style="background:#ca6702;">0.2</div>
+            <div class="arch-slot" style="background:#bb3e03;">0.2</div>
+            <div class="arch-slot" style="background:#bb3e03;">0.2</div>
+            <div class="arch-slot" style="background:#ca6702;">0.2</div>
+            <div class="arch-slot" style="background:#ee9b00;">0.5</div>
+            <div class="arch-slot" style="background:#d4d700;">2</div>
+            <div class="arch-slot" style="background:#bfd200;">5</div>
+            <div class="arch-slot" style="background:#80b918;">10</div>
+            <div class="arch-slot" style="background:#55a630;">20</div>
+            <div class="arch-slot" style="background:#55a630;">35</div>
         </div>
         <div id="aztec-idol">🗿</div>
     </div>
@@ -178,10 +226,16 @@
             <button id="btn-orange" class="btn" onclick="setMode('orange')">میڈیم</button>
             <button id="btn-red" class="btn" onclick="setMode('red')">ہائی اسپیڈ</button>
         </div>
+        
         <div class="bet-controls">
             <button class="bet-btn" onclick="adjustBet(-1)">-</button>
             <div id="bet-display">50</div>
             <button class="bet-btn" onclick="adjustBet(1)">+</button>
+        </div>
+
+        <div class="action-buttons">
+            <button id="spin-btn" class="action-btn" onclick="manualSpin()">سنگل اسپن</button>
+            <button id="auto-spin-btn" class="action-btn" onclick="toggleAutoSpin()">آٹو اسپن</button>
         </div>
     </div>
 </div>
@@ -192,12 +246,23 @@
     let width, height;
     let currentMode = 'green';
     let currentBet = 50;
+    let balance = 1000.00;
+    let autoSpinActive = false;
+    let autoSpinInterval = null;
+
+    const balanceDisplay = document.getElementById('balance-display');
+    const lastWinDisplay = document.getElementById('last-win');
 
     const modes = {
-        green: { speed: 1.5, color: '#2e7d32', gravity: 0.2, spread: 0.5 },
-        orange: { speed: 2.5, color: '#ef6c00', gravity: 0.35, spread: 1.2 },
-        red: { speed: 4.0, color: '#c62828', gravity: 0.6, spread: 2.5 }
+        green: { speed: 1.2, color: '#2e7d32', gravity: 0.25, spread: 0.3, bias: 0.5 },
+        orange: { speed: 2.0, color: '#ef6c00', gravity: 0.45, spread: 0.8, bias: 0.4 },
+        red: { speed: 3.5, color: '#c62828', gravity: 0.75, spread: 1.8, bias: 0.3 }
     };
+
+    function updateBalance(amount) {
+        balance += amount;
+        balanceDisplay.innerText = balance.toFixed(2);
+    }
 
     function resize() {
         const container = document.getElementById('plinko-board');
@@ -224,7 +289,7 @@
             const spacing = usableWidth / (currentCols - 1);
             for (let j = 0; j < currentCols; j++) {
                 const px = padding + j * spacing;
-                const py = 50 + i * rowHeight;
+                const py = 60 + i * rowHeight;
                 pegs.push({ x: px, y: py, size: 4 });
             }
         }
@@ -233,18 +298,29 @@
     let balls = [];
 
     function spawnBall() {
+        if (balance < currentBet) {
+            if (autoSpinActive) toggleAutoSpin();
+            alert("بیلنس کم ہے!");
+            return;
+        }
+
+        updateBalance(-currentBet);
+        lastWinDisplay.innerText = "";
+
         const modeCfg = modes[currentMode];
-        let startX = width / 2 + (Math.random() - 0.5) * 20;
+        let startX = width / 2;
         
-        if (currentMode === 'red') {
-            startX += (Math.random() - 0.5) * 100;
+        if (currentMode === 'orange') {
+            startX += (Math.random() - 0.5) * 40;
+        } else if (currentMode === 'red') {
+            startX += (Math.random() - 0.5) * 120;
         }
 
         balls.push({
             x: startX,
-            y: 20,
+            y: 10,
             vx: (Math.random() - 0.5) * modeCfg.spread,
-            vy: 2,
+            vy: 1,
             radius: 8,
             color: modeCfg.color,
             mode: currentMode
@@ -255,7 +331,6 @@
         currentMode = mode;
         document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
         document.getElementById(`btn-${mode}`).classList.add('active');
-        spawnBall();
     }
 
     function adjustBet(val) {
@@ -263,7 +338,24 @@
         document.getElementById('bet-display').innerText = currentBet;
     }
 
-    setInterval(spawnBall, 2000);
+    function manualSpin() {
+        spawnBall();
+    }
+
+    function toggleAutoSpin() {
+        autoSpinActive = !autoSpinActive;
+        const autoBtn = document.getElementById('auto-spin-btn');
+        if (autoSpinActive) {
+            autoBtn.innerText = "اسٹاپ آٹو";
+            autoBtn.style.background = "#c62828";
+            spawnBall();
+            autoSpinInterval = setInterval(spawnBall, 1500);
+        } else {
+            autoBtn.innerText = "آٹو اسپن";
+            autoBtn.style.background = "linear-gradient(to bottom, #b5651d, #5c3818)";
+            clearInterval(autoSpinInterval);
+        }
+    }
 
     function update() {
         const modeCfg = modes[currentMode];
@@ -278,15 +370,32 @@
                 const dist = Math.hypot(b.x - p.x, b.y - p.y);
                 if (dist < b.radius + p.size) {
                     const angle = Math.atan2(b.y - p.y, b.x - p.x);
-                    const force = 3;
+                    const force = 3.5;
                     b.vx = Math.cos(angle) * force;
                     b.vy = Math.sin(angle) * force;
+                    
+                    if (Math.random() < modeCfg.bias) {
+                        b.vx += (width / 2 - b.x) * 0.05;
+                    }
+                    
                     b.y = p.y + (b.radius + p.size) * Math.sin(angle);
                     b.x = p.x + (b.radius + p.size) * Math.cos(angle);
                 }
             }
 
-            if (b.y > height - 40) {
+            if (b.y > height - 35) {
+                const landingX = b.x;
+                const slotWidth = width / 16;
+                const slotIndex = Math.min(15, Math.floor(landingX / slotWidth));
+                const multipliers = [35, 20, 10, 5, 2, 0.5, 0.2, 0.2, 0.2, 0.2, 0.5, 2, 5, 10, 20, 35];
+                const wonMultiplier = multipliers[slotIndex];
+                const winAmount = currentBet * wonMultiplier;
+                
+                updateBalance(winAmount);
+                if(winAmount > 0) {
+                    lastWinDisplay.innerText = `جیت: +${winAmount.toFixed(2)}$`;
+                }
+
                 balls.splice(i, 1);
             }
         }
@@ -295,13 +404,15 @@
     function draw() {
         ctx.clearRect(0, 0, width, height);
 
-        ctx.fillStyle = '#dda15e';
+        // Draw pegs
+        ctx.fillStyle = '#d4a373';
         for (let p of pegs) {
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
             ctx.fill();
         }
 
+        // Draw balls
         for (let b of balls) {
             ctx.fillStyle = b.color;
             ctx.beginPath();
@@ -315,15 +426,15 @@
         // Draw multipliers base
         const slots = 16;
         const slotWidth = width / slots;
-        const colors = ['#8B0000', '#D2691E', '#DAA520', '#6B8E23', '#2E8B57', '#008080', '#4682B4', '#D2691E'];
+        const colors = ['#55a630', '#80b918', '#bfd200', '#d4d700', '#ee9b00', '#ca6702', '#bb3e03', '#9b2226', '#9b2226', '#bb3e03', '#ca6702', '#ee9b00', '#d4d700', '#bfd200', '#80b918', '#55a630'];
+        const mults = ['35', '20', '10', '5', '2', '0.5', '0.2', '0.2', '0.2', '0.2', '0.5', '2', '5', '10', '20', '35'];
         
         for (let i = 0; i < slots; i++) {
-            ctx.fillStyle = colors[Math.abs(i - 7) % colors.length];
+            ctx.fillStyle = colors[i];
             ctx.fillRect(i * slotWidth, height - 30, slotWidth - 2, 30);
             ctx.fillStyle = 'white';
-            ctx.font = '12px Arial';
+            ctx.font = 'bold 12px Arial';
             ctx.textAlign = 'center';
-            const mults = ['29', '18', '10', '5', '2', '0.5', '0.2', '0.2', '0.2', '0.2', '0.5', '2', '5', '10', '18', '29'];
             ctx.fillText(mults[i], (i + 0.5) * slotWidth, height - 10);
         }
     }
