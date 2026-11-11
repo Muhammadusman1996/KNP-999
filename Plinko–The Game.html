@@ -1,1 +1,341 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plinko - The Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a0500;
+            color: #ffd700;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        #game-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 100vh;
+            background: radial-gradient(circle, #3b2308 0%, #170d02 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            border-left: 2px solid #8B4513;
+            border-right: 2px solid #8B4513;
+        }
+        #aztec-header {
+            width: 100%;
+            height: 120px;
+            background: url('https://www.transparenttextures.com/patterns/aztec-unified-weave.png'), linear-gradient(to bottom, #d4a373, #8B4513);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-bottom: 4px solid #dda15e;
+        }
+        #aztec-idol {
+            width: 80px;
+            height: 80px;
+            background: #b5838d;
+            border-radius: 50% 50% 10px 10px;
+            border: 4px solid #3a5a40;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        #multipliers-arch {
+            position: absolute;
+            top: 10px;
+            display: flex;
+            gap: 5px;
+        }
+        .arch-slot {
+            width: 25px;
+            height: 25px;
+            background: #283618;
+            border: 1px solid #606c38;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        #plinko-board {
+            flex-grow: 1;
+            width: 100%;
+            position: relative;
+        }
+        canvas {
+            display: block;
+        }
+        #control-panel {
+            width: 100%;
+            height: 180px;
+            background: #2a1100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            border-top: 4px solid #dda15e;
+            box-sizing: border-box;
+        }
+        .mode-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+            transition: transform 0.1s, filter 0.2s;
+        }
+        .btn:active { transform: scale(0.95); }
+        #btn-green { background-color: #2e7d32; border: 2px solid #81c784; }
+        #btn-orange { background-color: #ef6c00; border: 2px solid #ffb74d; }
+        #btn-red { background-color: #c62828; border: 2px solid #e57373; }
+        .btn.active { filter: brightness(1.3); box-shadow: 0 0 10px white; }
+        
+        .bet-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #4a2511;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid #dda15e;
+        }
+        .bet-btn {
+            background: #dda15e;
+            color: #4a2511;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #bet-display {
+            font-size: 20px;
+            font-weight: bold;
+            width: 80px;
+            text-align: center;
+            color: #fefae0;
+        }
+    </style>
+</head>
+<body>
 
+<div id="game-container">
+    <div id="aztec-header">
+        <div id="multipliers-arch">
+            <div class="arch-slot" style="background:#588157;">29</div>
+            <div class="arch-slot" style="background:#588157;">18</div>
+            <div class="arch-slot" style="background:#a3b18a;">10</div>
+            <div class="arch-slot" style="background:#a3b18a;">5</div>
+            <div class="arch-slot" style="background:#dad7cd;">2</div>
+            <div class="arch-slot" style="background:#dad7cd;">0.5</div>
+            <div class="arch-slot" style="background:#dad7cd;">0.2</div>
+            <div class="arch-slot" style="background:#dda15e;">0.2</div>
+            <div class="arch-slot" style="background:#dda15e;">0.2</div>
+            <div class="arch-slot" style="background:#dad7cd;">0.2</div>
+            <div class="arch-slot" style="background:#dad7cd;">0.5</div>
+            <div class="arch-slot" style="background:#dad7cd;">2</div>
+            <div class="arch-slot" style="background:#a3b18a;">5</div>
+            <div class="arch-slot" style="background:#a3b18a;">10</div>
+            <div class="arch-slot" style="background:#588157;">18</div>
+            <div class="arch-slot" style="background:#588157;">29</div>
+        </div>
+        <div id="aztec-idol">🗿</div>
+    </div>
+
+    <div id="plinko-board">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div id="control-panel">
+        <div class="mode-buttons">
+            <button id="btn-green" class="btn active" onclick="setMode('green')">ایزی</button>
+            <button id="btn-orange" class="btn" onclick="setMode('orange')">میڈیم</button>
+            <button id="btn-red" class="btn" onclick="setMode('red')">ہائی اسپیڈ</button>
+        </div>
+        <div class="bet-controls">
+            <button class="bet-btn" onclick="adjustBet(-1)">-</button>
+            <div id="bet-display">50</div>
+            <button class="bet-btn" onclick="adjustBet(1)">+</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let currentMode = 'green';
+    let currentBet = 50;
+
+    const modes = {
+        green: { speed: 1.5, color: '#2e7d32', gravity: 0.2, spread: 0.5 },
+        orange: { speed: 2.5, color: '#ef6c00', gravity: 0.35, spread: 1.2 },
+        red: { speed: 4.0, color: '#c62828', gravity: 0.6, spread: 2.5 }
+    };
+
+    function resize() {
+        const container = document.getElementById('plinko-board');
+        width = container.clientWidth;
+        height = container.clientHeight;
+        canvas.width = width;
+        canvas.height = height;
+        initPegs();
+    }
+
+    window.addEventListener('resize', resize);
+
+    let pegs = [];
+    const rows = 12; 
+
+    function initPegs() {
+        pegs = [];
+        const padding = 40;
+        const usableWidth = width - padding * 2;
+        const rowHeight = (height - 100) / rows;
+
+        for (let i = 0; i < rows; i++) {
+            const currentCols = i + 3; 
+            const spacing = usableWidth / (currentCols - 1);
+            for (let j = 0; j < currentCols; j++) {
+                const px = padding + j * spacing;
+                const py = 50 + i * rowHeight;
+                pegs.push({ x: px, y: py, size: 4 });
+            }
+        }
+    }
+
+    let balls = [];
+
+    function spawnBall() {
+        const modeCfg = modes[currentMode];
+        let startX = width / 2 + (Math.random() - 0.5) * 20;
+        
+        if (currentMode === 'red') {
+            startX += (Math.random() - 0.5) * 100;
+        }
+
+        balls.push({
+            x: startX,
+            y: 20,
+            vx: (Math.random() - 0.5) * modeCfg.spread,
+            vy: 2,
+            radius: 8,
+            color: modeCfg.color,
+            mode: currentMode
+        });
+    }
+
+    function setMode(mode) {
+        currentMode = mode;
+        document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(`btn-${mode}`).classList.add('active');
+        spawnBall();
+    }
+
+    function adjustBet(val) {
+        currentBet = Math.max(10, currentBet + val * 10);
+        document.getElementById('bet-display').innerText = currentBet;
+    }
+
+    setInterval(spawnBall, 2000);
+
+    function update() {
+        const modeCfg = modes[currentMode];
+
+        for (let i = balls.length - 1; i >= 0; i--) {
+            let b = balls[i];
+            b.vy += modeCfg.gravity;
+            b.x += b.vx * modeCfg.speed;
+            b.y += b.vy * modeCfg.speed;
+
+            for (let p of pegs) {
+                const dist = Math.hypot(b.x - p.x, b.y - p.y);
+                if (dist < b.radius + p.size) {
+                    const angle = Math.atan2(b.y - p.y, b.x - p.x);
+                    const force = 3;
+                    b.vx = Math.cos(angle) * force;
+                    b.vy = Math.sin(angle) * force;
+                    b.y = p.y + (b.radius + p.size) * Math.sin(angle);
+                    b.x = p.x + (b.radius + p.size) * Math.cos(angle);
+                }
+            }
+
+            if (b.y > height - 40) {
+                balls.splice(i, 1);
+            }
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        ctx.fillStyle = '#dda15e';
+        for (let p of pegs) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        for (let b of balls) {
+            ctx.fillStyle = b.color;
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // Draw multipliers base
+        const slots = 16;
+        const slotWidth = width / slots;
+        const colors = ['#8B0000', '#D2691E', '#DAA520', '#6B8E23', '#2E8B57', '#008080', '#4682B4', '#D2691E'];
+        
+        for (let i = 0; i < slots; i++) {
+            ctx.fillStyle = colors[Math.abs(i - 7) % colors.length];
+            ctx.fillRect(i * slotWidth, height - 30, slotWidth - 2, 30);
+            ctx.fillStyle = 'white';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            const mults = ['29', '18', '10', '5', '2', '0.5', '0.2', '0.2', '0.2', '0.2', '0.5', '2', '5', '10', '18', '29'];
+            ctx.fillText(mults[i], (i + 0.5) * slotWidth, height - 10);
+        }
+    }
+
+    function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+    }
+
+    resize();
+    loop();
+</script>
+</body>
+</html>
