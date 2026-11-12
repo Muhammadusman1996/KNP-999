@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Car Roulette</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background-color: #1a052e;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 10px;
+            min-height: 100vh;
+        }
+        h1 { color: #ffd700; margin-bottom: 5px; font-size: 1.5rem; text-shadow: 0 0 5px #000; }
+        .game-container {
+            width: 100%;
+            max-width: 600px;
+            background: linear-gradient(135deg, #5a0b73, #150220);
+            border: 4px solid #ffd700;
+            border-radius: 40px;
+            padding: 15px;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(0,0,0,0.6);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid #ffd700;
+            font-size: 1.1rem;
+        }
+        .stat-group span { color: #ffd700; font-weight: bold; }
+
+        /* Oval Betting Board */
+        .betting-board {
+            width: 100%;
+            background: #9c1054;
+            border: 6px solid #ffd700;
+            border-radius: 120px;
+            padding: 15px;
+            box-shadow: inset 0 0 20px #000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bet-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .bet-spot {
+            flex: 1;
+            height: 70px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.1s;
+        }.bet-spot:active { transform: scale(0.95); }
+
+        .car-logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #fff;
+            text-shadow: 0 0 3px #000;
+        }
+        .multiplier {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            background: #ffd700;
+            color: black;
+            font-size: 0.75rem;
+            padding: 1px 4px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        /* Chips */
+        .chip {
+            position: absolute;
+            bottom: 4px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.75rem;
+            border: 1px dashed #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .chip-10 { background: #008080; color: #fff; }
+        .chip-50 { background: #800080; color: #fff; }
+        .chip-100 { background: #ff0000; color: #fff; }
+        .chip-500 { background: #ffd700; color: #000; }
+
+        /* Chip Selector */
+        .chip-selector {
+            display: flex;
+            gap: 10px;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 1px solid #555;
+        }
+        .select-chip {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        .select-chip.active {
+            border-color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Controls */
+        .controls { display: flex; gap: 15px; width: 100%; justify-content: center; }
+        .control-btn {
+            padding: 10px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.1s;
+        }
+        .btn-spin { background: #28a745; border: 1px solid #85e095; flex: 2; }
+        .btn-clear { background: #dc3545; border: 1px solid #ea99a1; flex: 1; }
+        .control-btn:active { transform: scale(0.95); }
+
+        #status { font-size: 1.1rem; font-weight: bold; color: #ffd700; min-height: 25px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<h1>Luxury Car Roulette</h1>
+
+<div class="game-container">
+    <div id="status">اپنی بیٹ لگائیں!</div>
+
+    <div class="dashboard">
+        <div class="stat-group">بیلنس: <span id="balance">10000</span></div>
+        <div class="stat-group">کل بیٹ: <span id="total-bet">0</span></div>
+    </div>
+
+    <!-- Oval Betting Board -->
+    <div class="betting-board" id="betting-board">
+        <!-- Rows will be generated by JS -->
+    </div>
+
+    <div class="chip-selector">
+        <div class="select-chip chip-10 active" onclick="selectChip(10)">10</div>
+        <div class="select-chip chip-50" onclick="selectChip(50)">50</div>
+        <div class="select-chip chip-100" onclick="selectChip(100)">100</div>
+        <div class="select-chip chip-500" onclick="selectChip(500)">500</div>
+    </div>
+
+    <div class="controls">
+        <button class="control-btn btn-clear" onclick="clearBets()">CLEAR</button>
+        <button class="control-btn btn-spin" id="spin-btn" onclick="spinWheel()">SPIN</button>
+    </div>
+</div>
+
+<script>
+    const cars = [
+        { name: "BMW", multiplier: 20 },
+        { name: "Mercedes", multiplier: 20 },
+        { name: "Porsche", multiplier: 15 },
+        { name: "Ferrari", multiplier: 10 },
+        { name: "Lamborghini", multiplier: 10 },
+        { name: "Maserati", multiplier: 15 },
+        { name: "Land Rover", multiplier: 30 },
+        { name: "Jaguar", multiplier: 40 }
+    ];
+
+    let balance = 10000;
+    let currentBets = {};
+    let selectedChip = 10;
+    let isSpinning = false;
+
+    const boardEl = document.getElementById('betting-board');
+    const balanceEl = document.getElementById('balance');
+    const totalBetEl = document.getElementById('total-bet');
+    const statusEl = document.getElementById('status');
+    const spinBtn = document.getElementById('spin-btn');
+
+    function initBoard() {
+        boardEl.innerHTML = '';
+        const half = Math.ceil(cars.length / 2);
+        const rows = [cars.slice(0, half), cars.slice(half)];
+
+        rows.forEach(rowCars => {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'bet-row';
+            
+            rowCars.forEach(car => {
+                const spot = document.createElement('div');
+                spot.className = 'bet-spot';
+                spot.onclick = () => placeBet(car.name);
+                
+                spot.innerHTML = `
+                    <div class="multiplier">${car.multiplier}X</div>
+                    <div class="car-logo">${car.name}</div>
+                    <div id="chip-${car.name}"></div>
+                `;
+                rowDiv.appendChild(spot);
+            });
+            boardEl.appendChild(rowDiv);
+        });
+    }
+
+    function selectChip(amount) {
+        selectedChip = amount;
+        document.querySelectorAll('.select-chip').forEach(el => el.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+    }
+
+    function placeBet(carName) {
+        if (isSpinning) return;
+        if (balance < selectedChip) {
+            statusEl.innerText = "ناکافی بیلنس!";
+            return;
+        }
+
+        balance -= selectedChip;
+        currentBets[carName] = (currentBets[carName] || 0) + selectedChip;
+        updateUI();
+    }
+
+    function clearBets() {
+        if (isSpinning) return;
+        let refund = 0;
+        for (let car in currentBets) {
+            refund += currentBets[car];
+        }
+        balance += refund;
+        currentBets = {};
+        updateUI();
+        statusEl.innerText = "بیٹس ہٹا دی گئیں۔";
+    }
+
+    function getTotalBet() {
+        return Object.values(currentBets).reduce((a, b) => a + b, 0);
+    }
+
+    function updateUI() {
+        balanceEl.innerText = balance;
+        totalBetEl.innerText = getTotalBet();
+
+        cars.forEach(car => {
+            const chipContainer = document.getElementById(`chip-${car.name}`);
+            chipContainer.innerHTML = '';
+            if (currentBets[car.name]) {
+                const chip = document.createElement('div');
+                chip.className = `chip chip-${selectedChip}`;
+                chip.innerText = currentBets[car.name];
+                chipContainer.appendChild(chip);
+            }
+        });
+    }
+
+    function spinWheel() {
+        const totalBet = getTotalBet();
+        if (totalBet === 0) {
+            statusEl.innerText = "کم از کم ایک بیٹ لگائیں!";
+            return;
+        }
+
+        isSpinning = true;
+        spinBtn.disabled = true;
+        statusEl.innerText = "لکی ڈرا جاری ہے...";
+
+        setTimeout(() => {
+            const winningCar = cars[Math.floor(Math.random() * cars.length)];
+            let winAmount = 0;
+
+            if (currentBets[winningCar.name]) {
+                winAmount = currentBets[winningCar.name] * winningCar.multiplier;
+                balance += winAmount;
+            }
+
+            statusEl.innerText = `فاتح کار: ${winningCar.name}! آپ نے $${winAmount} جیتے۔`;
+            isSpinning = false;
+            spinBtn.disabled = false;
+            currentBets = {};
+            updateUI();
+        }, 3000);
+    }
+
+    initBoard();
+</script>
+</body>
+</html>
