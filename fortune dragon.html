@@ -81,9 +81,16 @@
             width: 100%;
         }
         .info-display {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            background: rgba(0,0,0,0.3);
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .multi-display {
+            color: #ff3300;
+            font-size: 22px;
         }
         @keyframes winPulse {
             0% { transform: scale(1); }
@@ -100,6 +107,12 @@
 <div id="game-container">
     <div class="info-display">
         بیلنس: <span id="balance">1000</span> پوائنٹس
+    </div>
+    <div class="info-display" style="color: #00ffcc;">
+        اس اسپن کی جیت: <span id="current-win">0</span>
+    </div>
+    <div class="info-display multi-display" id="multiplier-display">
+        اگلا ملٹی پلائر: 1X
     </div>
     
     <div id="reels">
@@ -122,8 +135,9 @@
 <script>
     let balance = 1000;
     let bet = 10;
+    let spinCount = 0;
+    let currentMultiplier = 1;
     
-    // Using reliable public icons for slot symbols
     const symbols = [
         { name: 'Dragon', src: 'https://cdn-icons-png.flaticon.com/512/1998/1998592.png' },
         { name: 'Firecracker', src: 'https://cdn-icons-png.flaticon.com/512/2619/2619637.png' },
@@ -169,9 +183,20 @@
             return;
         }
 
+        spinCount++;
         balance -= bet;
         document.getElementById('balance').innerText = balance;
+        document.getElementById('current-win').innerText = "0";
         playSound('spin');
+
+        // Check for 15th spin multiplier trigger
+        if (spinCount >= 15) {
+            currentMultiplier = Math.floor(Math.random() * 4) + 2; // Random 2, 3, 4, or 5
+            spinCount = 0; // Reset count
+        } else {
+            currentMultiplier = 1;
+        }
+        document.getElementById('multiplier-display').innerText = "اگلا ملٹی پلائر: " + currentMultiplier + "X";
 
         const reelElements = [
             document.getElementById('reel1'),
@@ -203,12 +228,14 @@
 
             if (matches) {
                 playSound('win');
-                const winAmount = bet * 20;
-                balance += winAmount;
+                const baseWin = bet * 20;
+                const totalWin = baseWin * currentMultiplier;
+                balance += totalWin;
                 document.getElementById('balance').innerText = balance;
+                document.getElementById('current-win').innerText = totalWin;
                 reelElements.forEach(reel => reel.classList.add('winner'));
                 setTimeout(() => {
-                    alert("مبارک ہو! آپ نے " + winAmount + " پوائنٹس جیت لیے!");
+                    alert("مبارک ہو! آپ نے " + totalWin + " پوائنٹس جیت لیے! (ملٹی پلائر: " + currentMultiplier + "X)");
                 }, 100);
             }
         }, 300);
