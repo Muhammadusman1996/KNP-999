@@ -12,71 +12,71 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
             min-height: 100vh;
             margin: 0;
         }
-        h1 { color: #ffd700; text-shadow: 0 0 5px #000; margin-bottom: 10px; }
+        h1 { color: #ffd700; text-shadow: 0 0 5px #000; margin-bottom: 5px; font-size: 1.5rem; }
         .game-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             background: #143322;
-            padding: 15px;
+            padding: 10px;
             border-radius: 12px;
             border: 2px solid #2e6945;
             box-shadow: 0 8px 24px rgba(0,0,0,0.6);
             width: 100%;
-            max-width: 400px;
+            max-width: 360px;
         }
         .dashboard {
             display: flex;
             justify-content: space-around;
             width: 100%;
-            font-size: 1.1rem;
+            font-size: 1rem;
             background: #09170e;
-            padding: 10px 0;
+            padding: 8px 0;
             border-radius: 8px;
             border: 1px solid #1f472e;
         }
         .stat span { color: #ffd700; font-weight: bold; }
         .wheel-container {
             position: relative;
-            width: 240px;
-            height: 240px;
+            width: 180px;
+            height: 180px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .pointer {
             position: absolute;
-            top: -5px;
+            top: -4px;
             z-index: 10;
             width: 0;
             height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 20px solid #ff0000;
-            filter: drop-shadow(0 2px 4px #000);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 16px solid #ff0000;
+            filter: drop-shadow(0 2px 3px #000);
         }
         canvas#wheel {
             border-radius: 50%;
-            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
             transition: transform 4s cubic-bezier(0.15, 0.9, 0.15, 1);
         }
         .grid-container {
             display: flex;
             flex-direction: column;
             background: #0f4026;
-            padding: 10px;
+            padding: 8px;
             border-radius: 8px;
             border: 2px solid #ffd700;
             width: 100%;
         }
         .cell-zero {
             width: 100%;
-            height: 35px;
+            height: 28px;
             background: #008000;
             color: white;
             display: flex;
@@ -85,40 +85,42 @@
             font-weight: bold;
             cursor: pointer;
             border-radius: 4px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             position: relative;
+            font-size: 0.9rem;
         }
         .numbers-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
+            gap: 3px;
         }
         .cell {
-            height: 40px;
+            height: 32px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 3px;
             position: relative;
             user-select: none;
             transition: transform 0.1s;
+            font-size: 0.9rem;
         }
         .cell:active { transform: scale(0.95); }
         .cell.red { background: #b22222; }
         .cell.black { background: #222; }
         .multiplier-badge {
             position: absolute;
-            top: 2px;
-            right: 2px;
+            top: 1px;
+            right: 1px;
             background: #ffcc00;
             color: #000;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: 900;
-            padding: 1px 3px;
-            border-radius: 3px;
+            padding: 0 2px;
+            border-radius: 2px;
             border: 1px solid #fff;
             animation: pulse 1s infinite alternate;
         }
@@ -128,14 +130,14 @@
         }
         .chip {
             position: absolute;
-            bottom: 2px;
-            left: 2px;
-            width: 16px;
-            height: 16px;
+            bottom: 1px;
+            left: 1px;
+            width: 14px;
+            height: 14px;
             background: gold;
             color: black;
             border-radius: 50%;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -143,37 +145,44 @@
         }
         .controls {
             display: flex;
-            gap: 8px;
+            gap: 5px;
             align-items: center;
             width: 100%;
         }
         input[type="number"] {
-            flex: 1;
-            padding: 8px;
+            width: 60px;
+            padding: 6px;
             border-radius: 4px;
             border: 1px solid #ccc;
-            font-size: 1rem;
+            font-size: 0.9rem;
             text-align: center;
         }
         button.action-btn {
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 6px 10px;
+            font-size: 0.85rem;
             font-weight: bold;
             color: #fff;
             background: #28a745;
             border: none;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
+            flex: 1;
         }
         button.clear-btn { background: #dc3545; }
+        button.repeat-btn { background: #17a2b8; }
         button:disabled { background: #555; cursor: not-allowed; }
         #status-log {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: #e0e0e0;
-            min-height: 20px;
+            min-height: 36px;
             text-align: center;
             font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
+        .win-text { color: #adff2f !important; }
+        .loss-text { color: #ff6b6b !important; }
     </style>
 </head>
 <body>
@@ -188,7 +197,7 @@
 
     <div class="wheel-container">
         <div class="pointer"></div>
-        <canvas id="wheel" width="240" height="240"></canvas>
+        <canvas id="wheel" width="180" height="180"></canvas>
     </div>
 
     <div class="grid-container">
@@ -199,10 +208,11 @@
     <div class="controls">
         <input type="number" id="bet-amount" value="10" min="1" step="5">
         <button class="action-btn" id="spin-btn">SPIN</button>
+        <button class="action-btn repeat-btn" id="repeat-btn">REPEAT</button>
         <button class="action-btn clear-btn" id="clear-btn">CLEAR</button>
     </div>
 
-    <div id="status-log">اپنی بیٹ لگائیں اور گھمائیں!</div>
+    <div id="status-log"><span>اپنی بیٹ لگائیں اور گھمائیں!</span></div>
 </div>
 
 <script>
@@ -211,9 +221,12 @@
     
     let balance = 1000;
     let bets = {}; 
+    let lastBets = {};
     let activeMultipliers = {}; 
     let isSpinning = false;
     let currentRotation = 0;
+    let spinCount = 0;
+    let multiplierInterval = Math.floor(Math.random() * 3) + 4; // Multiplier every 4-6 spins
 
     const balanceEl = document.getElementById('balance');
     const totalBetEl = document.getElementById('total-bet');
@@ -221,6 +234,7 @@
     const zeroEl = document.querySelector('.cell-zero');
     const spinBtn = document.getElementById('spin-btn');
     const clearBtn = document.getElementById('clear-btn');
+    const repeatBtn = document.getElementById('repeat-btn');
     const statusLog = document.getElementById('status-log');
     const betInput = document.getElementById('bet-amount');
     const canvas = document.getElementById('wheel');
@@ -242,7 +256,7 @@
             else ctx.fillStyle = '#111111';
 
             ctx.beginPath();
-            ctx.arc(radius, radius, radius - 4, angle, angle + arcSize);
+            ctx.arc(radius, radius, radius - 3, angle, angle + arcSize);
             ctx.lineTo(radius, radius);
             ctx.fill();
             ctx.strokeStyle = '#ffd700';
@@ -254,13 +268,14 @@
             ctx.rotate(angle + arcSize / 2);
             ctx.textAlign = 'right';
             ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 11px Arial';
-            ctx.fillText(num, radius - 10, 4);
+            ctx.font = 'bold 10px Arial';
+            ctx.fillText(num, radius - 8, 3);
             ctx.restore();
         }
     }
 
     function createGrid() {
+        gridEl.innerHTML = '';
         for (let i = 1; i <= 36; i++) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
@@ -279,7 +294,7 @@
         if (isNaN(betVal) || betVal <= 0) return;
 
         if (balance < betVal) {
-            statusLog.innerText = 'ناکافی بیلنس!';
+            statusLog.innerHTML = '<span class="loss-text">ناکافی بیلنس!</span>';
             return;
         }
 
@@ -323,30 +338,37 @@
 
     function generateMultipliers() {
         activeMultipliers = {};
-        const possibleMultipliers = [10, 20, 50, 100];
-        const selectedNums = new Set();
+        spinCount++;
 
-        while (selectedNums.size < 3) {
-            const randomNum = numbersOrder[Math.floor(Math.random() * numbersOrder.length)];
-            selectedNums.add(randomNum);
+        if (spinCount >= multiplierInterval) {
+            spinCount = 0;
+            multiplierInterval = Math.floor(Math.random() * 3) + 4; // Reset for next 4-6 spins
+            
+            const possibleMultipliers = [10, 20, 50, 100];
+            const selectedNums = new Set();
+
+            while (selectedNums.size < 3) {
+                const randomNum = numbersOrder[Math.floor(Math.random() * numbersOrder.length)];
+                selectedNums.add(randomNum);
+            }
+
+            selectedNums.forEach(num => {
+                const randMult = possibleMultipliers[Math.floor(Math.random() * possibleMultipliers.length)];
+                activeMultipliers[num] = randMult;
+            });
         }
-
-        selectedNums.forEach(num => {
-            const randMult = possibleMultipliers[Math.floor(Math.random() * possibleMultipliers.length)];
-            activeMultipliers[num] = randMult;
-        });
     }
 
     spinBtn.addEventListener('click', () => {
         const totalBet = getTotalBet();
         if (totalBet === 0) {
-            statusLog.innerText = 'گھمانے سے پہلے بیٹ لگائیں!';
+            statusLog.innerHTML = 'گھمانے سے پہلے بیٹ لگائیں!';
             return;
         }
 
+        lastBets = { ...bets }; // Save for Repeat
         isSpinning = true;
-        spinBtn.disabled = true;
-        clearBtn.disabled = true;
+        setControlsEnabled(false);
 
         generateMultipliers();
         updateUI();
@@ -365,28 +387,62 @@
         statusLog.innerText = 'گھوم رہا ہے...';
 
         setTimeout(() => {
-            resolveSpin(winningNum);
+            resolveSpin(winningNum, totalBet);
         }, 4000);
     });
 
-    function resolveSpin(winningNum) {
+    repeatBtn.addEventListener('click', () => {
+        if (isSpinning) return;
+        const totalLastBet = Object.values(lastBets).reduce((a, b) => a + b, 0);
+        
+        if (totalLastBet === 0) {
+            statusLog.innerText = 'کوئی پچھلی بیٹ موجود نہیں۔';
+            return;
+        }
+
+        if (balance < totalLastBet) {
+            statusLog.innerHTML = '<span class="loss-text">پچھلی بیٹ دہرانے کے لیے ناکافی بیلنس!</span>';
+            return;
+        }
+
+        balance -= totalLastBet;
+        bets = { ...lastBets };
+        updateUI();
+        statusLog.innerText = 'پچھلی بیٹ لگا دی گئی۔';
+    });
+
+    function resolveSpin(winningNum, totalBet) {
         const betOnWin = bets[winningNum] || 0;
-        let winAmount = 0;
+        let payout = 0;
 
         if (betOnWin > 0) {
             const multiplier = activeMultipliers[winningNum] || 36;
-            winAmount = betOnWin * multiplier;
-            balance += winAmount;
-            statusLog.innerText = `${winningNum} پر رکا! آپ نے ${winAmount} جیتے (${multiplier}x)!`;
-        } else {
-            statusLog.innerText = `${winningNum} پر رکا۔ اس بار کوئی جیت نہیں۔`;
+            payout = betOnWin * multiplier;
+            balance += payout;
         }
+
+        const netResult = payout - totalBet;
+        const balanceAfter = payout; // total inflow this round
+
+        let message = `نمبر ${winningNum} پر رکا!<br>`;
+        if (payout > 0) {
+            message += `<span class="win-text">آپ نے کل $${payout} جیتے۔</span>`;
+        } else {
+            message += `<span class="loss-text">اس راؤنڈ میں $${totalBet} ہار گئے۔</span>`;
+        }
+        
+        statusLog.innerHTML = message;
 
         bets = {};
         isSpinning = false;
-        spinBtn.disabled = false;
-        clearBtn.disabled = false;
+        setControlsEnabled(true);
         updateUI();
+    }
+
+    function setControlsEnabled(enabled) {
+        spinBtn.disabled = !enabled;
+        clearBtn.disabled = !enabled;
+        repeatBtn.disabled = !enabled;
     }
 
     clearBtn.addEventListener('click', () => {
