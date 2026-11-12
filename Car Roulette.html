@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Car Roulette</title>
+    <title>Luxury Car Roulette with History</title>
     <style>
         * { box-sizing: border-box; }
         body {
@@ -17,10 +17,11 @@
             padding: 10px;
             min-height: 100vh;
         }
-        h1 { color: #ffd700; margin-bottom: 5px; font-size: 1.5rem; text-shadow: 0 0 5px #000; }
+        h1 { color: #ffd700; margin-bottom: 5px; font-size: 1.4rem; text-shadow: 0 0 5px #000; }
+        
         .game-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             background: linear-gradient(135deg, #5a0b73, #150220);
             border: 4px solid #ffd700;
             border-radius: 40px;
@@ -31,6 +32,38 @@
             align-items: center;
             gap: 12px;
         }
+
+        /* History Log */
+        .history-container {
+            width: 100%;
+            background: rgba(0,0,0,0.5);
+            padding: 8px;
+            border-radius: 15px;
+            border: 1px solid #4a0d67;
+            text-align: center;
+        }
+        .history-title { font-size: 0.85rem; color: #ffd700; margin-bottom: 5px; font-weight: bold; }
+        .history-list {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 5px 0;
+        }
+        .history-item {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            border: 1px solid #fff;
+        }
+        .history-item.zero { background: #008000; color: #fff; }
+        .history-item.car { background: #ffd700; color: #000; }
 
         /* Dashboard */
         .dashboard {
@@ -52,22 +85,24 @@
             background: #9c1054;
             border: 6px solid #ffd700;
             border-radius: 120px;
-            padding: 15px;
-            box-shadow: inset 0 0 20px #000;
+            padding: 20px;
+            box-shadow: inset 0 0 25px #000;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
+            position: relative;
         }
 
         .bet-row {
             display: flex;
             gap: 10px;
             justify-content: center;
+            z-index: 1;
         }
 
         .bet-spot {
             flex: 1;
-            height: 70px;
+            height: 80px;
             background: rgba(0, 0, 0, 0.4);
             border: 2px solid #ffd700;
             border-radius: 10px;
@@ -78,14 +113,12 @@
             cursor: pointer;
             position: relative;
             transition: transform 0.1s;
-        }.bet-spot:active { transform: scale(0.95); }
-
-        .car-logo {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #fff;
-            text-shadow: 0 0 3px #000;
         }
+        .bet-spot:active { transform: scale(0.95); }
+
+        .car-logo { width: 35px; height: 35px; object-fit: contain; margin-bottom: 2px; }
+        .car-name { font-weight: bold; font-size: 0.95rem; color: #fff; text-shadow: 0 0 3px #000; }
+        
         .multiplier {
             position: absolute;
             top: 4px;
@@ -98,18 +131,54 @@
             font-weight: bold;
         }
 
+        /* Center Zero Element */
+        .center-zero-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: -5px 0;
+            z-index: 2;
+        }
+        .zero-spot {
+            width: 60px;
+            height: 60px;
+            background: #008000;
+            border: 4px solid #ffd700;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+            position: relative;
+            transition: transform 0.1s;
+        }
+        .zero-spot:active { transform: scale(0.95); }
+        .zero-text { color: white; font-weight: 900; font-size: 1.2rem; text-shadow: 0 0 5px #000; }
+        .zero-mult {
+            position: absolute;
+            top: -6px;
+            background: #ffd700;
+            color: #000;
+            font-size: 0.6rem;
+            padding: 0 4px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
         /* Chips */
         .chip {
             position: absolute;
             bottom: 4px;
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             border: 1px dashed #fff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
@@ -170,6 +239,12 @@
 <div class="game-container">
     <div id="status">اپنی بیٹ لگائیں!</div>
 
+    <!-- History Display -->
+    <div class="history-container">
+        <div class="history-title">حالیہ نتائج</div>
+        <div class="history-list" id="history-list"></div>
+    </div>
+
     <div class="dashboard">
         <div class="stat-group">بیلنس: <span id="balance">10000</span></div>
         <div class="stat-group">کل بیٹ: <span id="total-bet">0</span></div>
@@ -177,7 +252,20 @@
 
     <!-- Oval Betting Board -->
     <div class="betting-board" id="betting-board">
-        <!-- Rows will be generated by JS -->
+        <!-- Top Row (Cars) -->
+        <div class="bet-row" id="top-row"></div>
+        
+        <!-- Center Zero -->
+        <div class="center-zero-container">
+            <div class="zero-spot" onclick="placeBet('Zero', 10)">
+                <div class="zero-mult">10X</div>
+                <div class="zero-text">0</div>
+                <div id="chip-Zero"></div>
+            </div>
+        </div>
+
+        <!-- Bottom Row (Cars) -->
+        <div class="bet-row" id="bottom-row"></div>
     </div>
 
     <div class="chip-selector">
@@ -194,50 +282,61 @@
 </div>
 
 <script>
+    // Car definitions with placeholder icons (using clean SVG data URIs for reliability)
+    const getCarIcon = (brand) => {
+        const colors = { BMW: '#006699', Mercedes: '#333', Porsche: '#d91a1a', Ferrari: '#ff0000', Lamborghini: '#800080', Maserati: '#0000cd', Land Rover: '#006400', Jaguar: '#2f4f4f' };
+        return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${encodeURIComponent(colors[brand] || '#fff')}"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-1.08-5.99zM6.85 7h10.3l.9 3H5.95l.9-3zM5 18v-5h14v5H5z"/></svg>`;
+    };
+
     const cars = [
-        { name: "BMW", multiplier: 20 },
-        { name: "Mercedes", multiplier: 20 },
-        { name: "Porsche", multiplier: 15 },
-        { name: "Ferrari", multiplier: 10 },
-        { name: "Lamborghini", multiplier: 10 },
-        { name: "Maserati", multiplier: 15 },
-        { name: "Land Rover", multiplier: 30 },
-        { name: "Jaguar", multiplier: 40 }
+        // Top Row (10X)
+        { name: "BMW", multiplier: 10, row: 'top' },
+        { name: "Mercedes", multiplier: 10, row: 'top' },
+        { name: "Porsche", multiplier: 10, row: 'top' },
+        { name: "Ferrari", multiplier: 10, row: 'top' },
+        // Bottom Row (2X)
+        { name: "Lamborghini", multiplier: 2, row: 'bottom' },
+        { name: "Maserati", multiplier: 2, row: 'bottom' },
+        { name: "Land Rover", multiplier: 2, row: 'bottom' },
+        { name: "Jaguar", multiplier: 2, row: 'bottom' }
     ];
 
     let balance = 10000;
     let currentBets = {};
     let selectedChip = 10;
     let isSpinning = false;
+    let spinCount = 0;
+    let history = [];
 
-    const boardEl = document.getElementById('betting-board');
+    const topRowEl = document.getElementById('top-row');
+    const bottomRowEl = document.getElementById('bottom-row');
     const balanceEl = document.getElementById('balance');
     const totalBetEl = document.getElementById('total-bet');
     const statusEl = document.getElementById('status');
     const spinBtn = document.getElementById('spin-btn');
+    const historyListEl = document.getElementById('history-list');
 
     function initBoard() {
-        boardEl.innerHTML = '';
-        const half = Math.ceil(cars.length / 2);
-        const rows = [cars.slice(0, half), cars.slice(half)];
+        topRowEl.innerHTML = '';
+        bottomRowEl.innerHTML = '';
 
-        rows.forEach(rowCars => {
-            const rowDiv = document.createElement('div');
-            rowDiv.className = 'bet-row';
+        cars.forEach(car => {
+            const spot = document.createElement('div');
+            spot.className = 'bet-spot';
+            spot.onclick = () => placeBet(car.name, car.multiplier);
             
-            rowCars.forEach(car => {
-                const spot = document.createElement('div');
-                spot.className = 'bet-spot';
-                spot.onclick = () => placeBet(car.name);
-                
-                spot.innerHTML = `
-                    <div class="multiplier">${car.multiplier}X</div>
-                    <div class="car-logo">${car.name}</div>
-                    <div id="chip-${car.name}"></div>
-                `;
-                rowDiv.appendChild(spot);
-            });
-            boardEl.appendChild(rowDiv);
+            spot.innerHTML = `
+                <div class="multiplier">${car.multiplier}X</div>
+                <img src="${getCarIcon(car.name)}" class="car-logo" alt="${car.name}">
+                <div class="car-name">${car.name}</div>
+                <div id="chip-${car.name}"></div>
+            `;
+
+            if (car.row === 'top') {
+                topRowEl.appendChild(spot);
+            } else {
+                bottomRowEl.appendChild(spot);
+            }
         });
     }
 
@@ -247,7 +346,7 @@
         event.currentTarget.classList.add('active');
     }
 
-    function placeBet(carName) {
+    function placeBet(identifier, multiplier) {
         if (isSpinning) return;
         if (balance < selectedChip) {
             statusEl.innerText = "ناکافی بیلنس!";
@@ -255,15 +354,15 @@
         }
 
         balance -= selectedChip;
-        currentBets[carName] = (currentBets[carName] || 0) + selectedChip;
+        currentBets[identifier] = (currentBets[identifier] || 0) + selectedChip;
         updateUI();
     }
 
     function clearBets() {
         if (isSpinning) return;
         let refund = 0;
-        for (let car in currentBets) {
-            refund += currentBets[car];
+        for (let key in currentBets) {
+            refund += currentBets[key];
         }
         balance += refund;
         currentBets = {};
@@ -279,6 +378,7 @@
         balanceEl.innerText = balance;
         totalBetEl.innerText = getTotalBet();
 
+        // Update Car Chips
         cars.forEach(car => {
             const chipContainer = document.getElementById(`chip-${car.name}`);
             chipContainer.innerHTML = '';
@@ -288,6 +388,29 @@
                 chip.innerText = currentBets[car.name];
                 chipContainer.appendChild(chip);
             }
+        });
+
+        // Update Zero Chip
+        const zeroChipContainer = document.getElementById('chip-Zero');
+        zeroChipContainer.innerHTML = '';
+        if (currentBets['Zero']) {
+            const chip = document.createElement('div');
+            chip.className = `chip chip-${selectedChip}`;
+            chip.innerText = currentBets['Zero'];
+            zeroChipContainer.appendChild(chip);
+        }
+    }
+
+    function updateHistory(winner) {
+        history.unshift(winner);
+        if (history.length > 10) history.pop(); // Keep last 10
+
+        historyListEl.innerHTML = '';
+        history.forEach(item => {
+            const el = document.createElement('div');
+            el.className = `history-item ${item === 'Zero' ? 'zero' : 'car'}`;
+            el.innerText = item === 'Zero' ? '0' : item.charAt(0);
+            historyListEl.appendChild(el);
         });
     }
 
@@ -301,17 +424,34 @@
         isSpinning = true;
         spinBtn.disabled = true;
         statusEl.innerText = "لکی ڈرا جاری ہے...";
+        spinCount++;
 
         setTimeout(() => {
-            const winningCar = cars[Math.floor(Math.random() * cars.length)];
-            let winAmount = 0;
+            let winningItem;
+            
+            // Force Zero every 5th spin
+            if (spinCount >= 5) {
+                winningItem = "Zero";
+                spinCount = 0;
+            } else {
+                // Randomly choose between Zero (low chance) and Cars
+                const pool = [...cars.map(c => c.name)];
+                // Add a small chance for zero even before 5th spin
+                if (Math.random() < 0.2) pool.push("Zero");
+                winningItem = pool[Math.floor(Math.random() * pool.length)];
+            }
 
-            if (currentBets[winningCar.name]) {
-                winAmount = currentBets[winningCar.name] * winningCar.multiplier;
+            let winAmount = 0;
+            const multiplier = winningItem === "Zero" ? 10 : cars.find(c => c.name === winningItem).multiplier;
+
+            if (currentBets[winningItem]) {
+                winAmount = currentBets[winningItem] * multiplier;
                 balance += winAmount;
             }
 
-            statusEl.innerText = `فاتح کار: ${winningCar.name}! آپ نے $${winAmount} جیتے۔`;
+            statusEl.innerText = `فاتح: ${winningItem}! آپ نے $${winAmount} جیتے۔`;
+            updateHistory(winningItem);
+            
             isSpinning = false;
             spinBtn.disabled = false;
             currentBets = {};
