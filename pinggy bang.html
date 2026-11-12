@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Piggy Bank Slots with Auto Spin</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #050b14;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+        .header {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0d1b2a;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #d4af37;
+        }
+        .balance { font-size: 1.3rem; font-weight: bold; color: #70e000; }
+        
+        .game-wrapper {
+            background: radial-gradient(circle, #1a2a6c, #b21f1f, #fdbb2d);
+            padding: 20px;
+            border-radius: 20px;
+            border: 6px solid #d4af37;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+        }
+        .slot-machine {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            background: #070f18;
+            padding: 15px;
+            border: 4px solid #415a77;
+            border-radius: 12px;
+        }
+        .reel {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .symbol {
+            width: 80px;
+            height: 90px;
+            background: #1b263b;
+            border: 2px solid #778da9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .spinning .symbol {
+            animation: spinBlur 0.1s linear infinite;
+        }
+        @keyframes spinBlur {
+            0% { transform: translateY(0); filter: blur(0px); }
+            50% { transform: translateY(50px); filter: blur(4px); }
+            50.1% { transform: translateY(-50px); }
+            100% { transform: translateY(0); filter: blur(0px); }
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            background: #0d1b2a;
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 1px solid #415a77;
+        }
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        label { font-weight: bold; color: #aaa; font-size: 12px; text-transform: uppercase; }
+        input {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #d4af37;
+            background: #1b263b;
+            color: #fff;
+            font-size: 16px;
+            width: 100px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .btn-spin, .btn-auto {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.1s, filter 0.2s;
+        }
+        .btn-spin {
+            background: linear-gradient(to bottom, #d4af37, #996515);
+            color: #050b14;
+        }
+        .btn-auto {
+            background: linear-gradient(to bottom, #3a86ff, #023e8a);
+            color: #fff;
+        }
+        .btn-auto.active {
+            background: linear-gradient(to bottom, #ef233c, #d90429);
+        }
+        .btn-spin:hover, .btn-auto:hover { filter: brightness(1.1); }
+        .btn-spin:active, .btn-auto:active { transform: scale(0.95); }
+        .btn-spin:disabled, .btn-auto:disabled { background: #6c757d; color: #aaa; cursor: not-allowed; }
+        
+        #status-display {
+            margin-top: 15px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ffb703;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            min-height: 35px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>Big Piggy Bank Slots</h2>
+    <div class="balance">Balance: $<span id="balance-amount">1000.00</span></div>
+</div>
+
+<div class="game-wrapper">
+    <div class="slot-machine" id="machine">
+        <div class="reel" id="reel-0"><div class="symbol">💰</div><div class="symbol">💵</div><div class="symbol">🪙</div></div>
+        <div class="reel" id="reel-1"><div class="symbol">💰</div><div class="symbol">💵</div><div class="symbol">🪙</div></div>
+        <div class="reel" id="reel-2"><div class="symbol">💰</div><div class="symbol">💵</div><div class="symbol">🪙</div></div>
+        <div class="reel" id="reel-3"><div class="symbol">💰</div><div class="symbol">💵</div><div class="symbol">🪙</div></div>
+        <div class="reel" id="reel-4"><div class="symbol">💰</div><div class="symbol">💵</div><div class="symbol">🪙</div></div>
+    </div>
+</div>
+
+<div id="status-display">Set your bet and spin to win!</div>
+
+<div class="controls">
+    <div class="input-group">
+        <label>Bet ($)</label>
+        <input type="number" id="bet-input" value="10" min="1">
+    </div>
+    <button class="btn-spin" id="spin-btn" onclick="spinSlots()">Spin</button>
+    <button class="btn-auto" id="auto-btn" onclick="toggleAutoSpin()">Auto Spin</button>
+</div>
+
+<script>
+    let balance = 1000.00;
+    let isSpinning = false;
+    let autoSpinEnabled = false;
+    let autoSpinInterval = null;
+    const symbols = ['💵', '🪙', '💰', '🔨', '💎', '👑', '10', 'J', 'Q', 'K', 'A'];
+
+    function spinSlots(callback) {
+        if (isSpinning) return;
+        const bet = parseFloat(document.getElementById('bet-input').value);
+        if (isNaN(bet) || bet <= 0) { alert("Invalid bet!"); stopAutoSpin(); return; }
+        if (bet > balance) { alert("Insufficient balance!"); stopAutoSpin(); return; }
+
+        isSpinning = true;
+        balance -= bet;
+        document.getElementById('balance-amount').innerText = balance.toFixed(2);
+        
+        document.getElementById('spin-btn').disabled = true;
+        if(!autoSpinEnabled) document.getElementById('auto-btn').disabled = true;
+        document.getElementById('status-display').innerText = "Spinning...";
+
+        const reels = document.querySelectorAll('.reel');
+        reels.forEach(reel => reel.classList.add('spinning'));
+
+        setTimeout(() => {
+            let winAmount = 0;
+            const matrix = [];
+
+            reels.forEach((reel) => {
+                reel.classList.remove('spinning');
+                const columnSymbols = [];
+                const symbolNodes = reel.querySelectorAll('.symbol');
+                
+                symbolNodes.forEach(node => {
+                    const randomSym = symbols[Math.floor(Math.random() * symbols.length)];
+                    node.innerText = randomSym;
+                    columnSymbols.push(randomSym);
+                });
+                matrix.push(columnSymbols);
+            });
+
+            const middleRow = matrix.map(col => col[1]);
+            const firstSym = middleRow[0];
+            let matchCount = 1;
+            for(let i=1; i<5; i++) {
+                if(middleRow[i] === firstSym) matchCount++;
+                else break;
+            }
+
+            if (matchCount >= 3) {
+                const multiplier = matchCount === 5 ? 50 : (matchCount === 4 ? 15 : 5);
+                winAmount = bet * multiplier;
+                balance += winAmount;
+                document.getElementById('status-display').innerText = `BIG WIN! Matched ${matchCount} ${firstSym}'s! Won $${winAmount.toFixed(2)}`;
+            } else {
+                document.getElementById('status-display').innerText = "No win. Try again!";
+            }
+
+            document.getElementById('balance-amount').innerText = balance.toFixed(2);
+            isSpinning = false;
+            document.getElementById('spin-btn').disabled = false;
+            if(!autoSpinEnabled) document.getElementById('auto-btn').disabled = false;
+
+            if (callback) callback();
+        }, 2000);
+    }
+
+    function toggleAutoSpin() {
+        const autoBtn = document.getElementById('auto-btn');
+        if (!autoSpinEnabled) {
+            const bet = parseFloat(document.getElementById('bet-input').value);
+            if (isNaN(bet) || bet <= 0 || bet > balance) {
+                alert("Invalid bet or insufficient balance for Auto Spin!");
+                return;
+            }
+            autoSpinEnabled = true;
+            autoBtn.innerText = "Stop Auto";
+            autoBtn.classList.add('active');
+            document.getElementById('spin-btn').disabled = true;
+            
+            runAutoSpin();
+        } else {
+            stopAutoSpin();
+        }
+    }
+
+    function runAutoSpin() {
+        if (!autoSpinEnabled) return;
+        spinSlots(() => {
+            if (autoSpinEnabled) {
+                autoSpinInterval = setTimeout(runAutoSpin, 500);
+            }
+        });
+    }
+
+    function stopAutoSpin() {
+        autoSpinEnabled = false;
+        const autoBtn = document.getElementById('auto-btn');
+        autoBtn.innerText = "Auto Spin";
+        autoBtn.classList.remove('active');
+        clearTimeout(autoSpinInterval);
+        document.getElementById('spin-btn').disabled = false;
+        if(document.getElementById('auto-btn')) document.getElementById('auto-btn').disabled = false;
+    }
+</script>
+</body>
+</html>
