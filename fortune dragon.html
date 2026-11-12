@@ -1,1 +1,216 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune Dragon Game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #1a0033;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        #game-container {
+            border: 5px solid #ffcc00;
+            border-radius: 15px;
+            padding: 20px;
+            background: #330066;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        #reels {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .reel {
+            width: 90px;
+            height: 130px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+            transition: transform 0.1s;
+            overflow: hidden;
+        }
+        .reel img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+        .controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: #ff3300;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+        .bet-btn {
+            background: #0088cc;
+            padding: 8px 15px;
+        }
+        #spin-btn {
+            background: #ffcc00;
+            color: #330066;
+            font-size: 24px;
+            padding: 15px 40px;
+        }
+        .info-display {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        @keyframes winPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); background: #ffea00; }
+            100% { transform: scale(1); }
+        }
+        .winner {
+            animation: winPulse 0.5s infinite;
+        }
+    </style>
+</head>
+<body>
 
+<div id="game-container">
+    <div class="info-display">
+        بیلنس: <span id="balance">1000</span> پوائنٹس
+    </div>
+    
+    <div id="reels">
+        <div class="reel" id="reel1"><img src="dragon.png" alt="Dragon"></div>
+        <div class="reel" id="reel2"><img src="dragon.png" alt="Dragon"></div>
+        <div class="reel" id="reel3"><img src="dragon.png" alt="Dragon"></div>
+    </div>
+    
+    <div class="controls">
+        <button class="btn bet-btn" onclick="updateBet(-1)">-</button>
+        <span class="info-display">بيت: <span id="bet-amount">10</span></span>
+        <button class="btn bet-btn" onclick="updateBet(1)">+</button>
+    </div>
+    
+    <div>
+        <button id="spin-btn" class="btn" onclick="spinReels()">SPIN</button>
+    </div>
+</div>
+
+<script>
+    let balance = 1000;
+    let bet = 10;
+    // Replace these placeholder filenames with the actual names of your uploaded icon images
+    const symbols = [
+        { name: 'Dragon', src: 'dragon.png' },
+        { name: 'Firecracker', src: 'firecracker.png' },
+        { name: 'Red Packet', src: 'red_packet.png' },
+        { name: 'Tangerine', src: 'tangerine.png' },
+        { name: 'Gold Coins', src: 'coins.png' }
+    ];
+
+    function updateBet(direction) {
+        if (bet + (direction * 5) >= 5) {
+            bet += direction * 5;
+            document.getElementById('bet-amount').innerText = bet;
+        }
+    }
+
+    function playSound(type) {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'spin') {
+            osc.frequency.setValueAtTime(400, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.3);
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.3);
+        } else if (type === 'win') {
+            osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+            osc.frequency.setValueAtTime(880, ctx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.5, ctx.currentTime);
+            gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.3);
+        }
+    }
+
+    function spinReels() {
+        if (balance < bet) {
+            alert("ناکافی بیلنس!");
+            return;
+        }
+
+        balance -= bet;
+        document.getElementById('balance').innerText = balance;
+        playSound('spin');
+
+        const reelElements = [
+            document.getElementById('reel1'),
+            document.getElementById('reel2'),
+            document.getElementById('reel3')
+        ];
+
+        reelElements.forEach(reel => {
+            reel.classList.remove('winner');
+            reel.style.transform = 'translateY(-10px)';
+        });
+
+        setTimeout(() => {
+            let matches = true;
+            const firstSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+            reelElements[0].innerHTML = `<img src="${firstSymbol.src}" alt="${firstSymbol.name}">`;
+
+            for (let i = 1; i < reelElements.length; i++) {
+                const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+                reelElements[i].innerHTML = `<img src="${randomSymbol.src}" alt="${randomSymbol.name}">`;
+                if (randomSymbol.src !== firstSymbol.src) {
+                    matches = false;
+                }
+            }
+
+            reelElements.forEach(reel => {
+                reel.style.transform = 'translateY(0)';
+            });
+
+            if (matches) {
+                playSound('win');
+                const winAmount = bet * 20;
+                balance += winAmount;
+                document.getElementById('balance').innerText = balance;
+                reelElements.forEach(reel => reel.classList.add('winner'));
+                setTimeout(() => {
+                    alert("مبارک ہو! آپ نے " + winAmount + " پوائنٹس جیت لیے!");
+                }, 100);
+            }
+        }, 300);
+    }
+</script>
+
+</body>
+</html>
