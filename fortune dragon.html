@@ -23,7 +23,7 @@
             background: #330066;
             text-align: center;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            width: 350px;
+            width: 380px;
         }
         #reels {
             display: flex;
@@ -73,12 +73,24 @@
             background: #0088cc;
             padding: 8px 15px;
         }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
         #spin-btn {
             background: #ffcc00;
             color: #330066;
-            font-size: 24px;
-            padding: 15px 40px;
-            width: 100%;
+            font-size: 22px;
+            padding: 15px 30px;
+            flex: 1;
+        }
+        #auto-spin-btn {
+            background: #8800cc;
+            font-size: 18px;
+            padding: 15px 25px;
+            flex: 1;
         }
         .info-display {
             font-size: 18px;
@@ -127,8 +139,9 @@
         <button class="btn bet-btn" onclick="updateBet(1)">+</button>
     </div>
     
-    <div>
+    <div class="action-buttons">
         <button id="spin-btn" class="btn" onclick="spinReels()">SPIN</button>
+        <button id="auto-spin-btn" class="btn" onclick="toggleAutoSpin()">آٹو اسپن: بند</button>
     </div>
 </div>
 
@@ -137,13 +150,17 @@
     let bet = 10;
     let spinCount = 0;
     let currentMultiplier = 1;
+    let autoSpinInterval = null;
+    let isAutoSpinning = false;
     
+    // Configured payouts based on user request (for base bet 10)
+    // Payout rates relative to bet amount
     const symbols = [
-        { name: 'Dragon', src: 'https://cdn-icons-png.flaticon.com/512/1998/1998592.png' },
-        { name: 'Firecracker', src: 'https://cdn-icons-png.flaticon.com/512/2619/2619637.png' },
-        { name: 'Red Packet', src: 'https://cdn-icons-png.flaticon.com/512/3067/3067417.png' },
-        { name: 'Tangerine', src: 'https://cdn-icons-png.flaticon.com/512/4155/4155778.png' },
-        { name: 'Gold Coins', src: 'https://cdn-icons-png.flaticon.com/512/2723/2723330.png' }
+        { id: 'cat', name: 'Cat', src: 'https://cdn-icons-png.flaticon.com/512/1998/1998592.png', payout2: 2, payout3: 20 },
+        { id: 'clipboard', name: 'Clipboard', src: 'https://cdn-icons-png.flaticon.com/512/2619/2619637.png', payout2: 3, payout3: 30 },
+        { id: 'bottle', name: 'Bottle', src: 'https://cdn-icons-png.flaticon.com/512/3067/3067417.png', payout2: 1, payout3: 10 },
+        { id: 'mobile', name: 'Mobile', src: 'https://cdn-icons-png.flaticon.com/512/4155/4155778.png', payout2: 0.5, payout3: 5 },
+        { id: 'pen', name: 'Pen', src: 'https://cdn-icons-png.flaticon.com/512/2723/2723330.png', payout2: 1.5, payout3: 15 }
     ];
 
     function updateBet(direction) {
@@ -177,9 +194,26 @@
         }
     }
 
+    function toggleAutoSpin() {
+        const btn = document.getElementById('auto-spin-btn');
+        if (isAutoSpinning) {
+            clearInterval(autoSpinInterval);
+            isAutoSpinning = false;
+            btn.innerText = "آٹو اسپن: بند";
+            btn.style.background = "#8800cc";
+        } else {
+            isAutoSpinning = true;
+            btn.innerText = "آٹو اسپن: جاری";
+            btn.style.background = "#00cc44";
+            spinReels();
+            autoSpinInterval = setInterval(spinReels, 1500);
+        }
+    }
+
     function spinReels() {
         if (balance < bet) {
             alert("ناکافی بیلنس!");
+            if (isAutoSpinning) toggleAutoSpin();
             return;
         }
 
@@ -189,10 +223,9 @@
         document.getElementById('current-win').innerText = "0";
         playSound('spin');
 
-        // Check for 15th spin multiplier trigger
         if (spinCount >= 15) {
-            currentMultiplier = Math.floor(Math.random() * 4) + 2; // Random 2, 3, 4, or 5
-            spinCount = 0; // Reset count
+            currentMultiplier = Math.floor(Math.random() * 4) + 2; // 2X to 5X
+            spinCount = 0;
         } else {
             currentMultiplier = 1;
         }
@@ -210,33 +243,36 @@
         });
 
         setTimeout(() => {
-            let matches = true;
-            const firstSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-            reelElements[0].innerHTML = `<img src="${firstSymbol.src}" alt="${firstSymbol.name}">`;
-
-            for (let i = 1; i < reelElements.length; i++) {
+            const selectedSymbols = [];
+            for (let i = 0; i < reelElements.length; i++) {
                 const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+                selectedSymbols.push(randomSymbol);
                 reelElements[i].innerHTML = `<img src="${randomSymbol.src}" alt="${randomSymbol.name}">`;
-                if (randomSymbol.src !== firstSymbol.src) {
-                    matches = false;
-                }
             }
 
             reelElements.forEach(reel => {
                 reel.style.transform = 'translateY(0)';
             });
 
-            if (matches) {
+            let winMultiplier = 0;
+            if (selectedSymbols[0].id === selectedSymbols[1].id && selectedSymbols[1].id === selectedSymbols[2].id) {
+                winMultiplier = selectedSymbols[0].payout3;
+            } else if (selectedSymbols[0].id === selectedSymbols[1].id || selectedSymbols[1].id === selectedSymbols[2].id) {
+                winMultiplier = selectedSymbols[1].payout2;
+            } else if (selectedSymbols[0].id === selectedSymbols[2].id) {
+                winMultiplier = selectedSymbols[0].payout2;
+            }
+
+            if (winMultiplier > 0) {
                 playSound('win');
-                const baseWin = bet * 20;
-                const totalWin = baseWin * currentMultiplier;
+                // Calculate win relative to current bet
+                const baseWin = (bet / 10) * winMultiplier * 10;
+                const totalWin = Math.round(baseWin * currentMultiplier);
                 balance += totalWin;
                 document.getElementById('balance').innerText = balance;
                 document.getElementById('current-win').innerText = totalWin;
                 reelElements.forEach(reel => reel.classList.add('winner'));
-                setTimeout(() => {
-                    alert("مبارک ہو! آپ نے " + totalWin + " پوائنٹس جیت لیے! (ملٹی پلائر: " + currentMultiplier + "X)");
-                }, 100);
+                alert("مبارک ہو! آپ نے " + totalWin + " پوائنٹس جیت لیے! (اسپن جیت: " + baseWin + " X ملٹی پلائر: " + currentMultiplier + "X)");
             }
         }, 300);
     }
