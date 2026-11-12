@@ -23,6 +23,7 @@
             background: #330066;
             text-align: center;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            width: 350px;
         }
         #reels {
             display: flex;
@@ -77,6 +78,7 @@
             color: #330066;
             font-size: 24px;
             padding: 15px 40px;
+            width: 100%;
         }
         .info-display {
             font-size: 20px;
@@ -101,9 +103,9 @@
     </div>
     
     <div id="reels">
-        <div class="reel" id="reel1"><img src="dragon.png" alt="Dragon"></div>
-        <div class="reel" id="reel2"><img src="dragon.png" alt="Dragon"></div>
-        <div class="reel" id="reel3"><img src="dragon.png" alt="Dragon"></div>
+        <div class="reel" id="reel1"><img src="https://cdn-icons-png.flaticon.com/512/1998/1998592.png" alt="Dragon"></div>
+        <div class="reel" id="reel2"><img src="https://cdn-icons-png.flaticon.com/512/1998/1998592.png" alt="Dragon"></div>
+        <div class="reel" id="reel3"><img src="https://cdn-icons-png.flaticon.com/512/1998/1998592.png" alt="Dragon"></div>
     </div>
     
     <div class="controls">
@@ -120,13 +122,14 @@
 <script>
     let balance = 1000;
     let bet = 10;
-    // Replace these placeholder filenames with the actual names of your uploaded icon images
+    
+    // Using reliable public icons for slot symbols
     const symbols = [
-        { name: 'Dragon', src: 'dragon.png' },
-        { name: 'Firecracker', src: 'firecracker.png' },
-        { name: 'Red Packet', src: 'red_packet.png' },
-        { name: 'Tangerine', src: 'tangerine.png' },
-        { name: 'Gold Coins', src: 'coins.png' }
+        { name: 'Dragon', src: 'https://cdn-icons-png.flaticon.com/512/1998/1998592.png' },
+        { name: 'Firecracker', src: 'https://cdn-icons-png.flaticon.com/512/2619/2619637.png' },
+        { name: 'Red Packet', src: 'https://cdn-icons-png.flaticon.com/512/3067/3067417.png' },
+        { name: 'Tangerine', src: 'https://cdn-icons-png.flaticon.com/512/4155/4155778.png' },
+        { name: 'Gold Coins', src: 'https://cdn-icons-png.flaticon.com/512/2723/2723330.png' }
     ];
 
     function updateBet(direction) {
