@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luxury Car Roulette</title>
     <style>
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             background-color: #1a052e;
             color: white;
@@ -13,7 +13,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0;
             padding: 10px;
             min-height: 100vh;
         }
@@ -24,21 +23,20 @@
             max-width: 650px;
             background: linear-gradient(135deg, #5a0b73, #150220);
             border: 4px solid #ffd700;
-            border-radius: 40px;
+            border-radius: 30px;
             padding: 15px;
             box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
-        /* History Log */
         .history-container {
             width: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             padding: 8px;
-            border-radius: 15px;
+            border-radius: 12px;
             border: 1px solid #4a0d67;
             text-align: center;
         }
@@ -49,6 +47,7 @@
             gap: 8px;
             overflow-x: auto;
             padding: 5px 0;
+            min-height: 35px;
         }
         .history-item {
             width: 30px;
@@ -60,12 +59,10 @@
             font-weight: bold;
             font-size: 0.75rem;
             flex-shrink: 0;
-            border: 1px solid #fff;
         }
-        .history-item.zero { background: #008000; color: #fff; }
-        .history-item.car { background: #ffd700; color: #000; }
+        .history-item.zero { background: #008000; color: #fff; border: 1px solid #fff; }
+        .history-item.car { background: #ffd700; color: #000; border: 1px solid #fff; }
 
-        /* Dashboard */
         .dashboard {
             width: 100%;
             display: flex;
@@ -73,36 +70,33 @@
             align-items: center;
             background: rgba(0,0,0,0.6);
             padding: 10px 20px;
-            border-radius: 20px;
+            border-radius: 15px;
             border: 1px solid #ffd700;
             font-size: 1.1rem;
         }
         .stat-group span { color: #ffd700; font-weight: bold; }
 
-        /* Oval Betting Board */
         .betting-board {
             width: 100%;
             background: #9c1054;
             border: 6px solid #ffd700;
-            border-radius: 120px;
-            padding: 20px;
+            border-radius: 40px;
+            padding: 15px;
             box-shadow: inset 0 0 25px #000;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            position: relative;
+            gap: 10px;
         }
 
         .bet-row {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
-            z-index: 1;
         }
 
         .bet-spot {
             flex: 1;
-            height: 80px;
+            height: 75px;
             background: rgba(0, 0, 0, 0.4);
             border: 2px solid #ffd700;
             border-radius: 10px;
@@ -116,8 +110,8 @@
         }
         .bet-spot:active { transform: scale(0.95); }
 
-        .car-logo { width: 35px; height: 35px; object-fit: contain; margin-bottom: 2px; }
-        .car-name { font-weight: bold; font-size: 0.95rem; color: #fff; text-shadow: 0 0 3px #000; }
+        .car-logo { width: 30px; height: 30px; object-fit: contain; margin-bottom: 2px; }
+        .car-name { font-weight: bold; font-size: 0.85rem; color: #fff; text-shadow: 0 0 3px #000; }
         
         .multiplier {
             position: absolute;
@@ -131,22 +125,19 @@
             font-weight: bold;
         }
 
-        /* Center Zero Element */
         .center-zero-container {
             display: flex;
             justify-content: center;
             width: 100%;
-            margin: -5px 0;
-            z-index: 2;
+            padding: 5px 0;
         }
         .zero-spot {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             background: #008000;
             border: 4px solid #ffd700;
             border-radius: 50%;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
@@ -157,19 +148,18 @@
         .zero-spot:active { transform: scale(0.95); }
         .zero-text { color: white; font-weight: 900; font-size: 1.5rem; text-shadow: 0 0 5px #000; }
 
-        /* Chips */
         .chip {
             position: absolute;
-            bottom: 4px;
-            width: 26px;
-            height: 26px;
+            bottom: 2px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 0.7rem;
-            border: 1px dashed #fff;
+            font-size: 0.65rem;
+            border: 1px solid #fff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
         .chip-10 { background: #008080; color: #fff; }
@@ -177,7 +167,6 @@
         .chip-100 { background: #ff0000; color: #fff; }
         .chip-500 { background: #ffd700; color: #000; }
 
-        /* Chip Selector */
         .chip-selector {
             display: flex;
             gap: 10px;
@@ -203,7 +192,6 @@
             transform: scale(1.1);
         }
 
-        /* Controls */
         .controls { display: flex; gap: 15px; width: 100%; justify-content: center; }
         .control-btn {
             padding: 10px 25px;
@@ -229,7 +217,6 @@
 <div class="game-container">
     <div id="status">اپنی بیٹ لگائیں!</div>
 
-    <!-- History Display -->
     <div class="history-container">
         <div class="history-title">حالیہ نتائج</div>
         <div class="history-list" id="history-list"></div>
@@ -240,20 +227,16 @@
         <div class="stat-group">کل بیٹ: <span id="total-bet">0</span></div>
     </div>
 
-    <!-- Oval Betting Board -->
-    <div class="betting-board" id="betting-board">
-        <!-- Top Row (Cars) -->
+    <div class="betting-board">
         <div class="bet-row" id="top-row"></div>
         
-        <!-- Center Zero -->
         <div class="center-zero-container">
-            <div class="zero-spot" onclick="placeBet('Zero', 10)">
+            <div class="zero-spot" onclick="placeBet('Zero')">
                 <div class="zero-text">0</div>
                 <div id="chip-Zero"></div>
             </div>
         </div>
 
-        <!-- Bottom Row (Cars) -->
         <div class="bet-row" id="bottom-row"></div>
     </div>
 
@@ -272,19 +255,22 @@
 
 <script>
     const getCarIcon = (brand) => {
-        const colors = { BMW: '#006699', Mercedes: '#333', Porsche: '#d91a1a', Ferrari: '#ff0000', Lamborghini: '#800080', Maserati: '#0000cd', Land Rover: '#006400', Jaguar: '#2f4f4f' };
+        const colors = { BMW: '#006699', Mercedes: '#ffffff', Porsche: '#d91a1a', Ferrari: '#ff0000', Lamborghini: '#800080', Maserati: '#0000cd', Land Rover: '#006400', Jaguar: '#2f4f4f' };
         return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${encodeURIComponent(colors[brand] || '#fff')}"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-1.08-5.99zM6.85 7h10.3l.9 3H5.95l.9-3zM5 18v-5h14v5H5z"/></svg>`;
     };
 
-    const cars = [
-        { name: "BMW", multiplier: 10, row: 'top' },
-        { name: "Mercedes", multiplier: 10, row: 'top' },
-        { name: "Porsche", multiplier: 10, row: 'top' },
-        { name: "Ferrari", multiplier: 10, row: 'top' },
-        { name: "Lamborghini", multiplier: 2, row: 'bottom' },
-        { name: "Maserati", multiplier: 2, row: 'bottom' },
-        { name: "Land Rover", multiplier: 2, row: 'bottom' },
-        { name: "Jaguar", multiplier: 2, row: 'bottom' }
+    const topCars = [
+        { name: "BMW", multiplier: 10 },
+        { name: "Mercedes", multiplier: 10 },
+        { name: "Porsche", multiplier: 10 },
+        { name: "Ferrari", multiplier: 10 }
+    ];
+
+    const bottomCars = [
+        { name: "Lamborghini", multiplier: 2 },
+        { name: "Maserati", multiplier: 2 },
+        { name: "Land Rover", multiplier: 2 },
+        { name: "Jaguar", multiplier: 2 }
     ];
 
     let balance = 10000;
@@ -302,14 +288,12 @@
     const spinBtn = document.getElementById('spin-btn');
     const historyListEl = document.getElementById('history-list');
 
-    function initBoard() {
-        topRowEl.innerHTML = '';
-        bottomRowEl.innerHTML = '';
-
+    function createRow(cars, container) {
+        container.innerHTML = '';
         cars.forEach(car => {
             const spot = document.createElement('div');
             spot.className = 'bet-spot';
-            spot.onclick = () => placeBet(car.name, car.multiplier);
+            spot.onclick = () => placeBet(car.name);
             
             spot.innerHTML = `
                 <div class="multiplier">${car.multiplier}X</div>
@@ -317,13 +301,13 @@
                 <div class="car-name">${car.name}</div>
                 <div id="chip-${car.name}"></div>
             `;
-
-            if (car.row === 'top') {
-                topRowEl.appendChild(spot);
-            } else {
-                bottomRowEl.appendChild(spot);
-            }
+            container.appendChild(spot);
         });
+    }
+
+    function initBoard() {
+        createRow(topCars, topRowEl);
+        createRow(bottomCars, bottomRowEl);
     }
 
     function selectChip(amount) {
@@ -332,7 +316,7 @@
         event.currentTarget.classList.add('active');
     }
 
-    function placeBet(identifier, multiplier) {
+    function placeBet(identifier) {
         if (isSpinning) return;
         if (balance < selectedChip) {
             statusEl.innerText = "ناکافی بیلنس!";
@@ -364,25 +348,39 @@
         balanceEl.innerText = balance;
         totalBetEl.innerText = getTotalBet();
 
-        cars.forEach(car => {
-            const chipContainer = document.getElementById(`chip-${car.name}`);
-            chipContainer.innerHTML = '';
-            if (currentBets[car.name]) {
-                const chip = document.createElement('div');
-                chip.className = `chip chip-${selectedChip}`;
-                chip.innerText = currentBets[car.name];
-                chipContainer.appendChild(chip);
+        const allCarNames = [...topCars.map(c => c.name), ...bottomCars.map(c => c.name)];
+        allCarNames.forEach(name => {
+            const container = document.getElementById(`chip-${name}`);
+            if (container) {
+                container.innerHTML = '';
+                if (currentBets[name]) {
+                    const chip = document.createElement('div');
+                    chip.className = `chip chip-${selectedChip}`;
+                    chip.innerText = currentBets[name];
+                    chip.style.backgroundColor = getChipColor(selectedChip);
+                    container.appendChild(chip);
+                }
             }
         });
 
-        const zeroChipContainer = document.getElementById('chip-Zero');
-        zeroChipContainer.innerHTML = '';
-        if (currentBets['Zero']) {
-            const chip = document.createElement('div');
-            chip.className = `chip chip-${selectedChip}`;
-            chip.innerText = currentBets['Zero'];
-            zeroChipContainer.appendChild(chip);
+        const zeroContainer = document.getElementById('chip-Zero');
+        if (zeroContainer) {
+            zeroContainer.innerHTML = '';
+            if (currentBets['Zero']) {
+                const chip = document.createElement('div');
+                chip.className = `chip chip-${selectedChip}`;
+                chip.innerText = currentBets['Zero'];
+                chip.style.backgroundColor = getChipColor(selectedChip);
+                zeroContainer.appendChild(chip);
+            }
         }
+    }
+
+    function getChipColor(amount) {
+        if (amount === 10) return '#008080';
+        if (amount === 50) return '#800080';
+        if (amount === 100) return '#ff0000';
+        return '#ffd700';
     }
 
     function updateHistory(winner) {
@@ -417,13 +415,22 @@
                 winningItem = "Zero";
                 spinCount = 0;
             } else {
-                const pool = [...cars.map(c => c.name)];
+                const pool = [...topCars.map(c => c.name), ...bottomCars.map(c => c.name)];
                 if (Math.random() < 0.2) pool.push("Zero");
                 winningItem = pool[Math.floor(Math.random() * pool.length)];
             }
 
             let winAmount = 0;
-            const multiplier = winningItem === "Zero" ? 10 : cars.find(c => c.name === winningItem).multiplier;
+            let multiplier = 1;
+            
+            if (winningItem === "Zero") {
+                multiplier = 1; // No multiplier as requested
+            } else {
+                const foundTop = topCars.find(c => c.name === winningItem);
+                const foundBottom = bottomCars.find(c => c.name === winningItem);
+                if (foundTop) multiplier = 10;
+                if (foundBottom) multiplier = 2;
+            }
 
             if (currentBets[winningItem]) {
                 winAmount = currentBets[winningItem] * multiplier;
