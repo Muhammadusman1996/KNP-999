@@ -66,13 +66,14 @@
             transition: transform 4s cubic-bezier(0.15, 0.9, 0.15, 1);
         }
         .grid-container {
-            display: flex;
-            flex-direction: column;
-            background: #0f4026;
-            padding: 8px;
-            border-radius: 8px;
-            border: 2px solid #ffd700;
-            width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #0f4026;
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid #ffd700;
+  width: 100%;
+}
         }
         .cell-zero {
             width: 100%;
