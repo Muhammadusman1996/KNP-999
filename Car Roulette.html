@@ -162,10 +162,6 @@
             border: 1px solid #fff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
-        .chip-10 { background: #008080; color: #fff; }
-        .chip-50 { background: #800080; color: #fff; }
-        .chip-100 { background: #ff0000; color: #fff; }
-        .chip-500 { background: #ffd700; color: #000; }
 
         .chip-selector {
             display: flex;
@@ -241,10 +237,10 @@
     </div>
 
     <div class="chip-selector">
-        <div class="select-chip chip-10 active" onclick="selectChip(10)">10</div>
-        <div class="select-chip chip-50" onclick="selectChip(50)">50</div>
-        <div class="select-chip chip-100" onclick="selectChip(100)">100</div>
-        <div class="select-chip chip-500" onclick="selectChip(500)">500</div>
+        <div class="select-chip chip-10 active" onclick="selectChip(10)" style="background: #008080; color: #fff;">10</div>
+        <div class="select-chip chip-50" onclick="selectChip(50)" style="background: #800080; color: #fff;">50</div>
+        <div class="select-chip chip-100" onclick="selectChip(100)" style="background: #ff0000; color: #fff;">100</div>
+        <div class="select-chip chip-500" onclick="selectChip(500)" style="background: #ffd700; color: #000;">500</div>
     </div>
 
     <div class="controls">
@@ -355,7 +351,7 @@
                 container.innerHTML = '';
                 if (currentBets[name]) {
                     const chip = document.createElement('div');
-                    chip.className = `chip chip-${selectedChip}`;
+                    chip.className = `chip`;
                     chip.innerText = currentBets[name];
                     chip.style.backgroundColor = getChipColor(selectedChip);
                     container.appendChild(chip);
@@ -368,7 +364,7 @@
             zeroContainer.innerHTML = '';
             if (currentBets['Zero']) {
                 const chip = document.createElement('div');
-                chip.className = `chip chip-${selectedChip}`;
+                chip.className = `chip`;
                 chip.innerText = currentBets['Zero'];
                 chip.style.backgroundColor = getChipColor(selectedChip);
                 zeroContainer.appendChild(chip);
@@ -423,9 +419,7 @@
             let winAmount = 0;
             let multiplier = 1;
             
-            if (winningItem === "Zero") {
-                multiplier = 1; // No multiplier as requested
-            } else {
+            if (winningItem !== "Zero") {
                 const foundTop = topCars.find(c => c.name === winningItem);
                 const foundBottom = bottomCars.find(c => c.name === winningItem);
                 if (foundTop) multiplier = 10;
