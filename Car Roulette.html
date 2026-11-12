@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Car Roulette with History</title>
+    <title>Luxury Car Roulette</title>
     <style>
         * { box-sizing: border-box; }
         body {
@@ -155,17 +155,7 @@
             transition: transform 0.1s;
         }
         .zero-spot:active { transform: scale(0.95); }
-        .zero-text { color: white; font-weight: 900; font-size: 1.2rem; text-shadow: 0 0 5px #000; }
-        .zero-mult {
-            position: absolute;
-            top: -6px;
-            background: #ffd700;
-            color: #000;
-            font-size: 0.6rem;
-            padding: 0 4px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
+        .zero-text { color: white; font-weight: 900; font-size: 1.5rem; text-shadow: 0 0 5px #000; }
 
         /* Chips */
         .chip {
@@ -258,7 +248,6 @@
         <!-- Center Zero -->
         <div class="center-zero-container">
             <div class="zero-spot" onclick="placeBet('Zero', 10)">
-                <div class="zero-mult">10X</div>
                 <div class="zero-text">0</div>
                 <div id="chip-Zero"></div>
             </div>
@@ -282,19 +271,16 @@
 </div>
 
 <script>
-    // Car definitions with placeholder icons (using clean SVG data URIs for reliability)
     const getCarIcon = (brand) => {
         const colors = { BMW: '#006699', Mercedes: '#333', Porsche: '#d91a1a', Ferrari: '#ff0000', Lamborghini: '#800080', Maserati: '#0000cd', Land Rover: '#006400', Jaguar: '#2f4f4f' };
         return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${encodeURIComponent(colors[brand] || '#fff')}"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-1.08-5.99zM6.85 7h10.3l.9 3H5.95l.9-3zM5 18v-5h14v5H5z"/></svg>`;
     };
 
     const cars = [
-        // Top Row (10X)
         { name: "BMW", multiplier: 10, row: 'top' },
         { name: "Mercedes", multiplier: 10, row: 'top' },
         { name: "Porsche", multiplier: 10, row: 'top' },
         { name: "Ferrari", multiplier: 10, row: 'top' },
-        // Bottom Row (2X)
         { name: "Lamborghini", multiplier: 2, row: 'bottom' },
         { name: "Maserati", multiplier: 2, row: 'bottom' },
         { name: "Land Rover", multiplier: 2, row: 'bottom' },
@@ -378,7 +364,6 @@
         balanceEl.innerText = balance;
         totalBetEl.innerText = getTotalBet();
 
-        // Update Car Chips
         cars.forEach(car => {
             const chipContainer = document.getElementById(`chip-${car.name}`);
             chipContainer.innerHTML = '';
@@ -390,7 +375,6 @@
             }
         });
 
-        // Update Zero Chip
         const zeroChipContainer = document.getElementById('chip-Zero');
         zeroChipContainer.innerHTML = '';
         if (currentBets['Zero']) {
@@ -403,7 +387,7 @@
 
     function updateHistory(winner) {
         history.unshift(winner);
-        if (history.length > 10) history.pop(); // Keep last 10
+        if (history.length > 10) history.pop();
 
         historyListEl.innerHTML = '';
         history.forEach(item => {
@@ -429,14 +413,11 @@
         setTimeout(() => {
             let winningItem;
             
-            // Force Zero every 5th spin
             if (spinCount >= 5) {
                 winningItem = "Zero";
                 spinCount = 0;
             } else {
-                // Randomly choose between Zero (low chance) and Cars
                 const pool = [...cars.map(c => c.name)];
-                // Add a small chance for zero even before 5th spin
                 if (Math.random() < 0.2) pool.push("Zero");
                 winningItem = pool[Math.floor(Math.random() * pool.length)];
             }
