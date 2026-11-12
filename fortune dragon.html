@@ -141,7 +141,7 @@
     
     <div class="action-buttons">
         <button id="spin-btn" class="btn" onclick="spinReels()">SPIN</button>
-        <button id="auto-spin-btn" class="btn" onclick="toggleAutoSpin()">آٹو اسپن: بند</button>
+        <button id="auto-spin-btn" class="btn" onclick="toggleAutoSpin()">Auto Spin: OFF</button>
     </div>
 </div>
 
@@ -153,8 +153,6 @@
     let autoSpinInterval = null;
     let isAutoSpinning = false;
     
-    // Configured payouts based on user request (for base bet 10)
-    // Payout rates relative to bet amount
     const symbols = [
         { id: 'cat', name: 'Cat', src: 'https://cdn-icons-png.flaticon.com/512/1998/1998592.png', payout2: 2, payout3: 20 },
         { id: 'clipboard', name: 'Clipboard', src: 'https://cdn-icons-png.flaticon.com/512/2619/2619637.png', payout2: 3, payout3: 30 },
@@ -199,11 +197,11 @@
         if (isAutoSpinning) {
             clearInterval(autoSpinInterval);
             isAutoSpinning = false;
-            btn.innerText = "آٹو اسپن: بند";
+            btn.innerText = "Auto Spin: OFF";
             btn.style.background = "#8800cc";
         } else {
             isAutoSpinning = true;
-            btn.innerText = "آٹو اسپن: جاری";
+            btn.innerText = "Auto Spin: ON";
             btn.style.background = "#00cc44";
             spinReels();
             autoSpinInterval = setInterval(spinReels, 1500);
@@ -254,18 +252,25 @@
                 reel.style.transform = 'translateY(0)';
             });
 
+            const s0 = selectedSymbols[0].id;
+            const s1 = selectedSymbols[1].id;
+            const s2 = selectedSymbols[2].id;
+
             let winMultiplier = 0;
-            if (selectedSymbols[0].id === selectedSymbols[1].id && selectedSymbols[1].id === selectedSymbols[2].id) {
+
+            // Strictly check for at least 2 matching symbols
+            if (s0 === s1 && s1 === s2) {
                 winMultiplier = selectedSymbols[0].payout3;
-            } else if (selectedSymbols[0].id === selectedSymbols[1].id || selectedSymbols[1].id === selectedSymbols[2].id) {
+            } else if (s0 === s1) {
+                winMultiplier = selectedSymbols[0].payout2;
+            } else if (s1 === s2) {
                 winMultiplier = selectedSymbols[1].payout2;
-            } else if (selectedSymbols[0].id === selectedSymbols[2].id) {
+            } else if (s0 === s2) {
                 winMultiplier = selectedSymbols[0].payout2;
             }
 
             if (winMultiplier > 0) {
                 playSound('win');
-                // Calculate win relative to current bet
                 const baseWin = (bet / 10) * winMultiplier * 10;
                 const totalWin = Math.round(baseWin * currentMultiplier);
                 balance += totalWin;
