@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune Roulette</title>
+    <style>
+        body {
+            background-color: #0b1d13;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+        }
+        h1 { color: #ffd700; text-shadow: 0 0 5px #000; margin-bottom: 10px; }
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            background: #143322;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid #2e6945;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            width: 100%;
+            max-width: 400px;
+        }
+        .dashboard {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            font-size: 1.1rem;
+            background: #09170e;
+            padding: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #1f472e;
+        }
+        .stat span { color: #ffd700; font-weight: bold; }
+        .wheel-container {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .pointer {
+            position: absolute;
+            top: -5px;
+            z-index: 10;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 20px solid #ff0000;
+            filter: drop-shadow(0 2px 4px #000);
+        }
+        canvas#wheel {
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            transition: transform 4s cubic-bezier(0.15, 0.9, 0.15, 1);
+        }
+        .grid-container {
+            display: flex;
+            flex-direction: column;
+            background: #0f4026;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            width: 100%;
+        }
+        .cell-zero {
+            width: 100%;
+            height: 35px;
+            background: #008000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+        }
+        .cell {
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            position: relative;
+            user-select: none;
+            transition: transform 0.1s;
+        }
+        .cell:active { transform: scale(0.95); }
+        .cell.red { background: #b22222; }
+        .cell.black { background: #222; }
+        .multiplier-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: #ffcc00;
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: 900;
+            padding: 1px 3px;
+            border-radius: 3px;
+            border: 1px solid #fff;
+            animation: pulse 1s infinite alternate;
+        }
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+        .chip {
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: gold;
+            color: black;
+            border-radius: 50%;
+            font-size: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            width: 100%;
+        }
+        input[type="number"] {
+            flex: 1;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            text-align: center;
+        }
+        button.action-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background: #28a745;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button.clear-btn { background: #dc3545; }
+        button:disabled { background: #555; cursor: not-allowed; }
+        #status-log {
+            font-size: 0.95rem;
+            color: #e0e0e0;
+            min-height: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Fortune Roulette</h1>
+
+<div class="game-container">
+    <div class="dashboard">
+        <div class="stat">بیلنس: <span id="balance">1000</span></div>
+        <div class="stat">کل بیٹ: <span id="total-bet">0</span></div>
+    </div>
+
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <canvas id="wheel" width="240" height="240"></canvas>
+    </div>
+
+    <div class="grid-container">
+        <div class="cell-zero" data-num="0">0</div>
+        <div class="numbers-grid" id="grid"></div>
+    </div>
+
+    <div class="controls">
+        <input type="number" id="bet-amount" value="10" min="1" step="5">
+        <button class="action-btn" id="spin-btn">SPIN</button>
+        <button class="action-btn clear-btn" id="clear-btn">CLEAR</button>
+    </div>
+
+    <div id="status-log">اپنی بیٹ لگائیں اور گھمائیں!</div>
+</div>
+
+<script>
+    const numbersOrder = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3];
+    const redNumbers = new Set([1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]);
+    
+    let balance = 1000;
+    let bets = {}; 
+    let activeMultipliers = {}; 
+    let isSpinning = false;
+    let currentRotation = 0;
+
+    const balanceEl = document.getElementById('balance');
+    const totalBetEl = document.getElementById('total-bet');
+    const gridEl = document.getElementById('grid');
+    const zeroEl = document.querySelector('.cell-zero');
+    const spinBtn = document.getElementById('spin-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const statusLog = document.getElementById('status-log');
+    const betInput = document.getElementById('bet-amount');
+    const canvas = document.getElementById('wheel');
+    const ctx = canvas.getContext('2d');
+
+    function drawWheel() {
+        const numPockets = numbersOrder.length;
+        const arcSize = (2 * Math.PI) / numPockets;
+        const radius = canvas.width / 2;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < numPockets; i++) {
+            const angle = i * arcSize;
+            const num = numbersOrder[i];
+
+            if (num === 0) ctx.fillStyle = '#008000';
+            else if (redNumbers.has(num)) ctx.fillStyle = '#b22222';
+            else ctx.fillStyle = '#111111';
+
+            ctx.beginPath();
+            ctx.arc(radius, radius, radius - 4, angle, angle + arcSize);
+            ctx.lineTo(radius, radius);
+            ctx.fill();
+            ctx.strokeStyle = '#ffd700';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            ctx.save();
+            ctx.translate(radius, radius);
+            ctx.rotate(angle + arcSize / 2);
+            ctx.textAlign = 'right';
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 11px Arial';
+            ctx.fillText(num, radius - 10, 4);
+            ctx.restore();
+        }
+    }
+
+    function createGrid() {
+        for (let i = 1; i <= 36; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.classList.add(redNumbers.has(i) ? 'red' : 'black');
+            cell.dataset.num = i;
+            cell.innerText = i;
+            cell.addEventListener('click', () => handleCellClick(i, cell));
+            gridEl.appendChild(cell);
+        }
+        zeroEl.addEventListener('click', () => handleCellClick(0, zeroEl));
+    }
+
+    function handleCellClick(num, element) {
+        if (isSpinning) return;
+        const betVal = parseInt(betInput.value, 10);
+        if (isNaN(betVal) || betVal <= 0) return;
+
+        if (balance < betVal) {
+            statusLog.innerText = 'ناکافی بیلنس!';
+            return;
+        }
+
+        balance -= betVal;
+        bets[num] = (bets[num] || 0) + betVal;
+        updateUI();
+    }
+
+    function getTotalBet() {
+        return Object.values(bets).reduce((a, b) => a + b, 0);
+    }
+
+    function updateUI() {
+        balanceEl.innerText = balance;
+        totalBetEl.innerText = getTotalBet();
+
+        document.querySelectorAll('.cell, .cell-zero').forEach(el => {
+            const num = parseInt(el.dataset.num, 10);
+            
+            const oldChip = el.querySelector('.chip');
+            if (oldChip) oldChip.remove();
+
+            const oldMult = el.querySelector('.multiplier-badge');
+            if (oldMult) oldMult.remove();
+
+            if (bets[num]) {
+                const chip = document.createElement('div');
+                chip.className = 'chip';
+                chip.innerText = bets[num];
+                el.appendChild(chip);
+            }
+
+            if (activeMultipliers[num]) {
+                const mult = document.createElement('div');
+                mult.className = 'multiplier-badge';
+                mult.innerText = activeMultipliers[num] + 'x';
+                el.appendChild(mult);
+            }
+        });
+    }
+
+    function generateMultipliers() {
+        activeMultipliers = {};
+        const possibleMultipliers = [10, 20, 50, 100];
+        const selectedNums = new Set();
+
+        while (selectedNums.size < 3) {
+            const randomNum = numbersOrder[Math.floor(Math.random() * numbersOrder.length)];
+            selectedNums.add(randomNum);
+        }
+
+        selectedNums.forEach(num => {
+            const randMult = possibleMultipliers[Math.floor(Math.random() * possibleMultipliers.length)];
+            activeMultipliers[num] = randMult;
+        });
+    }
+
+    spinBtn.addEventListener('click', () => {
+        const totalBet = getTotalBet();
+        if (totalBet === 0) {
+            statusLog.innerText = 'گھمانے سے پہلے بیٹ لگائیں!';
+            return;
+        }
+
+        isSpinning = true;
+        spinBtn.disabled = true;
+        clearBtn.disabled = true;
+
+        generateMultipliers();
+        updateUI();
+
+        const winIndex = Math.floor(Math.random() * numbersOrder.length);
+        const winningNum = numbersOrder[winIndex];
+
+        const numPockets = numbersOrder.length;
+        const pocketDegrees = 360 / numPockets;
+        
+        const targetAngle = 360 - (winIndex * pocketDegrees) - (pocketDegrees / 2) - 90;
+        const extraRounds = 360 * 5; 
+        currentRotation += extraRounds + (targetAngle - (currentRotation % 360));
+        
+        canvas.style.transform = `rotate(${currentRotation}deg)`;
+        statusLog.innerText = 'گھوم رہا ہے...';
+
+        setTimeout(() => {
+            resolveSpin(winningNum);
+        }, 4000);
+    });
+
+    function resolveSpin(winningNum) {
+        const betOnWin = bets[winningNum] || 0;
+        let winAmount = 0;
+
+        if (betOnWin > 0) {
+            const multiplier = activeMultipliers[winningNum] || 36;
+            winAmount = betOnWin * multiplier;
+            balance += winAmount;
+            statusLog.innerText = `${winningNum} پر رکا! آپ نے ${winAmount} جیتے (${multiplier}x)!`;
+        } else {
+            statusLog.innerText = `${winningNum} پر رکا۔ اس بار کوئی جیت نہیں۔`;
+        }
+
+        bets = {};
+        isSpinning = false;
+        spinBtn.disabled = false;
+        clearBtn.disabled = false;
+        updateUI();
+    }
+
+    clearBtn.addEventListener('click', () => {
+        if (isSpinning) return;
+        balance += getTotalBet();
+        bets = {};
+        updateUI();
+        statusLog.innerText = 'بیٹس ہٹا دی گئیں۔';
+    });
+
+    drawWheel();
+    createGrid();
+</script>
+</body>
+</html>
