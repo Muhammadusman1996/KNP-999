@@ -12,12 +12,12 @@ header{padding:15px;text-align:center;background:#172033;color:#fbbf24;font-size
 .balance-bar,.dashboard,.players-section{background:#151e30;border:1px solid #334155;border-radius:12px;padding:13px;margin-bottom:14px}
 .balance-bar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .balance-value{color:#4ade80;font-weight:bold}
-.result-history{flex:1 0 100%;display:flex;align-items:center;gap:7px;flex-wrap:wrap;
-  padding-top:9px;margin-top:3px;border-top:1px solid #276749}
+.result-history{flex:1 0 100%;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  padding-top:8px;margin-top:3px;border-top:1px solid #276749}
 .history-label{color:#86efac;font-size:11px;font-weight:900;white-space:nowrap}
 .history-items{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .history-mark{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;
-  font-size:10px;font-weight:900;border:2px solid #fff8;box-shadow:0 2px 5px #0007}
+  font-size:10px;font-weight:900;border:2px solid #ffffff88;box-shadow:0 2px 5px #0007}
 .history-mark.dragon{background:#dc2626;color:#fff}
 .history-mark.tiger{background:#d97706;color:#fff}
 .history-mark.tie{background:#7c3aed;color:#fff}
@@ -27,14 +27,14 @@ header{padding:15px;text-align:center;background:#172033;color:#fbbf24;font-size
 .status-badge{padding:7px 13px;border-radius:30px;background:#064e3b;color:#6ee7b7;font-size:12px;font-weight:900}
 .timer{width:46px;height:46px;border:2px solid #fbbf24;border-radius:50%;display:grid;place-items:center;color:#fbbf24;font-size:22px;font-weight:bold}
 .animals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.animal-box{min-width:0;min-height:190px;border:2px solid;border-radius:15px;overflow:hidden;text-align:center;padding-top:10px}
+.animal-box{min-width:0;min-height:220px;border:2px solid;border-radius:15px;overflow:hidden;text-align:center;padding-top:10px}
 .dragon-box{background:linear-gradient(145deg,#571b18,#190b12);border-color:#ef4444}
 .tiger-box{background:linear-gradient(145deg,#70400d,#211306);border-color:#f59e0b}
 .animal-name{font-weight:900;letter-spacing:2px}
 .dragon-box .animal-name{color:#fca5a5}.tiger-box .animal-name{color:#fcd34d}
-.animal-3d-view{height:160px;width:100%;touch-action:pan-y}
+.animal-3d-view{height:190px;width:100%;touch-action:pan-y}
 .animal-3d-view canvas{width:100%;height:100%;display:block}
-.cards{display:flex;justify-content:center;gap:25px;min-height:76px;align-items:center;margin:4px 0}
+.cards{display:flex;justify-content:center;gap:25px;min-height:112px;align-items:center;margin:8px 0}
 .card{width:72px;height:100px;background:#f8fafc;color:#111;border-radius:8px;padding:7px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 7px 18px #0009;transform:rotateY(90deg);opacity:0;transition:.7s}
 .card.show{transform:rotateY(0);opacity:1}.card.red{color:#dc2626}
 .card-center{text-align:center;font-size:30px}.card-corner{font-weight:bold}
@@ -61,6 +61,34 @@ header{padding:15px;text-align:center;background:#172033;color:#fbbf24;font-size
 .player-name{font-size:11px;font-weight:bold}.player-money{font-size:10px;color:#fbbf24}
 @media(max-width:600px){.container{padding:7px}.game-board{padding:9px}.animal-box{min-height:185px}.animal-3d-view{height:155px}.bet-zone{min-height:95px}.zone-title{font-size:13px}.chip{width:40px;height:40px}.players-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:360px){.animal-3d-view{height:135px}.animal-box{min-height:165px}}
+
+/* Animated Dragon Tiger visual effects */
+.game-board{
+ background:
+  radial-gradient(ellipse at 18% 22%,rgba(220,38,38,.22),transparent 38%),
+  radial-gradient(ellipse at 82% 22%,rgba(245,158,11,.20),transparent 38%),
+  radial-gradient(circle at 50% 48%,#263449,#090d18 78%);
+ box-shadow:0 0 28px #d99b2d30,inset 0 0 30px #0009;
+}
+.animal-box{position:relative;isolation:isolate;box-shadow:inset 0 0 25px #0009;animation:arenaPulse 4s ease-in-out infinite}
+.dragon-box{background:radial-gradient(ellipse at 50% 75%,#8b252b 0%,#3b101b 45%,#160b13 100%)}
+.tiger-box{background:radial-gradient(ellipse at 50% 75%,#a85c13 0%,#4c270b 45%,#160e08 100%);animation-delay:-2s}
+.animal-box:before{content:"";position:absolute;z-index:-1;inset:8% 10% 5%;border-radius:50%;filter:blur(22px);opacity:.55;animation:beastAura 3s ease-in-out infinite alternate}
+.dragon-box:before{background:#ef3340}
+.tiger-box:before{background:#f59e0b}
+.animal-3d-view{position:relative;z-index:1;filter:drop-shadow(0 8px 10px #000b)}
+.animal-3d-view canvas{animation:beastFloat 3.4s ease-in-out infinite}
+.tiger-box .animal-3d-view canvas{animation-delay:-1.7s}
+.animal-name{text-shadow:0 0 12px currentColor,0 2px 4px #000}
+.timer{box-shadow:0 0 15px #f59e0b55;animation:timerPulse 1s ease-in-out infinite}
+.card.show{animation:cardReveal .75s cubic-bezier(.2,.8,.2,1) both}
+@keyframes beastFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.025)}}
+@keyframes arenaPulse{0%,100%{box-shadow:inset 0 0 25px #0009,0 0 5px #ffffff08}50%{box-shadow:inset 0 0 25px #0009,0 0 20px #fbbf2440}}
+@keyframes beastAura{from{transform:scale(.88);opacity:.3}to{transform:scale(1.12);opacity:.65}}
+@keyframes timerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@keyframes cardReveal{0%{transform:rotateY(90deg) scale(.75);opacity:0}70%{transform:rotateY(-8deg) scale(1.06);opacity:1}100%{transform:rotateY(0) scale(1);opacity:1}}
+@media(prefers-reduced-motion:reduce){.animal-box,.animal-3d-view canvas,.timer,.card.show{animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -75,297 +103,482 @@ header{padding:15px;text-align:center;background:#172033;color:#fbbf24;font-size
     <div class="status-row"><span class="status-badge" id="status-badge">BETTING OPEN</span><div class="timer" id="timer-display">10</div></div>
     <div class="animals">
       <div class="animal-box dragon-box"><div class="animal-name">DRAGON</div><div id="dragon3d" class="animal-3d-view"></div></div>
-      <div class="animal-box tiger-box"><div class="animal-name">TIGER</div><div id="tiger3d" class="animal-3d-view"></div></div>
+      <div class="animal-box tiger-box">
+        <div class="animal-name">TIGER</div>
+        <div id="tiger3d" class="animal-3d-view"></div>
+      </div>
     </div>
+
     <div class="cards">
-      <div class="card" id="dragon-card"><div class="card-corner" id="dragon-top">?</div><div class="card-center" id="dragon-suit">?</div><div class="card-corner" id="dragon-bottom" style="transform:rotate(180deg)">?</div></div>
-      <div class="card" id="tiger-card"><div class="card-corner" id="tiger-top">?</div><div class="card-center" id="tiger-suit">?</div><div class="card-corner" id="tiger-bottom" style="transform:rotate(180deg)">?</div></div>
+      <div class="card" id="dragon-card">
+        <div class="card-corner" id="dragon-corner">A ♠</div>
+        <div class="card-center" id="dragon-suit">♠</div>
+        <div class="card-corner">DRAGON</div>
+      </div>
+      <div class="card" id="tiger-card">
+        <div class="card-corner" id="tiger-corner">K ♥</div>
+        <div class="card-center" id="tiger-suit">♥</div>
+        <div class="card-corner">TIGER</div>
+      </div>
     </div>
+
     <div class="bet-heading">PLACE YOUR BET</div>
+
     <div class="bet-zones">
-      <button class="bet-zone zone-dragon" id="zone-dragon"><div class="zone-title">DRAGON</div><div class="zone-total" id="total-dragon-bet">Table: Rs. 1,240</div><div class="zone-user" id="user-dragon-bet">You: Rs. 0</div></button>
-      <button class="bet-zone zone-tie" id="zone-tie"><div class="zone-title">TIE</div><div class="zone-total" id="total-tie-bet">Table: Rs. 300</div><div class="zone-user" id="user-tie-bet">You: Rs. 0</div></button>
-      <button class="bet-zone zone-tiger" id="zone-tiger"><div class="zone-title">TIGER</div><div class="zone-total" id="total-tiger-bet">Table: Rs. 1,890</div><div class="zone-user" id="user-tiger-bet">You: Rs. 0</div></button>
+      <button class="bet-zone zone-dragon" data-zone="dragon">
+        <div class="zone-title">DRAGON</div>
+        <div class="zone-total" id="dragon-total">Table: Rs. 0</div>
+        <div class="zone-user" id="dragon-user">You: Rs. 0</div>
+      </button>
+
+      <button class="bet-zone zone-tie" data-zone="tie">
+        <div class="zone-title">TIE</div>
+        <div class="zone-total" id="tie-total">Table: Rs. 0</div>
+        <div class="zone-user" id="tie-user">You: Rs. 0</div>
+      </button>
+
+      <button class="bet-zone zone-tiger" data-zone="tiger">
+        <div class="zone-title">TIGER</div>
+        <div class="zone-total" id="tiger-total">Table: Rs. 0</div>
+        <div class="zone-user" id="tiger-user">You: Rs. 0</div>
+      </button>
     </div>
+
     <div class="chips-title">SELECT YOUR CHIP (PKR)</div>
     <div class="chips-container" id="chips-container"></div>
-    <div class="actions"><button class="action-btn" id="clear-bets">CLEAR BETS</button><button class="action-btn" id="double-bets">DOUBLE BETS</button></div>
-    <div class="result-overlay" id="result-overlay"><div class="result-title" id="result-title">DRAGON WINS!</div><div class="result-payout" id="result-payout">Rs. 0.00</div></div>
+
+    <div class="actions">
+      <button class="action-btn" id="clear-bets">CLEAR BETS</button>
+      <button class="action-btn" id="double-bets">DOUBLE BETS</button>
+    </div>
+
+    <div class="result-overlay" id="result-overlay">
+      <div class="result-title" id="result-title">DRAGON WINS</div>
+      <div class="result-payout" id="result-payout">Rs. 0</div>
+    </div>
   </div>
+
   <div class="dashboard">
-    <div><div class="dashboard-label">TOTAL BET</div><div class="dashboard-value" id="user-total-bet">Rs. 0</div></div>
-    <div><div class="dashboard-label">LAST WIN</div><div class="dashboard-value" id="dashboard-last-win">Rs. 0</div></div>
-    <div><div class="dashboard-label">ROUND</div><div class="dashboard-value" id="round-number">1</div></div>
+    <div>
+      <div class="dashboard-label">TOTAL BET</div>
+      <div class="dashboard-value" id="total-bet">Rs. 0</div>
+    </div>
+    <div>
+      <div class="dashboard-label">LAST WIN</div>
+      <div class="dashboard-value" id="dashboard-last-win">Rs. 0</div>
+    </div>
+    <div>
+      <div class="dashboard-label">ROUND</div>
+      <div class="dashboard-value" id="round-number">1</div>
+    </div>
   </div>
-  <div class="players-section"><div class="players-title">LIVE PLAYERS (DEMO)</div><div class="players-grid" id="players-grid"></div></div>
+
+  <div class="players-section">
+    <div class="players-title">LIVE PLAYERS</div>
+    <div class="players-grid" id="players-grid"></div>
+  </div>
 </div>
-
 <script type="module">
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
-import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js";
+import * as THREE from
+'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 
+const $ = id => document.getElementById(id);
 
-/* GAME LOGIC */
-const CHIP_VALUES=[20,50,100,150,200,300,350,400,450,500,550];
-let selectedChip=20,userBalance=5000,lastWin=0,roundNumber=1;
-let bets={dragon:0,tie:0,tiger:0};
-let totalTableBets={dragon:1240,tie:300,tiger:1890};
-let isBettingOpen=true,countdownTimer=10,timerInterval=null,roundTimeouts=[];
-const fmt=new Intl.NumberFormat('en-PK',{minimumFractionDigits:2,maximumFractionDigits:2});
-const money=n=>'Rs. '+fmt.format(n);
-const SUITS=[{icon:'♠',color:'black'},{icon:'♥',color:'red'},{icon:'♣',color:'black'},{icon:'♦',color:'red'}];
-const RANKS=[['A',1],['2',2],['3',3],['4',4],['5',5],['6',6],['7',7],['8',8],['9',9],['10',10],['J',11],['Q',12],['K',13]].map(([label,val])=>({label,val}));
-const players=[['Ali',14200],['Sara',8900],['Ananya',25400],['Amit',3100],['Pooja',11800],['Sanjay',45000]];
+let balance = 5000;
+let lastWin = 0;
+let round = 1;
+let selectedChip = 100;
+let bets = {dragon:0,tie:0,tiger:0};
+let tableBets = {dragon:0,tie:0,tiger:0};
+let seconds = 10;
+let bettingOpen = true;
+let history = [];
+
+const chipValues = [20,50,100,150,200,300,350,400,450,500,550];
+
+function money(n){
+ return 'Rs. ' + Number(n).toLocaleString('en-PK');
+}
+
+function updateUI(){
+ $('user-balance').textContent = money(balance);
+ $('user-last-win').textContent = money(lastWin);
+ $('dashboard-last-win').textContent = money(lastWin);
+
+ const total = bets.dragon + bets.tie + bets.tiger;
+ $('total-bet').textContent = money(total);
+
+ ['dragon','tie','tiger'].forEach(zone=>{
+  $(zone+'-total').textContent =
+   'Table: '+money(tableBets[zone]+bets[zone]);
+  $(zone+'-user').textContent =
+   'You: '+money(bets[zone]);
+ });
+
+ $('round-number').textContent = round;
+}
 
 function renderChips(){
- const box=document.getElementById('chips-container');
- CHIP_VALUES.forEach(v=>{
-  const b=document.createElement('button');b.className='chip'+(v===selectedChip?' active':'');b.textContent=v;
-  b.onclick=()=>{selectedChip=v;document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));b.classList.add('active')};
-  box.appendChild(b);
+ const host = $('chips-container');
+ host.innerHTML = '';
+
+ chipValues.forEach(value=>{
+  const btn = document.createElement('button');
+  btn.className = 'chip';
+  btn.textContent = value;
+  btn.onclick = ()=>{
+   selectedChip = value;
+   document.querySelectorAll('.chip')
+    .forEach(c=>c.classList.remove('active'));
+   btn.classList.add('active');
+  };
+  host.appendChild(btn);
+ });
+ host.firstChild?.classList.add('active');
+}
+
+document.querySelectorAll('.bet-zone').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+  if(!bettingOpen) return;
+
+  const zone = btn.dataset.zone;
+  if(balance < selectedChip) return;
+
+  balance -= selectedChip;
+  bets[zone] += selectedChip;
+  updateUI();
+ });
+});
+
+$('clear-bets').onclick = ()=>{
+ if(!bettingOpen) return;
+
+ const refund =
+  bets.dragon+bets.tie+bets.tiger;
+
+ balance += refund;
+ bets = {dragon:0,tie:0,tiger:0};
+ updateUI();
+};
+
+$('double-bets').onclick = ()=>{
+ if(!bettingOpen) return;
+
+ const total = bets.dragon+bets.tie+bets.tiger;
+ if(total===0 || balance < total) return;
+
+ balance -= total;
+
+ Object.keys(bets).forEach(zone=>{
+  bets[zone] *= 2;
+ });
+ updateUI();
+};
+
+function renderHistory(){
+ const host = $('history-items');
+ host.innerHTML = '';
+
+ if(history.length===0){
+  host.textContent='No results yet';
+  return;
+ }
+
+ history.slice(0,24).forEach(winner=>{
+  const mark=document.createElement('span');
+  mark.className='history-mark '+winner;
+  mark.textContent =
+   winner==='dragon'?'D':winner==='tiger'?'T':'=';
+  host.appendChild(mark);
  });
 }
+
 function renderPlayers(){
- const grid=document.getElementById('players-grid');
- players.forEach(([name,balance])=>{
-  const p=document.createElement('div');p.className='player';
-  const a=document.createElement('div');a.className='player-avatar';a.textContent='👤';
-  const d=document.createElement('div'),n=document.createElement('div'),m=document.createElement('div');
-  n.className='player-name';n.textContent=name;m.className='player-money';m.textContent=money(balance);
-  d.append(n,m);p.append(a,d);grid.append(p);
- });
-}
-function updateUI(){
- document.getElementById('user-balance').textContent=money(userBalance);
- document.getElementById('user-last-win').textContent=money(lastWin);
- document.getElementById('dashboard-last-win').textContent=money(lastWin);
- document.getElementById('user-total-bet').textContent=money(bets.dragon+bets.tie+bets.tiger);
- for(const z of ['dragon','tie','tiger']){
-  document.getElementById('user-'+z+'-bet').textContent='You: '+money(bets[z]);
-  document.getElementById('total-'+z+'-bet').textContent='Table: '+money(totalTableBets[z]);
- }
- document.getElementById('round-number').textContent=roundNumber;
- document.querySelectorAll('.bet-zone').forEach(b=>b.disabled=!isBettingOpen);
-}
-function placeBet(zone){
- if(!isBettingOpen)return;
- if(userBalance<selectedChip){alert('Insufficient balance');return}
- userBalance-=selectedChip;bets[zone]+=selectedChip;totalTableBets[zone]+=selectedChip;updateUI();
-}
-function clearBets(){
- if(!isBettingOpen)return;
- for(const z of ['dragon','tie','tiger']){userBalance+=bets[z];totalTableBets[z]-=bets[z];bets[z]=0}
- updateUI();
-}
-function doubleBets(){
- if(!isBettingOpen)return;
- const total=bets.dragon+bets.tie+bets.tiger;
- if(!total)return;
- if(userBalance<total){alert('Insufficient balance');return}
- userBalance-=total;
- for(const z of ['dragon','tie','tiger']){totalTableBets[z]+=bets[z];bets[z]*=2}
- updateUI();
-}
-document.getElementById('zone-dragon').onclick=()=>placeBet('dragon');
-document.getElementById('zone-tie').onclick=()=>placeBet('tie');
-document.getElementById('zone-tiger').onclick=()=>placeBet('tiger');
-document.getElementById('clear-bets').onclick=clearBets;
-document.getElementById('double-bets').onclick=doubleBets;
+ const host=$('players-grid');
+ const players=[
+  ['Ali','Rs. 14,200'],
+  ['Sara','Rs. 8,900'],
+  ['Ahmed','Rs. 3,100'],
+  ['Usman','Rs. 11,800'],
+  ['Ravi','Rs. 45,000'],
+  ['Zara','Rs. 25,400']
+ ];
 
-function later(fn,ms){const id=setTimeout(fn,ms);roundTimeouts.push(id)}
-function clearLater(){roundTimeouts.forEach(clearTimeout);roundTimeouts=[]}
-function resetCards(){
- for(const s of ['dragon','tiger']){
-  const c=document.getElementById(s+'-card');c.classList.remove('show','red');
-  for(const part of ['top','suit','bottom'])document.getElementById(s+'-'+part).textContent='?';
- }
-}
-const HISTORY_KEY='dragonTigerResultHistoryV1';
-let resultHistory=[];
-try {
- const saved=JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');
- if(Array.isArray(saved)) resultHistory=saved.filter(x=>['dragon','tiger','tie'].includes(x)).slice(0,24);
-} catch(e) { resultHistory=[]; }
-
-function renderResultHistory(){
- const host=document.getElementById('history-items');
- if(!host)return;
  host.innerHTML='';
- if(!resultHistory.length){
-   host.innerHTML='<span class="history-empty">No results yet</span>';
-   return;
- }
- resultHistory.forEach((winner,index)=>{
-   const mark=document.createElement('span');
-   mark.className='history-mark '+winner;
-   mark.textContent=winner==='dragon'?'D':winner==='tiger'?'T':'=';
-   mark.title='Round result: '+winner.toUpperCase();
-   mark.setAttribute('aria-label',mark.title);
-   host.appendChild(mark);
+ players.forEach(([name,moneyText])=>{
+  const item=document.createElement('div');
+  item.className='player';
+  item.innerHTML=
+   '<div class="player-avatar">●</div>'+
+   '<div><div class="player-name">'+name+
+   '</div><div class="player-money">'+moneyText+
+   '</div></div>';
+  host.appendChild(item);
  });
 }
-function recordResult(winner){
- resultHistory.unshift(winner);
- resultHistory=resultHistory.slice(0,24);
- try{localStorage.setItem(HISTORY_KEY,JSON.stringify(resultHistory));}catch(e){}
- renderResultHistory();
+
+const suits=['♠','♥','♦','♣'];
+const ranks=[
+ ['A',14],['2',2],['3',3],['4',4],
+ ['5',5],['6',6],['7',7],['8',8],
+ ['9',9],['10',10],['J',11],['Q',12],['K',13]
+];
+
+function drawCard(side){
+ const rank=ranks[Math.floor(Math.random()*ranks.length)];
+ const suit=suits[Math.floor(Math.random()*4)];
+
+ $(side+'-corner').textContent=rank[0]+' '+suit;
+ $(side+'-suit').textContent=suit;
+
+ const card=$(side+'-card');
+ card.classList.remove('show','red');
+
+ if(suit==='♥'||suit==='♦') card.classList.add('red');
+
+ void card.offsetWidth;
+ card.classList.add('show');
+
+ return {value:rank[1]};
+}
+
+function finishRound(){
+ bettingOpen=false;
+ $('status-badge').textContent='RESULT';
+
+ const dragon=drawCard('dragon');
+ const tiger=drawCard('tiger');
+
+ let winner='tie';
+
+ if(dragon.value>tiger.value) winner='dragon';
+ if(tiger.value>dragon.value) winner='tiger';
+
+ history.unshift(winner);
+ history=history.slice(0,24);
+
+ try{
+  localStorage.setItem(
+   'dragonTigerHistory',
+   JSON.stringify(history)
+  );
+ }catch(e){}
+
+ renderHistory();
+
+ let payout=0;
+
+ if(winner==='dragon') payout=bets.dragon*2;
+ if(winner==='tiger') payout=bets.tiger*2;
+ if(winner==='tie') payout=bets.tie*9;
+
+ balance+=payout;
+ lastWin=payout;
+
+ $('result-title').textContent=
+  winner.toUpperCase()+' WINS';
+
+ $('result-payout').textContent=money(payout);
+ $('result-overlay').classList.add('show');
+
+ updateUI();
+
+ setTimeout(()=>{
+  $('result-overlay').classList.remove('show');
+
+  bets={dragon:0,tie:0,tiger:0};
+  tableBets={dragon:0,tie:0,tiger:0};
+
+  round++;
+  startRound();
+ },3000);
 }
 
 function startRound(){
- clearInterval(timerInterval);clearLater();isBettingOpen=true;countdownTimer=10;
- document.getElementById('timer-display').textContent='10';
- document.getElementById('result-overlay').classList.remove('show');
- document.getElementById('status-badge').textContent='BETTING OPEN';
- document.getElementById('status-badge').style.background='#064e3b';
- document.getElementById('status-badge').style.color='#6ee7b7';
- resetCards();updateUI();
- timerInterval=setInterval(()=>{
-  countdownTimer--;document.getElementById('timer-display').textContent=countdownTimer;
-  if(countdownTimer<=0){clearInterval(timerInterval);revealRound()}
+ bettingOpen=true;
+ seconds=10;
+
+ $('status-badge').textContent='BETTING OPEN';
+
+ ['dragon','tiger'].forEach(side=>{
+  $(side+'-card').classList.remove('show');
+ });
+
+ updateUI();
+
+ const timer=setInterval(()=>{
+  seconds--;
+  $('timer-display').textContent=seconds;
+
+  if(seconds<=0){
+   clearInterval(timer);
+   finishRound();
+  }
  },1000);
 }
-function drawCard(){return {suit:SUITS[Math.floor(Math.random()*4)],rank:RANKS[Math.floor(Math.random()*13)]}}
-function showCard(side,card){
- const el=document.getElementById(side+'-card');
- const red=card.suit.color==='red';el.classList.toggle('red',red);
- document.getElementById(side+'-top').textContent=card.rank.label+' '+card.suit.icon;
- document.getElementById(side+'-suit').textContent=card.suit.icon;
- document.getElementById(side+'-bottom').textContent=card.rank.label+' '+card.suit.icon;
- el.classList.add('show');
-}
-function revealRound(){
- isBettingOpen=false;updateUI();
- const badge=document.getElementById('status-badge');badge.textContent='BETTING CLOSED';badge.style.background='#7f1d1d';badge.style.color='#fecaca';
- const d=drawCard(),t=drawCard();
- later(()=>showCard('dragon',d),400);later(()=>showCard('tiger',t),1100);
- later(()=>settleRound(d,t),2000);
-}
-function settleRound(d,t){
- const winner=d.rank.val>t.rank.val?'dragon':t.rank.val>d.rank.val?'tiger':'tie';
- recordResult(winner);
- const payout=bets[winner]*(winner==='tie'?9:2);
- userBalance+=payout;lastWin=payout;
- document.getElementById('result-title').textContent=winner.toUpperCase()+(winner==='tie'?'!':' WINS!');
- document.getElementById('result-payout').textContent=money(payout);
- document.getElementById('result-overlay').classList.add('show');updateUI();
- later(()=>{
-  bets={dragon:0,tie:0,tiger:0};roundNumber++;updateUI();startRound();
- },4000);
-}
 
-/* REAL 3D MODEL ENGINE — external CC0 GLB assets */
-function createWorld(id,bg){
- const host=document.getElementById(id),scene=new THREE.Scene();
- scene.background=new THREE.Color(bg);
- const camera=new THREE.PerspectiveCamera(35,1,.1,100);
- camera.position.set(0,2.4,8); camera.lookAt(0,1,0);
- const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});
- renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
- renderer.shadowMap.enabled=true;
- renderer.outputColorSpace=THREE.SRGBColorSpace;
- host.appendChild(renderer.domElement);
- scene.add(new THREE.HemisphereLight(0xffffff,0x34304a,2.2));
- const sun=new THREE.DirectionalLight(0xffffff,3.2);
- sun.position.set(3,7,5); sun.castShadow=true; scene.add(sun);
- const fill=new THREE.PointLight(0xffa52f,25,15);
- fill.position.set(-4,3,2); scene.add(fill);
- const floor=new THREE.Mesh(
-   new THREE.CircleGeometry(4,64),
-   new THREE.MeshStandardMaterial({color:0x343b49,roughness:.82})
+/* Three.js animal display */
+function createWorld(id,color){
+ const host=$(id);
+ const scene=new THREE.Scene();
+ scene.background=new THREE.Color(color);
+
+ const camera=new THREE.PerspectiveCamera(
+  38,1,0.1,100
  );
- floor.rotation.x=-Math.PI/2; floor.position.y=0;
- floor.receiveShadow=true; scene.add(floor);
- function resize(){
-   const w=host.clientWidth||300,h=host.clientHeight||180;
-   camera.aspect=w/h; camera.updateProjectionMatrix();
-   renderer.setSize(w,h,false);
- }
- const observer=new ResizeObserver(resize); observer.observe(host); resize();
- return {host,scene,camera,renderer};
-}
+ camera.position.set(0,1.5,6);
 
-const dragonWorld=createWorld('dragon3d','#241016');
-const tigerWorld=createWorld('tiger3d','#281b0b');
-const gltfLoader=new GLTFLoader();
-
-function showModelStatus(host,message){
- const el=document.createElement('div');
- el.textContent=message;
- el.style.cssText='position:absolute;inset:0;display:grid;place-items:center;color:#fbbf24;font:700 12px Arial;text-align:center;padding:12px;pointer-events:none';
- host.style.position='relative'; host.appendChild(el);
- return el;
-}
-
-function loadRealModel(url,world,targetSize,rotationY,label){
- const status=showModelStatus(world.host,'Loading '+label+' 3D model…');
- return new Promise((resolve)=>{
-   gltfLoader.load(url,(gltf)=>{
-     const model=gltf.scene;
-     model.traverse((obj)=>{
-       if(obj.isMesh){obj.castShadow=true;obj.receiveShadow=true;
-         if(obj.material){obj.material.side=THREE.FrontSide;}
-       }
-     });
-     const bounds=new THREE.Box3().setFromObject(model);
-     const size=bounds.getSize(new THREE.Vector3());
-     const center=bounds.getCenter(new THREE.Vector3());
-     const maxDim=Math.max(size.x,size.y,size.z);
-     const scale=targetSize/maxDim;
-     model.scale.setScalar(scale);
-     model.position.set(-center.x*scale,-bounds.min.y*scale,-center.z*scale);
-     const pivot=new THREE.Group();
-     pivot.add(model);
-     pivot.rotation.y=rotationY;
-     world.scene.add(pivot);
-     status.remove();
-     resolve(pivot);
-   },undefined,(error)=>{
-     console.error(label+' model failed to load',error);
-     status.textContent=label+' model could not load. Check internet connection.';
-     status.style.color='#fca5a5';
-     resolve(null);
-   });
+ const renderer=new THREE.WebGLRenderer({
+  antialias:true,alpha:false
  });
+
+ renderer.setPixelRatio(
+  Math.min(window.devicePixelRatio,2)
+ );
+ host.appendChild(renderer.domElement);
+
+ scene.add(new THREE.HemisphereLight(
+  0xffffff,0x333344,2
+ ));
+
+ const light=new THREE.DirectionalLight(
+  0xffffff,3
+ );
+ light.position.set(3,5,5);
+ scene.add(light);
+
+ const ground=new THREE.Mesh(
+  new THREE.CircleGeometry(2.5,48),
+  new THREE.MeshStandardMaterial({color:0x303030})
+ );
+ ground.rotation.x=-Math.PI/2;
+ ground.position.y=-1;
+ scene.add(ground);
+
+ function resize(){
+  const w=host.clientWidth||250;
+  const h=host.clientHeight||150;
+  camera.aspect=w/h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w,h);
+ }
+ new ResizeObserver(resize).observe(host);
+ resize();
+
+ return {scene,camera,renderer};
 }
 
-/* High-detail CC0 models. Model files are streamed directly from their hosts;
-   the ZIP still contains one HTML file only. */
-const dragonModelURL='https://grab3d.com/dl/dragon/dragon.glb';
-const tigerModelURL='https://files.innerscene.com/library/tiger-3a01b408/5b539bcfadd19ea5f928/tiger.glb';
+function makeBeast(scene,type){
+ const group=new THREE.Group();
 
-let dragon=null,tiger=null;
-Promise.all([
- loadRealModel(dragonModelURL,dragonWorld,2.65,-0.35,'Dragon'),
- loadRealModel(tigerModelURL,tigerWorld,2.8,-Math.PI/2,'Tiger')
-]).then(([d,t])=>{dragon=d;tiger=t;});
+ const dragon=type==='dragon';
+ const mainColor=dragon?0xb91c1c:0xe58b19;
+ const material=new THREE.MeshStandardMaterial({
+  color:mainColor,roughness:0.65
+ });
 
-const clock=new THREE.Clock();
-let raf=0,visible=true;
-function animate(){
- if(!visible)return;
- raf=requestAnimationFrame(animate);
- const t=clock.getElapsedTime();
+ function sphere(x,y,z,sx,sy,sz,mat=material){
+  const mesh=new THREE.Mesh(
+   new THREE.SphereGeometry(1,24,18),mat
+  );
+  mesh.position.set(x,y,z);
+  mesh.scale.set(sx,sy,sz);
+  group.add(mesh);
+ }
+
+ sphere(0,0,0,1.05,.55,.48);
+ sphere(0,.55,.2,.52,.52,.48);
+ sphere(0,.85,.5,.38,.35,.35);
+
  if(dragon){
-   dragon.position.y=0.045+Math.sin(t*1.8)*0.045;
-   dragon.rotation.y=-0.35+Math.sin(t*.45)*.10;
+  const wingMat=new THREE.MeshStandardMaterial({
+   color:0x681515,side:THREE.DoubleSide
+  });
+  [-1,1].forEach(side=>{
+   const wing=new THREE.Mesh(
+    new THREE.ConeGeometry(.65,.95,4),wingMat
+   );
+   wing.position.set(side*.75,.85,-.2);
+   wing.rotation.z=side*.8;
+   group.add(wing);
+  });
+  sphere(0,-.05,-.85,.18,.18,.8);
+ }else{
+  const stripeMat=new THREE.MeshStandardMaterial({
+   color:0x171717
+  });
+  for(let i=-2;i<=2;i++){
+   const stripe=new THREE.Mesh(
+    new THREE.BoxGeometry(.12,.75,.55),
+    stripeMat
+   );
+   stripe.position.set(i*.35,.1,.05);
+   stripe.rotation.z=-.3;
+   group.add(stripe);
+  }
+  sphere(0,.9,.82,.12,.12,.12);
  }
- if(tiger){
-   tiger.position.y=0.025+Math.abs(Math.sin(t*2.4))*.025;
-   tiger.rotation.y=-Math.PI/2+Math.sin(t*.55)*.07;
- }
- dragonWorld.renderer.render(dragonWorld.scene,dragonWorld.camera);
- tigerWorld.renderer.render(tigerWorld.scene,tigerWorld.camera);
+
+ return group;
 }
+
+const dragonWorld=createWorld('dragon3d','#321015');
+const tigerWorld=createWorld('tiger3d','#35210c');
+
+const dragonModel=makeBeast(
+ dragonWorld.scene,'dragon'
+);
+const tigerModel=makeBeast(
+ tigerWorld.scene,'tiger'
+);
+
+dragonWorld.scene.add(dragonModel);
+tigerWorld.scene.add(tigerModel);
+
+function animate(){
+ requestAnimationFrame(animate);
+
+ const t=performance.now()*.001;
+
+ dragonModel.position.y=
+  Math.sin(t*2)*.08;
+
+ tigerModel.position.y=
+  Math.sin(t*2+1)*.06;
+
+ dragonModel.rotation.y=
+  Math.sin(t*.5)*.12;
+
+ tigerModel.rotation.y=
+  Math.sin(t*.5)*.08;
+
+ dragonWorld.renderer.render(
+  dragonWorld.scene,dragonWorld.camera
+ );
+
+ tigerWorld.renderer.render(
+  tigerWorld.scene,tigerWorld.camera
+ );
+}
+
+try{
+ const saved=JSON.parse(
+  localStorage.getItem('dragonTigerHistory')||'[]'
+ );
+ if(Array.isArray(saved)){
+  history=saved.filter(x=>
+   ['dragon','tiger','tie'].includes(x)
+  ).slice(0,24);
+ }
+}catch(e){}
+
+renderChips();
+renderPlayers();
+renderHistory();
+updateUI();
 animate();
-document.addEventListener('visibilitychange',()=>{
- visible=!document.hidden;
- if(visible){clock.start();animate()}else cancelAnimationFrame(raf);
-});
-renderChips();renderPlayers();renderResultHistory();updateUI();startRound();
-window.addEventListener('pagehide',()=>{
- clearInterval(timerInterval);clearLater();
- dragonWorld.renderer.dispose();tigerWorld.renderer.dispose();
-});
+startRound();
+
 </script>
 </body>
 </html>
