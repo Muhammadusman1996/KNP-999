@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KNP-999 | Aviator</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -15,19 +13,26 @@
             padding: 0;
             font-family: 'Poppins', sans-serif;
         }
-
         body {
             background-color: #050b14;
             color: #fff;
-            user-select: none;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-
-        .cinzel-font {
-            font-family: 'Cinzel', serif;
+        header {
+            background-color: #0f172a;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #334155;
         }
-
-        .aviator-body {
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #38bdf8;
+        }
+        .main-container {
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -36,245 +41,296 @@
         .game-wrapper {
             width: 100%;
             max-width: 800px;
-            background-color: #0d1b2a;
+            background-color: #1e293b;
             padding: 20px;
-            border-radius: 15px;
-            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
         }
-        .aviator-header {
+        .game-header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
         }
-        .balance-aviator {
-            color: #70e000;
-            font-weight: bold;
+        .balance {
+            font-size: 1.1rem;
+            font-weight: 600;
         }
-        #canvas {
-            background: linear-gradient(to top, #001219, #005f73);
+        .balance span {
+            color: #22c55e;
+        }
+        #aviatorCanvas {
+            background: linear-gradient(to bottom, #0284c7, #0f172a);
             width: 100%;
             height: 350px;
-            border-radius: 10px;
+            border-radius: 8px;
             display: block;
         }
         .controls {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             margin-top: 15px;
         }
-        .bet-panel {
+        .bet-box {
             flex: 1;
-            background-color: #1b263b;
+            background-color: #0f172a;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        .aviator-input, .aviator-btn {
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: none;
-        }
-        .aviator-input {
-            background: #0d1b2a;
-            color: #fff;
-            text-align: center;
-        }
-        .btn-row {
+        .input-group {
             display: flex;
             gap: 5px;
         }
-        .btn-row button {
+        input[type="number"] {
             flex: 1;
-            background: #415a77;
+            background: #1e293b;
+            border: 1px solid #475569;
             color: white;
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .btn-ctrl {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
             cursor: pointer;
         }
         .btn-bet {
-            background: #00b4d8;
+            background: #0284c7;
             color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
             font-weight: bold;
             cursor: pointer;
         }
         .btn-cashout {
-            background: #ffb703;
-            color: #000;
+            background: #eab308;
+            color: black;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
             font-weight: bold;
             cursor: pointer;
         }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
-<header class="w-full bg-slate-900 border-b border-amber-500/30 px-4 py-3 text-center shadow-lg">
-    <h1 class="cinzel-font font-black text-xl text-amber-400">AVIATOR</h1>
+<body>
+
+<header>
+    <h1>AVIATOR PRO</h1>
 </header>
 
-<div id="game-aviator" class="flex-1 aviator-body">
+<div class="main-container">
     <div class="game-wrapper">
-        <div class="aviator-header">
-            <h2>PIA Aviator Pro</h2>
-            <div>Balance: $<span id="balance" class="balance-aviator">1000.00</span></div>
+        <div class="game-header">
+            <h2>Aviator Flight</h2>
+            <div class="balance">Balance: $<span id="userBalance">1000.00</span></div>
         </div>
 
-        <canvas id="canvas" width="800" height="350"></canvas>
+        <canvas id="aviatorCanvas" width="800" height="350"></canvas>
 
         <div class="controls">
-            <div class="bet-panel">
-                <label>Bet Amount ($)</label>
-                <div class="btn-row">
-                    <button onclick="changeBet(1, -10)">-10</button>
-                    <input type="number" id="input-1" class="aviator-input" value="10">
-                    <button onclick="changeBet(1, 10)">+10</button>
+            <!-- Bet Panel 1 -->
+            <div class="bet-box">
+                <label>Bet ($)</label>
+                <div class="input-group">
+                    <button class="btn-ctrl" onclick="adjustBet(1, -10)">-10</button>
+                    <input type="number" id="betInput1" value="10" readonly>
+                    <button class="btn-ctrl" onclick="adjustBet(1, 10)">+10</button>
                 </div>
-                <button id="btn-1" class="aviator-btn btn-bet" onclick="toggleBet(1)">Place Bet</button>
+                <button id="betBtn1" class="btn-bet" onclick="handleBet(1)">Place Bet</button>
             </div>
-            <div class="bet-panel">
-                <label>Bet Amount ($)</label>
-                <div class="btn-row">
-                    <button onclick="changeBet(2, -10)">-10</button>
-                    <input type="number" id="input-2" class="aviator-input" value="10">
-                    <button onclick="changeBet(2, 10)">+10</button>
+            <!-- Bet Panel 2 -->
+            <div class="bet-box">
+                <label>Bet ($)</label>
+                <div class="input-group">
+                    <button class="btn-ctrl" onclick="adjustBet(2, -10)">-10</button>
+                    <input type="number" id="betInput2" value="10" readonly>
+                    <button class="btn-ctrl" onclick="adjustBet(2, 10)">+10</button>
                 </div>
-                <button id="btn-2" class="aviator-btn btn-bet" onclick="toggleBet(2)">Place Bet</button>
+                <button id="betBtn2" class="btn-bet" onclick="handleBet(2)">Place Bet</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    const canvas = document.getElementById('canvas');
+    const canvas = document.getElementById('aviatorCanvas');
     const ctx = canvas.getContext('2d');
+    
     let balance = 1000.00;
     let multiplier = 1.00;
-    let gameRunning = false;
-    let aviatorBets = { 1: { active: false, amount: 0 }, 2: { active: false, amount: 0 } };
-    let animationId;
+    let isFlying = false;
+    let crashPoint = 1.00;
     let startTime;
-    let cityOffset = 0;
+    let animationId;
+    
+    let bets = {
+        1: { amount: 10, active: false, cashed: false },
+        2: { amount: 10, active: false, cashed: false }
+    };
 
-    function updateAviatorUI() {
-        document.getElementById('balance').innerText = balance.toFixed(2);
+    function updateUI() {
+        document.getElementById('userBalance').innerText = balance.toFixed(2);
     }
 
-    function changeBet(panel, amount) {
-        if (gameRunning) return;
-        const input = document.getElementById(`input-${panel}`);
-        let val = parseInt(input.value) + amount;
-        if (val < 10) val = 10;
-        input.value = val;
+    function adjustBet(panel, amount) {
+        if (isFlying) return;
+        let input = document.getElementById(`betInput${panel}`);
+        let current = parseInt(input.value);
+        let updated = current + amount;
+        if (updated >= 10) {
+            input.value = updated;
+            bets[panel].amount = updated;
+        }
     }
 
-    function toggleBet(panel) {
-        const btn = document.getElementById(`btn-${panel}`);
-        const input = document.getElementById(`input-${panel}`);
-        
-        if (!gameRunning) {
-            if (!aviatorBets[panel].active) {
-                let amount = parseFloat(input.value);
-                if (amount > balance || amount <= 0) return;
-                balance -= amount;
-                aviatorBets[panel].amount = amount;
-                aviatorBets[panel].active = true;
-                updateAviatorUI();
-                btn.innerText = "Cancel";
-                btn.className = "aviator-btn btn-cashout";
-                startGame();
-            } else {
-                balance += aviatorBets[panel].amount;
-                aviatorBets[panel].active = false;
-                updateAviatorUI();
-                btn.innerText = "Place Bet";
-                btn.className = "aviator-btn btn-bet";
+    function handleBet(panel) {
+        let btn = document.getElementById(`betBtn${panel}`);
+        if (!isFlying) {
+            // Placing Bet
+            if (balance < bets[panel].amount) {
+                alert("Not enough balance!");
+                return;
+            }
+            balance -= bets[panel].amount;
+            updateUI();
+            bets[panel].active = true;
+            bets[panel].cashed = false;
+            btn.innerText = "Cash Out";
+            btn.className = "btn-cashout";
+            
+            if (!isFlying && (!bets[1].active || !bets[2].active)) {
+                // Check if we should start flight
+                 startFlight();
             }
         } else {
-            if (aviatorBets[panel].active) {
-                let payout = aviatorBets[panel].amount * multiplier;
+            // Cashing Out
+            if (bets[panel].active && !bets[panel].cashed) {
+                let payout = bets[panel].amount * multiplier;
                 balance += payout;
-                aviatorBets[panel].active = false;
-                updateAviatorUI();
+                updateUI();
+                bets[panel].cashed = true;
                 btn.innerText = "Cashed Out";
                 btn.disabled = true;
             }
         }
     }
 
-    function startGame() {
-        if (gameRunning) return;
-        gameRunning = true;
+    function startFlight() {
+        isFlying = true;
         multiplier = 1.00;
         startTime = Date.now();
-        document.querySelectorAll('.aviator-input').forEach(i => i.disabled = true);
-        animateAviator();
+        // Generate random crash point between 1.2 and 5.0
+        crashPoint = parseFloat((Math.random() * (5.0 - 1.2) + 1.2).toFixed(2));
+        animatePlane();
     }
 
-    function animateAviator() {
-        const elapsed = (Date.now() - startTime) / 1000;
-        multiplier = 1.00 + (elapsed * 0.5);
-        cityOffset = (cityOffset - 2) % 100;
+    function animatePlane() {
+        if (!isFlying) return;
         
-        if (multiplier > 3.0 && Math.random() < 0.03) {
-            endAviatorGame(true);
+        let elapsed = (Date.now() - startTime) / 1000;
+        multiplier = 1 + elapsed * 0.8; // Speed of multiplier growth
+
+        if (multiplier >= crashPoint) {
+            multiplier = crashPoint;
+            endFlight(true);
             return;
         }
 
-        drawAviator();
-        animationId = requestAnimationFrame(animateAviator);
+        drawGame();
+        animationId = requestAnimationFrame(animatePlane);
     }
 
-    function drawAviator() {
+    function drawGame() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.fillStyle = "#0d1b2a";
-        for (let i = 0; i < canvas.width; i += 40) {
-            let x = (i + cityOffset) % canvas.width;
-            ctx.fillRect(x, 250, 30, 100);
-        }
 
+        // Draw Background Elements (Clouds/Stars)
+        ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
+        ctx.beginPath();
+        ctx.arc(100, 100, 40, 0, Math.PI * 2);
+        ctx.arc(300, 80, 60, 0, Math.PI * 2);
+        ctx.arc(600, 150, 50, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw Multiplier Text
         ctx.fillStyle = "white";
-        ctx.font = "bold 50px sans-serif";
+        ctx.font = "bold 60px Poppins, sans-serif";
         ctx.textAlign = "center";
-        ctx.fillText(multiplier.toFixed(2) + "x", canvas.width/2, canvas.height/2 - 20);
+        ctx.fillText(multiplier.toFixed(2) + "x", canvas.width / 2, canvas.height / 2 + 20);
 
-        let x = 100 + (multiplier * 40);
-        let y = 280 - (multiplier * 25);
+        // Draw Plane (Red triangle moving up)
+        let progress = (multiplier - 1) / (crashPoint - 1 || 1);
+        if (progress > 1) progress = 1;
         
+        let planeX = 50 + progress * 600;
+        let planeY = 300 - progress * 200;
+
         ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(Math.PI / 4);
-        ctx.fillStyle = "#01411C";
-        ctx.fillRect(-15, -15, 30, 30);
+        ctx.translate(planeX, planeY);
+        ctx.rotate(-Math.PI / 6); // Angle upwards
+        
+        // Plane body
+        ctx.fillStyle = "#ef4444";
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(-30, 10);
+        ctx.lineTo(-20, 0);
+        ctx.lineTo(-30, -10);
+        ctx.fill();
+        
         ctx.restore();
     }
 
-    function endAviatorGame(crashed) {
-        gameRunning = false;
+    function endFlight(isCrash) {
+        isFlying = false;
         cancelAnimationFrame(animationId);
-        
-        ctx.fillStyle = crashed ? "red" : "orange";
-        ctx.font = "bold 30px sans-serif";
-        ctx.fillText(crashed ? "CRASHED" : "ENDED", canvas.width/2, canvas.height/2 + 30);
+        drawGame();
+
+        ctx.fillStyle = isCrash ? "#ef4444" : "#22c55e";
+        ctx.font = "bold 40px Poppins, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(isCrash ? "CRASHED" : "ENDED", canvas.width / 2, canvas.height / 2 - 40);
+
+        // Handle uncashed bets on crash
+        for (let p of [1, 2]) {
+            if (bets[p].active && !bets[p].cashed) {
+                document.getElementById(`betBtn${p}`).innerText = "Lost";
+                document.getElementById(`betBtn${p}`).className = "btn-ctrl";
+            }
+        }
 
         setTimeout(() => {
-            resetAviatorGame();
+            resetGame();
         }, 3000);
     }
 
-    function resetAviatorGame() {
+    function resetGame() {
         multiplier = 1.00;
-        document.querySelectorAll('.aviator-input').forEach(i => i.disabled = false);
         for (let p of [1, 2]) {
-            aviatorBets[p].active = false;
-            const btn = document.getElementById(`btn-${p}`);
+            bets[p].active = false;
+            bets[p].cashed = false;
+            let btn = document.getElementById(`betBtn${p}`);
             btn.innerText = "Place Bet";
-            btn.className = "aviator-btn btn-bet";
+            btn.className = "btn-bet";
             btn.disabled = false;
         }
-        drawAviator();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "white";
+        ctx.font = "bold 60px Poppins, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("1.00x", canvas.width / 2, canvas.height / 2 + 20);
     }
 
-    drawAviator();
+    updateUI();
 </script>
+
 </body>
 </html>
