@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Game Casino Hub</title>
+    <title>KNP-999 | Dragon Tiger</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons CDN -->
@@ -212,31 +212,8 @@
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
-
-    <!-- Top Menu Header -->
-    <header class="w-full bg-slate-900 border-b border-amber-500/30 px-4 py-3 flex justify-between items-center shadow-lg">
-        <div class="flex items-center space-x-3">
-            <span class="cinzel-font font-black text-xl text-amber-400 tracking-wider"><i class="fa-solid fa-gamepad mr-2"></i>CASINO HUB</span>
-        </div>
-        <div class="flex space-x-3">
-            <button onclick="switchGame('dragon-tiger')" class="bg-gradient-to-r from-blue-600 to-amber-600 hover:opacity-90 px-4 py-1.5 rounded-lg text-xs font-bold transition shadow-md">
-                Dragon Tiger
-            </button>
-            <button onclick="switchGame('aviator')" class="bg-gradient-to-r from-teal-600 to-cyan-600 hover:opacity-90 px-4 py-1.5 rounded-lg text-xs font-bold transition shadow-md">
-                PIA Aviator Pro
-           <div class="flex space-x-4 items-center bg-slate-800/80 px-4 py-1.5 rounded-xl border border-slate-700">
-    <div class="flex items-center space-x-1.5 text-blue-400 font-bold">
-        <span>Dragon Wins:</span>
-        <span id="dragon-wins" class="text-white bg-blue-900/60 px-2 py-0.5 rounded-lg border border-blue-500/30">0</span>
-    </div>
-    <div class="flex items-center space-x-1.5 text-amber-400 font-bold">
-        <span>Tiger Wins:</span>
-        <span id="tiger-wins" class="text-white bg-amber-900/60 px-2 py-0.5 rounded-lg border border-amber-500/30">0</span>
-    </div>
-</div> </button>
-        </div>
-    </header>
-    <!-- DRAGON TIGER GAME VIEW -->
+<header class="w-full bg-slate-900 border-b border-amber-500/30 px-4 py-3 text-center shadow-lg"><h1 class="cinzel-font font-black text-xl text-amber-400">DRAGON TIGER</h1></header>
+<!-- DRAGON TIGER GAME VIEW -->
     <div id="game-dragon-tiger" class="flex-1 flex flex-col justify-between">
         <main class="flex-1 max-w-7xl w-full mx-auto p-3 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
             
@@ -434,53 +411,8 @@
             </div>
         </footer>
     </div>
-
-    <!-- PIA AVIATOR PRO GAME VIEW -->
-    <div id="game-aviator" class="hidden flex-1 aviator-body">
-        <div class="game-wrapper">
-            <div class="aviator-header">
-                <h2>PIA Aviator Pro</h2>
-                <div>Balance: $<span id="balance" class="balance-aviator">1000.00</span></div>
-            </div>
-
-            <canvas id="canvas" width="800" height="350"></canvas>
-
-            <div class="controls">
-                <div class="bet-panel">
-                    <label>Bet Amount ($)</label>
-                    <div class="btn-row">
-                        <button onclick="changeBet(1, -10)">-10</button>
-                        <input type="number" id="input-1" class="aviator-input" value="10">
-                        <button onclick="changeBet(1, 10)">+10</button>
-                    </div>
-                    <button id="btn-1" class="aviator-btn btn-bet" onclick="toggleBet(1)">Place Bet</button>
-                </div>
-                <div class="bet-panel">
-                    <label>Bet Amount ($)</label>
-                    <div class="btn-row">
-                        <button onclick="changeBet(2, -10)">-10</button>
-                        <input type="number" id="input-2" class="aviator-input" value="10">
-                        <button onclick="changeBet(2, 10)">+10</button>
-                    </div>
-                    <button id="btn-2" class="aviator-btn btn-bet" onclick="toggleBet(2)">Place Bet</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        // Switch between games
-        function switchGame(gameName) {
-            document.getElementById('game-dragon-tiger').classList.add('hidden');
-            document.getElementById('game-aviator').classList.add('hidden');
-
-            if (gameName === 'dragon-tiger') {
-                document.getElementById('game-dragon-tiger').classList.remove('hidden');
-            } else if (gameName === 'aviator') {
-                document.getElementById('game-aviator').classList.remove('hidden');
-            }
-        }
-
-        /* --- DRAGON TIGER GAME SCRIPT --- */
+<script>
+/* --- DRAGON TIGER GAME SCRIPT --- */
         const CHIP_VALUES = [20, 50, 100, 150, 200, 300, 350, 400, 450, 500, 550];
         const CHIP_COLORS = [
             'from-blue-600 to-blue-400 border-blue-300 text-white',
@@ -703,150 +635,7 @@
             }, 4000);
         }
 
-        /* --- AVIATOR GAME SCRIPT --- */
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let balance = 1000.00;
-        let multiplier = 1.00;
-        let gameRunning = false;
-        let aviatorBets = { 1: { active: false, amount: 0 }, 2: { active: false, amount: 0 } };
-        let animationId;
-        let startTime;
-        let cityOffset = 0;
-
-        function updateAviatorUI() {
-            document.getElementById('balance').innerText = balance.toFixed(2);
-        }
-
-        function changeBet(panel, amount) {
-            if (gameRunning) return;
-            const input = document.getElementById(`input-${panel}`);
-            let val = parseInt(input.value) + amount;
-            if (val < 10) val = 10;
-            input.value = val;
-        }
-
-        function toggleBet(panel) {
-            const btn = document.getElementById(`btn-${panel}`);
-            const input = document.getElementById(`input-${panel}`);
-            
-            if (!gameRunning) {
-                if (!aviatorBets[panel].active) {
-                    let amount = parseFloat(input.value);
-                    if (amount > balance || amount <= 0) return;
-                    balance -= amount;
-                    aviatorBets[panel].amount = amount;
-                    aviatorBets[panel].active = true;
-                    updateAviatorUI();
-                    btn.innerText = "Cancel";
-                    btn.className = "aviator-btn btn-cashout";
-                    
-                    startGame();
-                } else {
-                    balance += aviatorBets[panel].amount;
-                    aviatorBets[panel].active = false;
-                    updateAviatorUI();
-                    btn.innerText = "Place Bet";
-                    btn.className = "aviator-btn btn-bet";
-                }
-            } else {
-                if (aviatorBets[panel].active) {
-                    let payout = aviatorBets[panel].amount * multiplier;
-                    balance += payout;
-                    aviatorBets[panel].active = false;
-                    updateAviatorUI();
-                    btn.innerText = "Cashed Out";
-                    btn.disabled = true;
-                }
-            }
-        }
-
-        function startGame() {
-            if (gameRunning) return;
-            gameRunning = true;
-            multiplier = 1.00;
-            startTime = Date.now();
-            document.querySelectorAll('.aviator-input').forEach(i => i.disabled = true);
-            animateAviator();
-        }
-
-        function animateAviator() {
-            const elapsed = (Date.now() - startTime) / 1000;
-            multiplier = 1.00 + (elapsed * 0.5);
-            cityOffset = (cityOffset - 2) % 100;
-            
-            if (multiplier > 3.5 && Math.random() < 0.05) {
-                endAviatorGame(true);
-                return;
-            }
-
-            drawAviator();
-            animationId = requestAnimationFrame(animateAviator);
-        }
-
-        function drawAviator() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = "#0d1b2a";
-            for (let i = 0; i < canvas.width; i += 40) {
-                let x = (i + cityOffset) % canvas.width;
-                ctx.fillRect(x, 250, 30, 100);
-            }
-
-            ctx.fillStyle = "white";
-            ctx.font = "bold 50px sans-serif";
-            ctx.textAlign = "center";
-            ctx.fillText(multiplier.toFixed(2) + "x", canvas.width/2, canvas.height/2 - 20);
-
-            let x = 100 + (multiplier * 40);
-            let y = 280 - (multiplier * 25);
-            
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(Math.PI / 4);
-            ctx.fillStyle = "#01411C";
-            ctx.fillRect(-15, -15, 30, 30);
-            ctx.restore();
-        }
-
-        function endAviatorGame(crashed) {
-            gameRunning = false;
-            cancelAnimationFrame(animationId);
-            
-            ctx.fillStyle = crashed ? "red" : "orange";
-            ctx.font = "bold 30px sans-serif";
-            ctx.fillText(crashed ? "CRASHED" : "ENDED", canvas.width/2, canvas.height/2 + 30);
-
-            setTimeout(() => {
-                resetAviatorGame();
-            }, 3000);
-        }
-
-        function resetAviatorGame() {
-            multiplier = 1.00;
-            document.querySelectorAll('.aviator-input').forEach(i => i.disabled = false);
-            for (let p of [1, 2]) {
-                aviatorBets[p].active = false;
-                const btn = document.getElementById(`btn-${p}`);
-                btn.innerText = "Place Bet";
-                btn.className = "aviator-btn btn-bet";
-                btn.disabled = false;
-            }
-            drawAviator();
-        }
-
-        drawAviator();let dragonWins = 0;
-let tigerWins = 0;
-
-function updateWinCounters(winner) {
-    if (winner === 'dragon') {
-        dragonWins++;
-        document.getElementById('dragon-wins').innerText = dragonWins;
-    } else if (winner === 'tiger') {
-        tigerWins++;
-        document.getElementById('tiger-wins').innerText = tigerWins;
-    }
-}
-    </script>
+        
+</script>
 </body>
 </html>
