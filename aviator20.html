@@ -1,1 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNP-999 | Aviator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #1a0f2e 0%, #090312 100%);
+            color: #fff;
+            user-select: none;
+            min-height: 100vh;
+        }
+
+        .cinzel-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Animated Dragon & Tiger Avatar Frames */
+        @keyframes dragonHeadFloat {
+            0%, 100% { transform: translateY(0px) rotate(-3deg) scale(1); filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.8)); }
+            50% { transform: translateY(-8px) rotate(3deg) scale(1.08); filter: drop-shadow(0 0 25px rgba(96, 165, 250, 1)); }
+        }
+
+        @keyframes tigerHeadFloat {
+            0%, 100% { transform: translateY(0px) rotate(3deg) scale(1); filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.8)); }
+            50% { transform: translateY(-8px) rotate(-3deg) scale(1.08); filter: drop-shadow(0 0 25px rgba(251, 191, 36, 1)); }
+        }
+
+        .anim-dragon-head {
+            animation: dragonHeadFloat 2.5s infinite ease-in-out;
+        }
+
+        .anim-tiger-head {
+            animation: tigerHeadFloat 2.5s infinite ease-in-out;
+        }
+
+        /* Card Flip Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #1e1e2f 0%, #0f0c1b 100%);
+            border: 2px solid #eab308;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-front {
+            background: #ffffff;
+            color: #111;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0.5rem;
+            border: 2px solid #d1d5db;
+        }
+
+        /* Custom Scrollbar for Chips */
+        .chip-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+        .chip-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 10px;
+        }
+        .chip-scroll::-webkit-scrollbar-thumb {
+            background: #eab308;
+            border-radius: 10px;
+        }
+
+        /* Chip Buttons */
+        .chip-btn {
+            position: relative;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.4);
+        }
+        .chip-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+        }
+        .chip-btn.active-chip {
+            transform: translateY(-6px) scale(1.15);
+            box-shadow: 0 0 20px #f59e0b, inset 0 2px 6px rgba(255,255,255,0.6);
+            border-color: #ffffff !important;
+        }
+
+        .bet-zone {
+            transition: all 0.25s ease;
+        }
+        .bet-zone:hover {
+            cursor: pointer;
+            filter: brightness(1.15);
+        }
+
+        /* Aviator Styles */
+        .aviator-body {
+            background-color: #050b14;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .game-wrapper {
+            width: 100%;
+            max-width: 800px;
+            background-color: #0d1b2a;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .aviator-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .balance-aviator {
+            color: #70e000;
+            font-weight: bold;
+        }
+        #canvas {
+            background: linear-gradient(to top, #001219, #005f73);
+            width: 100%;
+            height: 350px;
+            border-radius: 10px;
+            display: block;
+        }
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .bet-panel {
+            flex: 1;
+            background-color: #1b263b;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .aviator-input, .aviator-btn {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+        }
+        .aviator-input {
+            background: #0d1b2a;
+            color: #fff;
+            text-align: center;
+        }
+        .btn-row {
+            display: flex;
+            gap: 5px;
+        }
+        .btn-row button {
+            flex: 1;
+            background: #415a77;
+            color: white;
+            cursor: pointer;
+        }
+        .btn-bet {
+            background: #00b4d8;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-cashout {
+            background: #ffb703;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<header class="w-full bg-slate-900 border-b border-amber-500/30 px-4 py-3 text-center shadow-lg"><h1 class="cinzel-font font-black text-xl text-amber-400">AVIATOR</h1></header>
+<!-- PIA AVIATOR PRO GAME VIEW -->
+    <div id="game-aviator" class="hidden flex-1 aviator-body">
+        <div class="game-wrapper">
+            <div class="aviator-header">
+                <h2>PIA Aviator Pro</h2>
+                <div>Balance: $<span id="balance" class="balance-aviator">1000.00</span></div>
+            </div>
+
+            <canvas id="canvas" width="800" height="350"></canvas>
+
+            <div class="controls">
+                <div class="bet-panel">
+                    <label>Bet Amount ($)</label>
+                    <div class="btn-row">
+                        <button onclick="changeBet(1, -10)">-10</button>
+                        <input type="number" id="input-1" class="aviator-input" value="10">
+                        <button onclick="changeBet(1, 10)">+10</button>
+                    </div>
+                    <button id="btn-1" class="aviator-btn btn-bet" onclick="toggleBet(1)">Place Bet</button>
+                </div>
+                <div class="bet-panel">
+                    <label>Bet Amount ($)</label>
+                    <div class="btn-row">
+                        <button onclick="changeBet(2, -10)">-10</button>
+                        <input type="number" id="input-2" class="aviator-input" value="10">
+                        <button onclick="changeBet(2, 10)">+10</button>
+                    </div>
+                    <button id="btn-2" class="aviator-btn btn-bet" onclick="toggleBet(2)">Place Bet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+/* --- AVIATOR GAME SCRIPT --- */
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let balance = 1000.00;
+        let multiplier = 1.00;
+        let gameRunning = false;
+        let aviatorBets = { 1: { active: false, amount: 0 }, 2: { active: false, amount: 0 } };
+        let animationId;
+        let startTime;
+        let cityOffset = 0;
+
+        function updateAviatorUI() {
+            document.getElementById('balance').innerText = balance.toFixed(2);
+        }
+
+        function changeBet(panel, amount) {
+            if (gameRunning) return;
+            const input = document.getElementById(`input-${panel}`);
+            let val = parseInt(input.value) + amount;
+            if (val < 10) val = 10;
+            input.value = val;
+        }
+
+        function toggleBet(panel) {
+            const btn = document.getElementById(`btn-${panel}`);
+            const input = document.getElementById(`input-${panel}`);
+            
+            if (!gameRunning) {
+                if (!aviatorBets[panel].active) {
+                    let amount = parseFloat(input.value);
+                    if (amount > balance || amount <= 0) return;
+                    balance -= amount;
+                    aviatorBets[panel].amount = amount;
+                    aviatorBets[panel].active = true;
+                    updateAviatorUI();
+                    btn.innerText = "Cancel";
+                    btn.className = "aviator-btn btn-cashout";
+                    
+                    startGame();
+                } else {
+                    balance += aviatorBets[panel].amount;
+                    aviatorBets[panel].active = false;
+                    updateAviatorUI();
+                    btn.innerText = "Place Bet";
+                    btn.className = "aviator-btn btn-bet";
+                }
+            } else {
+                if (aviatorBets[panel].active) {
+                    let payout = aviatorBets[panel].amount * multiplier;
+                    balance += payout;
+                    aviatorBets[panel].active = false;
+                    updateAviatorUI();
+                    btn.innerText = "Cashed Out";
+                    btn.disabled = true;
+                }
+            }
+        }
+
+        function startGame() {
+            if (gameRunning) return;
+            gameRunning = true;
+            multiplier = 1.00;
+            startTime = Date.now();
+            document.querySelectorAll('.aviator-input').forEach(i => i.disabled = true);
+            animateAviator();
+        }
+
+        function animateAviator() {
+            const elapsed = (Date.now() - startTime) / 1000;
+            multiplier = 1.00 + (elapsed * 0.5);
+            cityOffset = (cityOffset - 2) % 100;
+            
+            if (multiplier > 3.5 && Math.random() < 0.05) {
+                endAviatorGame(true);
+                return;
+            }
+
+            drawAviator();
+            animationId = requestAnimationFrame(animateAviator);
+        }
+
+        function drawAviator() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = "#0d1b2a";
+            for (let i = 0; i < canvas.width; i += 40) {
+                let x = (i + cityOffset) % canvas.width;
+                ctx.fillRect(x, 250, 30, 100);
+            }
+
+            ctx.fillStyle = "white";
+            ctx.font = "bold 50px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(multiplier.toFixed(2) + "x", canvas.width/2, canvas.height/2 - 20);
+
+            let x = 100 + (multiplier * 40);
+            let y = 280 - (multiplier * 25);
+            
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(Math.PI / 4);
+            ctx.fillStyle = "#01411C";
+            ctx.fillRect(-15, -15, 30, 30);
+            ctx.restore();
+        }
+
+        function endAviatorGame(crashed) {
+            gameRunning = false;
+            cancelAnimationFrame(animationId);
+            
+            ctx.fillStyle = crashed ? "red" : "orange";
+            ctx.font = "bold 30px sans-serif";
+            ctx.fillText(crashed ? "CRASHED" : "ENDED", canvas.width/2, canvas.height/2 + 30);
+
+            setTimeout(() => {
+                resetAviatorGame();
+            }, 3000);
+        }
+
+        function resetAviatorGame() {
+            multiplier = 1.00;
+            document.querySelectorAll('.aviator-input').forEach(i => i.disabled = false);
+            for (let p of [1, 2]) {
+                aviatorBets[p].active = false;
+                const btn = document.getElementById(`btn-${p}`);
+                btn.innerText = "Place Bet";
+                btn.className = "aviator-btn btn-bet";
+                btn.disabled = false;
+            }
+            drawAviator();
+        }
+
+        drawAviator();
+    
+</script>
+</body>
+</html>
