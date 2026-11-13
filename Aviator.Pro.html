@@ -269,7 +269,25 @@
             sidebar.innerHTML += `<div class="history-item ${className}">${mult}x</div>`;
         });
     }
+const botNames = ["Alice", "Bob", "Charlie", "Dave", "Eva"];
+let bots = [];
 
+function initBots() {
+    bots = botNames.map(name => ({
+        name: name,
+        bet: Math.floor(Math.random() * 50) + 10,
+        cashedOut: false,
+        cashOutMult: (Math.random() * 3 + 1.1).toFixed(2)
+    }));
+}
+
+function updateBots() {
+    bots.forEach(bot => {
+        if (!bot.cashedOut && multiplier >= bot.cashOutMult) {
+            bot.cashedOut = true;
+        }
+    });
+}
     updateUI();
 </script>
 </body>
