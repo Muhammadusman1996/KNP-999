@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviator Pro - Complete</title>
+    <title>Aviator Pro - All In One</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0d1117; color: white; min-height: 100vh; display: flex; flex-direction: column; }
@@ -45,22 +45,19 @@
 </div>
 
 <div class="app-container">
-    <!-- Round History Sidebar -->
     <div class="history-sidebar">
         <div style="font-weight: bold; border-bottom: 1px solid #30363d; padding-bottom: 5px; margin-bottom: 10px;">Round History</div>
         <div id="historyList"></div>
     </div>
 
-    <!-- Main Game Area -->
     <div class="game-main">
         <div class="stage-wrapper">
             <div id="multiplierDisplay" class="multiplier-display">1.00x</div>
-            <div id="statusMsg" class="status-msg">FLY AWAY!</div>
+            <div id="statusMsg" class="status-msg">FLEW AWAY!</div>
             <canvas id="aviatorCanvas" width="800" height="400"></canvas>
         </div>
 
         <div class="controls-wrapper">
-            <!-- Panel 1 -->
             <div class="bet-panel">
                 <div class="input-group">
                     <button class="btn-control" onclick="adjustBet(1, -10)">-10</button>
@@ -70,7 +67,6 @@
                 <button id="betBtn1" class="btn-bet" onclick="handleBet(1)">BET</button>
             </div>
 
-            <!-- Panel 2 -->
             <div class="bet-panel">
                 <div class="input-group">
                     <button class="btn-control" onclick="adjustBet(2, -10)">-10</button>
@@ -82,7 +78,6 @@
         </div>
     </div>
 
-    <!-- Live Bets Sidebar -->
     <div id="live-bets-sidebar">
         <div style="font-weight: bold; border-bottom: 1px solid #30363d; padding-bottom: 5px; margin-bottom: 10px;">Live Bets</div>
         <div id="liveBetsList"></div>
@@ -94,20 +89,18 @@
     const ctx = canvas.getContext('2d');
 
     let balance = 1000.00;
-    let gamePhase = 'WAITING'; // WAITING, FLYING, ENDED
+    let gamePhase = 'WAITING';
     let multiplier = 1.00;
     let crashPoint = 1.00;
     let startTime = 0;
     let animationId;
 
     let bets = {
-        1: { amount: 10, state: 'NONE' }, // NONE, BETPLACED, CASHED, LOST
+        1: { amount: 10, state: 'NONE' },
         2: { amount: 10, state: 'NONE' }
     };
 
     const roundHistory = [];
-
-    // Bot Configuration
     const botNames = ["Ali", "Sara", "Khan", "Zain", "Fatima", "Bilal", "Aisha", "Umar", "Noor", "Tariq"];
     let bots = [];
 
@@ -138,79 +131,161 @@
         });
     }
 
- Here is the exact code block for the updateUI, handleBet, and drawGame functions to replace your existing ones:
-function updateUI() {
-    document.getElementById('userBalance').innerText = balance.toFixed(2);
-    const statusText = document.getElementById('gameStatusText');
-    
-    for (let p of [1, 2]) {
-        let btn = document.getElementById(`betBtn${p}`);
-        let input = document.getElementById(`betInput${p}`);
+    function updateUI() {
+        document.getElementById('userBalance').innerText = balance.toFixed(2);
+        const statusText = document.getElementById('gameStatusText');
         
-        if (gamePhase === 'WAITING') {
-            statusText.innerText = "Waiting for bet";
-            if (bets[p].state === 'NONE') {
-                btn.innerText = "BET";
-                btn.className = "btn-bet";
+        for (let p of [1, 2]) {
+            let btn = document.getElementById(`betBtn${p}`);
+            let input = document.getElementById(`betInput${p}`);
+            
+            if (gamePhase === 'WAITING') {
+                statusText.innerText = "Waiting for bet";
+                statusText.style.color = "#58a6ff";
                 input.disabled = false;
-            } else if (bets[p].state === 'BETPLACED') {
-                btn.innerText = "CASH OUT";
-                btn.className = "btn-control";
+                if (bets[p].state === 'NONE') {
+                    btn.innerText = "BET";
+                    btn.className = "btn-bet";
+                } else if (bets[p].state === 'BETPLACED') {
+                    btn.innerText = "CASH OUT";
+                    btn.className = "btn-bet";
+                }
+            } else if (gamePhase === 'FLYING') {
+                statusText.innerText = "Multiplier: " + multiplier.toFixed(2) + "x";
+                statusText.style.color = "#e3b341";
                 input.disabled = true;
+                if (bets[p].state === 'BETPLACED') {
+                    btn.innerText = "CASH OUT";
+                    btn.className = "btn-bet";
+                } else if (bets[p].state === 'CASHED') {
+                    btn.innerText = "CASHED";
+                    btn.className = "btn-cashed";
+                }
+            } else if (gamePhase === 'ENDED') {
+                statusText.innerText = "Round ended";
+                statusText.style.color = "#da3633";
+                input.disabled = false;
+                if (bets[p].state === 'BETPLACED') {
+                    btn.innerText = "LOST";
+                    btn.className = "btn-lost";
+                } else if (bets[p].state === 'CASHED') {
+                    btn.innerText = "FINISHED";
+                    btn.className = "btn-control";
+                }
+            }
+        }
+        updateLiveBetsDisplay();
+    }
+
+    function adjustBet(panel, amount) {
+        if (gamePhase !== 'WAITING') return;
+        let input = document.getElementById(`betInput${panel}`);
+        let val = parseInt(input.value) + amount;
+        if (val >= 10) {
+            input.value = val;
+            bets[panel].amount = val;
+        }
+    }
+
+    function handleBet(panel) {
+        if (gamePhase === 'WAITING') {
+            if (bets[panel].state === 'NONE') {
+                let amount = parseInt(document.getElementById(`betInput${panel}`).value);
+                if (balance < amount) {
+                    alert("Insufficient balance!");
+                    return;
+                }
+                balance -= amount;
+                bets[panel].amount = amount;
+                bets[panel].state = 'BETPLACED';
+            } else if (bets[panel].state === 'BETPLACED') {
+                balance += bets[panel].amount;
+                bets[panel].state = 'NONE';
             }
         } else if (gamePhase === 'FLYING') {
-            statusText.innerText = "Multiplier: " + multiplier.toFixed(2) + "x";
-            input.disabled = true;
-            if (bets[p].state === 'BETPLACED') {
-                btn.innerText = "CASH OUT";
-                btn.className = "btn-bet";
-            } else if (bets[p].state === 'CASHED') {
-                btn.innerText = "CASHED";
-                btn.className = "btn-cashed";
+            if (bets[panel].state === 'BETPLACED') {
+                let payout = bets[panel].amount * multiplier;
+                balance += payout;
+                bets[panel].state = 'CASHED';
             }
         }
+        updateUI();
     }
-}
 
-function handleBet(panel) {
-    if (gamePhase === 'WAITING') {
-        if (bets[panel].state === 'NONE') {
-            let amount = parseInt(document.getElementById(`betInput${panel}`).value);
-            balance -= amount;
-            bets[panel].amount = amount;
-            bets[panel].state = 'BETPLACED';
-        } else if (bets[panel].state === 'BETPLACED') {
-            balance += bets[panel].amount;
-            bets[panel].state = 'NONE';
+    function startRound() {
+        gamePhase = 'FLYING';
+        multiplier = 1.00;
+        startTime = Date.now();
+        initBots();
+
+        let rand = Math.random();
+        if (rand < 0.6) crashPoint = parseFloat((Math.random() * 2 + 1.1).toFixed(2));
+        else if (rand < 0.9) crashPoint = parseFloat((Math.random() * 5 + 3.01).toFixed(2));
+        else crashPoint = parseFloat((Math.random() * 94 + 8.01).toFixed(2));
+
+        document.getElementById('multiplierDisplay').style.display = 'block';
+        document.getElementById('statusMsg').style.display = 'none';
+
+        for (let p of [1, 2]) {
+            if (bets[p].state !== 'BETPLACED') {
+                bets[p].state = 'NONE';
+            }
         }
-    } else if (gamePhase === 'FLYING') {
-        if (bets[panel].state === 'BETPLACED') {
-            balance += bets[panel].amount * multiplier;
-            bets[panel].state = 'CASHED';
-        }
+
+        animateFlight();
     }
-    updateUI();
-}
 
-function drawGame() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let progress = (multiplier - 1) / (crashPoint > 10 ? 10 : crashPoint);
-    if (progress > 1) progress = 1;
-    let curX = progress * (canvas.width - 50);
-    let curY = canvas.height - (progress * (canvas.height - 50));
+    function animateFlight() {
+        if (gamePhase !== 'FLYING') return;
 
-    ctx.strokeStyle = '#388bfd';
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(0, canvas.height);
-    ctx.quadraticCurveTo(curX * 0.5, canvas.height, curX, curY);
-    ctx.stroke();
+        let elapsed = (Date.now() - startTime) / 1000;
+        multiplier = 1.00 + elapsed * 0.15;
 
-    ctx.fillStyle = '#ff7b72';
-    ctx.beginPath();
-    ctx.arc(curX, curY, 10, 0, Math.PI * 2);
-    ctx.fill();
-}
+        if (multiplier >= crashPoint) {
+            multiplier = crashPoint;
+            endRound(false);
+            return;
+        }
+
+        bots.forEach(bot => {
+            if (!bot.cashedOut && parseFloat(multiplier) >= parseFloat(bot.cashOutMult)) {
+                bot.cashedOut = true;
+            }
+        });
+
+        document.getElementById('multiplierDisplay').innerText = multiplier.toFixed(2) + 'x';
+        updateUI();
+        drawGame();
+        animationId = requestAnimationFrame(animateFlight);
+    }
+
+    function drawGame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.strokeStyle = '#1f2430';
+        ctx.lineWidth = 1;
+        for(let x=0; x<canvas.width; x+=40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke(); }
+        for(let y=0; y<canvas.height; y+=40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke(); }
+
+        ctx.strokeStyle = '#388bfd';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height);
+        
+        let progress = (multiplier - 1) / (crashPoint > 10 ? 10 : crashPoint);
+        if (progress > 1) progress = 1;
+        
+        let curX = progress * (canvas.width - 100);
+        let curY = canvas.height - (progress * (canvas.height - 100));
+
+        ctx.bezierCurveTo(curX * 0.5, canvas.height, curX * 0.5, curY, curX, curY);
+        ctx.stroke();
+
+        ctx.fillStyle = '#ff7b72';
+        ctx.beginPath();
+        ctx.arc(curX, curY, 8, 0, Math.PI * 2);
+        ctx.fill();
+    }
 
     function endRound(isCrash = true) {
         gamePhase = 'ENDED';
@@ -243,11 +318,12 @@ function drawGame() {
     function resetRound() {
         gamePhase = 'WAITING';
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        statusMsg.style.display = 'none';
+        document.getElementById('statusMsg').style.display = 'none';
         for (let p of [1, 2]) {
             bets[p].state = 'NONE';
         }
         updateUI();
+        startRound();
     }
 
     function updateHistorySidebar() {
@@ -262,6 +338,7 @@ function drawGame() {
     }
 
     updateUI();
+    startRound();
 </script>
 </body>
 </html>
