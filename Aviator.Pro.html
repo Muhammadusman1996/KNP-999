@@ -7,74 +7,85 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0d1117; color: white; min-height: 100vh; display: flex; flex-direction: column; }
-        header { background-color: #161b22; padding: 10px 20px; text-align: center; border-bottom: 1px solid #30363d; font-size: 1.2rem; font-weight: bold; color: #58a6ff; }
-        .app-container { display: flex; flex: 1; gap: 10px; padding: 10px; max-width: 1400px; margin: 0 auto; width: 100%; }
-        .history-sidebar { width: 250px; background: #161b22; padding: 10px; border-radius: 6px; border: 1px solid #30363d; display: flex; flex-direction: column; gap: 5px; }
-        .history-item { padding: 5px 10px; border-radius: 4px; font-weight: bold; text-align: center; font-size: 0.9rem; }
-        .mult-high { background: #1f6feb; }
-        .mult-mid { background: #8957e5; }
+        header { background-color: #161b22; padding: 10px 20px; text-align: center; border-bottom: 1px solid #30363d; font-weight: bold; }
+        .balance-bar { display: flex; justify-content: space-between; padding: 10px 20px; background: #21262d; border-bottom: 1px solid #30363d; }
+        .app-container { display: flex; flex: 1; position: relative; }
+        .history-sidebar { width: 250px; background: #161b22; padding: 10px; border-right: 1px solid #30363d; overflow-y: auto; }
+        .history-item { padding: 5px 10px; border-radius: 4px; font-weight: bold; text-align: center; margin-bottom: 5px; }
+        .mult-high { background: #1f6feb; color: white; }
+        .mult-mid { background: #8957e5; color: white; }
         .mult-low { background: #30363d; color: #8b949e; }
-        .game-main { flex: 1; display: flex; flex-direction: column; gap: 10px; }
-        .stage-wrapper { position: relative; background: radial-gradient(circle, #21262d, #0d1117); border-radius: 6px; overflow: hidden; border: 1px solid #30363d; height: 400px; display: flex; justify-content: center; align-items: center; }
-        #aviatorCanvas { width: 100%; height: 100%; }
-        .multiplier-display { position: absolute; font-size: 4rem; font-weight: 900; color: white; text-shadow: 0 0 20px rgba(88, 166, 255, 0.8); pointer-events: none; }
-        .status-msg { position: absolute; font-size: 2.5rem; font-weight: bold; text-shadow: 0 0 10px black; pointer-events: none; }
-        .controls-wrapper { display: flex; gap: 10px; }
-        .bet-panel { flex: 1; background: #161b22; padding: 15px; border-radius: 6px; border: 1px solid #30363d; display: flex; flex-direction: column; gap: 10px; }
+        .game-main { flex: 1; display: flex; flex-direction: column; position: relative; }
+        .stage-wrapper { position: relative; background: radial-gradient(circle, #21262d, #0d1117); flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #aviatorCanvas { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .multiplier-display { position: absolute; font-size: 4rem; font-weight: 900; color: white; text-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 10; display: none; }
+        .status-msg { position: absolute; font-size: 2.5rem; font-weight: bold; text-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 10; display: none; }
+        .controls-wrapper { display: flex; gap: 10px; padding: 15px; background: #161b22; border-top: 1px solid #30363d; z-index: 20; }
+        .bet-panel { flex: 1; background: #0d1117; padding: 15px; border-radius: 8px; border: 1px solid #30363d; display: flex; flex-direction: column; gap: 10px; }
         .input-group { display: flex; align-items: center; gap: 5px; }
-        input[type="number"] { background: #0d1117; border: 1px solid #30363d; color: white; padding: 8px; border-radius: 4px; flex: 1; text-align: center; font-weight: bold; }
-        .btn-control { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        input[type="number"] { background: #161b22; border: 1px solid #30363d; color: white; padding: 10px; border-radius: 4px; width: 100px; text-align: center; font-weight: bold; }
+        .btn-control { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .btn-control:hover { background: #30363d; }
-        .btn-bet { background: #238636; color: white; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        .btn-bet { background: #238636; color: white; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
         .btn-bet:hover { background: #2ea043; }
-        .btn-cashout { background: #9e6a03; color: white; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 1rem; }
-        .btn-cashout:hover { background: #bb8009; }
-        .balance-bar { display: flex; justify-content: space-between; padding: 10px 20px; background: #161b22; border-bottom: 1px solid #30363d; font-size: 1.1rem; }
-        .balance-bar span { color: #3fb950; font-weight: bold; }
+        .btn-cashed { background: #9e6a03; color: white; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .btn-lost { background: #da3633; color: white; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        #live-bets-sidebar { width: 220px; background: #161b22; padding: 10px; border-left: 1px solid #30363d; overflow-y: auto; font-size: 0.9rem; }
+        .live-bet-item { padding: 6px 10px; border-bottom: 1px solid #21262d; display: flex; justify-content: space-between; align-items: center; }
+        .live-bet-item.cashed { color: #3fb950; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <header>AVIATOR PRO - LIVE</header>
+
 <div class="balance-bar">
-    <div>Status: <span id="gameStatusText">Waiting for bet</span></div>
-    <div>Balance: $<span id="userBalance">1000.00</span></div>
+    <div>Status: <span id="gameStatusText" style="color: #58a6ff; font-weight: bold;">Waiting for bet</span></div>
+    <div>Balance: $<span id="userBalance" style="color: #3fb950; font-weight: bold;">1000.00</span></div>
 </div>
 
 <div class="app-container">
-    <div class="history-sidebar" id="historySidebar">
-        <div style="font-weight: bold; border-bottom: 1px solid #30363d; padding-bottom: 5px;">Round History</div>
+    <!-- Round History Sidebar -->
+    <div class="history-sidebar">
+        <div style="font-weight: bold; border-bottom: 1px solid #30363d; padding-bottom: 5px; margin-bottom: 10px;">Round History</div>
+        <div id="historyList"></div>
     </div>
 
+    <!-- Main Game Area -->
     <div class="game-main">
         <div class="stage-wrapper">
-            <div id="multiplierDisplay" class="multiplier-display" style="display: none;">1.00x</div>
-            <div id="statusMsg" class="status-msg" style="display: none;">FLY AWAY</div>
+            <div id="multiplierDisplay" class="multiplier-display">1.00x</div>
+            <div id="statusMsg" class="status-msg">FLY AWAY!</div>
             <canvas id="aviatorCanvas" width="800" height="400"></canvas>
         </div>
 
-       <div class="controls-wrapper">
-<!-- Panel 1 -->
-<div class="bet-panel">
-<div class="input-group">
-<button class="btn-control" onclick="adjustBet(1, -10)">-10</button>
-<input type="number" id="betInput1" value="10" min="10">
-<button class="btn-control" onclick="adjustBet(1, 10)">+10</button>
-</div>
-<button id="betBtn1" class="btn-bet" onclick="handleBet(1)">BET</button>
-</div>
-<!-- Panel 2 -->
-<div class="bet-panel">
-<div class="input-group">
-<button class="btn-control" onclick="adjustBet(2, -10)">-10</button>
-<input type="number" id="betInput2" value="10" min="10">
-<button class="btn-control" onclick="adjustBet(2, 10)">+10</button>
-</div>
-<button id="betBtn2" class="btn-bet" onclick="handleBet(2)">BET</button>
-</div>
-</div>
+        <div class="controls-wrapper">
+            <!-- Panel 1 -->
+            <div class="bet-panel">
+                <div class="input-group">
+                    <button class="btn-control" onclick="adjustBet(1, -10)">-10</button>
+                    <input type="number" id="betInput1" value="10" min="10">
+                    <button class="btn-control" onclick="adjustBet(1, 10)">+10</button>
+                </div>
+                <button id="betBtn1" class="btn-bet" onclick="handleBet(1)">BET</button>
+            </div>
+
+            <!-- Panel 2 -->
+            <div class="bet-panel">
+                <div class="input-group">
+                    <button class="btn-control" onclick="adjustBet(2, -10)">-10</button>
+                    <input type="number" id="betInput2" value="10" min="10">
+                    <button class="btn-control" onclick="adjustBet(2, 10)">+10</button>
+                </div>
+                <button id="betBtn2" class="btn-bet" onclick="handleBet(2)">BET</button>
             </div>
         </div>
+    </div>
+
+    <!-- Live Bets Sidebar -->
+    <div id="live-bets-sidebar">
+        <div style="font-weight: bold; border-bottom: 1px solid #30363d; padding-bottom: 5px; margin-bottom: 10px;">Live Bets</div>
+        <div id="liveBetsList"></div>
     </div>
 </div>
 
@@ -90,15 +101,94 @@
     let animationId;
 
     let bets = {
-        1: { amount: 10, state: 'NONE' }, // NONE, BETPLACED, CASHED
+        1: { amount: 10, state: 'NONE' }, // NONE, BETPLACED, CASHED, LOST
         2: { amount: 10, state: 'NONE' }
     };
 
     const roundHistory = [];
 
+    // Bot Configuration
+    const botNames = ["Ali", "Sara", "Khan", "Zain", "Fatima", "Bilal", "Aisha", "Umar", "Noor", "Tariq"];
+    let bots = [];
+
+    function initBots() {
+        bots = botNames.map(name => ({
+            name: name,
+            bet: Math.floor(Math.random() * 90) + 10,
+            cashedOut: false,
+            cashOutMult: (Math.random() * 4 + 1.1).toFixed(2)
+        }));
+    }
+
+    function updateLiveBetsDisplay() {
+        const container = document.getElementById('liveBetsList');
+        container.innerHTML = '';
+        bots.forEach(bot => {
+            const div = document.createElement('div');
+            div.className = 'live-bet-item';
+            if (bot.cashedOut) {
+                div.className += ' cashed';
+                div.innerHTML = `<span>${bot.name}</span><span>${bot.cashOutMult}x</span>`;
+            } else if (gamePhase === 'FLYING') {
+                div.innerHTML = `<span>${bot.name}</span><span>In flight</span>`;
+            } else {
+                div.innerHTML = `<span>${bot.name}</span><span>$${bot.bet}</span>`;
+            }
+            container.appendChild(div);
+        });
+    }
+
     function updateUI() {
         document.getElementById('userBalance').innerText = balance.toFixed(2);
-        document.getElementById('gameStatusText').innerText = gamePhase === 'WAITING' ? 'Waiting for bet' : gamePhase === 'FLYING' ? 'Flight in progress' : 'Round ended';
+        const statusText = document.getElementById('gameStatusText');
+        
+        for (let p of [1, 2]) {
+            let btn = document.getElementById(`betBtn${p}`);
+            let input = document.getElementById(`betInput${p}`);
+            
+            if (gamePhase === 'WAITING') {
+                statusText.innerText = "Waiting for bet";
+                statusText.style.color = "#58a6ff";
+                if (bets[p].state === 'NONE') {
+                    btn.innerText = "BET";
+                    btn.className = "btn-bet";
+                    btn.disabled = false;
+                    input.disabled = false;
+                } else if (bets[p].state === 'BETPLACED') {
+                    btn.innerText = "CANCEL";
+                    btn.className = "btn-control";
+                    btn.disabled = false;
+                    input.disabled = true;
+                }
+            } else if (gamePhase === 'FLYING') {
+                statusText.innerText = "Round in progress";
+                statusText.style.color = "#e3b341";
+                input.disabled = true;
+                if (bets[p].state === 'BETPLACED') {
+                    btn.innerText = `CASH OUT ($${(bets[p].amount * multiplier).toFixed(2)})`;
+                    btn.className = "btn-bet";
+                    btn.disabled = false;
+                } else if (bets[p].state === 'CASHED') {
+                    btn.innerText = "CASHED";
+                    btn.className = "btn-cashed";
+                    btn.disabled = true;
+                }
+            } else if (gamePhase === 'ENDED') {
+                statusText.innerText = "Round ended";
+                statusText.style.color = "#da3633";
+                input.disabled = false;
+                if (bets[p].state === 'BETPLACED') {
+                    btn.innerText = "LOST";
+                    btn.className = "btn-lost";
+                    btn.disabled = true;
+                } else if (bets[p].state === 'CASHED') {
+                    btn.innerText = "FINISHED";
+                    btn.className = "btn-control";
+                    btn.disabled = true;
+                }
+            }
+        }
+        updateLiveBetsDisplay();
     }
 
     function adjustBet(panel, amount) {
@@ -112,44 +202,49 @@
     }
 
     function handleBet(panel) {
-        let btn = document.getElementById(`betBtn${panel}`);
         if (gamePhase === 'WAITING') {
-            if (balance < bets[panel].amount) {
-                alert("Insufficient balance!");
-                return;
+            if (bets[panel].state === 'NONE') {
+                let amount = parseInt(document.getElementById(`betInput${panel}`).value);
+                if (balance < amount) {
+                    alert("Insufficient balance!");
+                    return;
+                }
+                balance -= amount;
+                bets[panel].amount = amount;
+                bets[panel].state = 'BETPLACED';
+            } else if (bets[panel].state === 'BETPLACED') {
+                balance += bets[panel].amount;
+                bets[panel].state = 'NONE';
             }
-            balance -= bets[panel].amount;
-            bets[panel].state = 'BETPLACED';
-            updateUI();
-            
-            btn.innerText = "CASHOUT";
-            btn.className = "btn-cashout";
-
-            if (gamePhase !== 'FLYING') {
-                startRound();
+        } else if (gamePhase === 'FLYING') {
+            if (bets[panel].state === 'BETPLACED') {
+                let payout = bets[panel].amount * multiplier;
+                balance += payout;
+                bets[panel].state = 'CASHED';
             }
-        } else if (gamePhase === 'FLYING' && bets[panel].state === 'BETPLACED') {
-            let payout = bets[panel].amount * multiplier;
-            balance += payout;
-            bets[panel].state = 'CASHED';
-            btn.innerText = `WON $${payout.toFixed(2)}`;
-            btn.className = "btn-bet";
-            btn.disabled = true;
         }
+        updateUI();
     }
 
     function startRound() {
         gamePhase = 'FLYING';
         multiplier = 1.00;
         startTime = Date.now();
+        initBots();
 
         let rand = Math.random();
-        if (rand < 0.6) crashPoint = parseFloat((Math.random() * 2 + 1.01).toFixed(2));
+        if (rand < 0.6) crashPoint = parseFloat((Math.random() * 2 + 1.1).toFixed(2));
         else if (rand < 0.9) crashPoint = parseFloat((Math.random() * 5 + 3.01).toFixed(2));
         else crashPoint = parseFloat((Math.random() * 94 + 8.01).toFixed(2));
 
         document.getElementById('multiplierDisplay').style.display = 'block';
         document.getElementById('statusMsg').style.display = 'none';
+
+        for (let p of [1, 2]) {
+            if (bets[p].state !== 'BETPLACED') {
+                bets[p].state = 'NONE';
+            }
+        }
 
         animateFlight();
     }
@@ -158,7 +253,7 @@
         if (gamePhase !== 'FLYING') return;
 
         let elapsed = (Date.now() - startTime) / 1000;
-        multiplier = 1.00 + Math.pow(elapsed, 2) * 0.15;
+        multiplier = 1.00 + elapsed * 0.15;
 
         if (multiplier >= crashPoint) {
             multiplier = crashPoint;
@@ -166,58 +261,56 @@
             return;
         }
 
-        drawGame();
-        document.getElementById('multiplierDisplay').innerText = multiplier.toFixed(2) + "x";
+        // Update Bots
+        bots.forEach(bot => {
+            if (!bot.cashedOut && parseFloat(multiplier) >= parseFloat(bot.cashOutMult)) {
+                bot.cashedOut = true;
+            }
+        });
 
+        document.getElementById('multiplierDisplay').innerText = multiplier.toFixed(2) + 'x';
+        updateUI();
+        drawGame();
         animationId = requestAnimationFrame(animateFlight);
     }
 
     function drawGame() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        ctx.strokeStyle = "rgba(48, 54, 61, 0.4)";
+        
+        // Draw grid
+        ctx.strokeStyle = '#1f2430';
         ctx.lineWidth = 1;
-        for(let x=0; x<canvas.width; x+=40) {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, canvas.height);
-            ctx.stroke();
-        }
-        for(let y=0; y<canvas.height; y+=40) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvas.width, y);
-            ctx.stroke();
-        }
+        for(let x=0; x<canvas.width; x+=40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke(); }
+        for(let y=0; y<canvas.height; y+=40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke(); }
 
-        let progress = (multiplier - 1) / (crashPoint - 1 || 1);
-        if (progress > 1) progress = 1;
-
-        ctx.strokeStyle = "#58a6ff";
+        // Draw curve
+        ctx.strokeStyle = '#388bfd';
         ctx.lineWidth = 4;
         ctx.beginPath();
         ctx.moveTo(0, canvas.height);
+        
+        let progress = (multiplier - 1) / (crashPoint > 10 ? 10 : crashPoint);
+        if (progress > 1) progress = 1;
+        
+        let curX = progress * (canvas.width - 100);
+        let curY = canvas.height - (progress * (canvas.height - 100));
 
-        let controlX = canvas.width * 0.3;
-        let controlY = canvas.height * 0.9;
-        let endX = progress * canvas.width * 0.8;
-        let endY = canvas.height - (progress * canvas.height * 0.7);
-
-        ctx.quadraticCurveTo(controlX, controlY, endX, endY);
+        ctx.bezierCurveTo(curX * 0.5, canvas.height, curX * 0.5, curY, curX, curY);
         ctx.stroke();
 
-        ctx.fillStyle = "#ff7b72";
+        // Draw plane/dot
+        ctx.fillStyle = '#ff7b72';
         ctx.beginPath();
-        ctx.arc(endX, endY, 8, 0, Math.PI * 2);
+        ctx.arc(curX, curY, 8, 0, Math.PI * 2);
         ctx.fill();
     }
 
-    function endRound(isManualStop) {
+    function endRound(isCrash = true) {
         gamePhase = 'ENDED';
         cancelAnimationFrame(animationId);
-
         document.getElementById('multiplierDisplay').style.display = 'none';
-        let statusMsg = document.getElementById('statusMsg');
+        
+        const statusMsg = document.getElementById('statusMsg');
         statusMsg.style.display = 'block';
         statusMsg.innerText = "FLEW AWAY!";
         statusMsg.style.color = "#ff7b72";
@@ -230,38 +323,29 @@
 
         for (let p of [1, 2]) {
             if (bets[p].state === 'BETPLACED') {
-                let btn = document.getElementById(`betBtn${p}`);
-                btn.innerText = "LOST";
-                btn.className = "btn-control";
-                btn.disabled = true;
+                bets[p].state = 'LOST';
             }
         }
+        updateUI();
 
         setTimeout(() => {
-            resetGame();
-        }, 4000);
+            resetRound();
+        }, 3000);
     }
 
-    function resetGame() {
+    function resetRound() {
         gamePhase = 'WAITING';
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        document.getElementById('statusMsg').style.display = 'none';
-
+        statusMsg.style.display = 'none';
         for (let p of [1, 2]) {
             bets[p].state = 'NONE';
-            let btn = document.getElementById(`betBtn${p}`);
-            btn.innerText = "BET";
-            btn.className = "btn-bet";
-            btn.disabled = false;
-            let input = document.getElementById(`betInput${p}`);
-            input.disabled = false;
         }
         updateUI();
     }
 
     function updateHistorySidebar() {
-        let sidebar = document.getElementById('historySidebar');
-        sidebar.innerHTML = '<div style="font-weight: bold; border-bottom: 1px solid #30363d; padding-bottom: 5px;">Round History</div>';
+        const sidebar = document.getElementById('historyList');
+        sidebar.innerHTML = '';
         roundHistory.forEach(mult => {
             let className = 'mult-low';
             if (mult >= 10.0) className = 'mult-high';
@@ -269,25 +353,7 @@
             sidebar.innerHTML += `<div class="history-item ${className}">${mult}x</div>`;
         });
     }
-const botNames = ["Alice", "Bob", "Charlie", "Dave", "Eva"];
-let bots = [];
 
-function initBots() {
-    bots = botNames.map(name => ({
-        name: name,
-        bet: Math.floor(Math.random() * 50) + 10,
-        cashedOut: false,
-        cashOutMult: (Math.random() * 3 + 1.1).toFixed(2)
-    }));
-}
-
-function updateBots() {
-    bots.forEach(bot => {
-        if (!bot.cashedOut && multiplier >= bot.cashOutMult) {
-            bot.cashedOut = true;
-        }
-    });
-}
     updateUI();
 </script>
 </body>
