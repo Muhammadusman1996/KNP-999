@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviator Pro - Compact Layout</title>
+    <title>Aviator Pro - Compact Layout Fixed</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0d1117; color: white; min-height: 100vh; display: flex; flex-direction: column; }
@@ -48,7 +48,7 @@
 <header>AVIATOR PRO - COMPACT LIVE</header>
 
 <div class="balance-bar">
-    <div>Status: <span id="gameStatusText" style="color: #58a6ff; font-weight: bold;">Waiting for bet</span></div>
+    <div>Status: <span id="gameStatusText" style="color: #58a6ff; font-weight: bold;">Waiting for next round...</span></div>
     <div>Balance: $<span id="userBalance" style="color: #3fb950; font-weight: bold;">1000.00</span></div>
 </div>
 
@@ -97,14 +97,14 @@
     const ctx = canvas.getContext('2d');
 
     let balance = 1000.00;
-    let gamePhase = 'WAITING';
+    let gamePhase = 'WAITING'; // 'WAITING', 'FLYING', 'ENDED'
     let multiplier = 1.00;
     let crashPoint = 1.00;
     let startTime = 0;
     let animationId;
 
     let bets = {
-        1: { amount: 10, state: 'NONE' },
+        1: { amount: 10, state: 'NONE' }, // 'NONE', 'BETPLACED', 'CASHED', 'LOST'
         2: { amount: 10, state: 'NONE' }
     };
 
@@ -148,15 +148,17 @@
             let input = document.getElementById(`betInput${p}`);
             
             if (gamePhase === 'WAITING') {
-                statusText.innerText = "Waiting for bet";
+                statusText.innerText = "Waiting for next round...";
                 statusText.style.color = "#58a6ff";
                 input.disabled = false;
                 if (bets[p].state === 'NONE') {
                     btn.innerText = "BET";
                     btn.className = "btn-bet";
+                    btn.disabled = false;
                 } else if (bets[p].state === 'BETPLACED') {
                     btn.innerText = "CANCEL";
                     btn.className = "btn-control";
+                    btn.disabled = false;
                 }
             } else if (gamePhase === 'FLYING') {
                 statusText.innerText = "Multiplier: " + multiplier.toFixed(2) + "x";
@@ -165,9 +167,15 @@
                 if (bets[p].state === 'BETPLACED') {
                     btn.innerText = `CASH OUT ($${(bets[p].amount * multiplier).toFixed(2)})`;
                     btn.className = "btn-bet";
+                    btn.disabled = false;
                 } else if (bets[p].state === 'CASHED') {
                     btn.innerText = "CASHED";
                     btn.className = "btn-cashed";
+                    btn.disabled = true;
+                } else if (bets[p].state === 'NONE') {
+                    btn.innerText = "BET";
+                    btn.className = "btn-bet";
+                    btn.disabled = true;
                 }
             } else if (gamePhase === 'ENDED') {
                 statusText.innerText = "Round ended";
@@ -176,9 +184,15 @@
                 if (bets[p].state === 'BETPLACED') {
                     btn.innerText = "LOST";
                     btn.className = "btn-lost";
+                    btn.disabled = true;
                 } else if (bets[p].state === 'CASHED') {
                     btn.innerText = "FINISHED";
                     btn.className = "btn-control";
+                    btn.disabled = true;
+                } else {
+                    btn.innerText = "BET";
+                    btn.className = "btn-bet";
+                    btn.disabled = true;
                 }
             }
         }
@@ -186,9 +200,9 @@
     }
 
     function adjustBet(panel, amount) {
-        if (gamePhase !== 'WAITING') return;
+        if (gamePhase !== 'WAITING' || bets[panel].state !== 'NONE') return;
         let input = document.getElementById(`betInput${panel}`);
-        let currentVal = parseInt(input.value);
+        let currentVal = parseInt(input.value) || 10;
         let val = currentVal + amount;
         if (val >= 10) {
             input.value = val;
@@ -199,7 +213,7 @@
     function handleBet(panel) {
         if (gamePhase === 'WAITING') {
             if (bets[panel].state === 'NONE') {
-                let amount = parseInt(document.getElementById(`betInput${panel}`).value);
+                let amount = parseInt(document.getElementById(`betInput${panel}`).value) || 10;
                 if (balance < amount) {
                     alert("Insufficient balance!");
                     return;
@@ -221,6 +235,22 @@
         updateUI();
     }
 
+    function prepareWaitingPhase() {
+        gamePhase = 'WAITING';
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById('statusMsg').style.display = 'none';
+        document.getElementById('multiplierDisplay').style.display = 'none';
+
+        for (let p of [1, 2]) {
+            bets[p].state = 'NONE';
+        }
+        updateUI();
+
+        setTimeout(() => {
+            startRound();
+        }, 5000);
+    }
+
     function startRound() {
         gamePhase = 'FLYING';
         multiplier = 1.00;
@@ -235,12 +265,7 @@
         document.getElementById('multiplierDisplay').style.display = 'block';
         document.getElementById('statusMsg').style.display = 'none';
 
-        for (let p of [1, 2]) {
-            if (bets[p].state !== 'BETPLACED') {
-                bets[p].state = 'NONE';
-            }
-        }
-
+        updateUI();
         animateFlight();
     }
 
@@ -252,7 +277,7 @@
 
         if (multiplier >= crashPoint) {
             multiplier = crashPoint;
-            endRound(false);
+            endRound();
             return;
         }
 
@@ -296,7 +321,7 @@
         ctx.fill();
     }
 
-    function endRound(isCrash = true) {
+    function endRound() {
         gamePhase = 'ENDED';
         cancelAnimationFrame(animationId);
         document.getElementById('multiplierDisplay').style.display = 'none';
@@ -320,19 +345,8 @@
         updateUI();
 
         setTimeout(() => {
-            resetRound();
+            prepareWaitingPhase();
         }, 3000);
-    }
-
-    function resetRound() {
-        gamePhase = 'WAITING';
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        document.getElementById('statusMsg').style.display = 'none';
-        for (let p of [1, 2]) {
-            bets[p].state = 'NONE';
-        }
-        updateUI();
-        startRound();
     }
 
     function updateHistorySidebar() {
@@ -346,8 +360,7 @@
         });
     }
 
-    updateUI();
-    startRound();
+    prepareWaitingPhase();
 </script>
 </body>
 </html>
