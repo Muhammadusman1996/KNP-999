@@ -89,8 +89,9 @@ header{padding:15px;text-align:center;background:#172033;color:#fbbf24;font-size
   <div class="players-section"><div class="players-title">LIVE PLAYERS (DEMO)</div><div class="players-grid" id="players-grid"></div></div>
 </div>
 
-<script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+
 
 /* GAME LOGIC */
 const CHIP_VALUES=[20,50,100,150,200,300,350,400,450,500,550];
@@ -325,5 +326,3 @@ window.addEventListener('pagehide',()=>{
 </script>
 </body>
 </html>
-
-  
