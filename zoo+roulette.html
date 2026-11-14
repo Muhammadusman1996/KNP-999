@@ -1,4 +1,3 @@
-Lagta hai woh hissa poora nahi ja saka. Yeh lijiye code ka baqi hissa (JavaScript):
 <script>
     const trackData = [
         { icon: '🦈', name: 'shark', mult: 'x22', group: 'beast' },
@@ -215,3 +214,401 @@ Lagta hai woh hissa poora nahi ja saka. Yeh lijiye code ka baqi hissa (JavaScrip
     updateHistory();
     startBettingTimer();
 </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Kingdom Roulette - Timed Edition</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background: #0a0d12;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .game-wrapper {
+            width: 1000px;
+            max-width: 100%;
+            background: #141a24;
+            border: 4px solid #b8860b;
+            border-radius: 16px;
+            padding: 15px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 15px rgba(218,165,32,0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Top Header & Record Bar */
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0d121c;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #2a3547;
+        }
+
+        .profile-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #b8860b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            border: 2px solid #ffd700;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .username {
+            font-weight: bold;
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+
+        .balance {
+            color: #2ed573;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .record-panel {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow-x: auto;
+            max-width: 500px;
+            padding: 5px;
+            background: #080b10;
+            border-radius: 6px;
+            border: 1px solid #1f293d;
+        }
+
+        .record-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #ffd700;
+            text-transform: uppercase;
+            padding: 0 5px;
+        }
+
+        .record-item {
+            min-width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: #1a2332;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border: 1px solid #34495e;
+            flex-shrink: 0;
+        }
+
+        .timer-box {
+            background: #b8860b;
+            color: #000;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+
+        /* Outer Track 28 Blocks Layout */
+        .board-container {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            gap: 4px;
+            background: #0b0e14;
+            padding: 8px;
+            border-radius: 10px;
+            border: 2px solid #2c3e50;
+            position: relative;
+        }
+
+        .track-block {
+            background: #151d2a;
+            border: 1px solid #2a384d;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #ccc;
+            position: relative;
+            transition: all 0.1s ease;
+        }
+
+        .track-block .icon {
+            font-size: 20px;
+        }
+
+        .track-block .mult {
+            font-size: 10px;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .track-block.active {
+            background: #ffd700;
+            color: #000;
+            box-shadow: 0 0 15px #ffd700;
+            border-color: #fff;
+            z-index: 10;
+        }
+
+        .track-block.active .mult {
+            color: #a00000;
+        }
+
+        /* Inner Grid (12 Betting Zones) */
+        .inner-betting-grid {
+            grid-column: 2 / 9;
+            grid-row: 2 / 7;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 6px;
+            padding: 8px;
+            background: #101622;
+            border-radius: 8px;
+            border: 1px dashed #34495e;
+        }
+
+        .bet-zone {
+            background: linear-gradient(145deg, #1a2536, #121a26);
+            border: 2px solid #2c3e50;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.1s, border-color 0.2s;
+        }
+
+        .bet-zone:hover {
+            border-color: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        .bet-zone .zone-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .bet-zone .zone-mult {
+            font-size: 11px;
+            color: #2ed573;
+            font-weight: bold;
+        }
+
+        .bet-chip-display {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #e74c3c;
+            color: #fff;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+            display: none;
+            border: 1px solid #fff;
+        }
+
+        .bet-zone.has-bet .bet-chip-display {
+            display: block;
+        }
+
+        /* Bottom Controls & Chip Selector */
+        .controls-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #0d121c;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #2a3547;
+        }
+
+        .chip-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 4px 0;
+        }
+
+        .chip {
+            min-width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 11px;
+            cursor: pointer;
+            border: 3px dashed #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            transition: transform 0.15s, box-shadow 0.15s;
+            flex-shrink: 0;
+        }
+
+        .chip:hover {
+            transform: scale(1.1);
+        }
+
+        .chip.selected {
+            transform: scale(1.15);
+            box-shadow: 0 0 12px #ffd700;
+            border-style: solid;
+        }
+
+        /* 10 Chip Colors */
+        .chip-1 { background: #7f8c8d; color: #fff; }
+        .chip-5 { background: #e74c3c; color: #fff; }
+        .chip-10 { background: #3498db; color: #fff; }
+        .chip-25 { background: #2ecc71; color: #fff; }
+        .chip-50 { background: #9b59b6; color: #fff; }
+        .chip-100 { background: #f1c40f; color: #000; }
+        .chip-500 { background: #e67e22; color: #fff; }
+        .chip-1000 { background: #1abc9c; color: #fff; }
+        .chip-5000 { background: #d35400; color: #fff; }
+        .chip-10000 { background: #8e44ad; color: #fff; }
+
+        .action-btns {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-clear {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .btn-clear:hover { background: #c0392b; }
+
+        .btn-spin {
+            background: #2ed573;
+            color: #000;
+            font-size: 15px;
+            min-width: 120px;
+        }
+
+        .btn-spin:hover { background: #26af5f; }
+
+        .btn:disabled, .bet-zone.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-wrapper">
+    <!-- Top Bar -->
+    <div class="header-bar">
+        <div class="profile-box">
+            <div class="avatar">👤</div>
+            <div class="user-info">
+                <span class="username">Player 1</span>
+                <span class="balance" id="balanceDisplay">$10,000</span>
+            </div>
+        </div>
+
+        <div class="record-panel">
+            <span class="record-title">History</span>
+            <div id="recordHistory" style="display:flex; gap:6px;"></div>
+        </div>
+
+        <div class="timer-box" id="statusBox">TIME: 10s</div>
+    </div>
+
+    <!-- Main Game Board -->
+    <div class="board-container" id="boardContainer">
+        <!-- Inner Betting Grid (12 Zones) -->
+        <div class="inner-betting-grid" id="bettingGrid">
+            <div class="bet-zone" data-zone="shark"><span class="zone-title">🦈 Shark</span><span class="zone-mult">x24</span><div class="bet-chip-display">0</div></div>
+            <div class="bet-zone" data-zone="lion"><span class="zone-title">🦁 Lion</span><span class="zone-mult">x12</span><div class="bet-chip-display">0</div></div>
+            <div class="bet-zone" data-zone="eagle"><span class="zone-title">🦅 Eagle</span><span class="zone-mult">x12</span><div class="bet-chip-display">0</div></div>
+            <div class="bet-zone" data-zone="beast"><span class="zone-title">🐾 Beasts</span><span class="zone-mult">x2</span><div class="bet-chip-display">0</div></div>
+
+            <div class="bet-zone" data-zone="monkey"><span class="zone-title">🐒 Monkey</span><span class="zone-mult">x8</span><div class="bet-chip-display">0</div></div>
+            <div class="bet-zone" data-zone="panda"><span class="zone-title">🐼 Panda</span><span class="zone-mult">x8</span><div class="bet-chip-display">0</div></div>
+            <div class="bet-zone" data-zone="peacock"><span class="zone-title">🦚 Peacock</span><span class="zone-mult">x8</span><div class="bet-chip-display">0</div></div>
+            <div class="bet-zone" data-zone="birds"><span class="zone-title">🕊️ Birds</span><span class="zone-mult">x2</span><div class="bet-chip-display">0</div></div>
+
+            <div class="bet-zone" data-zone="rabbit"><span class="zone-title">🐰 Rabbit</span><span class="zone-mult">x6</span><div class="bet-chip-display">0</div></div>
+            <div class="bet-zone" data-zone="elephant"><span class="zone-title">🐘 Elephant</span><span class="zone-mult">x6</span><div class="bet-chip-display">0</div></div>
+            <div class="bet-zone" data-zone="pigeon"><span class="zone-title">🐦 Pigeon</span><span class="zone-mult">x6</span><div class="bet-chip-display">0</div></div>
+            <div class="bet-zone" data-zone="gold_shark"><span class="zone-title">🌟 Gold Shark</span><span class="zone-mult">x100</span><div class="bet-chip-display">0</div></div>
+        </div>
+    </div>
+
+    <!-- Bottom Controls -->
+    <div class="controls-bar">
+        <div class="chip-selector" id="chipSelector">
+            <div class="chip chip-1 selected" data-value="1">1</div>
+            <div class="chip chip-5" data-value="5">5</div>
+            <div class="chip chip-10" data-value="10">10</div>
+            <div class="chip chip-25" data-value="25">25</div>
+            <div class="chip chip-50" data-value="50">50</div>
+            <div class="chip chip-100" data-value="100">100</div>
+            <div class="chip chip-500" data-value="500">500</div>
+            <div class="chip chip-1000" data-value="1000">1K</div>
+            <div class="chip chip-5000" data-value="5000">5K</div>
+            <div class="chip chip-10000" data-value="10000">10K</div>
+        </div>
+
+        <div class="action-btns">
+            <button class="btn btn-clear" id="btnClear">Clear Bets</button>
+            <button class="btn btn-spin" id="btnSpin">SPIN</button>
+        </div>
+    </div>
+</div>
