@@ -22,13 +22,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);{
-  apiKey: "PASTE_API_KEY",
-  authDomain: "PASTE_PROJECT.firebaseapp.com",
-  projectId: "PASTE_PROJECT_ID",
-  storageBucket: "PASTE_PROJECT.appspot.com",
-  messagingSenderId: "PASTE_SENDER_ID",
-  appId: "PASTE_APP_ID"
+  apiKey: "AIzaSyDfWumo5MJODWla0d37_bxzOod1SGXkQAc",
+  authDomain: "knp-999.firebaseapp.com",
+  projectId: "knp-999",
+  storageBucket: "knp-999.firebasestorage.app",
+  messagingSenderId: "321761157666",
+  appId: "1:321761157666:web:e3f7670d0397652107a07b",
+  measurementId: "G-QV30BR2QHG"
 };
-
 // Enter the same email used for the admin account in Firebase Authentication.
 window.KNP_ADMIN_EMAIL = "ms603329@gmail.com";
