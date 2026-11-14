@@ -1,570 +1,594 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candy+Party Game Interface</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#170629">
+<title>Candy Party | KNP-999</title>
 
-        body {
-            background-color: #1a1a1a;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        .win-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            animation: overlayFadeIn 0.3s ease-in-out;
-        }
-
-        .win-overlay.active {
-            display: flex;
-        }
-
-        .win-banner {
-            font-size: 36px;
-            font-weight: 900;
-            color: #ffd700;
-            text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055;
-            animation: bannerPulse 0.6s infinite alternate ease-in-out;
-            margin-bottom: 10px;
-        }
-
-        .win-amount-text {
-            font-size: 28px;
-            font-weight: bold;
-            color: #2ecc71;
-            text-shadow: 0 0 10px #000;
-        }
-
-        @keyframes overlayFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes bannerPulse {
-            from { transform: scale(0.9); }
-            to { transform: scale(1.1); }
-        }
-
-        .game-container {
-            width: 100%;
-            max-width: 480px;
-            height: 100vh;
-            max-height: 860px;
-            background-color: #2b2b2b;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 10px;
-            border: 2px solid #444;
-            box-sizing: border-box;
-        }
-
-        .top-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .jackpot-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-        }
-
-        .jackpot-card {
-            background-color: #3a3a3a;
-            border: 1px solid #555;
-            border-radius: 4px;
-            padding: 4px 2px;
-            text-align: center;
-        }
-
-        .jackpot-title {
-            font-size: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .jackpot-value {
-            font-size: 11px;
-            color: #ffd700;
-        }
-
-        .task-bar-container {
-            background-color: #333;
-            border: 1px solid #555;
-            border-radius: 12px;
-            padding: 4px 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 12px;
-        }
-
-        .progress-bar {
-            width: 60%;
-            height: 10px;
-            background-color: #555;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background-color: #4caf50;
-            transition: width 0.3s ease;
-        }
-
-        .main-play-area {
-            display: flex;
-            gap: 8px;
-            flex: 1;
-            margin: 10px 0;
-            min-height: 0;
-        }
-
-        .grid-container {
-            flex: 3;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(7, 1fr);
-            gap: 4px;
-            background-color: #222;
-            padding: 6px;
-            border-radius: 6px;
-            border: 1px solid #444;
-        }
-
-        .grid-cell {
-            background-color: #444;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        .side-panel {
-            flex: 1;
-            background-color: #222;
-            border-radius: 6px;
-            border: 1px solid #444;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 10px;
-        }
-
-        .total-win-title {
-            font-size: 12px;
-            color: #aaa;
-            text-align: center;
-        }
-
-        .total-win-value {
-            font-size: 16px;
-            color: #2ecc71;
-            font-weight: bold;
-        }
-
-        .bottom-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            background-color: #222;
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #444;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-around;
-            font-size: 12px;
-            color: #ccc;
-        }
-
-        .controls-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .bet-controls {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            background-color: #333;
-            padding: 4px 8px;
-            border-radius: 4px;
-            border: 1px solid #555;
-        }
-
-        .bet-display {
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .btn-bet {
-            background-color: #555;
-            color: #fff;
-            border: none;
-            padding: 2px 8px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .btn-bet:active {
-            background-color: #777;
-        }
-
-        .spin-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .btn-spin {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #e67e22;
-            color: #fff;
-            border: 2px solid #fff;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-spin:disabled {
-            background-color: #7f8c8d;
-            cursor: not-allowed;
-        }
-
-        .option-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .btn-option {
-            background-color: #333;
-            color: #ccc;
-            border: 1px solid #555;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            cursor: pointer;
-        }
-    </style>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ background:radial-gradient(circle at top,#63218d,#19082c 65%,#090311);
+ color:white;font-family:Arial,sans-serif;
+ min-height:100vh;display:flex;justify-content:center;
+}
+.game{
+ width:100%;max-width:520px;min-height:100vh;padding:10px;
+ display:flex;flex-direction:column;gap:10px;
+ background:linear-gradient(160deg,#351052,#170626 70%,#290b43);
+ border:2px solid #a83ce1;
+ box-shadow:0 0 30px #a900ff55;
+}
+.jackpots{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.jackpot{
+ text-align:center;padding:9px 2px;border-radius:12px;
+ border:2px solid #e7a5ff;
+ background:linear-gradient(#6c168e,#230637);
+ box-shadow:inset 0 0 12px #fff3,0 0 10px #b32bff55;
+}
+.jackpot b{display:block;font-size:clamp(10px,3vw,14px)}
+.jackpot span{color:#ffe34e;font-size:clamp(10px,3vw,14px);font-weight:bold}
+.grand{border-color:#ffb02e}
+.major{border-color:#e25aff}
+.minor{border-color:#42cfff}
+.mini{border-color:#5dff83}
+.task{
+ display:flex;align-items:center;gap:10px;padding:10px;
+ border:2px solid #b44ce7;border-radius:15px;
+ background:#210a39;font-weight:bold;font-size:13px;
+}
+.bar{height:11px;background:#4a315e;border-radius:20px;flex:1;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#ff43ce,#ffe45b);transition:.3s}
+.play-area{display:flex;gap:8px;flex:1;min-height:0}
+.grid{
+ flex:3;display:grid;grid-template-columns:repeat(4,1fr);
+ grid-template-rows:repeat(7,minmax(45px,1fr));
+ gap:4px;padding:6px;border:2px solid #d15cff;
+ border-radius:14px;background:#140522;
+}
+.cell{
+ min-width:0;min-height:0;display:flex;align-items:center;
+ justify-content:center;border:1px solid #8539a9;
+ border-radius:9px;background:linear-gradient(145deg,#481365,#210a37);
+ box-shadow:inset 0 2px 8px #fff2,0 2px 5px #0008;
+ overflow:hidden;
+}
+.cell svg{width:90%;height:90%;overflow:visible;filter:drop-shadow(0 3px 3px #0009)}
+.cell.winner{
+ background:linear-gradient(145deg,#a4ff45,#147d36);
+ border:2px solid #fff26a;
+ animation:winPulse .45s infinite alternate;
+ box-shadow:0 0 16px #aaff35;
+}
+@keyframes winPulse{to{transform:scale(.91);filter:brightness(1.5)}}
+.side{
+ flex:1.05;min-width:100px;display:flex;flex-direction:column;
+ justify-content:space-between;align-items:center;padding:10px 5px;
+ border:2px solid #c04ef0;border-radius:14px;
+ background:linear-gradient(#461064,#170627);text-align:center;
+}
+.logo{font-size:clamp(19px,5vw,27px);font-weight:1000;
+ color:#ff82e5;text-shadow:2px 3px #7b168c,0 0 12px #ff44db}
+.logo span{color:#ffdb43;display:block}
+.total-title{font-size:13px;color:#f8d8ff;font-weight:bold}
+.total-value{
+ font-size:19px;font-weight:bold;color:#67ff3e;
+ background:#10031d;border:2px solid #f3a0ff;
+ border-radius:20px;padding:8px 4px;width:100%;
+}
+.candy-pile{font-size:28px;line-height:1.5}
+.info{
+ display:flex;justify-content:space-around;gap:5px;
+ padding:12px 5px;border:2px solid #a63ed0;
+ border-radius:14px;background:#230b3c;font-weight:bold;font-size:13px;
+}
+.info span{color:#ffe34e}
+.controls{
+ display:grid;grid-template-columns:1fr 1fr 1fr;
+ align-items:center;gap:5px;padding:10px 5px;
+ border:2px solid #b747e8;border-radius:16px;background:#210a38;
+}
+.bet,.options{display:flex;flex-direction:column;gap:6px;align-items:center}
+.bet-value{
+ background:#11031d;border:2px solid #ffb9ed;
+ border-radius:10px;padding:8px;width:100%;text-align:center;font-weight:bold;
+}
+button{border:0;border-radius:10px;padding:10px 5px;color:white;font-weight:bold;cursor:pointer}
+.add{background:linear-gradient(#50ec32,#07852b);width:100%}
+.reduce{background:linear-gradient(#ff6659,#b51028);width:100%}
+.option{width:100%;background:linear-gradient(#6c238b,#30094e);border:1px solid #dc8cff}
+.option.active{background:linear-gradient(#58db32,#14762b)}
+.spin{
+ width:min(100%,125px);aspect-ratio:1;border-radius:50%;
+ border:5px solid #ffdf5a;
+ background:radial-gradient(circle at 35% 25%,#ffe66c,#ff9200 55%,#b52b00);
+ box-shadow:0 0 15px #ffb52e,0 0 30px #f70;
+ font-size:clamp(19px,5vw,27px);
+ text-shadow:2px 3px #812100;
+}
+button:disabled{opacity:.5;cursor:not-allowed}
+.message{text-align:center;color:#ffe68b;font-size:12px;min-height:15px}
+.overlay{
+ display:none;position:fixed;inset:0;z-index:20;
+ background:#08000de8;align-items:center;justify-content:center;
+ flex-direction:column;text-align:center;
+}
+.overlay.show{display:flex}
+.big{font-size:42px;color:#ffe347;font-weight:1000;
+ text-shadow:0 0 20px #ff0099;animation:winPulse .5s infinite alternate}
+.amount{font-size:28px;color:#52ff62;margin-top:12px}
+@media(max-width:370px){
+ .game{padding:5px}
+ .grid{gap:2px;padding:3px}
+ .side{min-width:83px;padding:5px 3px}
+ .info{font-size:11px}
+ .cell{border-radius:5px}
+}
+</style>
 </head>
+
 <body>
 
-<div class="win-overlay" id="winOverlay">
-    <div class="win-banner">BIG WIN!</div>
-    <div class="win-amount-text" id="overlayWinAmount">$0.00</div>
+<!-- SVG SYMBOL LIBRARY -->
+<svg xmlns="http://www.w3.org/2000/svg"
+ style="position:absolute;width:0;height:0;overflow:hidden"
+ aria-hidden="true">
+
+<defs>
+ <linearGradient id="pink" x2=".8" y2="1">
+  <stop stop-color="#fff1ff"/>
+  <stop offset=".35" stop-color="#ff69d5"/>
+  <stop offset="1" stop-color="#a50077"/>
+ </linearGradient>
+ <linearGradient id="blue" x2=".8" y2="1">
+  <stop stop-color="#a6ffff"/>
+  <stop offset=".4" stop-color="#25aaff"/>
+  <stop offset="1" stop-color="#064bba"/>
+ </linearGradient>
+ <linearGradient id="gold" x2=".8" y2="1">
+  <stop stop-color="#fff5a1"/>
+  <stop offset=".4" stop-color="#ffb42b"/>
+  <stop offset="1" stop-color="#bd3900"/>
+ </linearGradient>
+ <linearGradient id="purple" x2=".8" y2="1">
+  <stop stop-color="#f6aaff"/>
+  <stop offset=".5" stop-color="#a32bff"/>
+  <stop offset="1" stop-color="#4c087c"/>
+ </linearGradient>
+ <linearGradient id="green" x2=".8" y2="1">
+  <stop stop-color="#d8ff83"/>
+  <stop offset=".5" stop-color="#4dc52a"/>
+  <stop offset="1" stop-color="#12671b"/>
+ </linearGradient>
+ <linearGradient id="red" x2=".8" y2="1">
+  <stop stop-color="#ffb0a8"/>
+  <stop offset=".4" stop-color="#ff303d"/>
+  <stop offset="1" stop-color="#a50021"/>
+ </linearGradient>
+ <linearGradient id="choco" x2=".8" y2="1">
+  <stop stop-color="#d98a48"/>
+  <stop offset=".4" stop-color="#77300d"/>
+  <stop offset="1" stop-color="#321005"/>
+ </linearGradient>
+</defs>
+
+<symbol id="s-candy" viewBox="0 0 100 100">
+ <path d="M30 38L8 20 14 50 8 78 33 62Z" fill="url(#blue)" stroke="#55cfff" stroke-width="3"/>
+ <path d="M70 38L92 20 86 50 92 78 67 62Z" fill="url(#blue)" stroke="#55cfff" stroke-width="3"/>
+ <ellipse cx="50" cy="50" rx="30" ry="29" fill="url(#pink)" stroke="#ffb9f1" stroke-width="3"/>
+ <path d="M36 25Q22 50 38 74M57 21Q43 50 59 78" fill="none" stroke="#fff" stroke-width="8" opacity=".65"/>
+ <ellipse cx="36" cy="30" rx="10" ry="5" fill="white" opacity=".5"/>
+</symbol>
+
+<symbol id="s-lolli" viewBox="0 0 100 100">
+ <path d="M52 52L72 96" stroke="#fff0c8" stroke-width="8" stroke-linecap="round"/>
+ <circle cx="47" cy="39" r="34" fill="url(#gold)" stroke="#ffdc55" stroke-width="3"/>
+ <path d="M47 39C15 8 5 48 36 61C70 78 80 30 48 21C23 13 17 49 45 48C64 47 63 27 47 30" fill="none" stroke="#ff4fce" stroke-width="9" stroke-linecap="round"/>
+ <path d="M47 39C15 8 5 48 36 61" fill="none" stroke="white" stroke-width="2" opacity=".5"/>
+</symbol>
+
+<symbol id="s-choco" viewBox="0 0 100 100">
+ <path d="M14 29L72 9 93 30 35 50Z" fill="#bd5d29"/>
+ <path d="M14 29L35 50 35 89 14 69Z" fill="#54200b"/>
+ <path d="M35 50L93 30 93 68 35 89Z" fill="url(#choco)" stroke="#f4ad69" stroke-width="3"/>
+ <path d="M49 45V76M64 40V70M80 35V65M35 62L93 43" stroke="#e6a26a" stroke-width="3"/>
+</symbol>
+
+<symbol id="s-donut" viewBox="0 0 100 100">
+ <path d="M9 51C9 12 91 5 94 49C97 91 11 96 9 51Z" fill="url(#gold)" stroke="#ffdd70" stroke-width="3"/>
+ <path d="M11 45C13 12 89 8 91 43C82 30 71 39 62 30C49 21 36 38 27 31C19 30 13 36 11 45Z" fill="url(#pink)"/>
+ <ellipse cx="51" cy="49" rx="14" ry="12" fill="#40112b" stroke="#ffdb8b" stroke-width="4"/>
+ <g fill="white"><circle cx="28" cy="34" r="2"/><circle cx="42" cy="24" r="2"/><circle cx="69" cy="32" r="2"/></g>
+</symbol>
+
+<symbol id="s-grapes" viewBox="0 0 100 100">
+ <path d="M49 28Q57 10 75 15Q88 18 84 29Q67 29 57 37" fill="url(#green)" stroke="#1b831c" stroke-width="3"/>
+ <path d="M51 27Q35 9 21 23" fill="none" stroke="#53b52b" stroke-width="5"/>
+ <g fill="url(#purple)" stroke="#e8a2ff" stroke-width="2">
+ <circle cx="30" cy="38" r="13"/>
+ <circle cx="51" cy="36" r="13"/>
+ <circle cx="70" cy="43" r="13"/>
+ <circle cx="20" cy="59" r="13"/>
+ <circle cx="43" cy="58" r="14"/>
+ <circle cx="66" cy="64" r="13"/>
+ <circle cx="34" cy="80" r="12"/>
+ <circle cx="54" cy="82" r="11"/>
+ </g>
+ <g fill="white" opacity=".65">
+ <circle cx="26" cy="33" r="4"/>
+ <circle cx="47" cy="31" r="4"/>
+ <circle cx="65" cy="39" r="4"/>
+ </g>
+</symbol>
+
+<symbol id="s-cherry" viewBox="0 0 100 100">
+ <path d="M50 48Q42 4 22 16M50 48Q65 5 83 17" fill="none" stroke="#57bb36" stroke-width="5"/>
+ <path d="M22 16L10 10M83 17L94 9" stroke="#9ee34a" stroke-width="4"/>
+ <circle cx="30" cy="67" r="24" fill="url(#red)" stroke="#ff9a94" stroke-width="3"/>
+ <circle cx="75" cy="67" r="23" fill="url(#red)" stroke="#ff9a94" stroke-width="3"/>
+ <ellipse cx="22" cy="55" rx="7" ry="4" fill="white" opacity=".8"/>
+ <ellipse cx="67" cy="54" rx="7" ry="4" fill="white" opacity=".8"/>
+</symbol>
+
+<symbol id="s-straw" viewBox="0 0 100 100">
+ <path d="M50 26Q10 10 13 48Q16 84 50 94Q84 84 87 48Q90 10 50 26Z" fill="url(#red)" stroke="#ff9999" stroke-width="3"/>
+ <path d="M50 30Q26 4 15 24L38 30L45 10L53 29L81 15L66 36Z" fill="url(#green)" stroke="#328d22" stroke-width="3"/>
+ <g fill="#ffe66b">
+ <ellipse cx="30" cy="45" rx="2" ry="4"/>
+ <ellipse cx="49" cy="43" rx="2" ry="4"/>
+ <ellipse cx="68" cy="45" rx="2" ry="4"/>
+ <ellipse cx="38" cy="62" rx="2" ry="4"/>
+ <ellipse cx="58" cy="62" rx="2" ry="4"/>
+ <ellipse cx="48" cy="78" rx="2" ry="4"/>
+ </g>
+</symbol>
+
+<symbol id="s-cup" viewBox="0 0 100 100">
+ <path d="M22 47L77 47L68 91H32Z" fill="url(#blue)" stroke="#8be8ff" stroke-width="3"/>
+ <path d="M25 57H74M29 69H71M34 81H66" stroke="white" stroke-width="3" opacity=".6"/>
+ <path d="M18 49Q5 36 27 31Q17 12 41 17Q54 1 63 19Q87 13 77 35Q99 43 80 53Z" fill="url(#pink)" stroke="#ffb2e9" stroke-width="3"/>
+ <circle cx="51" cy="12" r="6" fill="#ffdf4d" stroke="#ff9b25" stroke-width="2"/>
+</symbol>
+
+<symbol id="s-water" viewBox="0 0 100 100">
+ <path d="M9 26Q50 103 91 26Z" fill="url(#red)" stroke="#ffb0a5" stroke-width="3"/>
+ <path d="M9 26Q50 103 91 26" fill="none" stroke="#a6ff4c" stroke-width="10"/>
+ <path d="M12 22Q50 92 88 22" fill="none" stroke="#238d2d" stroke-width="4"/>
+ <g fill="#311023">
+ <ellipse cx="35" cy="48" rx="3" ry="6" transform="rotate(-20 35 48)"/>
+ <ellipse cx="51" cy="66" rx="3" ry="6"/>
+ <ellipse cx="67" cy="47" rx="3" ry="6" transform="rotate(20 67 47)"/>
+ </g>
+</symbol>
+
+<symbol id="s-cookie" viewBox="0 0 100 100">
+ <path d="M50 9C76 8 94 27 91 53C89 82 67 94 43 91C17 88 7 69 10 44C13 20 30 11 50 9Z" fill="url(#gold)" stroke="#ffe19a" stroke-width="4"/>
+ <g fill="#633015">
+ <circle cx="32" cy="30" r="6"/>
+ <circle cx="58" cy="25" r="5"/>
+ <circle cx="73" cy="44" r="6"/>
+ <circle cx="43" cy="53" r="7"/>
+ <circle cx="68" cy="72" r="6"/>
+ <circle cx="25" cy="68" r="5"/>
+ </g>
+ <ellipse cx="30" cy="22" rx="12" ry="5" fill="white" opacity=".35"/>
+</symbol>
+
+</svg>
+
+<div class="overlay" id="overlay">
+ <div class="big" id="bigText">BIG WIN!</div>
+ <div class="amount" id="bigAmount">0.00</div>
 </div>
 
-<div class="game-container">
-    <div class="top-panel">
-        <div class="jackpot-grid">
-            <div class="jackpot-card">
-                <div class="jackpot-title">Grand</div>
-                <div class="jackpot-value" id="grandJackpot">497,918.29</div>
-            </div>
-            <div class="jackpot-card">
-                <div class="jackpot-title">Major</div>
-                <div class="jackpot-value" id="majorJackpot">89,873.84</div>
-            </div>
-            <div class="jackpot-card">
-                <div class="jackpot-title">Minor</div>
-                <div class="jackpot-value" id="minorJackpot">20.00</div>
-            </div>
-            <div class="jackpot-card">
-                <div class="jackpot-title">Mini</div>
-                <div class="jackpot-value" id="miniJackpot">10.00</div>
-            </div>
-        </div>
-        <div class="task-bar-container">
-            <span>Task (0/20)</span>
-            <div class="progress-bar">
-                <div class="progress-fill" id="taskProgress"></div>
-            </div>
-        </div>
-    </div>
+<div class="game">
 
-    <div class="main-play-area">
-        <div class="grid-container" id="gridContainer"></div>
+<div class="jackpots">
+ <div class="jackpot grand"><b>👑 GRAND</b><span>497,918.29</span></div>
+ <div class="jackpot major"><b>👑 MAJOR</b><span>89,873.84</span></div>
+ <div class="jackpot minor"><b>👑 MINOR</b><span>20.00</span></div>
+ <div class="jackpot mini"><b>👑 MINI</b><span>10.00</span></div>
+</div>
 
-        <div class="side-panel">
-            <div class="total-win-title">Total Win</div>
-            <div class="total-win-value" id="totalWin">0.00</div>
-        </div>
-    </div>
+<div class="task">
+ <span id="taskText">Task (0/20)</span>
+ <div class="bar"><div class="fill" id="progress"></div></div>
+</div>
 
-    <div class="bottom-panel">
-        <div class="info-row">
-            <div>Balance: <span id="balanceDisplay">100.00</span></div>
-            <div>Win: <span id="lastWinDisplay">0.00</span></div>
-        </div>
-        <div class="controls-row">
-            <div class="bet-controls">
-                <button class="btn-bet" id="btnAddBet">+ Add</button>
-                <div class="bet-display" id="betDisplay">1.00</div>
-                <button class="btn-bet" id="btnReduceBet">- Reduce</button>
-            </div>
+<div class="play-area">
+ <div class="grid" id="grid"></div>
+ <div class="side">
+  <div class="logo">🍭 Candy <span>Party</span></div>
+  <div>
+   <div class="total-title">TOTAL WIN</div>
+   <div class="total-value" id="totalWin">0.00</div>
+  </div>
+  <div class="candy-pile">🍬 🍭<br>🍩 🍫</div>
+ </div>
+</div>
 
-            <div class="spin-container">
-                <button class="btn-spin" id="btnSpin">SPIN</button>
-            </div>
+<div class="info">
+ <div>Balance: <span id="balance">100.00</span></div>
+ <div>Win: <span id="lastWin">0.00</span></div>
+</div>
 
-            <div class="option-controls">
-                <button class="btn-option" id="btnTurbo">Turbo</button>
-                <button class="btn-option" id="btnAuto">Auto</button>
-            </div>
-        </div>
-    </div>
+<div class="controls">
+ <div class="bet">
+  <button class="add" id="add">+ Add</button>
+  <div class="bet-value" id="bet">1.00</div>
+  <button class="reduce" id="reduce">− Reduce</button>
+ </div>
+
+ <button class="spin" id="spin">SPIN</button>
+
+ <div class="options">
+  <button class="option" id="turbo">⚡ Turbo OFF</button>
+  <button class="option" id="auto">🔄 Auto OFF</button>
+ </div>
+</div>
+
+<div class="message" id="message">GOOD LUCK!</div>
 </div>
 
 <script>
-    let balance = 100.00;
-    let currentBet = 1.00;
-    const betStep = 0.50;
-    const minBet = 0.50;
-    const maxBet = 10.00;
-    let roundsPlayed = 0;
-    const maxRounds = 20;
+"use strict";
 
-    let isAutoSpin = false;
-    let isTurbo = false;
-    let isSpinning = false;
-    const BIG_WIN_THRESHOLD_MULTIPLIER = 3;
+const $=id=>document.getElementById(id);
 
-    const symbols = ['🍬', '🍭', '🍫', '🍩', '🍇', '🍒', '🍓', '🧁', '🍉', '🍪'];
-    const GRID_COLS = 4;
-    const GRID_ROWS = 7;
-    const TOTAL_CELLS = GRID_COLS * GRID_ROWS;
+const symbols=[
+ "candy","lolli","choco","donut","grapes",
+ "cherry","straw","cup","water","cookie"
+];
 
-    const gridContainer = document.getElementById('gridContainer');
-    const betDisplay = document.getElementById('betDisplay');
-    const balanceDisplay = document.getElementById('balanceDisplay');
-    const totalWinDisplay = document.getElementById('totalWin');
-    const lastWinDisplay = document.getElementById('lastWinDisplay');
-    const taskProgress = document.getElementById('taskProgress');
-    const btnAddBet = document.getElementById('btnAddBet');
-    const btnReduceBet = document.getElementById('btnReduceBet');
-    const btnSpin = document.getElementById('btnSpin');
-    const btnAuto = document.getElementById('btnAuto');
-    const btnTurbo = document.getElementById('btnTurbo');
-    const winOverlay = document.getElementById('winOverlay');
-    const overlayWinAmount = document.getElementById('overlayWinAmount');
+const payouts={
+ candy:1,lolli:1.2,choco:1.5,donut:1.4,
+ grapes:1.3,cherry:1.2,straw:1.5,
+ cup:1.4,water:1.2,cookie:1.3
+};
 
-    function initGrid() {
-        gridContainer.innerHTML = '';
-        for (let i = 0; i < TOTAL_CELLS; i++) {
-            const cell = document.createElement('div');
-            cell.className = 'grid-cell';
-            cell.innerText = '❓';
-            gridContainer.appendChild(cell);
-        }
-    }
+let balance=100;
+let bet=1;
+let totalWin=0;
+let lastWin=0;
+let rounds=0;
+let spinning=false;
+let auto=false;
+let turbo=false;
+let spinInterval=null;
+let autoTimer=null;
 
-    btnAddBet.addEventListener('click', () => {
-        if (!isSpinning && currentBet + betStep <= maxBet) {
-            currentBet += betStep;
-            updateBetDisplay();
-        }
-    });
+const grid=$("grid");
+const cells=[];
 
-    btnReduceBet.addEventListener('click', () => {
-        if (!isSpinning && currentBet - betStep >= minBet) {
-            currentBet -= betStep;
-            updateBetDisplay();
-        }
-    });
+function money(n){
+ return Number(n).toFixed(2);
+}
 
-    function updateBetDisplay() {
-        betDisplay.innerText = currentBet.toFixed(2);
-    }
+function update(){
+ $("balance").textContent=money(balance);
+ $("bet").textContent=money(bet);
+ $("lastWin").textContent=money(lastWin);
+ $("totalWin").textContent=money(totalWin);
+ $("taskText").textContent=`Task (${rounds}/20)`;
+ $("progress").style.width=(rounds/20*100)+"%";
 
-    btnAuto.addEventListener('click', () => {
-        isAutoSpin = !isAutoSpin;
-        btnAuto.style.backgroundColor = isAutoSpin ? '#2ecc71' : '#333';
-        btnAuto.style.color = isAutoSpin ? '#000' : '#ccc';
+ $("spin").disabled=spinning;
+ $("add").disabled=spinning;
+ $("reduce").disabled=spinning;
+}
 
-        if (isAutoSpin && !isSpinning) {
-            triggerSpin();
-        }
-    });
+function icon(name){
+ return `<svg viewBox="0 0 100 100">
+ <use href="#s-${name}"></use>
+ </svg>`;
+}
 
-    btnTurbo.addEventListener('click', () => {
-        isTurbo = !isTurbo;
-        btnTurbo.style.backgroundColor = isTurbo ? '#e74c3c' : '#333';
-        btnTurbo.style.color = isTurbo ? '#fff' : '#ccc';
-    });
+function makeGrid(){
+ grid.innerHTML="";
+ cells.length=0;
 
-    btnSpin.addEventListener('click', () => {
-        if (!isSpinning) {
-            triggerSpin();
-        }
-    });
+ for(let i=0;i<28;i++){
+  const cell=document.createElement("div");
+  cell.className="cell";
+  cell.innerHTML=icon("candy");
+  grid.appendChild(cell);
+  cells.push(cell);
+ }
+}
 
-    function generateDiverseGridSymbols() {
-        const grid = new Array(TOTAL_CELLS);
-        for (let r = 0; r < GRID_ROWS; r++) {
-            for (let c = 0; c < GRID_COLS; c++) {
-                const index = r * GRID_COLS + c;
-                const leftNeighbor = c > 0 ? grid[index - 1] : null;
-                const topNeighbor = r > 0 ? grid[index - GRID_COLS] : null;
+function randomSymbol(){
+ return symbols[Math.floor(Math.random()*symbols.length)];
+}
 
-                let availableSymbols = symbols.filter(s => s !== leftNeighbor && s !== topNeighbor);
+function newBoard(){
+ return Array.from({length:28},randomSymbol);
+}
 
-                if (availableSymbols.length === 0) {
-                    availableSymbols = symbols;
-                }
+function showBoard(board){
+ board.forEach((s,i)=>{
+  cells[i].innerHTML=icon(s);
+  cells[i].classList.remove("winner");
+ });
+}
 
-                const chosenSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)];
-                grid[index] = chosenSymbol;
-            }
-        }
-        return grid;
-    }
+function calculate(board){
+ const counts={};
 
-    function triggerSpin() {
-        if (balance < currentBet) {
-            alert('Insufficient Balance');
-            stopAutoSpin();
-            return;
-        }
+ board.forEach(s=>{
+  counts[s]=(counts[s]||0)+1;
+ });
 
-        isSpinning = true;
-        balance -= currentBet;
-        balanceDisplay.innerText = balance.toFixed(2);
-        btnSpin.disabled = true;
+ let win=0;
+ let winning=[];
 
-        const cells = document.querySelectorAll('.grid-cell');
-        let ticks = 0;
-        const maxTicks = isTurbo ? 3 : 10;
-        const tickInterval = isTurbo ? 30 : 100;
+ for(const s of symbols){
+  const count=counts[s]||0;
 
-        const spinTimer = setInterval(() => {
-            const tempGrid = generateDiverseGridSymbols();
-            cells.forEach((cell, idx) => {
-                cell.innerText = tempGrid[idx];
-            });
-            ticks++;
+  if(count>=3){
+   const indices=[];
 
-            if (ticks >= maxTicks) {
-                clearInterval(spinTimer);
-                resolveSpin();
-            }
-        }, tickInterval);
-    }
+   board.forEach((v,i)=>{
+    if(v===s)indices.push(i);
+   });
 
-    function resolveSpin() {
-        const cells = Array.from(document.querySelectorAll('.grid-cell'));
-        const finalGrid = generateDiverseGridSymbols();
-        cells.forEach((cell, idx) => {
-            cell.innerText = finalGrid[idx];
-        });
-        
-        const isWin = Math.random() > 0.5;
-        let winAmount = 0;
+   const multiplier=
+    count>=8?8:
+    count>=6?5:
+    count>=5?3:
+    count>=4?2:1.5;
 
-        if (isWin) {
-            winAmount = currentBet * (Math.floor(Math.random() * 5) + 1);
-            balance += winAmount;
-            balanceDisplay.innerText = balance.toFixed(2);
-            
-            for (let i = 0; i < 6; i++) {
-                const randIndex = Math.floor(Math.random() * cells.length);
-                cells[randIndex].style.backgroundColor = '#27ae60';
-            }
-        }
+   win+=bet*multiplier*payouts[s];
+   winning.push(...indices);
+  }
+ }
 
-        lastWinDisplay.innerText = winAmount.toFixed(2);
-        totalWinDisplay.innerText = winAmount.toFixed(2);
+ return {
+  win,
+  winning:[...new Set(winning)]
+ };
+}
 
-        if (roundsPlayed < maxRounds) {
-            roundsPlayed++;
-            taskProgress.style.width = `${(roundsPlayed / maxRounds) * 100}%`;
-        }
+function stopAuto(){
+ auto=false;
+ clearTimeout(autoTimer);
+ $("auto").textContent="🔄 Auto OFF";
+ $("auto").classList.remove("active");
+}
 
-        const isBigWin = winAmount >= (currentBet * BIG_WIN_THRESHOLD_MULTIPLIER);
+function finish(){
+ spinning=false;
+ update();
 
-        if (isBigWin) {
-            triggerBigWinOverlay(winAmount, () => proceedAfterSpin(cells));
-        } else {
-            proceedAfterSpin(cells);
-        }
-    }
+ if(auto){
+  autoTimer=setTimeout(startSpin,turbo?250:700);
+ }
+}
 
-    function triggerBigWinOverlay(amount, callback) {
-        overlayWinAmount.innerText = `$${amount.toFixed(2)}`;
-        winOverlay.classList.add('active');
+function bigWin(amount,callback){
+ $("bigAmount").textContent=money(amount);
+ $("bigText").textContent=
+  amount>=bet*5?"MEGA WIN!":"BIG WIN!";
 
-        setTimeout(() => {
-            winOverlay.classList.remove('active');
-            callback();
-        }, isTurbo ? 1000 : 2000);
-    }
+ $("overlay").classList.add("show");
 
-    function proceedAfterSpin(cells) {
-        setTimeout(() => {
-            cells.forEach(cell => cell.style.backgroundColor = '#444');
-            isSpinning = false;
+ setTimeout(()=>{
+  $("overlay").classList.remove("show");
+  callback();
+ },turbo?700:1500);
+}
 
-            if (isAutoSpin) {
-                setTimeout(triggerSpin, isTurbo ? 150 : 500);
-            } else {
-                btnSpin.disabled = false;
-            }
-        }, isTurbo ? 150 : 400);
-    }
+function resolve(){
+ const board=newBoard();
+ showBoard(board);
 
-    function stopAutoSpin() {
-        isAutoSpin = false;
-        btnAuto.style.backgroundColor = '#333';
-        btnAuto.style.color = '#ccc';
-        btnSpin.disabled = false;
-    }
+ const result=calculate(board);
 
-    initGrid();
-    updateBetDisplay();
+ lastWin=result.win;
+ balance+=result.win;
+ totalWin+=result.win;
+ rounds=Math.min(20,rounds+1);
+
+ result.winning.forEach(i=>{
+  cells[i].classList.add("winner");
+ });
+
+ $("message").textContent=
+  result.win>0?"🎉 WIN! CONGRATULATIONS!":"TRY AGAIN!";
+
+ update();
+
+ if(result.win>=bet*3){
+  bigWin(result.win,finish);
+ }else{
+  setTimeout(finish,turbo?150:450);
+ }
+}
+
+function startSpin(){
+ if(spinning)return;
+
+ if(balance<bet){
+  $("message").textContent="INSUFFICIENT BALANCE";
+  stopAuto();
+  return;
+ }
+
+ if(rounds>=20){
+  $("message").textContent="TASK COMPLETED!";
+  stopAuto();
+  return;
+ }
+
+ spinning=true;
+ balance-=bet;
+ lastWin=0;
+
+ $("message").textContent="SPINNING...";
+ update();
+
+ let ticks=0;
+ const maxTicks=turbo?3:10;
+ const delay=turbo?35:100;
+
+ spinInterval=setInterval(()=>{
+  const board=newBoard();
+  showBoard(board);
+  ticks++;
+
+  if(ticks>=maxTicks){
+   clearInterval(spinInterval);
+   resolve();
+  }
+ },delay);
+}
+
+$("spin").addEventListener("click",startSpin);
+
+$("add").addEventListener("click",()=>{
+ if(!spinning&&bet<10){
+  bet=Math.min(10,+(bet+.5).toFixed(2));
+  update();
+ }
+});
+
+$("reduce").addEventListener("click",()=>{
+ if(!spinning&&bet>.5){
+  bet=Math.max(.5,+(bet-.5).toFixed(2));
+  update();
+ }
+});
+
+$("turbo").addEventListener("click",()=>{
+ turbo=!turbo;
+
+ $("turbo").textContent=
+  turbo?"⚡ Turbo ON":"⚡ Turbo OFF";
+
+ $("turbo").classList.toggle("active",turbo);
+});
+
+$("auto").addEventListener("click",()=>{
+ if(auto){
+  stopAuto();
+  return;
+ }
+
+ auto=true;
+ $("auto").textContent="🔄 Auto ON";
+ $("auto").classList.add("active");
+
+ if(!spinning)startSpin();
+});
+
+$("overlay").addEventListener("click",()=>{
+ $("overlay").classList.remove("show");
+});
+
+makeGrid();
+update();
+
 </script>
-
 </body>
 </html>
