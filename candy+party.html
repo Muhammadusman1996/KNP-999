@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy Party Game Interface</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .win-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            animation: overlayFadeIn 0.3s ease-in-out;
+        }
+
+        .win-overlay.active {
+            display: flex;
+        }
+
+        .win-banner {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055;
+            animation: bannerPulse 0.6s infinite alternate ease-in-out;
+            margin-bottom: 10px;
+        }
+
+        .win-amount-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2ecc71;
+            text-shadow: 0 0 10px #000;
+        }
+
+        @keyframes overlayFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bannerPulse {
+            from { transform: scale(0.9); }
+            to { transform: scale(1.1); }
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            max-height: 860px;
+            background-color: #2b2b2b;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px;
+            border: 2px solid #444;
+            box-sizing: border-box;
+        }
+
+        .top-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .jackpot-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+        }
+
+        .jackpot-card {
+            background-color: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 4px 2px;
+            text-align: center;
+        }
+
+        .jackpot-title {
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .jackpot-value {
+            font-size: 11px;
+            color: #ffd700;
+        }
+
+        .task-bar-container {
+            background-color: #333;
+            border: 1px solid #555;
+            border-radius: 12px;
+            padding: 4px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .progress-bar {
+            width: 60%;
+            height: 10px;
+            background-color: #555;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background-color: #4caf50;
+            transition: width 0.3s ease;
+        }
+
+        .main-play-area {
+            display: flex;
+            gap: 8px;
+            flex: 1;
+            margin: 10px 0;
+            min-height: 0;
+        }
+
+        .grid-container {
+            flex: 3;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            gap: 4px;
+            background-color: #222;
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid #444;
+        }
+
+        .grid-cell {
+            background-color: #444;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .side-panel {
+            flex: 1;
+            background-color: #222;
+            border-radius: 6px;
+            border: 1px solid #444;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+
+        .total-win-title {
+            font-size: 12px;
+            color: #aaa;
+            text-align: center;
+        }
+
+        .total-win-value {
+            font-size: 16px;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .bottom-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background-color: #222;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #444;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-around;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bet-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background-color: #333;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #555;
+        }
+
+        .bet-display {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-bet {
+            background-color: #555;
+            color: #fff;
+            border: none;
+            padding: 2px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-bet:active {
+            background-color: #777;
+        }
+
+        .spin-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-spin {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e67e22;
+            color: #fff;
+            border: 2px solid #fff;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-spin:disabled {
+            background-color: #7f8c8d;
+            cursor: not-allowed;
+        }
+
+        .option-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .btn-option {
+            background-color: #333;
+            color: #ccc;
+            border: 1px solid #555;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="win-overlay" id="winOverlay">
+    <div class="win-banner">BIG WIN!</div>
+    <div class="win-amount-text" id="overlayWinAmount">$0.00</div>
+</div>
+
+<div class="game-container">
+    <div class="top-panel">
+        <div class="jackpot-grid">
+            <div class="jackpot-card">
+                <div class="jackpot-title">Grand</div>
+                <div class="jackpot-value" id="grandJackpot">497,918.29</div>
+            </div>
+            <div class="jackpot-card">
+                <div class="jackpot-title">Major</div>
+                <div class="jackpot-value" id="majorJackpot">89,873.84</div>
+            </div>
+            <div class="jackpot-card">
+                <div class="jackpot-title">Minor</div>
+                <div class="jackpot-value" id="minorJackpot">20.00</div>
+            </div>
+            <div class="jackpot-card">
+                <div class="jackpot-title">Mini</div>
+                <div class="jackpot-value" id="miniJackpot">10.00</div>
+            </div>
+        </div>
+        <div class="task-bar-container">
+            <span>Task (0/20)</span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="taskProgress"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-play-area">
+        <div class="grid-container" id="gridContainer"></div>
+
+        <div class="side-panel">
+            <div class="total-win-title">Total Win</div>
+            <div class="total-win-value" id="totalWin">0.00</div>
+        </div>
+    </div>
+
+    <div class="bottom-panel">
+        <div class="info-row">
+            <div>Balance: <span id="balanceDisplay">100.00</span></div>
+            <div>Win: <span id="lastWinDisplay">0.00</span></div>
+        </div>
+        <div class="controls-row">
+            <div class="bet-controls">
+                <button class="btn-bet" id="btnAddBet">+ Add</button>
+                <div class="bet-display" id="betDisplay">1.00</div>
+                <button class="btn-bet" id="btnReduceBet">- Reduce</button>
+            </div>
+
+            <div class="spin-container">
+                <button class="btn-spin" id="btnSpin">SPIN</button>
+            </div>
+
+            <div class="option-controls">
+                <button class="btn-option" id="btnTurbo">Turbo</button>
+                <button class="btn-option" id="btnAuto">Auto</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let balance = 100.00;
+    let currentBet = 1.00;
+    const betStep = 0.50;
+    const minBet = 0.50;
+    const maxBet = 10.00;
+    let roundsPlayed = 0;
+    const maxRounds = 20;
+
+    let isAutoSpin = false;
+    let isTurbo = false;
+    let isSpinning = false;
+    const BIG_WIN_THRESHOLD_MULTIPLIER = 3;
+
+    const symbols = ['🍬', '🍭', '🍫', '🍩', '🍇', '🍒', '🍓', '🧁', '🍉', '🍪'];
+    const GRID_COLS = 4;
+    const GRID_ROWS = 7;
+    const TOTAL_CELLS = GRID_COLS * GRID_ROWS;
+
+    const gridContainer = document.getElementById('gridContainer');
+    const betDisplay = document.getElementById('betDisplay');
+    const balanceDisplay = document.getElementById('balanceDisplay');
+    const totalWinDisplay = document.getElementById('totalWin');
+    const lastWinDisplay = document.getElementById('lastWinDisplay');
+    const taskProgress = document.getElementById('taskProgress');
+    const btnAddBet = document.getElementById('btnAddBet');
+    const btnReduceBet = document.getElementById('btnReduceBet');
+    const btnSpin = document.getElementById('btnSpin');
+    const btnAuto = document.getElementById('btnAuto');
+    const btnTurbo = document.getElementById('btnTurbo');
+    const winOverlay = document.getElementById('winOverlay');
+    const overlayWinAmount = document.getElementById('overlayWinAmount');
+
+    function initGrid() {
+        gridContainer.innerHTML = '';
+        for (let i = 0; i < TOTAL_CELLS; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'grid-cell';
+            cell.innerText = '❓';
+            gridContainer.appendChild(cell);
+        }
+    }
+
+    btnAddBet.addEventListener('click', () => {
+        if (!isSpinning && currentBet + betStep <= maxBet) {
+            currentBet += betStep;
+            updateBetDisplay();
+        }
+    });
+
+    btnReduceBet.addEventListener('click', () => {
+        if (!isSpinning && currentBet - betStep >= minBet) {
+            currentBet -= betStep;
+            updateBetDisplay();
+        }
+    });
+
+    function updateBetDisplay() {
+        betDisplay.innerText = currentBet.toFixed(2);
+    }
+
+    btnAuto.addEventListener('click', () => {
+        isAutoSpin = !isAutoSpin;
+        btnAuto.style.backgroundColor = isAutoSpin ? '#2ecc71' : '#333';
+        btnAuto.style.color = isAutoSpin ? '#000' : '#ccc';
+
+        if (isAutoSpin && !isSpinning) {
+            triggerSpin();
+        }
+    });
+
+    btnTurbo.addEventListener('click', () => {
+        isTurbo = !isTurbo;
+        btnTurbo.style.backgroundColor = isTurbo ? '#e74c3c' : '#333';
+        btnTurbo.style.color = isTurbo ? '#fff' : '#ccc';
+    });
+
+    btnSpin.addEventListener('click', () => {
+        if (!isSpinning) {
+            triggerSpin();
+        }
+    });
+
+    function generateDiverseGridSymbols() {
+        const grid = new Array(TOTAL_CELLS);
+        for (let r = 0; r < GRID_ROWS; r++) {
+            for (let c = 0; c < GRID_COLS; c++) {
+                const index = r * GRID_COLS + c;
+                const leftNeighbor = c > 0 ? grid[index - 1] : null;
+                const topNeighbor = r > 0 ? grid[index - GRID_COLS] : null;
+
+                let availableSymbols = symbols.filter(s => s !== leftNeighbor && s !== topNeighbor);
+
+                if (availableSymbols.length === 0) {
+                    availableSymbols = symbols;
+                }
+
+                const chosenSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)];
+                grid[index] = chosenSymbol;
+            }
+        }
+        return grid;
+    }
+
+    function triggerSpin() {
+        if (balance < currentBet) {
+            alert('Insufficient Balance');
+            stopAutoSpin();
+            return;
+        }
+
+        isSpinning = true;
+        balance -= currentBet;
+        balanceDisplay.innerText = balance.toFixed(2);
+        btnSpin.disabled = true;
+
+        const cells = document.querySelectorAll('.grid-cell');
+        let ticks = 0;
+        const maxTicks = isTurbo ? 3 : 10;
+        const tickInterval = isTurbo ? 30 : 100;
+
+        const spinTimer = setInterval(() => {
+            const tempGrid = generateDiverseGridSymbols();
+            cells.forEach((cell, idx) => {
+                cell.innerText = tempGrid[idx];
+            });
+            ticks++;
+
+            if (ticks >= maxTicks) {
+                clearInterval(spinTimer);
+                resolveSpin();
+            }
+        }, tickInterval);
+    }
+
+    function resolveSpin() {
+        const cells = Array.from(document.querySelectorAll('.grid-cell'));
+        const finalGrid = generateDiverseGridSymbols();
+        cells.forEach((cell, idx) => {
+            cell.innerText = finalGrid[idx];
+        });
+        
+        const isWin = Math.random() > 0.5;
+        let winAmount = 0;
+
+        if (isWin) {
+            winAmount = currentBet * (Math.floor(Math.random() * 5) + 1);
+            balance += winAmount;
+            balanceDisplay.innerText = balance.toFixed(2);
+            
+            for (let i = 0; i < 6; i++) {
+                const randIndex = Math.floor(Math.random() * cells.length);
+                cells[randIndex].style.backgroundColor = '#27ae60';
+            }
+        }
+
+        lastWinDisplay.innerText = winAmount.toFixed(2);
+        totalWinDisplay.innerText = winAmount.toFixed(2);
+
+        if (roundsPlayed < maxRounds) {
+            roundsPlayed++;
+            taskProgress.style.width = `${(roundsPlayed / maxRounds) * 100}%`;
+        }
+
+        const isBigWin = winAmount >= (currentBet * BIG_WIN_THRESHOLD_MULTIPLIER);
+
+        if (isBigWin) {
+            triggerBigWinOverlay(winAmount, () => proceedAfterSpin(cells));
+        } else {
+            proceedAfterSpin(cells);
+        }
+    }
+
+    function triggerBigWinOverlay(amount, callback) {
+        overlayWinAmount.innerText = `$${amount.toFixed(2)}`;
+        winOverlay.classList.add('active');
+
+        setTimeout(() => {
+            winOverlay.classList.remove('active');
+            callback();
+        }, isTurbo ? 1000 : 2000);
+    }
+
+    function proceedAfterSpin(cells) {
+        setTimeout(() => {
+            cells.forEach(cell => cell.style.backgroundColor = '#444');
+            isSpinning = false;
+
+            if (isAutoSpin) {
+                setTimeout(triggerSpin, isTurbo ? 150 : 500);
+            } else {
+                btnSpin.disabled = false;
+            }
+        }, isTurbo ? 150 : 400);
+    }
+
+    function stopAutoSpin() {
+        isAutoSpin = false;
+        btnAuto.style.backgroundColor = '#333';
+        btnAuto.style.color = '#ccc';
+        btnSpin.disabled = false;
+    }
+
+    initGrid();
+    updateBetDisplay();
+</script>
+
+</body>
+</html>
