@@ -1,8 +1,0 @@
-{
-  "name": "knp-999",
-  "version": "1.0.0",
-  "description": "Aviator Game",
-  "scripts": {
-    "start": "echo 'Static site'"
-  }
-}
