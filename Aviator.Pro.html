@@ -67,7 +67,7 @@ input[type=number]{width:52px}
 </head>
 <body>
 
-<header>AVIATOR PRO</header>
+<header>AVIATOR PRO <button id="soundToggle" class="btn-control" onclick="toggleSound()" style="margin-left:10px">🔇 SOUND OFF</button></header>
 
 <div class="balance-bar">
 <div>Status: <span id="gameStatusText" style="color:#58a6ff;font-weight:bold">Waiting for next round...</span></div>
@@ -147,6 +147,24 @@ let crashPoint=1;
 let startTime=0;
 let animationId;
 let waitingTimer=null;
+let soundEnabled=false, audioContext=null, visualTick=0;
+function toggleSound(){
+  soundEnabled=!soundEnabled;
+  document.getElementById('soundToggle').innerText=soundEnabled?'🔊 SOUND ON':'🔇 SOUND OFF';
+  if(soundEnabled){try{audioContext=audioContext||new (window.AudioContext||window.webkitAudioContext)();audioContext.resume();playTone(660,.09,'sine',.035);}catch(e){soundEnabled=false;}}
+}
+function playTone(freq,duration,type='sine',volume=.05,delay=0){
+  if(!soundEnabled)return;
+  try{audioContext=audioContext||new (window.AudioContext||window.webkitAudioContext)();audioContext.resume();
+  const o=audioContext.createOscillator(),g=audioContext.createGain();o.type=type;
+  o.frequency.setValueAtTime(freq,audioContext.currentTime+delay);
+  g.gain.setValueAtTime(volume,audioContext.currentTime+delay);
+  g.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+delay+duration);
+  o.connect(g);g.connect(audioContext.destination);o.start(audioContext.currentTime+delay);o.stop(audioContext.currentTime+delay+duration);}catch(e){}
+}
+function playCashSound(){playTone(740,.12);playTone(990,.18,'sine',.04,.1);}
+function playCrashSound(){playTone(180,.35,'sawtooth',.055);playTone(85,.55,'triangle',.06,.12);}
+function playLaunchSound(){playTone(260,.22,'sawtooth',.025);playTone(420,.25,'sine',.03,.16);}
 
 let bets={
 1:{amount:10*USD_TO_PKR,state:'NONE',autoCash:false,autoMult:2},
@@ -307,6 +325,7 @@ updateUI();
 
 function cashOut(panel){
 if(bets[panel].state==='BETPLACED'){
+playCashSound();
 const payout=bets[panel].amount*multiplier;
 balance+=payout;
 bets[panel].state='CASHED';
@@ -314,17 +333,11 @@ bets[panel].state='CASHED';
 }
 
 function generateCrashPoint(){
-const roll=Math.random();
-
-if(roll<0.50){
-return Number((1.05+Math.random()*0.10).toFixed(2));
-}else if(roll<0.73){
-return Number((1.40+Math.random()*0.20).toFixed(2));
-}else if(roll<0.95){
-return Number((1.85+Math.random()*0.30).toFixed(2));
-}else{
-return Number((2.20+Math.random()*7.80).toFixed(2));
-}
+  const roll=Math.random();
+  if(roll<0.45) return Number((1.01+Math.random()*0.09).toFixed(2));
+  if(roll<0.90) return Number((1.20+Math.random()*1.30).toFixed(2));
+  if(roll<0.95) return Number((3.00+Math.random()*3.00).toFixed(2));
+  return Number((6.01+Math.random()*3.99).toFixed(2));
 }
 
 function prepareWaitingPhase(){
@@ -347,6 +360,7 @@ waitingTimer=setTimeout(startRound,4000);
 
 function startRound(){
 gamePhase='FLYING';
+playLaunchSound();
 multiplier=1;
 startTime=Date.now();
 
@@ -397,61 +411,95 @@ animationId=requestAnimationFrame(animateFlight);
 }
 
 function drawAircraft(context,x,y){
-context.save();
-context.translate(x,y);
-context.rotate(-Math.PI/7);
-context.textAlign='center';
-context.textBaseline='middle';
-context.font='34px "Segoe UI Emoji","Apple Color Emoji",sans-serif';
-context.shadowColor='rgba(0,0,0,.65)';
-context.shadowBlur=6;
-context.fillText('✈️',0,0);
-context.restore();
+  context.save();context.translate(x,y);context.rotate(-.20);
+  context.shadowColor='rgba(80,170,255,.85)';context.shadowBlur=18;
+  const flame=10+Math.sin(visualTick*.45)*4;
+  const grad=context.createLinearGradient(-55,0,-18,0);
+  grad.addColorStop(0,'rgba(255,120,30,0)');grad.addColorStop(.6,'rgba(255,170,55,.9)');grad.addColorStop(1,'rgba(120,210,255,.8)');
+  context.fillStyle=grad;context.beginPath();context.moveTo(-22,-5);context.lineTo(-22-flame,-2);context.lineTo(-22-flame*.7,3);context.lineTo(-22,5);context.closePath();context.fill();
+  const body=context.createLinearGradient(0,-12,0,13);body.addColorStop(0,'#fff');body.addColorStop(.5,'#b9d9f7');body.addColorStop(1,'#527da8');
+  context.fillStyle=body;context.beginPath();context.moveTo(39,0);context.quadraticCurveTo(22,-7,-18,-5);context.lineTo(-34,-3);context.lineTo(-43,0);context.lineTo(-34,3);context.lineTo(-18,5);context.quadraticCurveTo(22,7,39,0);context.fill();
+  context.fillStyle='#78aee2';
+  context.beginPath();context.moveTo(5,-2);context.lineTo(-12,-24);context.lineTo(-20,-23);context.lineTo(-12,-2);context.closePath();context.fill();
+  context.beginPath();context.moveTo(5,2);context.lineTo(-12,24);context.lineTo(-20,23);context.lineTo(-12,2);context.closePath();context.fill();
+  context.fillStyle='#d7eaff';context.beginPath();context.moveTo(-25,-2);context.lineTo(-36,-13);context.lineTo(-40,-12);context.lineTo(-36,0);context.closePath();context.fill();
+  context.beginPath();context.moveTo(-25,2);context.lineTo(-36,13);context.lineTo(-40,12);context.lineTo(-36,0);context.closePath();context.fill();
+  context.fillStyle='#173b5d';context.beginPath();context.ellipse(15,-3,8,3,-.15,0,Math.PI*2);context.fill();
+  context.restore();
+}
+
+function drawVIPBackground(w,h){
+  // Distant city skyline along the lower horizon
+  const base=h-8;
+  const buildings=[
+    {x:.04,w:.10,h:.27},{x:.16,w:.08,h:.38},{x:.27,w:.12,h:.30},
+    {x:.42,w:.09,h:.46},{x:.54,w:.12,h:.34},{x:.69,w:.09,h:.42},
+    {x:.81,w:.13,h:.31},{x:.94,w:.07,h:.39}
+  ];
+  buildings.forEach((b,i)=>{
+    const x=b.x*w,bw=b.w*w,bh=b.h*h,y=base-bh;
+    const g=ctx.createLinearGradient(x,y,x+bw,base);
+    g.addColorStop(0,'rgba(33,63,99,.78)');
+    g.addColorStop(1,'rgba(10,22,40,.94)');
+    ctx.fillStyle=g;ctx.fillRect(x,y,bw,bh);
+    ctx.strokeStyle='rgba(105,160,215,.22)';ctx.lineWidth=1;
+    ctx.strokeRect(x,y,bw,bh);
+    // warm lit windows
+    for(let wy=y+9;wy<base-5;wy+=11){
+      for(let wx=x+6;wx<x+bw-4;wx+=10){
+        if(((Math.floor(wx+wy)+i*7)%5)!==0){
+          ctx.fillStyle='rgba(255,210,120,.55)';
+          ctx.fillRect(wx,wy,3,4);
+        }
+      }
+    }
+  });
+
+  // Featured VIP tower in the background
+  const bw=Math.min(w*.19,112), bh=h*.66, x=w*.405, y=base-bh;
+  ctx.save();
+  ctx.shadowColor='rgba(55,160,255,.65)';ctx.shadowBlur=16;
+  const tower=ctx.createLinearGradient(x,y,x+bw,base);
+  tower.addColorStop(0,'#31577e');tower.addColorStop(.48,'#183653');tower.addColorStop(1,'#0a1b2d');
+  ctx.fillStyle=tower;
+  ctx.beginPath();ctx.moveTo(x+9,y+18);ctx.lineTo(x+bw-9,y+18);ctx.lineTo(x+bw,base);ctx.lineTo(x,base);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='rgba(123,198,255,.8)';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.restore();
+
+  // Crown and illuminated VIP sign
+  ctx.fillStyle='#d8b66b';
+  ctx.beginPath();ctx.moveTo(x+bw*.5,y-13);ctx.lineTo(x+bw*.62,y+5);ctx.lineTo(x+bw*.38,y+5);ctx.closePath();ctx.fill();
+  ctx.fillStyle='rgba(7,19,34,.9)';ctx.fillRect(x+bw*.12,y+35,bw*.76,24);
+  ctx.strokeStyle='#f2cf79';ctx.lineWidth=1.3;ctx.strokeRect(x+bw*.12,y+35,bw*.76,24);
+  ctx.fillStyle='#ffe39a';ctx.font=`bold ${Math.max(11,Math.min(17,w*.027))}px Segoe UI`;
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.shadowColor='#ffcf65';ctx.shadowBlur=10;
+  ctx.fillText('VIP',x+bw*.5,y+47);
+  ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,215,130,.75)';
+  for(let wy=y+72;wy<base-8;wy+=18){
+    ctx.fillRect(x+bw*.25,wy,4,7);ctx.fillRect(x+bw*.68,wy,4,7);
+  }
 }
 
 function drawGame(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-ctx.strokeStyle='#1f2430';
-ctx.lineWidth=1;
-
-for(let x=0;x<canvas.width;x+=40){
-ctx.beginPath();
-ctx.moveTo(x,0);
-ctx.lineTo(x,canvas.height);
-ctx.stroke();
+  const w=canvas.clientWidth||500,h=canvas.clientHeight||220;visualTick++;
+  ctx.clearRect(0,0,w,h);
+  const bg=ctx.createLinearGradient(0,0,0,h);bg.addColorStop(0,'#101c32');bg.addColorStop(1,'#090e18');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+  drawVIPBackground(w,h);
+  for(let i=0;i<34;i++){const sx=(i*83-(visualTick*(.25+(i%4)*.12))%(w+20)+w+20)%(w+20);const sy=(i*47)%h;ctx.fillStyle='rgba(190,220,255,.35)';ctx.fillRect(sx,sy,1.5,1.5);}
+  ctx.strokeStyle='rgba(95,135,190,.13)';ctx.lineWidth=1;const shift=(visualTick*1.2)%40;
+  for(let x=-40+shift;x<w;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=shift;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+  let progress=(multiplier-1)/(crashPoint-1);progress=Math.max(0,Math.min(progress,1));
+  const curX=progress*(w-65)+8,curY=h-30-progress*(h-75);
+  ctx.save();ctx.shadowColor='#39a7ff';ctx.shadowBlur=15;ctx.strokeStyle='#39a7ff';ctx.lineWidth=3.5;
+  ctx.beginPath();ctx.moveTo(0,h-8);ctx.bezierCurveTo(curX*.42,h-8,curX*.55,curY+30,curX,curY);ctx.stroke();ctx.restore();
+  for(let i=0;i<12;i++){const px=curX-18-((i*13+visualTick*2)%48),py=curY+Math.sin(i*2+visualTick*.16)*7;ctx.fillStyle=`rgba(110,190,255,${.45-i*.025})`;ctx.beginPath();ctx.arc(px,py,Math.max(.7,2-i*.1),0,Math.PI*2);ctx.fill();}
+  drawAircraft(ctx,curX,curY);
 }
-
-for(let y=0;y<canvas.height;y+=40){
-ctx.beginPath();
-ctx.moveTo(0,y);
-ctx.lineTo(canvas.width,y);
-ctx.stroke();
-}
-
-ctx.strokeStyle='#388bfd';
-ctx.lineWidth=4;
-ctx.beginPath();
-ctx.moveTo(0,canvas.height);
-
-let progress=(multiplier-1)/(crashPoint-1);
-progress=Math.max(0,Math.min(progress,1));
-
-const curX=progress*(canvas.width-40);
-const curY=canvas.height-(progress*(canvas.height-40));
-
-ctx.bezierCurveTo(
-curX*.5,canvas.height,
-curX*.5,curY,
-curX,curY
-);
-
-ctx.stroke();
-drawAircraft(ctx,curX,curY);
-}
-
 function endRound(){
 gamePhase='ENDED';
+playCrashSound();
 cancelAnimationFrame(animationId);
 
 document.getElementById('multiplierDisplay').innerText=crashPoint.toFixed(2)+'x';
