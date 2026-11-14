@@ -1,6 +1,6 @@
 // Firebase Console > Project settings > Your apps > Web app
 // Paste your Firebase web app config here. Do not put admin passwords in this file.
-window.KNP_FIREBASE_CONFIG =
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -9,7 +9,7 @@ import { getAnalytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+window.KNP_FIREBASE_CONFIG = {
   apiKey: "AIzaSyDfWumo5MJODWla0d37_bxzOod1SGXkQAc",
   authDomain: "knp-999.firebaseapp.com",
   projectId: "knp-999",
