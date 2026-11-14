@@ -31,7 +31,7 @@ import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,update
 import {getFirestore,doc,getDoc} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import {getFunctions,httpsCallable} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js';
 const $=id=>document.getElementById(id),msg=$('msg');let mode='login',auth,db;
-const cfg=window.KNP_FIREBASE_CONFIG;
+const cfg = window.KNP_FIREBASE_CONFIG;
 function setMode(next){mode=next;$('loginTab').classList.toggle('active',mode==='login');$('createTab').classList.toggle('active',mode==='create');$('nameWrap').style.display=mode==='create'?'block':'none';$('submit').textContent=mode==='create'?'CREATE ACCOUNT':'LOGIN';$('hint').textContent=mode==='create'?'Create your account with your user name, mobile number and password.':'Login using your registered mobile number and password.';$('password').autocomplete=mode==='create'?'new-password':'current-password';msg.textContent=''}
 $('loginTab').onclick=()=>setMode('login');$('createTab').onclick=()=>setMode('create');
 function cleanPhone(v){return v.replace(/[\s\-()+]/g,'')}
