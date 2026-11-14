@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune Rabbit Enhanced</title>
+    <style>
+        :root {
+            --primary-gold: #FFD700;
+        }
+
+        body {
+            background: radial-gradient(circle, #3A006D, #0A0012);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 400px;
+            background: #120024;
+            border: 6px solid var(--primary-gold);
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+        }
+
+        .reels-window {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background: #000;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .reel {
+            background: #fff;
+            width: 100px;
+            border-radius: 5px;
+            overflow: visible; /* Changed to visible for animation */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .reel.outer-reel {
+            height: 180px;
+        }
+
+        .reel.middle-reel {
+            height: 240px;
+            background: linear-gradient(to bottom, #FFE135, #FF8C00);
+        }
+
+        .reel-strip {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            transition: transform 0.1s linear; /* Smooth transition */
+        }
+
+        .symbol {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            width: 100%;
+            border-bottom: 1px solid #eee;
+        }
+
+        .middle-reel .symbol {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #600000;
+        }
+
+        .dashboard {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: var(--primary-gold);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn {
+            background: #444;
+            color: #fff;
+            border: 2px solid var(--primary-gold);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spin-btn {
+            background: linear-gradient(135deg, #00FF88, #00aa55);
+            color: #003311;
+            border: 3px solid #fff;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,255,136,0.4);
+        }
+
+        .spin-btn:disabled {
+            background: #555;
+            color: #888;
+        }
+
+        .message-box {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: #00FFCC;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>🐰 FORTUNE RABBIT 🐰</h1>
+        
+        <div class="reels-window">
+            <div class="reel outer-reel" id="reel1">
+                <div class="reel-strip" id="strip1">
+                    <div class="symbol">🧧</div>
+                    <div class="symbol">🪙</div>
+                    <div class="symbol">🐰</div>
+                </div>
+            </div>
+            <div class="reel middle-reel" id="reel2">
+                <div class="reel-strip" id="strip2">
+                    <div class="symbol">50</div>
+                    <div class="symbol">200</div>
+                    <div class="symbol">50</div>
+                    <div class="symbol">5,000</div>
+                </div>
+            </div>
+            <div class="reel outer-reel" id="reel3">
+                <div class="reel-strip" id="strip3">
+                    <div class="symbol">🪙</div>
+                    <div class="symbol">🧧</div>
+                    <div class="symbol">🐰</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="stat-box">
+                <div>Balance</div>
+                <div class="stat-value" id="balanceDisplay">Rs 1000.00</div>
+            </div>
+            <div class="stat-box">
+                <div>Current Bet</div>
+                <div class="stat-value" id="betDisplay">Rs 10.00</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="changeBet(-5)">-</button>
+            <button class="spin-btn" id="spinBtn" onclick="playSpin()">SPIN</button>
+            <button class="btn" onclick="changeBet(5)">+</button>
+        </div>
+
+        <div class="message-box" id="messageBox">Tap Spin to Play!</div>
+    </div>
+
+    <script>
+        const symbolsList = ['🐰', '🪙', '🧧', '🥕', '💰', '🌟'];
+        const prizeList = ['5', '10', '25', '50', '100', '200', '500', '1,000', '5,000'];
+        
+        let balance = 1000.00;
+        let currentBet = 10.00;
+
+        function updateDisplay() {
+            document.getElementById('balanceDisplay').innerText = `Rs ${balance.toFixed(2)}`;
+            document.getElementById('betDisplay').innerText = `Rs ${currentBet.toFixed(2)}`;
+        }
+
+        function changeBet(amount) {
+            if (currentBet + amount >= 5 && currentBet + amount <= 100) {
+                currentBet += amount;
+                updateDisplay();
+            }
+        }
+
+        function generateStripSymbols(count, isMiddle) {
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                let sym = isMiddle ? prizeList[Math.floor(Math.random() * prizeList.length)] : symbolsList[Math.floor(Math.random() * symbolsList.length)];
+                html += `<div class="symbol">${sym}</div>`;
+            }
+            return html;
+        }
+
+        function playSpin() {
+            if (balance < currentBet) {
+                document.getElementById('messageBox').innerText = "Insufficient Balance!";
+                return;
+            }
+
+            balance -= currentBet;
+            updateDisplay();
+
+            const spinBtn = document.getElementById('spinBtn');
+            const messageBox = document.getElementById('messageBox');
+            const strips = [
+                document.getElementById('strip1'),
+                document.getElementById('strip2'),
+                document.getElementById('strip3')
+            ];
+
+            messageBox.innerText = "Spinning...";
+            spinBtn.disabled = true;
+
+            // Generate longer strips for scrolling effect
+            strips[0].innerHTML = generateStripSymbols(15, false);
+            strips[1].innerHTML = generateStripSymbols(20, true);
+            strips[2].innerHTML = generateStripSymbols(15, false);
+
+            // Animate scroll
+            strips[0].style.transition = "transform 1s ease-in-out";
+            strips[1].style.transition = "transform 1.2s ease-in-out";
+            strips[2].style.transition = "transform 1s ease-in-out";
+
+            // Shift strips up to simulate spinning
+            strips[0].style.transform = `translateY(-${12 * 60}px)`;
+            strips[1].style.transform = `translateY(-${16 * 60}px)`;
+            strips[2].style.transform = `translateY(-${12 * 60}px)`;
+
+            setTimeout(() => {
+                // Reset transitions and set final positions
+                strips.forEach(strip => {
+                    strip.style.transition = "none";
+                    strip.style.transform = "translateY(0px)";
+                });
+
+                const finalSym1 = symbolsList[Math.floor(Math.random() * symbolsList.length)];
+                const finalPrize = prizeList[Math.floor(Math.random() * prizeList.length)];
+                const finalSym2 = symbolsList[Math.floor(Math.random() * symbolsList.length)];
+
+                strips[0].innerHTML = `<div class="symbol">${finalSym1}</div><div class="symbol">${finalSym1}</div><div class="symbol">${finalSym1}</div>`;
+                strips[1].innerHTML = `<div class="symbol">⚡</div><div class="symbol">${finalPrize}</div><div class="symbol">${finalPrize}</div><div class="symbol">⚡</div>`;
+                strips[2].innerHTML = `<div class="symbol">${finalSym2}</div><div class="symbol">${finalSym2}</div><div class="symbol">${finalSym2}</div>`;
+
+                spinBtn.disabled = false;
+                balance += currentBet * 2;
+                updateDisplay();
+                messageBox.innerText = "🎉 WIN: Rs " + (currentBet * 2).toFixed(2) + " ! 🎉";
+            }, 1200);
+        }
+    </script></body>
+</html>
