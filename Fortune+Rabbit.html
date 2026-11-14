@@ -1,286 +1,722 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortune Rabbit Enhanced</title>
-    <style>
-        :root {
-            --primary-gold: #FFD700;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortune Rabbit Enhanced</title>
 
-        body {
-            background: radial-gradient(circle, #3A006D, #0A0012);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 10px;
-        }
+<style>
+:root {
+    --gold: #FFD700;
+}
 
-        .game-container {
-            width: 100%;
-            max-width: 400px;
-            background: #120024;
-            border: 6px solid var(--primary-gold);
-            border-radius: 20px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
-        }
+* {
+    box-sizing: border-box;
+}
 
-        .reels-window {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            background: #000;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            overflow: hidden;
-        }
+body {
+    background: radial-gradient(circle, #3A006D, #0A0012);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 12px;
+}
 
-        .reel {
-            background: #fff;
-            width: 100px;
-            border-radius: 5px;
-            overflow: visible; /* Changed to visible for animation */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.game-container {
+    width: 100%;
+    max-width: 400px;
+    background: #120024;
+    border: 5px solid var(--gold);
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255,215,0,.4);
+}
 
-        .reel.outer-reel {
-            height: 180px;
-        }
+h1 {
+    color: var(--gold);
+    font-size: 25px;
+}
 
-        .reel.middle-reel {
-            height: 240px;
-            background: linear-gradient(to bottom, #FFE135, #FF8C00);
-        }
+.reels-window {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background: #000;
+    padding: 15px 8px;
+    border-radius: 10px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
 
-        .reel-strip {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            transition: transform 0.1s linear; /* Smooth transition */
-        }
+.reel {
+    width: 100px;
+    height: 180px;
+    background: white;
+    border-radius: 7px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 1;
+}
 
-        .symbol {
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            width: 100%;
-            border-bottom: 1px solid #eee;
-        }
+.middle-reel {
+    background: linear-gradient(#FFE135, #FF8C00);
+}
 
-        .middle-reel .symbol {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #600000;
-        }
+.reel-strip {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    transform: translateY(0);
+}
 
-        .dashboard {
-            display: flex;
-            justify-content: space-around;
-            background: rgba(0,0,0,0.5);
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
+.symbol {
+    height: 60px;
+    min-height: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    color: #600000;
+    border-bottom: 1px solid #ddd;
+}
 
-        .stat-value {
-            font-weight: bold;
-            color: var(--primary-gold);
-        }
+.middle-reel .symbol {
+    font-size: 25px;
+    font-weight: bold;
+}
 
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-        }
+.payline {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    right: 5px;
+    border-top: 2px solid rgba(255,215,0,.9);
+    pointer-events: none;
+    z-index: 2;
+}
 
-        .btn {
-            background: #444;
-            color: #fff;
-            border: 2px solid var(--primary-gold);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.dashboard {
+    display: flex;
+    justify-content: space-around;
+    gap: 8px;
+    background: rgba(0,0,0,.5);
+    padding: 12px 5px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}
 
-        .spin-btn {
-            background: linear-gradient(135deg, #00FF88, #00aa55);
-            color: #003311;
-            border: 3px solid #fff;
-            padding: 15px 30px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            border-radius: 40px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,255,136,0.4);
-        }
+.stat-value {
+    font-weight: bold;
+    color: var(--gold);
+    margin-top: 5px;
+}
 
-        .spin-btn:disabled {
-            background: #555;
-            color: #888;
-        }
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
 
-        .message-box {
-            margin-top: 15px;
-            font-size: 1.2rem;
-            color: #00FFCC;
-            min-height: 24px;
-        }
-    </style>
+.btn {
+    background: #444;
+    color: white;
+    border: 2px solid var(--gold);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.spin-btn {
+    background: linear-gradient(135deg,#00FF88,#00aa55);
+    color: #003311;
+    border: 3px solid white;
+    padding: 15px 30px;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.message-box {
+    margin-top: 18px;
+    font-size: 18px;
+    color: #00FFCC;
+    min-height: 28px;
+}
+
+.payout-info {
+    font-size: 12px;
+    color: #ddd;
+    line-height: 1.8;
+    margin-top: 18px;
+}
+
+.reset-btn {
+    margin-top: 12px;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="game-container">
-        <h1>🐰 FORTUNE RABBIT 🐰</h1>
-        
-        <div class="reels-window">
-            <div class="reel outer-reel" id="reel1">
-                <div class="reel-strip" id="strip1">
-                    <div class="symbol">🧧</div>
-                    <div class="symbol">🪙</div>
-                    <div class="symbol">🐰</div>
-                </div>
-            </div>
-            <div class="reel middle-reel" id="reel2">
-                <div class="reel-strip" id="strip2">
-                    <div class="symbol">50</div>
-                    <div class="symbol">200</div>
-                    <div class="symbol">50</div>
-                    <div class="symbol">5,000</div>
-                </div>
-            </div>
-            <div class="reel outer-reel" id="reel3">
-                <div class="reel-strip" id="strip3">
-                    <div class="symbol">🪙</div>
-                    <div class="symbol">🧧</div>
-                    <div class="symbol">🐰</div>
-                </div>
-            </div>
+<div class="game-container">
+
+    <h1>🐰 FORTUNE RABBIT 🐰</h1>
+
+    <div class="reels-window">
+
+        <div class="reel outer-reel">
+            <div class="reel-strip" id="strip1"></div>
         </div>
 
-        <div class="dashboard">
-            <div class="stat-box">
-                <div>Balance</div>
-                <div class="stat-value" id="balanceDisplay">Rs 1000.00</div>
-            </div>
-            <div class="stat-box">
-                <div>Current Bet</div>
-                <div class="stat-value" id="betDisplay">Rs 10.00</div>
-            </div>
+        <div class="reel middle-reel">
+            <div class="reel-strip" id="strip2"></div>
         </div>
 
-        <div class="controls">
-            <button class="btn" onclick="changeBet(-5)">-</button>
-            <button class="spin-btn" id="spinBtn" onclick="playSpin()">SPIN</button>
-            <button class="btn" onclick="changeBet(5)">+</button>
+        <div class="reel outer-reel">
+            <div class="reel-strip" id="strip3"></div>
         </div>
 
-        <div class="message-box" id="messageBox">Tap Spin to Play!</div>
+        <div class="payline"></div>
+
     </div>
 
-    <script>
-        const symbolsList = ['🐰', '🪙', '🧧', '🥕', '💰', '🌟'];
-        const prizeList = ['5', '10', '25', '50', '100', '200', '500', '1,000', '5,000'];
-        
-        let balance = 1000.00;
-        let currentBet = 10.00;
+    <div class="dashboard">
 
-        function updateDisplay() {
-            document.getElementById('balanceDisplay').innerText = `Rs ${balance.toFixed(2)}`;
-            document.getElementById('betDisplay').innerText = `Rs ${currentBet.toFixed(2)}`;
+        <div>
+            <div>Balance</div>
+            <div class="stat-value" id="balanceDisplay">
+                Rs 1000.00
+            </div>
+        </div>
+
+        <div>
+            <div>Current Bet</div>
+            <div class="stat-value" id="betDisplay">
+                Rs 10.00
+            </div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+
+        <button class="btn" id="minusBtn">-</button>
+
+        <button class="spin-btn" id="spinBtn">
+            SPIN
+        </button>
+
+        <button class="btn" id="plusBtn">+</button>
+
+    </div>
+
+    <div class="message-box" id="messageBox">
+        Tap Spin to Play!
+    </div>
+
+    <div class="payout-info">
+        🐰 Rabbit: 10x<br>
+        🪙 Coin: 5x<br>
+        🧧 Envelope: 4x<br>
+        🥕 Carrot: 3x<br>
+        💰 Money: 2x<br>
+        🌟 Star: 2x<br>
+        <br>
+        Matching symbols must appear on the center line.
+    </div>
+
+    <button class="reset-btn" id="resetBtn">
+        Reset Demo Balance
+    </button>
+
+</div>
+
+<script>
+
+// ==================================
+// GAME CONFIGURATION
+// ==================================
+
+const CONFIG = {
+    startingBalance: 1000,
+    minimumBet: 5,
+    maximumBet: 100,
+    betStep: 5,
+
+    // Set true after connecting your real server API.
+    USE_SERVER_API: false,
+
+    API_URL: "YOUR_SERVER_API_URL"
+};
+
+// ==================================
+// SYMBOLS
+// ==================================
+
+const symbolsList = [
+    '🐰',
+    '🪙',
+    '🧧',
+    '🥕',
+    '💰',
+    '🌟'
+];
+
+// Payout multipliers
+
+const payouts = {
+    '🐰': 10,
+    '🪙': 5,
+    '🧧': 4,
+    '🥕': 3,
+    '💰': 2,
+    '🌟': 2
+};
+
+// ==================================
+// GAME VARIABLES
+// ==================================
+
+let balance = CONFIG.startingBalance;
+let currentBet = 10;
+let isSpinning = false;
+
+// ==================================
+// ELEMENTS
+// ==================================
+
+const balanceDisplay =
+    document.getElementById("balanceDisplay");
+
+const betDisplay =
+    document.getElementById("betDisplay");
+
+const messageBox =
+    document.getElementById("messageBox");
+
+const spinBtn =
+    document.getElementById("spinBtn");
+
+const strips = [
+    document.getElementById("strip1"),
+    document.getElementById("strip2"),
+    document.getElementById("strip3")
+];
+
+// ==================================
+// DISPLAY UPDATE
+// ==================================
+
+function updateDisplay() {
+
+    balanceDisplay.textContent =
+        "Rs " + balance.toFixed(2);
+
+    betDisplay.textContent =
+        "Rs " + currentBet.toFixed(2);
+
+}
+
+// ==================================
+// INITIAL REELS
+// ==================================
+
+function showInitialReels() {
+
+    strips.forEach((strip) => {
+
+        strip.innerHTML = "";
+
+        for (let i = 0; i < 3; i++) {
+
+            const symbol =
+                symbolsList[
+                    Math.floor(Math.random() * symbolsList.length)
+                ];
+
+            const div = document.createElement("div");
+
+            div.className = "symbol";
+            div.textContent = symbol;
+
+            strip.appendChild(div);
         }
 
-        function changeBet(amount) {
-            if (currentBet + amount >= 5 && currentBet + amount <= 100) {
-                currentBet += amount;
-                updateDisplay();
-            }
+    });
+
+}
+
+// ==================================
+// BET CONTROL
+// ==================================
+
+function changeBet(amount) {
+
+    if (isSpinning) return;
+
+    const newBet = currentBet + amount;
+
+    if (
+        newBet >= CONFIG.minimumBet &&
+        newBet <= CONFIG.maximumBet
+    ) {
+
+        currentBet = newBet;
+        updateDisplay();
+
+    }
+
+}
+
+document.getElementById("minusBtn")
+    .addEventListener("click", () => changeBet(-CONFIG.betStep));
+
+document.getElementById("plusBtn")
+    .addEventListener("click", () => changeBet(CONFIG.betStep));
+
+// ==================================
+// RANDOM SYMBOL
+// ==================================
+
+function randomSymbol() {
+
+    return symbolsList[
+        Math.floor(Math.random() * symbolsList.length)
+    ];
+
+}
+
+// ==================================
+// CREATE REEL STRIP
+// ==================================
+
+function createAnimatedStrip(strip, finalSymbol, duration) {
+
+    return new Promise((resolve) => {
+
+        strip.style.transition = "none";
+        strip.style.transform = "translateY(0px)";
+
+        strip.innerHTML = "";
+
+        // Create scrolling symbols
+
+        const symbols = [];
+
+        for (let i = 0; i < 12; i++) {
+            symbols.push(randomSymbol());
         }
 
-        function generateStripSymbols(count, isMiddle) {
-            let html = '';
-            for (let i = 0; i < count; i++) {
-                let sym = isMiddle ? prizeList[Math.floor(Math.random() * prizeList.length)] : symbolsList[Math.floor(Math.random() * symbolsList.length)];
-                html += `<div class="symbol">${sym}</div>`;
-            }
-            return html;
-        }
+        // Fixed final position
 
-        function playSpin() {
-            if (balance < currentBet) {
-                document.getElementById('messageBox').innerText = "Insufficient Balance!";
-                return;
+        const finalIndex = 8;
+
+        symbols[finalIndex] = finalSymbol;
+
+        // Add symbols to reel
+
+        symbols.forEach((symbol) => {
+
+            const div = document.createElement("div");
+
+            div.className = "symbol";
+            div.textContent = symbol;
+
+            strip.appendChild(div);
+
+        });
+
+        // Force browser layout update
+
+        void strip.offsetHeight;
+
+        // Start animation
+
+        strip.style.transition =
+            `transform ${duration}ms cubic-bezier(.15,.75,.25,1)`;
+
+        strip.style.transform =
+            `translateY(-${finalIndex * 60}px)`;
+
+        setTimeout(resolve, duration + 50);
+
+    });
+
+}
+
+// ==================================
+// WINNING LOGIC
+// ==================================
+
+function calculateWin(results, bet) {
+
+    const [symbol1, symbol2, symbol3] = results;
+
+    // All three symbols must match
+
+    if (
+        symbol1 === symbol2 &&
+        symbol2 === symbol3
+    ) {
+
+        return bet * payouts[symbol1];
+
+    }
+
+    // No winning combination
+
+    return 0;
+
+}
+
+// ==================================
+// LOCAL GAME RESULT
+// ==================================
+
+function generateLocalResult() {
+
+    return [
+        randomSymbol(),
+        randomSymbol(),
+        randomSymbol()
+    ];
+
+}
+
+// ==================================
+// SERVER API ADAPTER
+// ==================================
+
+async function getServerResult(bet) {
+
+    const response = await fetch(CONFIG.API_URL, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            method: "spin",
+            bet: bet
+        })
+
+    });
+
+    if (!response.ok) {
+        throw new Error("Server connection failed");
+    }
+
+    const data = await response.json();
+
+    // Expected server response:
+    // {
+    //   "reels": ["🐰", "🐰", "🐰"],
+    //   "payout": 100,
+    //   "balance": 1090
+    // }
+
+    if (
+        !Array.isArray(data.reels) ||
+        data.reels.length !== 3 ||
+        !data.reels.every(s => symbolsList.includes(s)) ||
+        !Number.isFinite(data.payout) ||
+        !Number.isFinite(data.balance) ||
+        data.payout < 0 ||
+        data.balance < 0
+    ) {
+        throw new Error("Invalid server response");
+    }
+
+    return data;
+
+}
+
+// ==================================
+// SPIN GAME
+// ==================================
+
+async function playSpin() {
+
+    if (isSpinning) return;
+
+    if (!CONFIG.USE_SERVER_API && balance < currentBet) {
+
+        messageBox.textContent =
+            "Insufficient Balance!";
+
+        return;
+
+    }
+
+    isSpinning = true;
+
+    spinBtn.disabled = true;
+
+    document.getElementById("plusBtn").disabled = true;
+    document.getElementById("minusBtn").disabled = true;
+
+    const bet = currentBet;
+
+    messageBox.textContent = "🎰 Spinning...";
+
+    try {
+
+        let results;
+        let winAmount;
+
+        if (CONFIG.USE_SERVER_API) {
+
+            // Server controls balance and outcome.
+
+            const serverData = await getServerResult(bet);
+
+            results = serverData.reels;
+            winAmount = serverData.payout;
+
+            if (serverData.balance < 0) {
+                throw new Error("Invalid balance");
             }
 
-            balance -= currentBet;
+            balance = serverData.balance;
+
+        } else {
+
+            // Local demo mode.
+
+            balance -= bet;
+
             updateDisplay();
 
-            const spinBtn = document.getElementById('spinBtn');
-            const messageBox = document.getElementById('messageBox');
-            const strips = [
-                document.getElementById('strip1'),
-                document.getElementById('strip2'),
-                document.getElementById('strip3')
-            ];
+            results = generateLocalResult();
 
-            messageBox.innerText = "Spinning...";
-            spinBtn.disabled = true;
+            winAmount = calculateWin(results, bet);
 
-            // Generate longer strips for scrolling effect
-            strips[0].innerHTML = generateStripSymbols(15, false);
-            strips[1].innerHTML = generateStripSymbols(20, true);
-            strips[2].innerHTML = generateStripSymbols(15, false);
-
-            // Animate scroll
-            strips[0].style.transition = "transform 1s ease-in-out";
-            strips[1].style.transition = "transform 1.2s ease-in-out";
-            strips[2].style.transition = "transform 1s ease-in-out";
-
-            // Shift strips up to simulate spinning
-            strips[0].style.transform = `translateY(-${12 * 60}px)`;
-            strips[1].style.transform = `translateY(-${16 * 60}px)`;
-            strips[2].style.transform = `translateY(-${12 * 60}px)`;
-
-            setTimeout(() => {
-                // Reset transitions and set final positions
-                strips.forEach(strip => {
-                    strip.style.transition = "none";
-                    strip.style.transform = "translateY(0px)";
-                });
-
-                const finalSym1 = symbolsList[Math.floor(Math.random() * symbolsList.length)];
-                const finalPrize = prizeList[Math.floor(Math.random() * prizeList.length)];
-                const finalSym2 = symbolsList[Math.floor(Math.random() * symbolsList.length)];
-
-                strips[0].innerHTML = `<div class="symbol">${finalSym1}</div><div class="symbol">${finalSym1}</div><div class="symbol">${finalSym1}</div>`;
-                strips[1].innerHTML = `<div class="symbol">⚡</div><div class="symbol">${finalPrize}</div><div class="symbol">${finalPrize}</div><div class="symbol">⚡</div>`;
-                strips[2].innerHTML = `<div class="symbol">${finalSym2}</div><div class="symbol">${finalSym2}</div><div class="symbol">${finalSym2}</div>`;
-
-                spinBtn.disabled = false;
-                balance += currentBet * 2;
-                updateDisplay();
-                messageBox.innerText = "🎉 WIN: Rs " + (currentBet * 2).toFixed(2) + " ! 🎉";
-            }, 1200);
         }
-    </script></body>
+
+        // Animate all reels
+
+        await Promise.all([
+
+            createAnimatedStrip(strips[0], results[0], 1100),
+
+            createAnimatedStrip(strips[1], results[1], 1400),
+
+            createAnimatedStrip(strips[2], results[2], 1700)
+
+        ]);
+
+        // Apply local winnings
+
+        if (!CONFIG.USE_SERVER_API && winAmount > 0) {
+
+            balance += winAmount;
+
+        }
+
+        updateDisplay();
+
+        // Show result
+
+        if (winAmount > 0) {
+
+            messageBox.textContent =
+                "🎉 WIN! Rs " + winAmount.toFixed(2) + " 🎉";
+
+        } else {
+
+            messageBox.textContent =
+                "No Win! Try Again.";
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        messageBox.textContent =
+            "Game Error: " + error.message;
+
+    } finally {
+
+        isSpinning = false;
+
+        spinBtn.disabled = false;
+
+        document.getElementById("plusBtn").disabled = false;
+        document.getElementById("minusBtn").disabled = false;
+
+    }
+
+}
+
+// ==================================
+// RESET DEMO BALANCE
+// ==================================
+
+document.getElementById("resetBtn")
+    .addEventListener("click", () => {
+
+        if (isSpinning) return;
+
+        if (CONFIG.USE_SERVER_API) {
+
+            messageBox.textContent =
+                "Balance reset must be handled by the server.";
+
+            return;
+
+        }
+
+        balance = CONFIG.startingBalance;
+        currentBet = 10;
+
+        updateDisplay();
+
+        messageBox.textContent =
+            "Demo Balance Reset!";
+
+    });
+
+// ==================================
+// BUTTON EVENTS
+// ==================================
+
+spinBtn.addEventListener("click", playSpin);
+
+// ==================================
+// START GAME
+// ==================================
+
+showInitialReels();
+updateDisplay();
+
+</script>
+
+</body>
 </html>
