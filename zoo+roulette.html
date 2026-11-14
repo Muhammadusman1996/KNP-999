@@ -1,1 +1,217 @@
+Lagta hai woh hissa poora nahi ja saka. Yeh lijiye code ka baqi hissa (JavaScript):
+<script>
+    const trackData = [
+        { icon: '🦈', name: 'shark', mult: 'x22', group: 'beast' },
+        { icon: '🦁', name: 'lion', mult: 'x10', group: 'beast' },
+        { icon: '🐰', name: 'rabbit', mult: 'x5', group: 'beast' },
+        { icon: '🐘', name: 'elephant', mult: 'x5', group: 'beast' },
+        { icon: '🦅', name: 'eagle', mult: 'x10', group: 'birds' },
+        { icon: '🦚', name: 'peacock', mult: 'x7', group: 'birds' },
+        { icon: '🐦', name: 'pigeon', mult: 'x5', group: 'birds' },
+        { icon: '🌟', name: 'gold_shark', mult: 'x70', group: 'all' },
+        { icon: '🐒', name: 'monkey', mult: 'x6', group: 'beast' },
+        { icon: '🐼', name: 'panda', mult: 'x5', group: 'beast' },
+        { icon: '🐰', name: 'rabbit', mult: 'x5', group: 'beast' },
+        { icon: '🦁', name: 'lion', mult: 'x10', group: 'beast' },
+        { icon: '🦅', name: 'eagle', mult: 'x10', group: 'birds' },
+        { icon: '🦚', name: 'peacock', mult: 'x7', group: 'birds' },
+        { icon: '🦈', name: 'shark', mult: 'x22', group: 'beast' },
+        { icon: '🐘', name: 'elephant', mult: 'x6', group: 'beast' },
+        { icon: '🐒', name: 'monkey', mult: 'x8', group: 'beast' },
+        { icon: '🐼', name: 'panda', mult: 'x8', group: 'beast' },
+        { icon: '🐦', name: 'pigeon', mult: 'x6', group: 'birds' },
+        { icon: '🦚', name: 'peacock', mult: 'x8', group: 'birds' },
+        { icon: '🦅', name: 'eagle', mult: 'x12', group: 'birds' },
+        { icon: '🐰', name: 'rabbit', mult: 'x6', group: 'beast' },
+        { icon: '🦁', name: 'lion', mult: 'x12', group: 'beast' },
+        { icon: '🐘', name: 'elephant', mult: 'x6', group: 'beast' },
+        { icon: '🐒', name: 'monkey', mult: 'x8', group: 'beast' },
+        { icon: '🐼', name: 'panda', mult: 'x8', group: 'beast' },
+        { icon: '🐦', name: 'pigeon', mult: 'x6', group: 'birds' },
+        { icon: '🦚', name: 'peacock', mult: 'x8', group: 'birds' }
+    ];
 
+    const trackPositions = [
+        {r:1,c:1},{r:1,c:2},{r:1,c:3},{r:1,c:4},{r:1,c:5},{r:1,c:6},{r:1,c:7},{r:1,c:8},{r:1,c:9},
+        {r:2,c:9},{r:3,c:9},{r:4,c:9},{r:5,c:9},{r:6,c:9},
+        {r:7,c:9},{r:7,c:8},{r:7,c:7},{r:7,c:6},{r:7,c:5},{r:7,c:4},{r:7,c:3},{r:7,c:2},{r:7,c:1},
+        {r:6,c:1},{r:5,c:1},{r:4,c:1},{r:3,c:1},{r:2,c:1}
+    ];
+
+    let balance = 10000;
+    let selectedChipValue = 1;
+    let currentBets = {};
+    let isSpinning = false;
+    let currentTrackIndex = 0;
+    let history = ['🦈', '🦁', '🦅', '🐰', '🐼'];
+
+    let bettingTimeLeft = 10;
+    let bettingTimerInterval = null;
+
+    const boardContainer = document.getElementById('boardContainer');
+    const balanceDisplay = document.getElementById('balanceDisplay');
+    const statusBox = document.getElementById('statusBox');
+    const recordHistory = document.getElementById('recordHistory');
+    const btnSpin = document.getElementById('btnSpin');
+    const btnClear = document.getElementById('btnClear');
+    const bettingGrid = document.getElementById('bettingGrid');
+
+    const trackElements = [];
+    function initTrack() {
+        trackPositions.forEach((pos, idx) => {
+            const data = trackData[idx];
+            const div = document.createElement('div');
+            div.className = 'track-block';
+            div.style.gridRow = pos.r;
+            div.style.gridColumn = pos.c;
+            div.innerHTML = `<span class="icon">${data.icon}</span><span class="mult">${data.mult}</span>`;
+            boardContainer.appendChild(div);
+            trackElements.push(div);
+        });
+        trackElements[0].classList.add('active');
+    }
+
+    function updateHistory() {
+        recordHistory.innerHTML = '';
+        history.slice(-8).forEach(icon => {
+            const div = document.createElement('div');
+            div.className = 'record-item';
+            div.innerText = icon;
+            recordHistory.appendChild(div);
+        });
+    }
+
+    document.getElementById('chipSelector').addEventListener('click', (e) => {
+        const chip = e.target.closest('.chip');
+        if (!chip) return;
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        selectedChipValue = parseInt(chip.dataset.value);
+    });
+
+    document.querySelectorAll('.bet-zone').forEach(zone => {
+        zone.addEventListener('click', () => {
+            if (isSpinning) return;
+            const zoneKey = zone.dataset.zone;
+            if (balance < selectedChipValue) return;
+
+            balance -= selectedChipValue;
+            currentBets[zoneKey] = (currentBets[zoneKey] || 0) + selectedChipValue;
+
+            balanceDisplay.innerText = `$${balance.toLocaleString()}`;
+            zone.querySelector('.bet-chip-display').innerText = currentBets[zoneKey];
+            zone.classList.add('has-bet');
+        });
+    });
+
+    btnClear.addEventListener('click', () => {
+        if (isSpinning) return;
+        Object.keys(currentBets).forEach(key => {
+            balance += currentBets[key];
+        });
+        currentBets = {};
+        balanceDisplay.innerText = `$${balance.toLocaleString()}`;
+        document.querySelectorAll('.bet-zone').forEach(z => {
+            z.classList.remove('has-bet');
+            z.querySelector('.bet-chip-display').innerText = '0';
+        });
+    });
+
+    const multipliers = {
+        shark: 24, lion: 12, eagle: 12, monkey: 8, panda: 8, peacock: 8,
+        rabbit: 6, elephant: 6, pigeon: 6, gold_shark: 100, beast: 2, birds: 2
+    };
+
+    function startBettingTimer() {
+        bettingTimeLeft = 10;
+        statusBox.innerText = `TIME: ${bettingTimeLeft}s`;
+        if(bettingGrid) bettingGrid.classList.remove('disabled');
+        if(btnSpin) btnSpin.disabled = false;
+        if(btnClear) btnClear.disabled = false;
+
+        bettingTimerInterval = setInterval(() => {
+            bettingTimeLeft--;
+            if (bettingTimeLeft > 0) {
+                statusBox.innerText = `TIME: ${bettingTimeLeft}s`;
+            } else {
+                clearInterval(bettingTimerInterval);
+                statusBox.innerText = 'BETS CLOSED';
+                lockBetsAndSpin();
+            }
+        }, 1000);
+    }
+
+    function lockBetsAndSpin() {
+        isSpinning = true;
+        if(bettingGrid) bettingGrid.classList.add('disabled');
+        if(btnSpin) btnSpin.disabled = true;
+        if(btnClear) btnClear.disabled = true;
+
+        const totalSteps = 28 * 3 + Math.floor(Math.random() * 28);
+        let step = 0;
+        let speed = Math.max(30, Math.floor(3000 / totalSteps));
+
+        function runSpin() {
+            trackElements[currentTrackIndex].classList.remove('active');
+            currentTrackIndex = (currentTrackIndex + 1) % 28;
+            trackElements[currentTrackIndex].classList.add('active');
+
+            step++;
+            if (step < totalSteps) {
+                setTimeout(runSpin, speed);
+            } else {
+                resolveWin(currentTrackIndex);
+            }
+        }
+        runSpin();
+    }
+
+    btnSpin.addEventListener('click', () => {
+        if (isSpinning || bettingTimeLeft <= 0) return;
+        clearInterval(bettingTimerInterval);
+        statusBox.innerText = 'BETS CLOSED';
+        lockBetsAndSpin();
+    });
+
+    function resolveWin(index) {
+        const winningBlock = trackData[index];
+        const animal = winningBlock.name;
+        const group = winningBlock.group;
+
+        let totalWin = 0;
+
+        if (currentBets[animal]) {
+            totalWin += currentBets[animal] * multipliers[animal];
+        }
+
+        if (group && currentBets[group]) {
+            totalWin += currentBets[group] * multipliers[group];
+        }
+
+        balance += totalWin;
+        balanceDisplay.innerText = `$${balance.toLocaleString()}`;
+
+        if (totalWin > 0) {
+            statusBox.innerText = `WIN: +$${totalWin.toLocaleString()}!`;
+        } else {
+            statusBox.innerText = 'NO WIN';
+        }
+
+        history.push(winningBlock.icon);
+        updateHistory();
+
+        setTimeout(() => {
+            currentBets = {};
+            document.querySelectorAll('.bet-zone').forEach(z => {
+                z.classList.remove('has-bet');
+                z.querySelector('.bet-chip-display').innerText = '0';
+            });
+            isSpinning = false;
+            startBettingTimer();
+        }, 2000);
+    }
+
+    initTrack();
+    updateHistory();
+    startBettingTimer();
+</script>
