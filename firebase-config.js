@@ -31,4 +31,4 @@ const analytics = getAnalytics(app);{
 };
 
 // Enter the same email used for the admin account in Firebase Authentication.
-window.KNP_ADMIN_EMAIL = "ADD_YOUR_ADMIN_EMAIL_HERE";
+window.KNP_ADMIN_EMAIL = "ms603329@gmail.com";
