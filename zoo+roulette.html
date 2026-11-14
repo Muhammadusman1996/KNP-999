@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0d12">
+<title>Zoo Roulette | Animal Kingdom</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:radial-gradient(circle at top,#1c2b3d,#090d14 65%);color:#fff;font-family:Arial,Helvetica,sans-serif;padding:14px}
+button{font:inherit}
+.game-wrapper{width:min(1050px,100%);margin:0 auto;background:#141a24;border:3px solid #b8860b;border-radius:16px;padding:14px;box-shadow:0 0 30px #0009;display:flex;flex-direction:column;gap:14px}
+.header-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:#0d121c;padding:12px;border:1px solid #2a3547;border-radius:10px}
+.profile-box{display:flex;align-items:center;gap:10px}
+.avatar{width:42px;height:42px;border-radius:50%;background:#b8860b;border:2px solid #ffd700;display:grid;place-items:center;font-size:22px}
+.user-info{display:flex;flex-direction:column;gap:4px}
+.username{font-weight:bold;color:#e0e0e0;font-size:13px}
+.balance{color:#2ed573;font-weight:bold;font-size:18px}
+.record-panel{display:flex;align-items:center;gap:7px;max-width:100%;overflow-x:auto;background:#080b10;padding:6px;border:1px solid #1f293d;border-radius:7px}
+.record-title{font-size:11px;font-weight:bold;color:#ffd700;padding:0 4px}
+.record-item{min-width:104px;min-height:38px;padding:4px 7px;border-radius:6px;background:#1a2332;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;font-size:12px;border:1px solid #34495e;white-space:nowrap}.record-item small{font-size:9px;color:#b9c6d8}.record-item.win{border-color:#2ed573}.record-item.boom{border-color:#e74c3c;background:#32191c}
+.timer-box{background:#b8860b;color:#000;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:13px;white-space:nowrap}
+.status-line{text-align:center;color:#ffd700;font-size:13px;min-height:18px;font-weight:bold}
+.board-container{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));grid-template-rows:repeat(7,minmax(52px,1fr));gap:4px;background:#0b0e14;padding:8px;border-radius:10px;border:2px solid #2c3e50;min-width:0}
+.track-block{background:linear-gradient(145deg,#202c3c,#111a27);border:1px solid #35465d;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0;transition:background .12s,box-shadow .12s}
+.track-block .icon{font-size:clamp(18px,3vw,28px);line-height:1.1;filter:drop-shadow(0 2px 2px #0009);display:grid;place-items:center;width:1.45em;height:1.45em;border-radius:50%;background:radial-gradient(circle,#ffffff26,#ffffff05 70%)}
+.track-block .mult{font-size:clamp(8px,1vw,11px);color:#ffd700;font-weight:bold}
+.track-block.active{background:#ffd700;color:#111;box-shadow:0 0 16px #ffd700;border-color:#fff;z-index:2}
+.track-block.active .mult{color:#a00000}
+.track-block:has(.icon) .icon{user-select:none}
+.track-block.active:has(.icon) .icon{filter:drop-shadow(0 0 4px #fff)}
+.inner-betting-grid{grid-column:2/9;grid-row:2/7;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:6px;padding:7px;background:#101622;border:1px dashed #34495e;border-radius:8px;min-width:0}
+.bet-zone{background:linear-gradient(145deg,#1a2536,#121a26);border:2px solid #2c3e50;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;position:relative;min-width:0;min-height:54px;padding:4px;text-align:center}
+.bet-zone:hover{border-color:#ffd700}
+.zone-title{font-size:clamp(9px,1.4vw,13px);font-weight:bold;overflow-wrap:anywhere}.zone-animal{width:clamp(30px,4.2vw,48px);height:clamp(30px,4.2vw,48px);object-fit:contain;display:block;filter:drop-shadow(0 2px 3px #000b)}
+.zone-mult{font-size:11px;color:#2ed573;font-weight:bold}
+.bet-chip-display{position:absolute;top:3px;right:3px;background:#e74c3c;color:#fff;font-size:10px;font-weight:bold;padding:2px 5px;border-radius:10px;display:none;border:1px solid #fff}
+.bet-zone.has-bet .bet-chip-display{display:block}
+.betting-disabled{opacity:.48;filter:grayscale(.35);pointer-events:none}
+.controls-bar{display:flex;flex-direction:column;gap:12px;background:#0d121c;padding:12px;border:1px solid #2a3547;border-radius:8px}
+.chip-selector{display:flex;justify-content:flex-start;align-items:center;gap:8px;overflow-x:auto;padding:5px 3px}
+.chip{min-width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:bold;font-size:11px;cursor:pointer;border:3px dashed #fff;box-shadow:0 4px 6px #0008;flex-shrink:0}
+.chip.selected{transform:scale(1.1);box-shadow:0 0 12px #ffd700;border-style:solid}
+.chip-1{background:#7f8c8d}.chip-5{background:#e74c3c}.chip-10{background:#3498db}.chip-25{background:#2ecc71}.chip-50{background:#9b59b6}.chip-100{background:#f1c40f;color:#000}.chip-500{background:#e67e22}.chip-1000{background:#1abc9c}.chip-5000{background:#d35400}.chip-10000{background:#8e44ad}
+.action-btns{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.btn{padding:11px 18px;border-radius:7px;border:0;font-weight:bold;cursor:pointer}
+.btn-clear{background:#e74c3c;color:#fff}.btn-spin{background:#2ed573;color:#06140b;min-width:130px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.note{color:#9eabc0;text-align:center;font-size:11px;line-height:1.5}
+@media(max-width:650px){
+ body{padding:6px}
+ .game-wrapper{padding:8px;gap:9px}
+ .header-bar{padding:8px}
+ .board-container{gap:2px;padding:4px;grid-template-rows:repeat(7,minmax(39px,1fr))}
+ .track-block{border-radius:4px}
+ .inner-betting-grid{gap:3px;padding:4px}
+ .bet-zone{min-height:42px;border-width:1px;padding:2px}
+ .zone-mult{font-size:9px}
+ .bet-chip-display{font-size:8px;padding:1px 3px}
+ .record-panel{order:3;width:100%;max-width:100%}
+ .timer-box{margin-left:auto}
+ .btn{flex:1}
+}
+@media(max-width:380px){
+ .board-container{grid-template-rows:repeat(7,minmax(34px,1fr))}
+ .track-block .icon{font-size:14px}
+ .track-block .mult{font-size:8px}
+ .zone-title{font-size:8px}.zone-animal{width:25px;height:25px}
+}
+</style>
+<link rel="manifest" href="./manifest.webmanifest"></head>
+<body>
+<div class="game-wrapper">
+  <div class="header-bar">
+    <div class="profile-box">
+      <div class="avatar">🦁</div>
+      <div class="user-info"><span class="username">DEMO PLAYER</span><span class="balance" id="balanceDisplay">$10,000</span></div>
+    </div>
+    <div class="record-panel"><span class="record-title">HISTORY</span><div id="recordHistory" style="display:flex;gap:6px"></div></div>
+    <div class="timer-box" id="timerBox">TIME: 10s</div>
+  </div>
+  <div class="status-line" id="statusBox" aria-live="polite">Place your bets</div>
+  <div class="board-container" id="boardContainer">
+    <div class="inner-betting-grid betting-disabled" id="bettingGrid">
+      <button class="bet-zone" type="button" data-zone="shark"><img class="zone-animal" alt="shark" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f988.svg"><span class="zone-title">Shark</span><span class="zone-mult">x24</span><span class="bet-chip-display">0</span></button>
+      
+      <button class="bet-zone" type="button" data-zone="lion"><img class="zone-animal" alt="lion" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f981.svg"><span class="zone-title">Lion</span><span class="zone-mult">x12</span><span class="bet-chip-display">0</span></button>
+      <button class="bet-zone" type="button" data-zone="eagle"><img class="zone-animal" alt="eagle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f985.svg"><span class="zone-title">Eagle</span><span class="zone-mult">x12</span><span class="bet-chip-display">0</span></button>
+      <button class="bet-zone" type="button" data-zone="beast"><img class="zone-animal" alt="beast" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f43e.svg"><span class="zone-title">Beasts</span><span class="zone-mult">x2</span><span class="bet-chip-display">0</span></button>
+      <button class="bet-zone" type="button" data-zone="monkey"><img class="zone-animal" alt="monkey" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f412.svg"><span class="zone-title">Monkey</span><span class="zone-mult">x8</span><span class="bet-chip-display">0</span></button>
+      <button class="bet-zone" type="button" data-zone="panda"><img class="zone-animal" alt="panda" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f43c.svg"><span class="zone-title">Panda</span><span class="zone-mult">x8</span><span class="bet-chip-display">0</span></button>
+      <button class="bet-zone" type="button" data-zone="peacock"><img class="zone-animal" alt="peacock" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f99a.svg"><span class="zone-title">Peacock</span><span class="zone-mult">x8</span><span class="bet-chip-display">0</span></button>
+      <button class="bet-zone" type="button" data-zone="birds"><img class="zone-animal" alt="birds" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f426.svg"><span class="zone-title">Birds</span><span class="zone-mult">x2</span><span class="bet-chip-display">0</span></button>
+      <button class="bet-zone" type="button" data-zone="rabbit"><img class="zone-animal" alt="rabbit" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f430.svg"><span class="zone-title">Rabbit</span><span class="zone-mult">x6</span><span class="bet-chip-display">0</span></button>
+      <button class="bet-zone" type="button" data-zone="elephant"><img class="zone-animal" alt="elephant" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f418.svg"><span class="zone-title">Elephant</span><span class="zone-mult">x6</span><span class="bet-chip-display">0</span></button>
+      <button class="bet-zone" type="button" data-zone="pigeon"><img class="zone-animal" alt="pigeon" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/1f426.svg"><span class="zone-title">Pigeon</span><span class="zone-mult">x6</span><span class="bet-chip-display">0</span></button>
+      <button class="bet-zone" type="button" data-zone="gold_shark"><span class="zone-title">🌟 Gold Shark</span><span class="zone-mult">x100</span><span class="bet-chip-display">0</span></button>
+    </div>
+  </div>
+  <div class="controls-bar">
+    <div class="chip-selector" id="chipSelector">
+      <button class="chip chip-1 selected" type="button" data-value="1">1</button>
+      <button class="chip chip-5" type="button" data-value="5">5</button>
+      <button class="chip chip-10" type="button" data-value="10">10</button>
+      <button class="chip chip-25" type="button" data-value="25">25</button>
+      <button class="chip chip-50" type="button" data-value="50">50</button>
+      <button class="chip chip-100" type="button" data-value="100">100</button>
+      <button class="chip chip-500" type="button" data-value="500">500</button>
+      <button class="chip chip-1000" type="button" data-value="1000">1K</button>
+      <button class="chip chip-5000" type="button" data-value="5000">5K</button>
+      <button class="chip chip-10000" type="button" data-value="10000">10K</button>
+    </div>
+    <div class="action-btns">
+      <button class="btn btn-clear" id="btnClear" type="button" disabled>Clear Bets</button>
+      <button class="btn btn-spin" id="btnSpin" type="button" disabled>SPIN</button>
+    </div>
+  </div>
+  <p class="note">Demo game only. Balance and results are stored in this browser and are not real-money transactions or server-verified.</p>
+</div>
+
+<script>
+'use strict';
+
+const trackData = [
+  {icon:'🦈',name:'shark',group:'beast'},
+  {icon:'🦁',name:'lion',group:'beast'},
+  {icon:'🐰',name:'rabbit',group:'beast'},
+  {icon:'🐘',name:'elephant',group:'beast'},
+  {icon:'🦅',name:'eagle',group:'birds'},
+  {icon:'🦚',name:'peacock',group:'birds'},
+  {icon:'🐦',name:'pigeon',group:'birds'},
+  {icon:'💣',name:'bomb',group:'none'},
+  {icon:'🐒',name:'monkey',group:'beast'},
+  {icon:'🐼',name:'panda',group:'beast'},
+  {icon:'🐰',name:'rabbit',group:'beast'},
+  {icon:'🦁',name:'lion',group:'beast'},
+  {icon:'🦅',name:'eagle',group:'birds'},
+  {icon:'🦚',name:'peacock',group:'birds'},
+  {icon:'🦈',name:'shark',group:'beast'},
+  {icon:'🐘',name:'elephant',group:'beast'},
+  {icon:'🐒',name:'monkey',group:'beast'},
+  {icon:'🐼',name:'panda',group:'beast'},
+  {icon:'🐦',name:'pigeon',group:'birds'},
+  {icon:'🦚',name:'peacock',group:'birds'},
+  {icon:'🦅',name:'eagle',group:'birds'},
+  {icon:'💣',name:'bomb',group:'none'},
+  {icon:'🐰',name:'rabbit',group:'beast'},
+  {icon:'🦁',name:'lion',group:'beast'},
+  {icon:'🐘',name:'elephant',group:'beast'},
+  {icon:'🐒',name:'monkey',group:'beast'},
+  {icon:'🐼',name:'panda',group:'beast'},
+  {icon:'🌟',name:'gold_shark',group:'all'}
+];
+
+const trackPositions = [
+  {r:1,c:1},{r:1,c:2},{r:1,c:3},{r:1,c:4},{r:1,c:5},{r:1,c:6},{r:1,c:7},{r:1,c:8},{r:1,c:9},
+  {r:2,c:9},{r:3,c:9},{r:4,c:9},{r:5,c:9},{r:6,c:9},
+  {r:7,c:9},{r:7,c:8},{r:7,c:7},{r:7,c:6},{r:7,c:5},{r:7,c:4},{r:7,c:3},{r:7,c:2},{r:7,c:1},
+  {r:6,c:1},{r:5,c:1},{r:4,c:1},{r:3,c:1},{r:2,c:1}
+];
+
+// The values shown on the betting buttons and paid by the game use this same table.
+const multipliers = {
+  shark:24,lion:12,rabbit:6,elephant:6,eagle:12,peacock:8,pigeon:6,
+  monkey:8,panda:8,gold_shark:100,beast:2,birds:2
+};
+
+const STORAGE_KEY = 'zooRouletteDemo_v2';
+const initialState = {balance:50,history:[],bets:{},selectedChip:1};
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || {}; } catch (_) {}
+let balance = Number.isFinite(saved.balance) && saved.balance >= 0 ? saved.balance : initialState.balance;
+let history = Array.isArray(saved.history) ? saved.history.slice(-8) : initialState.history;
+let currentBets = saved.bets && typeof saved.bets === 'object' ? saved.bets : {};
+let selectedChipValue = [1,5,10,25,50,100,500,1000,5000,10000].includes(saved.selectedChip) ? saved.selectedChip : 1;
+
+let isSpinning = false;
+let bettingOpen = false;
+let bettingTimeLeft = 10;
+let bettingTimerInterval = null;
+let spinTimeout = null;
+let currentTrackIndex = 0;
+let spinsUntilBoom = 3 + Math.floor(Math.random() * 3);
+const trackElements = [];
+
+const boardContainer = document.getElementById('boardContainer');
+const bettingGrid = document.getElementById('bettingGrid');
+const balanceDisplay = document.getElementById('balanceDisplay');
+const statusBox = document.getElementById('statusBox');
+const timerBox = document.getElementById('timerBox');
+const recordHistory = document.getElementById('recordHistory');
+const btnSpin = document.getElementById('btnSpin');
+const btnClear = document.getElementById('btnClear');
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      balance, history:history.slice(-8), bets:currentBets, selectedChip:selectedChipValue
+    }));
+  } catch (_) {
+    statusBox.textContent = 'Browser storage unavailable; this round may not persist.';
+  }
+}
+function money(value) { return '$' + Number(value).toLocaleString(); }
+function updateBalance() { balanceDisplay.textContent = money(balance); }
+function updateHistory() {
+  recordHistory.replaceChildren();
+  history.slice(-8).forEach(entry => {
+    if (typeof entry === 'string') entry = {icon:entry, result:'previous', win:false, payout:0};
+    const item = document.createElement('div');
+    const isBoom = entry.result === 'bomb';
+    item.className = 'record-item' + (isBoom ? ' boom' : (entry.win ? ' win' : ''));
+    const title = document.createElement('strong');
+    title.textContent = `${entry.icon || '❔'} ${isBoom ? 'BOOM' : String(entry.result || 'previous').toUpperCase()}`;
+    const detail = document.createElement('small');
+    detail.textContent = isBoom ? 'ROUND LOST' : (entry.win ? `WIN +${money(entry.payout)}` : 'NO WIN');
+    item.append(title, detail);
+    recordHistory.appendChild(item);
+  });
+}
+function updateBetDisplays() {
+  document.querySelectorAll('.bet-zone').forEach(zone => {
+    const key = zone.dataset.zone;
+    const amount = Number(currentBets[key] || 0);
+    zone.querySelector('.bet-chip-display').textContent = money(amount);
+    zone.classList.toggle('has-bet', amount > 0);
+  });
+}
+function updateControls() {
+  bettingGrid.classList.toggle('betting-disabled', !bettingOpen || isSpinning);
+  document.querySelectorAll('.bet-zone').forEach(zone => zone.disabled = !bettingOpen || isSpinning);
+  btnClear.disabled = !bettingOpen || isSpinning || Object.keys(currentBets).length === 0;
+  btnSpin.disabled = !bettingOpen || isSpinning;
+}
+function initTrack() {
+  trackPositions.forEach((pos, idx) => {
+    const data = trackData[idx];
+    const cell = document.createElement('div');
+    cell.className = 'track-block';
+    cell.style.gridRow = String(pos.r);
+    cell.style.gridColumn = String(pos.c);
+    cell.innerHTML = `<span class="icon">${data.icon}</span><span class="mult">${data.name === 'bomb' ? 'BOOM' : 'x' + multipliers[data.name]}</span>`;
+    boardContainer.appendChild(cell);
+    trackElements.push(cell);
+  });
+  trackElements[currentTrackIndex].classList.add('active');
+}
+function startBettingTimer() {
+  clearInterval(bettingTimerInterval);
+  bettingTimeLeft = 10;
+  bettingOpen = true;
+  timerBox.textContent = `TIME: ${bettingTimeLeft}s`;
+  statusBox.textContent = 'Place your bets';
+  updateControls();
+  bettingTimerInterval = setInterval(() => {
+    bettingTimeLeft -= 1;
+    timerBox.textContent = `TIME: ${Math.max(0,bettingTimeLeft)}s`;
+    if (bettingTimeLeft <= 0) {
+      clearInterval(bettingTimerInterval);
+      closeBetsAndSpin();
+    }
+  }, 1000);
+}
+function closeBetsAndSpin() {
+  if (isSpinning || !bettingOpen) return;
+  bettingOpen = false;
+  clearInterval(bettingTimerInterval);
+  timerBox.textContent = 'BETS CLOSED';
+  updateControls();
+  runSpin();
+}
+function runSpin() {
+  isSpinning = true;
+  bettingOpen = false;
+  updateControls();
+  statusBox.textContent = 'SPINNING...';
+  const targetIndex = chooseResultIndex();
+  const totalSteps = 28 * 3 + ((targetIndex - currentTrackIndex + 28) % 28);
+  let step = 0;
+  const tick = () => {
+    trackElements[currentTrackIndex].classList.remove('active');
+    currentTrackIndex = (currentTrackIndex + 1) % trackData.length;
+    trackElements[currentTrackIndex].classList.add('active');
+    step += 1;
+    if (step < totalSteps) {
+      const progress = step / totalSteps;
+      const delay = 35 + Math.floor(progress * progress * 150);
+      spinTimeout = setTimeout(tick, delay);
+    } else {
+      resolveWin(targetIndex);
+    }
+  };
+  tick();
+}
+function chooseResultIndex() {
+  // A BOOM is guaranteed after a randomly selected 3, 4, or 5 completed rounds.
+  if (spinsUntilBoom <= 1) {
+    const bombIndexes = trackData.map((item, index) => item.name === 'bomb' ? index : -1).filter(index => index >= 0);
+    spinsUntilBoom = 3 + Math.floor(Math.random() * 3);
+    return bombIndexes[Math.floor(Math.random() * bombIndexes.length)];
+  }
+  // Favor low multipliers; high multipliers remain possible but are less frequent.
+  const weightedNames = [
+    'beast','birds','rabbit','rabbit','elephant','elephant','pigeon','pigeon',
+    'monkey','monkey','panda','panda','peacock','peacock','lion','eagle','shark','gold_shark'
+  ];
+  const chosen = weightedNames[Math.floor(Math.random() * weightedNames.length)];
+  const matches = trackData.map((item,index) => item.name === chosen ? index : -1).filter(index => index >= 0);
+  spinsUntilBoom -= 1;
+  return matches[Math.floor(Math.random() * matches.length)];
+}
+
+function resolveWin(index) {
+  const result = trackData[index];
+  const animal = result.name;
+  const group = result.group;
+  let totalWin = 0;
+  if (animal !== 'bomb' && currentBets[animal]) totalWin += Number(currentBets[animal]) * multipliers[animal];
+  if (animal !== 'bomb' && group && currentBets[group]) totalWin += Number(currentBets[group]) * multipliers[group];
+
+  balance += totalWin;
+  history.push({icon:result.icon, result:animal, win:totalWin > 0, payout:totalWin});
+  history = history.slice(-8);
+  currentBets = {};
+  saveState();
+  updateBalance();
+  updateHistory();
+  updateBetDisplays();
+  statusBox.textContent = animal === 'bomb'
+    ? `💥 BOOM! — Round lost`
+    : (totalWin > 0
+      ? `WIN: +${money(totalWin)} — ${result.icon} ${animal.toUpperCase()}`
+      : `NO WIN — ${result.icon} ${animal.toUpperCase()}`);
+  isSpinning = false;
+  updateControls();
+  setTimeout(startBettingTimer, 2200);
+}
+
+document.getElementById('chipSelector').addEventListener('click', event => {
+  const chip = event.target.closest('.chip');
+  if (!chip || isSpinning || !bettingOpen) return;
+  selectedChipValue = Number(chip.dataset.value);
+  document.querySelectorAll('.chip').forEach(item => item.classList.toggle('selected', item === chip));
+  saveState();
+});
+
+bettingGrid.addEventListener('click', event => {
+  const zone = event.target.closest('.bet-zone');
+  if (!zone || !bettingOpen || isSpinning) return;
+  if (balance < selectedChipValue) {
+    statusBox.textContent = 'Insufficient demo balance';
+    return;
+  }
+  const key = zone.dataset.zone;
+  balance -= selectedChipValue;
+  currentBets[key] = Number(currentBets[key] || 0) + selectedChipValue;
+  saveState();
+  updateBalance();
+  updateBetDisplays();
+  updateControls();
+});
+
+btnClear.addEventListener('click', () => {
+  if (!bettingOpen || isSpinning) return;
+  const refund = Object.values(currentBets).reduce((sum,value) => sum + Number(value || 0), 0);
+  balance += refund;
+  currentBets = {};
+  saveState();
+  updateBalance();
+  updateBetDisplays();
+  updateControls();
+  statusBox.textContent = `Bets cleared — ${money(refund)} refunded`;
+});
+
+btnSpin.addEventListener('click', () => {
+  if (!bettingOpen || isSpinning) return;
+  closeBetsAndSpin();
+});
+
+initTrack();
+updateBalance();
+updateHistory();
+updateBetDisplays();
+updateControls();
+startBettingTimer();
+</script>
+
+<script>
+(function(){
+  const WA='03245799008';
+  function addStyles(){
+    const css=`*{ -webkit-tap-highlight-color:transparent } img,canvas,video{max-width:100%}
+    @media(max-width:760px){
+      html,body{width:100%;max-width:100%;overflow-x:hidden}
+      body{min-height:100svh}
+      button,input,select{font-size:16px}
+      main,.container,.app-container,.game-container,.game-wrapper{max-width:100%;min-width:0}
+      .app-container{padding-left:7px!important;padding-right:7px!important}
+      .game-board,.stage-wrapper{max-width:100%}
+    }
+    .knp-tools{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;padding:7px;background:#101827;border-bottom:1px solid #334155;font:600 12px Arial}
+    .knp-tools button,.knp-tools a{border:1px solid #64748b;border-radius:20px;padding:7px 12px;background:#1e293b;color:#fff;text-decoration:none}
+    .knp-tools a{background:#075e54;border-color:#0d9488}`;
+    const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  }
+  function sound(){
+    let on=localStorage.getItem('knpSound')==='on', ac;
+    const bar=document.createElement('div');bar.className='knp-tools';
+    const b=document.createElement('button');
+    const wa=document.createElement('a');wa.href='https://wa.me/92'+WA.slice(1);wa.target='_blank';wa.rel='noopener';wa.textContent='Admin WhatsApp';
+    const acct=document.createElement('a');acct.href='./account.html';acct.textContent='Account';
+    b.textContent=on?'🔊 Sound ON':'🔇 Sound OFF';
+    b.onclick=()=>{on=!on;localStorage.setItem('knpSound',on?'on':'off');b.textContent=on?'🔊 Sound ON':'🔇 Sound OFF';if(on)tone(660,.07)};
+    function tone(f,d){if(!on)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;g.gain.value=.025;o.connect(g);g.connect(ac.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.stop(ac.currentTime+d)}catch(e){}}
+    document.addEventListener('click',e=>{if(e.target.closest('button'))tone(520,.045)},true);
+    bar.append(b,wa,acct);
+    const header=document.querySelector('header');
+    if(header)header.insertAdjacentElement('afterend',bar);else document.body.prepend(bar);
+  }
+  addStyles(); if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sound);else sound();
+})();
+</script>
+
+<script>if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));</script></body>
+</html>

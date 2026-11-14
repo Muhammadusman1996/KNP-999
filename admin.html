@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101827"><title>KNP-999 Admin</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#080d1b;color:#fff;font:15px Arial;padding:14px}
+.wrap{max-width:1000px;margin:20px auto}.panel{background:#17233d;border:1px solid #53617e;border-radius:14px;padding:16px;margin:12px 0}
+h1,h2{color:#f6d778}input,button{padding:11px;border-radius:7px;border:1px solid #64748b;font-size:16px}
+input{background:#0b1325;color:#fff;max-width:100%;width:100%;margin:5px 0}button{background:#c99a35;color:#111;font-weight:bold;cursor:pointer}
+table{width:100%;border-collapse:collapse;min-width:600px}th,td{padding:10px;border-bottom:1px solid #394966;text-align:left}
+.tablebox{overflow:auto}.muted{color:#bac6dc;font-size:13px;line-height:1.5}#msg{color:#f6d778;white-space:pre-wrap}
+.row{display:grid;grid-template-columns:2fr 1fr auto;gap:7px}@media(max-width:600px){.row{grid-template-columns:1fr}.panel{padding:12px}}
+</style><link rel="manifest" href="./manifest.webmanifest"></head><body><div class="wrap"><h1>KNP-999 ADMIN PANEL</h1>
+<div class="panel"><h2>Admin Login</h2><input id="email" type="email" placeholder="Admin email"><input id="password" type="password" placeholder="Admin password"><button id="login">Login</button><button id="logout" style="display:none">Logout</button><p id="msg"></p>
+<p class="muted">Create the admin user in Firebase Authentication first. Firestore security rules must also contain that exact admin email. Do not rely on hiding this page as security.</p></div>
+<div class="panel" id="dashboard" style="display:none"><h2>Registered Users</h2><button id="refresh">Refresh Users</button><div class="tablebox"><table><thead><tr><th>Name</th><th>Mobile</th><th>Email</th><th>Coins</th><th>Add Coins</th></tr></thead><tbody id="users"></tbody></table></div></div>
+<p><a href="./index.html" style="color:#f6d778">Back to game hub</a></p></div>
+<script src="./firebase-config.js"></script><script type="module">
+import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import{getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import{getFirestore,collection,getDocs}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import{getFunctions,httpsCallable}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js';
+const cfg=window.KNP_FIREBASE_CONFIG,msg=document.getElementById('msg');let auth,db;
+if(!cfg||cfg.apiKey.startsWith('PASTE_'))msg.textContent='Setup required: add Firebase web config in firebase-config.js.';
+else{
+ const app=initializeApp(cfg);auth=getAuth(app);db=getFirestore(app);window.knpAdminAddCoins=httpsCallable(getFunctions(app),'adminAddCoins');
+}
+document.getElementById('login').onclick=async()=>{try{if(!auth)throw Error('Firebase config is missing.');await signInWithEmailAndPassword(auth,email.value,password.value)}catch(e){msg.textContent=e.message}};
+document.getElementById('logout').onclick=()=>signOut(auth);
+if(auth) onAuthStateChanged(auth,async u=>{
+ const allowed=!!u&&window.KNP_ADMIN_EMAIL&&window.KNP_ADMIN_EMAIL!=='ADD_YOUR_ADMIN_EMAIL_HERE'&&u.email===window.KNP_ADMIN_EMAIL;
+ document.getElementById('dashboard').style.display=allowed?'block':'none';
+ document.getElementById('logout').style.display=u?'inline-block':'none';
+ if(u&&!allowed)msg.textContent='This email is not the configured admin email. Set KNP_ADMIN_EMAIL in firebase-config.js.';
+ if(allowed){msg.textContent='Admin signed in.';loadUsers()}
+});
+async function loadUsers(){const body=document.getElementById('users');body.innerHTML='';try{
+ const snap=await getDocs(collection(db,'users'));snap.forEach(d=>{const u=d.data(),tr=document.createElement('tr');
+ const vals=[u.name||'',u.phone||'',u.email||'',String(u.coins??0)];vals.forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});
+ const td=document.createElement('td'),wrap=document.createElement('div'),inp=document.createElement('input'),btn=document.createElement('button');inp.type='number';inp.min='1';inp.placeholder='Coins';btn.textContent='Add';btn.onclick=async()=>{const n=Number(inp.value);if(!Number.isFinite(n)||n<=0){msg.textContent='Enter a positive coin amount.';return}try{await window.knpAdminAddCoins({uid:d.id,amount:Math.floor(n)});msg.textContent='Coins added to shared wallet.';loadUsers()}catch(e){msg.textContent=e.message}};wrap.append(inp,btn);td.append(wrap);tr.append(td);body.append(tr)
+ });}catch(e){msg.textContent=e.message}}
+document.getElementById('refresh').onclick=loadUsers;
+</script><script>if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));</script></body></html>

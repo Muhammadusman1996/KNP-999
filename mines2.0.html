@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mines Game - Final Version</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #03001C;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        #game-container {
+            border: 3px solid #301E67;
+            border-radius: 15px;
+            padding: 20px;
+            background: #1B1A55;
+            text-align: center;
+            width: 380px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .jackpot-display {
+            display: flex;
+            justify-content: space-around;
+            background: #000;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .jackpot-item {
+            text-align: center;
+        }
+        .jackpot-title {
+            color: #94A3B8;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .jackpot-value {
+            color: #FACC15;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .info-panel {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            background: #0F172A;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            border: 1px solid #301E67;
+        }
+        .difficulty-selector {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .diff-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            background: #301E67;
+            color: white;
+            transition: background 0.3s;
+        }
+        .diff-btn.active {
+            background: #E5C3A6;
+            color: #03001C;
+        }
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .cell {
+            aspect-ratio: 1;
+            background: #301E67;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.1s, background-color 0.3s;
+            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.3);
+        }
+        .cell:hover {
+            transform: scale(1.05);
+        }
+        .cell.revealed {
+            background: #1B1A55;
+            cursor: default;
+        }
+        .cell.bomb {
+            background: #FF0000;
+            animation: explode 0.5s;
+        }
+        .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0F172A;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #301E67;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .control-buttons {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 5px;
+        }
+        .btn-control {
+            background: #E5C3A6;
+            color: #03001C;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .btn-control:active {
+            transform: scale(0.9);
+        }
+        .display-box {
+            background: #000;
+            padding: 5px 15px;
+            border-radius: 4px;
+            min-width: 50px;
+            text-align: center;
+            font-weight: bold;
+            color: #E5C3A6;
+        }
+        #action-btn {
+            background: #4E31AA;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 14px rgba(78, 49, 170, 0.4);
+        }
+        #action-btn:active {
+            transform: scale(0.98);
+        }
+        .win-display {
+            font-size: 22px;
+            font-weight: bold;
+            color: #E5C3A6;
+            margin-top: 15px;
+        }
+        @keyframes explode {
+            0% { transform: scale(1); background: #FF0000; }
+            50% { transform: scale(1.2); background: #FFC900; }
+            100% { transform: scale(1); background: #FF0000; }
+        }
+    </style>
+<link rel="manifest" href="./manifest.webmanifest"></head>
+<body>
+<div id="knp-welcome-bonus" style="text-align:center;padding:8px;background:#102b25;color:#86efac;font-weight:800;border-bottom:1px solid #276749">Welcome Bonus: 50 Coins</div>
+
+
+<div id="game-container">
+    <div class="jackpot-display">
+        <div class="jackpot-item"><div class="jackpot-title">GRAND</div><div class="jackpot-value">10000</div></div>
+        <div class="jackpot-item"><div class="jackpot-title">MAJOR</div><div class="jackpot-value">3000</div></div>
+        <div class="jackpot-item"><div class="jackpot-title">MINOR</div><div class="jackpot-value">1000</div></div>
+    </div>
+
+    <div class="difficulty-selector">
+        <button class="diff-btn active" onclick="setDifficulty('easy', 4)">EASY</button>
+        <button class="diff-btn" onclick="setDifficulty('normal', 7)">NORMAL</button>
+        <button class="diff-btn" onclick="setDifficulty('high', 10)">HIGH</button>
+    </div>
+
+    <div class="info-panel">
+        <div>NEXT WIN: <span id="next-mult" style="color: #E5C3A6;">2.00X</span></div>
+        <div>FOUND: <span id="mines-found">0</span>/<span id="total-safe">21</span></div>
+    </div>
+
+    <div id="grid"></div>
+
+    <div class="controls-row">
+        <div class="control-group">
+            <span style="font-size: 12px; color: #94A3B8;">BET</span>
+            <div class="control-buttons">
+                <button class="btn-control" onclick="adjustBet(-10)">-</button>
+                <div class="display-box"><span id="bet-amount">10</span></div>
+                <button class="btn-control" onclick="adjustBet(10)">+</button>
+            </div>
+        </div>
+        <div class="control-group">
+            <span style="font-size: 12px; color: #94A3B8;">MINES</span>
+            <div class="display-box"><span id="mine-count">4</span></div>
+        </div>
+    </div>
+
+    <button id="action-btn" onclick="handleMainButtonClick()">START</button>
+
+    <div class="win-display">WIN Rs<span id="total-win">0.00</span></div>
+</div>
+<script>
+    let bet = 10;
+    let minesCount = 4;
+    let gridState = []; 
+    let revealedState = [];
+    let gameActive = false;
+    let minesFound = 0;
+    const totalCells = 25;
+
+    const multipliersConfig = {
+        easy: [2.00, 2.50, 3.20, 4.10, 5.30, 7.00, 9.20, 12.00, 15.80, 20.80, 27.50, 36.30, 48.00, 63.50, 84.00, 111.00, 147.00, 195.00, 258.00, 342.00, 453.00],
+        normal: [1.35, 1.80, 2.45, 3.30, 4.55, 6.30, 8.80, 12.30, 17.30, 24.50, 34.80, 49.60, 71.00, 102.00, 148.00, 215.00, 314.00, 460.00, 678.00, 1000.00, 1500.00, 2200.00, 3400.00, 5000.00],
+        high: [1.15, 1.40, 1.75, 2.22, 2.85, 3.70, 4.85, 6.40, 8.60, 11.60, 15.70, 21.50, 29.60, 41.00, 57.50, 81.00, 115.00, 163.00, 235.00, 340.00, 500.00, 750.00, 1100.00, 1800.00]
+    };
+
+    let currentMultiplierTrack = [...multipliersConfig.easy];
+
+    function playCoinSound() {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(987.77, ctx.currentTime);
+        osc.frequency.setValueAtTime(1318.51, ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.3);
+    }
+
+    function setDifficulty(level, mines) {
+        if (gameActive) return;
+        minesCount = mines;
+        document.getElementById('mine-count').innerText = minesCount;
+        currentMultiplierTrack = [...multipliersConfig[level]];
+        
+        const buttons = document.querySelectorAll('.diff-btn');
+        buttons.forEach(btn => {
+            if (btn.innerText.toLowerCase() === level) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        resetGameDisplay();
+    }
+
+    function adjustBet(amount) {
+        if (!gameActive) {
+            bet += amount;
+            if (bet < 10) bet = 10;
+            document.getElementById('bet-amount').innerText = bet;
+        }
+    }
+
+    function createGrid() {
+        const gridElement = document.getElementById('grid');
+        gridElement.innerHTML = '';
+        for (let i = 0; i < totalCells; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.dataset.index = i;
+            cell.onclick = () => revealCell(i);
+            gridElement.appendChild(cell);
+        }
+    }
+
+    function resetGameDisplay() {
+        minesFound = 0;
+        document.getElementById('mines-found').innerText = minesFound;
+        document.getElementById('total-safe').innerText = totalCells - minesCount;
+        document.getElementById('total-win').innerText = "0.00";
+        document.getElementById('next-mult').innerText = currentMultiplierTrack[0].toFixed(2) + "X";
+        
+        const cells = document.querySelectorAll('.cell');
+        cells.forEach(cell => {
+            cell.className = 'cell';
+            cell.innerHTML = '';
+        });
+    }
+
+    function handleMainButtonClick() {
+        if (gameActive) {
+            cashOut();
+        } else {
+            startGame();
+        }
+    }
+
+    function startGame() {
+        if (gameActive) return;
+        gameActive = true;
+        resetGameDisplay();
+        
+        const actionBtn = document.getElementById('action-btn');
+        actionBtn.innerText = "CASH OUT";
+        actionBtn.style.backgroundColor = "#D97706";
+
+        gridState = new Array(totalCells).fill(false);
+        revealedState = new Array(totalCells).fill(false);
+
+        let placedMines = 0;
+        while (placedMines < minesCount) {
+            const randomIndex = Math.floor(Math.random() * totalCells);
+            if (!gridState[randomIndex]) {
+                gridState[randomIndex] = true;
+                placedMines++;
+            }
+        }
+    }
+
+    function revealCell(index) {
+        if (!gameActive || revealedState[index]) return;
+
+        revealedState[index] = true;
+        const cell = document.querySelector(`[data-index="${index}"]`);
+
+        if (gridState[index]) {
+            cell.classList.add('bomb');
+            cell.innerHTML = '💣';
+            endGame(false);
+        } else {
+            playCoinSound();
+            cell.classList.add('revealed');
+            cell.innerHTML = '💎';
+            minesFound++;
+            document.getElementById('mines-found').innerText = minesFound;
+            
+            if (minesFound <= currentMultiplierTrack.length) {
+                const currentMult = currentMultiplierTrack[Math.min(minesFound - 1, currentMultiplierTrack.length - 1)];
+                document.getElementById('next-mult').innerText = currentMult.toFixed(2) + "X";
+                const currentWin = (bet * currentMult).toFixed(2);
+                document.getElementById('total-win').innerText = currentWin;
+            }
+
+            if (minesFound === (totalCells - minesCount)) {
+                endGame(true);
+            }
+        }
+    }
+
+    function cashOut() {
+        if (!gameActive) return;
+        const currentMult = minesFound > 0 ? currentMultiplierTrack[Math.min(minesFound - 1, currentMultiplierTrack.length - 1)] : 1;
+        const finalWin = (bet * currentMult).toFixed(2);
+        alert("You cashed out! Won Rs " + finalWin);
+        endGame(true);
+    }
+
+    function endGame(isWon) {
+        gameActive = false;
+        const actionBtn = document.getElementById('action-btn');
+        actionBtn.innerText = "START";
+        actionBtn.style.backgroundColor = "#4E31AA";
+        
+        const cells = document.querySelectorAll('.cell');
+        gridState.forEach((isBomb, index) => {
+            if (isBomb) {
+                cells[index].classList.add('bomb');
+                cells[index].innerHTML = '💣';
+            } else if (!revealedState[index]) {
+                cells[index].classList.add('revealed');
+                cells[index].innerText = '💎';
+            }
+        });
+
+        if (!isWon) {
+            alert("Game Over! You hit a mine.");
+        }
+    }
+
+    createGrid();
+</script>
+
+<script>
+(function(){
+  const WA='03245799008';
+  function addStyles(){
+    const css=`*{ -webkit-tap-highlight-color:transparent } img,canvas,video{max-width:100%}
+    @media(max-width:760px){
+      html,body{width:100%;max-width:100%;overflow-x:hidden}
+      body{min-height:100svh}
+      button,input,select{font-size:16px}
+      main,.container,.app-container,.game-container,.game-wrapper{max-width:100%;min-width:0}
+      .app-container{padding-left:7px!important;padding-right:7px!important}
+      .game-board,.stage-wrapper{max-width:100%}
+    }
+    .knp-tools{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;padding:7px;background:#101827;border-bottom:1px solid #334155;font:600 12px Arial}
+    .knp-tools button,.knp-tools a{border:1px solid #64748b;border-radius:20px;padding:7px 12px;background:#1e293b;color:#fff;text-decoration:none}
+    .knp-tools a{background:#075e54;border-color:#0d9488}`;
+    const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  }
+  function sound(){
+    let on=localStorage.getItem('knpSound')==='on', ac;
+    const bar=document.createElement('div');bar.className='knp-tools';
+    const b=document.createElement('button');
+    const wa=document.createElement('a');wa.href='https://wa.me/92'+WA.slice(1);wa.target='_blank';wa.rel='noopener';wa.textContent='Admin WhatsApp';
+    const acct=document.createElement('a');acct.href='./account.html';acct.textContent='Account';
+    b.textContent=on?'🔊 Sound ON':'🔇 Sound OFF';
+    b.onclick=()=>{on=!on;localStorage.setItem('knpSound',on?'on':'off');b.textContent=on?'🔊 Sound ON':'🔇 Sound OFF';if(on)tone(660,.07)};
+    function tone(f,d){if(!on)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;g.gain.value=.025;o.connect(g);g.connect(ac.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.stop(ac.currentTime+d)}catch(e){}}
+    document.addEventListener('click',e=>{if(e.target.closest('button'))tone(520,.045)},true);
+    bar.append(b,wa,acct);
+    const header=document.querySelector('header');
+    if(header)header.insertAdjacentElement('afterend',bar);else document.body.prepend(bar);
+  }
+  addStyles(); if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sound);else sound();
+})();
+</script>
+
+<script>if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));</script></body>
+</html>

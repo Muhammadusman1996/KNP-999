@@ -1,0 +1,8 @@
+{
+  "appId": "com.knp999.gamehub",
+  "appName": "KNP-999",
+  "webDir": ".",
+  "server": {
+    "androidScheme": "https"
+  }
+}

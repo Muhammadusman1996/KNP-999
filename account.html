@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827"><title>KNP-999 Customer Account</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(circle at top,#25365e,#080d1b 65%);color:#fff;font:16px Arial;padding:16px}
+.wrap{width:min(100%,430px);margin:30px auto;background:#17233d;border:1px solid #53617e;border-radius:17px;padding:20px;box-shadow:0 14px 35px #0008}
+h1{text-align:center;color:#f6d778;margin:5px 0 18px}.tabs{display:flex;gap:8px;margin-bottom:15px}
+.tabs button{flex:1;background:#263653;color:#fff;border:1px solid #64748b}
+.tabs button.active{background:#c99a35;color:#111;border-color:#f6d778}
+input,button{width:100%;padding:13px;margin:7px 0;border-radius:8px;border:1px solid #64748b;font-size:16px}
+input{background:#0b1325;color:#fff}button{background:#c99a35;color:#111;font-weight:bold;cursor:pointer}
+.note{font-size:13px;color:#bac6dc;line-height:1.5}#msg{white-space:pre-wrap;color:#f6d778;line-height:1.45;min-height:22px}
+a{color:#f6d778}
+</style></head>
+<body><div class="wrap">
+<h1>KNP-999 CUSTOMER ACCOUNT</h1>
+<div class="tabs"><button id="loginTab" class="active" type="button">LOGIN</button><button id="createTab" type="button">CREATE ACCOUNT</button></div>
+<p class="note" id="hint">Login using your mobile number and password.</p>
+<div id="nameWrap" style="display:none"><input id="name" placeholder="User name" autocomplete="name"></div>
+<input id="phone" placeholder="Mobile number (e.g. 03XXXXXXXXX)" inputmode="tel" autocomplete="tel">
+<input id="password" type="password" placeholder="Password" autocomplete="current-password">
+<button id="submit" type="button">LOGIN</button>
+<p id="msg"></p><p><a href="./index.html">Back to games</a></p>
+</div>
+<script src="./firebase-config.js"></script>
+<script type="module">
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {getFirestore,doc,getDoc} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import {getFunctions,httpsCallable} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js';
+const $=id=>document.getElementById(id),msg=$('msg');let mode='login',auth,db;
+const cfg=window.KNP_FIREBASE_CONFIG;
+function setMode(next){mode=next;$('loginTab').classList.toggle('active',mode==='login');$('createTab').classList.toggle('active',mode==='create');$('nameWrap').style.display=mode==='create'?'block':'none';$('submit').textContent=mode==='create'?'CREATE ACCOUNT':'LOGIN';$('hint').textContent=mode==='create'?'Create your account with your user name, mobile number and password.':'Login using your registered mobile number and password.';$('password').autocomplete=mode==='create'?'new-password':'current-password';msg.textContent=''}
+$('loginTab').onclick=()=>setMode('login');$('createTab').onclick=()=>setMode('create');
+function cleanPhone(v){return v.replace(/[\s\-()+]/g,'')}
+function authAlias(phone){return 'u'+phone.replace(/\D/g,'')+'@knp999-login.com'}
+if(!cfg||!cfg.apiKey||cfg.apiKey.startsWith('PASTE_'))msg.textContent='Firebase setup required. Add your Firebase web config in firebase-config.js.';
+else{const app=initializeApp(cfg);auth=getAuth(app);db=getFirestore(app);var createPlayerProfile=httpsCallable(getFunctions(app),'createPlayerProfile')}
+$('submit').onclick=async()=>{
+ try{
+  if(!auth||!db)throw Error('Firebase is not configured yet.');
+  const phone=cleanPhone($('phone').value),password=$('password').value;
+  if(!/^(\+?92|0)?3\d{9}$/.test(phone))throw Error('Enter a valid Pakistan mobile number, e.g. 03XXXXXXXXX.');
+  if(password.length<6)throw Error('Password must be at least 6 characters.');
+  const alias=authAlias(phone);
+  if(mode==='create'){
+   const name=$('name').value.trim();if(name.length<2)throw Error('Enter your user name.');
+   const cred=await createUserWithEmailAndPassword(auth,alias,password);
+   await updateProfile(cred.user,{displayName:name});
+   await createPlayerProfile({name,phone});
+   msg.textContent='Account created successfully. 50 Welcome Coins have been added to your shared wallet.';
+  }else{
+   const cred=await signInWithEmailAndPassword(auth,alias,password);
+   const profile=await getDoc(doc(db,'users',cred.user.uid));
+   msg.textContent=profile.exists()?'Welcome '+(profile.data().name||'')+'. Login successful.':'Login successful.';
+  }
+ }catch(e){msg.textContent=e.code==='auth/email-already-in-use'?'This mobile number is already registered. Please login.':e.code==='auth/invalid-credential'?'Mobile number or password is incorrect.':e.message}
+};
+</script></body></html>

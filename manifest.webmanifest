@@ -1,0 +1,8 @@
+{
+  "name": "KNP-999 Game Hub",
+  "short_name": "KNP-999",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#080d1b",
+  "theme_color": "#080d1b"
+}

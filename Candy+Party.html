@@ -1,0 +1,718 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#170629">
+<title>Candy Party | KNP-999</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ background:radial-gradient(circle at top,#63218d,#19082c 65%,#090311);
+ color:white;font-family:Arial,sans-serif;
+ min-height:100vh;display:flex;justify-content:center;
+}
+.game{
+ width:100%;max-width:520px;min-height:100vh;padding:10px;
+ display:flex;flex-direction:column;gap:10px;
+ background:linear-gradient(160deg,#351052,#170626 70%,#290b43);
+ border:2px solid #a83ce1;
+ box-shadow:0 0 30px #a900ff55;
+}
+.jackpots{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.jackpot{
+ text-align:center;padding:9px 2px;border-radius:12px;
+ border:2px solid #e7a5ff;
+ background:linear-gradient(#6c168e,#230637);
+ box-shadow:inset 0 0 12px #fff3,0 0 10px #b32bff55;
+}
+.jackpot b{display:block;font-size:clamp(10px,3vw,14px)}
+.jackpot span{color:#ffe34e;font-size:clamp(10px,3vw,14px);font-weight:bold}
+.grand{border-color:#ffb02e}
+.major{border-color:#e25aff}
+.minor{border-color:#42cfff}
+.mini{border-color:#5dff83}
+.task{
+ display:flex;align-items:center;gap:10px;padding:10px;
+ border:2px solid #b44ce7;border-radius:15px;
+ background:#210a39;font-weight:bold;font-size:13px;
+}
+.bar{height:11px;background:#4a315e;border-radius:20px;flex:1;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#ff43ce,#ffe45b);transition:.3s}
+.play-area{display:flex;gap:8px;flex:1;min-height:0}
+.grid{
+ flex:3;display:grid;grid-template-columns:repeat(4,1fr);
+ grid-template-rows:repeat(7,minmax(45px,1fr));
+ gap:4px;padding:6px;border:2px solid #d15cff;
+ border-radius:14px;background:#140522;
+}
+.cell{
+ min-width:0;min-height:0;display:flex;align-items:center;
+ justify-content:center;border:1px solid #8539a9;
+ border-radius:9px;background:linear-gradient(145deg,#481365,#210a37);
+ box-shadow:inset 0 2px 8px #fff2,0 2px 5px #0008;
+ overflow:hidden;
+}
+.cell svg{width:90%;height:90%;overflow:visible;filter:drop-shadow(0 3px 3px #0009)}
+.cell.winner{
+ background:linear-gradient(145deg,#a4ff45,#147d36);
+ border:2px solid #fff26a;
+ animation:winPulse .45s infinite alternate;
+ box-shadow:0 0 16px #aaff35;
+}
+@keyframes winPulse{to{transform:scale(.91);filter:brightness(1.5)}}
+.side{
+ flex:1.05;min-width:100px;display:flex;flex-direction:column;
+ justify-content:space-between;align-items:center;padding:10px 5px;
+ border:2px solid #c04ef0;border-radius:14px;
+ background:linear-gradient(#461064,#170627);text-align:center;
+}
+.logo{font-size:clamp(19px,5vw,27px);font-weight:1000;
+ color:#ff82e5;text-shadow:2px 3px #7b168c,0 0 12px #ff44db}
+.logo span{color:#ffdb43;display:block}
+.total-title{font-size:13px;color:#f8d8ff;font-weight:bold}
+.total-value{
+ font-size:19px;font-weight:bold;color:#67ff3e;
+ background:#10031d;border:2px solid #f3a0ff;
+ border-radius:20px;padding:8px 4px;width:100%;
+}
+.candy-pile{font-size:28px;line-height:1.5}
+.info{
+ display:flex;justify-content:space-around;gap:5px;
+ padding:12px 5px;border:2px solid #a63ed0;
+ border-radius:14px;background:#230b3c;font-weight:bold;font-size:13px;
+}
+.info span{color:#ffe34e}
+.controls{
+ display:grid;grid-template-columns:1fr 1fr 1fr;
+ align-items:center;gap:5px;padding:10px 5px;
+ border:2px solid #b747e8;border-radius:16px;background:#210a38;
+}
+.bet,.options{display:flex;flex-direction:column;gap:6px;align-items:center}
+.bet-value{
+ background:#11031d;border:2px solid #ffb9ed;
+ border-radius:10px;padding:8px;width:100%;text-align:center;font-weight:bold;
+}
+button{border:0;border-radius:10px;padding:10px 5px;color:white;font-weight:bold;cursor:pointer}
+.add{background:linear-gradient(#50ec32,#07852b);width:100%}
+.reduce{background:linear-gradient(#ff6659,#b51028);width:100%}
+.option{width:100%;background:linear-gradient(#6c238b,#30094e);border:1px solid #dc8cff}
+.option.active{background:linear-gradient(#58db32,#14762b)}
+.spin{
+ width:min(100%,125px);aspect-ratio:1;border-radius:50%;
+ border:5px solid #ffdf5a;
+ background:radial-gradient(circle at 35% 25%,#ffe66c,#ff9200 55%,#b52b00);
+ box-shadow:0 0 15px #ffb52e,0 0 30px #f70;
+ font-size:clamp(19px,5vw,27px);
+ text-shadow:2px 3px #812100;
+}
+button:disabled{opacity:.5;cursor:not-allowed}
+.message{text-align:center;color:#ffe68b;font-size:12px;min-height:15px}
+.overlay{
+ display:none;position:fixed;inset:0;z-index:20;
+ background:#08000de8;align-items:center;justify-content:center;
+ flex-direction:column;text-align:center;
+}
+.overlay.show{display:flex}
+.big{font-size:42px;color:#ffe347;font-weight:1000;
+ text-shadow:0 0 20px #ff0099;animation:winPulse .5s infinite alternate}
+.amount{font-size:28px;color:#52ff62;margin-top:12px}
+.extra-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.extra-actions button{background:linear-gradient(#713096,#35104e);border:1px solid #d88cff;font-size:12px}
+.panel{display:none;position:fixed;inset:0;z-index:30;background:#08000ded;align-items:center;justify-content:center;padding:14px}
+.panel.show{display:flex}.panel-box{width:min(100%,430px);max-height:85vh;overflow:auto;background:#260b3d;border:2px solid #dc70ff;border-radius:16px;padding:16px}
+.panel-box h2{color:#ffe34e;margin-bottom:12px}.panel-box button{margin-top:12px;background:#8b35b5;width:100%}
+.panel-box table{width:100%;border-collapse:collapse;font-size:13px}.panel-box td,.panel-box th{padding:8px;border-bottom:1px solid #70418b;text-align:left}
+.history-list{font-size:13px;line-height:1.8}.task-reward{color:#ffe34e}
+@media(max-width:370px){
+ .game{padding:5px}
+ .grid{gap:2px;padding:3px}
+ .side{min-width:83px;padding:5px 3px}
+ .info{font-size:11px}
+ .cell{border-radius:5px}
+}
+</style>
+<link rel="manifest" href="./manifest.webmanifest"></head>
+
+<body>
+
+<!-- SVG SYMBOL LIBRARY -->
+<svg xmlns="http://www.w3.org/2000/svg"
+ style="position:absolute;width:0;height:0;overflow:hidden"
+ aria-hidden="true">
+
+<defs>
+ <linearGradient id="pink" x2=".8" y2="1">
+  <stop stop-color="#fff1ff"/>
+  <stop offset=".35" stop-color="#ff69d5"/>
+  <stop offset="1" stop-color="#a50077"/>
+ </linearGradient>
+ <linearGradient id="blue" x2=".8" y2="1">
+  <stop stop-color="#a6ffff"/>
+  <stop offset=".4" stop-color="#25aaff"/>
+  <stop offset="1" stop-color="#064bba"/>
+ </linearGradient>
+ <linearGradient id="gold" x2=".8" y2="1">
+  <stop stop-color="#fff5a1"/>
+  <stop offset=".4" stop-color="#ffb42b"/>
+  <stop offset="1" stop-color="#bd3900"/>
+ </linearGradient>
+ <linearGradient id="purple" x2=".8" y2="1">
+  <stop stop-color="#f6aaff"/>
+  <stop offset=".5" stop-color="#a32bff"/>
+  <stop offset="1" stop-color="#4c087c"/>
+ </linearGradient>
+ <linearGradient id="green" x2=".8" y2="1">
+  <stop stop-color="#d8ff83"/>
+  <stop offset=".5" stop-color="#4dc52a"/>
+  <stop offset="1" stop-color="#12671b"/>
+ </linearGradient>
+ <linearGradient id="red" x2=".8" y2="1">
+  <stop stop-color="#ffb0a8"/>
+  <stop offset=".4" stop-color="#ff303d"/>
+  <stop offset="1" stop-color="#a50021"/>
+ </linearGradient>
+ <linearGradient id="choco" x2=".8" y2="1">
+  <stop stop-color="#d98a48"/>
+  <stop offset=".4" stop-color="#77300d"/>
+  <stop offset="1" stop-color="#321005"/>
+ </linearGradient>
+</defs>
+
+<symbol id="s-candy" viewBox="0 0 100 100">
+ <path d="M30 38L8 20 14 50 8 78 33 62Z" fill="url(#blue)" stroke="#55cfff" stroke-width="3"/>
+ <path d="M70 38L92 20 86 50 92 78 67 62Z" fill="url(#blue)" stroke="#55cfff" stroke-width="3"/>
+ <ellipse cx="50" cy="50" rx="30" ry="29" fill="url(#pink)" stroke="#ffb9f1" stroke-width="3"/>
+ <path d="M36 25Q22 50 38 74M57 21Q43 50 59 78" fill="none" stroke="#fff" stroke-width="8" opacity=".65"/>
+ <ellipse cx="36" cy="30" rx="10" ry="5" fill="white" opacity=".5"/>
+</symbol>
+
+<symbol id="s-lolli" viewBox="0 0 100 100">
+ <path d="M52 52L72 96" stroke="#fff0c8" stroke-width="8" stroke-linecap="round"/>
+ <circle cx="47" cy="39" r="34" fill="url(#gold)" stroke="#ffdc55" stroke-width="3"/>
+ <path d="M47 39C15 8 5 48 36 61C70 78 80 30 48 21C23 13 17 49 45 48C64 47 63 27 47 30" fill="none" stroke="#ff4fce" stroke-width="9" stroke-linecap="round"/>
+ <path d="M47 39C15 8 5 48 36 61" fill="none" stroke="white" stroke-width="2" opacity=".5"/>
+</symbol>
+
+<symbol id="s-choco" viewBox="0 0 100 100">
+ <path d="M14 29L72 9 93 30 35 50Z" fill="#bd5d29"/>
+ <path d="M14 29L35 50 35 89 14 69Z" fill="#54200b"/>
+ <path d="M35 50L93 30 93 68 35 89Z" fill="url(#choco)" stroke="#f4ad69" stroke-width="3"/>
+ <path d="M49 45V76M64 40V70M80 35V65M35 62L93 43" stroke="#e6a26a" stroke-width="3"/>
+</symbol>
+
+<symbol id="s-donut" viewBox="0 0 100 100">
+ <path d="M9 51C9 12 91 5 94 49C97 91 11 96 9 51Z" fill="url(#gold)" stroke="#ffdd70" stroke-width="3"/>
+ <path d="M11 45C13 12 89 8 91 43C82 30 71 39 62 30C49 21 36 38 27 31C19 30 13 36 11 45Z" fill="url(#pink)"/>
+ <ellipse cx="51" cy="49" rx="14" ry="12" fill="#40112b" stroke="#ffdb8b" stroke-width="4"/>
+ <g fill="white"><circle cx="28" cy="34" r="2"/><circle cx="42" cy="24" r="2"/><circle cx="69" cy="32" r="2"/></g>
+</symbol>
+
+<symbol id="s-grapes" viewBox="0 0 100 100">
+ <path d="M49 28Q57 10 75 15Q88 18 84 29Q67 29 57 37" fill="url(#green)" stroke="#1b831c" stroke-width="3"/>
+ <path d="M51 27Q35 9 21 23" fill="none" stroke="#53b52b" stroke-width="5"/>
+ <g fill="url(#purple)" stroke="#e8a2ff" stroke-width="2">
+ <circle cx="30" cy="38" r="13"/>
+ <circle cx="51" cy="36" r="13"/>
+ <circle cx="70" cy="43" r="13"/>
+ <circle cx="20" cy="59" r="13"/>
+ <circle cx="43" cy="58" r="14"/>
+ <circle cx="66" cy="64" r="13"/>
+ <circle cx="34" cy="80" r="12"/>
+ <circle cx="54" cy="82" r="11"/>
+ </g>
+ <g fill="white" opacity=".65">
+ <circle cx="26" cy="33" r="4"/>
+ <circle cx="47" cy="31" r="4"/>
+ <circle cx="65" cy="39" r="4"/>
+ </g>
+</symbol>
+
+<symbol id="s-cherry" viewBox="0 0 100 100">
+ <path d="M50 48Q42 4 22 16M50 48Q65 5 83 17" fill="none" stroke="#57bb36" stroke-width="5"/>
+ <path d="M22 16L10 10M83 17L94 9" stroke="#9ee34a" stroke-width="4"/>
+ <circle cx="30" cy="67" r="24" fill="url(#red)" stroke="#ff9a94" stroke-width="3"/>
+ <circle cx="75" cy="67" r="23" fill="url(#red)" stroke="#ff9a94" stroke-width="3"/>
+ <ellipse cx="22" cy="55" rx="7" ry="4" fill="white" opacity=".8"/>
+ <ellipse cx="67" cy="54" rx="7" ry="4" fill="white" opacity=".8"/>
+</symbol>
+
+<symbol id="s-straw" viewBox="0 0 100 100">
+ <path d="M50 26Q10 10 13 48Q16 84 50 94Q84 84 87 48Q90 10 50 26Z" fill="url(#red)" stroke="#ff9999" stroke-width="3"/>
+ <path d="M50 30Q26 4 15 24L38 30L45 10L53 29L81 15L66 36Z" fill="url(#green)" stroke="#328d22" stroke-width="3"/>
+ <g fill="#ffe66b">
+ <ellipse cx="30" cy="45" rx="2" ry="4"/>
+ <ellipse cx="49" cy="43" rx="2" ry="4"/>
+ <ellipse cx="68" cy="45" rx="2" ry="4"/>
+ <ellipse cx="38" cy="62" rx="2" ry="4"/>
+ <ellipse cx="58" cy="62" rx="2" ry="4"/>
+ <ellipse cx="48" cy="78" rx="2" ry="4"/>
+ </g>
+</symbol>
+
+<symbol id="s-cup" viewBox="0 0 100 100">
+ <path d="M22 47L77 47L68 91H32Z" fill="url(#blue)" stroke="#8be8ff" stroke-width="3"/>
+ <path d="M25 57H74M29 69H71M34 81H66" stroke="white" stroke-width="3" opacity=".6"/>
+ <path d="M18 49Q5 36 27 31Q17 12 41 17Q54 1 63 19Q87 13 77 35Q99 43 80 53Z" fill="url(#pink)" stroke="#ffb2e9" stroke-width="3"/>
+ <circle cx="51" cy="12" r="6" fill="#ffdf4d" stroke="#ff9b25" stroke-width="2"/>
+</symbol>
+
+<symbol id="s-water" viewBox="0 0 100 100">
+ <path d="M9 26Q50 103 91 26Z" fill="url(#red)" stroke="#ffb0a5" stroke-width="3"/>
+ <path d="M9 26Q50 103 91 26" fill="none" stroke="#a6ff4c" stroke-width="10"/>
+ <path d="M12 22Q50 92 88 22" fill="none" stroke="#238d2d" stroke-width="4"/>
+ <g fill="#311023">
+ <ellipse cx="35" cy="48" rx="3" ry="6" transform="rotate(-20 35 48)"/>
+ <ellipse cx="51" cy="66" rx="3" ry="6"/>
+ <ellipse cx="67" cy="47" rx="3" ry="6" transform="rotate(20 67 47)"/>
+ </g>
+</symbol>
+
+<symbol id="s-cookie" viewBox="0 0 100 100">
+ <path d="M50 9C76 8 94 27 91 53C89 82 67 94 43 91C17 88 7 69 10 44C13 20 30 11 50 9Z" fill="url(#gold)" stroke="#ffe19a" stroke-width="4"/>
+ <g fill="#633015">
+ <circle cx="32" cy="30" r="6"/>
+ <circle cx="58" cy="25" r="5"/>
+ <circle cx="73" cy="44" r="6"/>
+ <circle cx="43" cy="53" r="7"/>
+ <circle cx="68" cy="72" r="6"/>
+ <circle cx="25" cy="68" r="5"/>
+ </g>
+ <ellipse cx="30" cy="22" rx="12" ry="5" fill="white" opacity=".35"/>
+</symbol>
+
+</svg>
+
+<div class="overlay" id="overlay">
+ <div class="big" id="bigText">BIG WIN!</div>
+ <div class="amount" id="bigAmount">0.00</div>
+</div>
+
+<div class="game">
+
+<div class="jackpots">
+ <div class="jackpot grand"><b>👑 LOCAL JACKPOT</b><span class="pool" id="jackpotValue">100.00</span></div>
+ <div class="jackpot major"><b>👑 MAJOR</b><span>89,873.84</span></div>
+ <div class="jackpot minor"><b>👑 MINOR</b><span>20.00</span></div>
+ <div class="jackpot mini"><b>👑 MINI</b><span>10.00</span></div>
+</div>
+
+<div class="task">
+ <span id="taskText">Task (0/20)</span><span class="task-reward" id="taskReward">Reward: 5.00</span>
+ <div class="bar"><div class="fill" id="progress"></div></div>
+</div>
+
+<div class="play-area">
+ <div class="grid" id="grid"></div>
+ <div class="side">
+  <div class="logo">🍭 Candy <span>Party</span></div>
+  <div>
+   <div class="total-title">TOTAL WIN</div>
+   <div class="total-value" id="totalWin">0.00</div>
+  </div>
+  <div class="candy-pile">🍬 🍭<br>🍩 🍫</div>
+ </div>
+</div>
+
+<div class="info">
+ <div>Balance: <span id="balance">50.00</span></div>
+ <div>Win: <span id="lastWin">0.00</span></div>
+</div>
+
+<div class="controls">
+ <div class="bet">
+  <button class="add" id="add">+ Add</button>
+  <div class="bet-value" id="bet">1.00</div>
+  <button class="reduce" id="reduce">− Reduce</button>
+ </div>
+
+ <button class="spin" id="spin">SPIN</button>
+
+ <div class="options">
+  <button class="option" id="turbo">⚡ Turbo OFF</button>
+  <button class="option" id="auto">🔄 Auto OFF</button>
+ </div>
+</div>
+<div class="extra-actions"><button id="paytableBtn">PAYTABLE</button><button id="historyBtn">HISTORY</button><button id="claimBtn">CLAIM TASK</button></div>
+<div class="message" id="message">GOOD LUCK! "سلامتی آپ کے ساتھ رہے"۔</div>
+</div>
+
+<div class="panel" id="paytablePanel"><div class="panel-box"><h2>PAYTABLE & WIN RULES</h2><table><tr><th>Matches</th><th>Multiplier</th></tr><tr><td>3 symbols</td><td>1.5×</td></tr><tr><td>4 symbols</td><td>2×</td></tr><tr><td>5 symbols</td><td>3×</td></tr><tr><td>6–7 symbols</td><td>5×</td></tr><tr><td>8+ symbols</td><td>8×</td></tr></table><p style="margin-top:10px;font-size:12px">The multiplier is multiplied by the symbol rate and bet. Symbol rates: Candy 1.0, Lollipop 1.2, Chocolate 1.5, Donut 1.4, Grapes 1.3, Cherry 1.2, Strawberry 1.5, Cup 1.4, Watermelon 1.2, Cookie 1.3. Each symbol type with 3 or more matches pays separately.</p><button data-close="paytablePanel">CLOSE</button></div></div>
+<div class="panel" id="historyPanel"><div class="panel-box"><h2>GAME HISTORY</h2><div class="history-list" id="historyList">No spins yet.</div><button data-close="historyPanel">CLOSE</button></div></div>
+<script>
+"use strict";
+
+const $=id=>document.getElementById(id);
+
+const symbols=[
+ "candy","lolli","choco","donut","grapes",
+ "cherry","straw","cup","water","cookie"
+];
+
+const payouts={
+ candy:1,lolli:1.2,choco:1.5,donut:1.4,
+ grapes:1.3,cherry:1.2,straw:1.5,
+ cup:1.4,water:1.2,cookie:1.3
+};
+
+const SAVE_KEY="knp_candy_party_v2";
+let saved={};
+try{saved=JSON.parse(localStorage.getItem(SAVE_KEY)||"{}")||{};}catch(e){saved={};}
+let balance=Number.isFinite(saved.balance)?saved.balance:50;
+let bet=Number.isFinite(saved.bet)?saved.bet:1;
+let totalWin=Number.isFinite(saved.totalWin)?saved.totalWin:0;
+let lastWin=0;
+let rounds=Number.isFinite(saved.rounds)?saved.rounds:0;
+let history=Array.isArray(saved.history)?saved.history:[];
+let jackpot=Number.isFinite(saved.jackpot)?saved.jackpot:100;
+let jackpotWins=Number.isFinite(saved.jackpotWins)?saved.jackpotWins:0;
+let spinning=false;
+let auto=false;
+let turbo=false;
+let spinInterval=null;
+let autoTimer=null;
+
+const grid=$("grid");
+const cells=[];
+
+function money(n){
+ return Number(n).toFixed(2);
+}
+
+function update(){
+ $("balance").textContent=money(balance);
+ $("bet").textContent=money(bet);
+ $("lastWin").textContent=money(lastWin);
+ $("totalWin").textContent=money(totalWin);
+ $("taskText").textContent=`Task (${rounds}/20)`;
+ $("progress").style.width=(rounds/20*100)+"%";
+ $("jackpotValue").textContent=money(jackpot);
+ $("taskReward").textContent="Reward: "+money(Math.max(5,bet*5));
+ $("claimBtn").disabled=rounds<20;
+ try{localStorage.setItem(SAVE_KEY,JSON.stringify({balance,bet,totalWin,rounds,history,jackpot,jackpotWins}));}catch(e){}
+
+ $("spin").disabled=spinning;
+ $("add").disabled=spinning;
+ $("reduce").disabled=spinning;
+}
+
+function icon(name){
+ return `<svg viewBox="0 0 100 100">
+ <use href="#s-${name}"></use>
+ </svg>`;
+}
+
+function makeGrid(){
+ grid.innerHTML="";
+ cells.length=0;
+
+ for(let i=0;i<28;i++){
+  const cell=document.createElement("div");
+  cell.className="cell";
+  cell.innerHTML=icon("candy");
+  grid.appendChild(cell);
+  cells.push(cell);
+ }
+}
+
+function randomSymbol(){
+ return symbols[Math.floor(Math.random()*symbols.length)];
+}
+
+function newBoard(){
+ return Array.from({length:28},randomSymbol);
+}
+
+function showBoard(board){
+ board.forEach((s,i)=>{
+  cells[i].innerHTML=icon(s);
+  cells[i].classList.remove("winner");
+ });
+}
+
+function calculate(board){
+ const counts={};
+
+ board.forEach(s=>{
+  counts[s]=(counts[s]||0)+1;
+ });
+
+ let win=0;
+ let winning=[];
+
+ for(const s of symbols){
+  const count=counts[s]||0;
+
+  if(count>=3){
+   const indices=[];
+
+   board.forEach((v,i)=>{
+    if(v===s)indices.push(i);
+   });
+
+   const multiplier=
+    count>=8?8:
+    count>=6?5:
+    count>=5?3:
+    count>=4?2:1.5;
+
+   win+=bet*multiplier*payouts[s];
+   winning.push(...indices);
+  }
+ }
+
+ return {
+  win,
+  winning:[...new Set(winning)]
+ };
+}
+
+function stopAuto(){
+ auto=false;
+ clearTimeout(autoTimer);
+ $("auto").textContent="🔄 Auto OFF";
+ $("auto").classList.remove("active");
+}
+
+function finish(){
+ spinning=false;
+ update();
+
+ if(auto){
+  autoTimer=setTimeout(startSpin,turbo?250:700);
+ }
+}
+
+function bigWin(amount,callback){
+ $("bigAmount").textContent=money(amount);
+ $("bigText").textContent=
+  amount>=bet*5?"MEGA WIN!":"BIG WIN!";
+
+ $("overlay").classList.add("show");
+
+ setTimeout(()=>{
+  $("overlay").classList.remove("show");
+  callback();
+ },turbo?700:1500);
+}
+
+function weightedOutcome(){
+ const r=Math.random()*100;
+ if(r<60)return {type:"NO MATCH",chance:60,multiplier:0};
+ if(r<75)return {type:"BET RETURN",chance:15,multiplier:1};
+ if(r<90)return {type:"DOUBLE WIN",chance:15,multiplier:2};
+ if(r<95)return {type:"BIG BIG WIN",chance:5,multiplier:5};
+ return {type:"MEGA WIN",chance:5,multiplier:10};
+}
+
+function makeOutcomeBoard(outcome){
+ // A losing board is generated without any symbol appearing 3 times.
+ if(outcome.multiplier===0){
+  let board,counts;
+  do{
+   board=newBoard();
+   counts={};
+   board.forEach(s=>counts[s]=(counts[s]||0)+1);
+  }while(Math.max(...Object.values(counts))>=3);
+  return {board,winning:[],payout:0};
+ }
+
+ const symbol=randomSymbol();
+ const matchCount=outcome.multiplier===1?3:
+                  outcome.multiplier===2?4:
+                  outcome.multiplier===5?6:8;
+ const board=newBoard();
+ for(let i=0;i<matchCount;i++)board[i]=symbol;
+ // Shuffle the board so the matching symbols are not always in the same cells.
+ for(let i=board.length-1;i>0;i--){
+  const j=Math.floor(Math.random()*(i+1));
+  [board[i],board[j]]=[board[j],board[i]];
+ }
+ const winning=[];
+ board.forEach((v,i)=>{if(v===symbol)winning.push(i);});
+ return {board,winning,payout:bet*outcome.multiplier};
+}
+
+function resolve(){
+ const outcome=weightedOutcome();
+ const result=makeOutcomeBoard(outcome);
+ showBoard(result.board);
+
+ // Local demo progressive pool: 2% of every bet is added to the pool.
+ jackpot+=bet*0.02;
+ if(outcome.type==="MEGA WIN"){
+  result.payout+=jackpot;
+  jackpot=100;
+  jackpotWins++;
+ }
+
+ lastWin=result.payout;
+ balance+=result.payout;
+ totalWin+=result.payout;
+ rounds=Math.min(20,rounds+1);
+ history.unshift({
+  time:new Date().toLocaleString(),
+  bet,
+  win:result.payout,
+  balance,
+  outcome:outcome.type
+ });
+ history=history.slice(0,30);
+
+ result.winning.forEach(i=>cells[i].classList.add("winner"));
+
+ $("message").textContent=
+  outcome.type==="NO MATCH"?"NO MATCH — TRY AGAIN!":
+  outcome.type==="BET RETURN"?"BET RETURNED — SAME AMOUNT!":
+  outcome.type==="DOUBLE WIN"?"🎉 DOUBLE WIN!":
+  outcome.type==="BIG BIG WIN"?"🔥 BIG BIG WIN!":
+  "👑 MEGA WIN + JACKPOT!";
+
+ update();
+
+ if(outcome.multiplier>=5){
+  $("bigText").textContent=outcome.type==="MEGA WIN"?"MEGA WIN!":"BIG BIG WIN!";
+  bigWin(result.payout,finish);
+ }else{
+  setTimeout(finish,turbo?150:450);
+ }
+}
+
+function startSpin(){
+ if(spinning)return;
+
+ if(balance<bet){
+  $("message").textContent="INSUFFICIENT BALANCE";
+  stopAuto();
+  return;
+ }
+
+ if(rounds>=20){
+  $("message").textContent="TASK COMPLETED!";
+  stopAuto();
+  return;
+ }
+
+ spinning=true;
+ balance-=bet;
+ lastWin=0;
+
+ $("message").textContent="SPINNING...";
+ update();
+
+ let ticks=0;
+ const maxTicks=turbo?3:10;
+ const delay=turbo?35:100;
+
+ spinInterval=setInterval(()=>{
+  const board=newBoard();
+  showBoard(board);
+  ticks++;
+
+  if(ticks>=maxTicks){
+   clearInterval(spinInterval);
+   resolve();
+  }
+ },delay);
+}
+
+$("spin").addEventListener("click",startSpin);
+
+$("add").addEventListener("click",()=>{
+ if(!spinning&&bet<10){
+  bet=Math.min(10,+(bet+.5).toFixed(2));
+  update();
+ }
+});
+
+$("reduce").addEventListener("click",()=>{
+ if(!spinning&&bet>.5){
+  bet=Math.max(.5,+(bet-.5).toFixed(2));
+  update();
+ }
+});
+
+$("turbo").addEventListener("click",()=>{
+ turbo=!turbo;
+
+ $("turbo").textContent=
+  turbo?"⚡ Turbo ON":"⚡ Turbo OFF";
+
+ $("turbo").classList.toggle("active",turbo);
+});
+
+$("auto").addEventListener("click",()=>{
+ if(auto){
+  stopAuto();
+  return;
+ }
+
+ auto=true;
+ $("auto").textContent="🔄 Auto ON";
+ $("auto").classList.add("active");
+
+ if(!spinning)startSpin();
+});
+
+$("overlay").addEventListener("click",()=>{
+ $("overlay").classList.remove("show");
+});
+
+function showPanel(id){$(id).classList.add("show");}
+function closePanel(id){$(id).classList.remove("show");}
+$("paytableBtn").addEventListener("click",()=>showPanel("paytablePanel"));
+$("historyBtn").addEventListener("click",()=>{
+ $("historyList").innerHTML=history.length?history.map((h,i)=>`${i+1}. ${h.time} — Bet ${money(h.bet)} — ${h.outcome||"WIN"} — Win <b>${money(h.win)}</b> — Balance ${money(h.balance)}`).join("<br>"):"No spins yet.";
+ showPanel("historyPanel");
+});
+document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>closePanel(b.dataset.close)));
+$("claimBtn").addEventListener("click",()=>{
+ if(rounds<20)return;
+ const reward=Math.max(5,bet*5);balance+=reward;rounds=0;
+ $("message").textContent="🎁 TASK REWARD "+money(reward)+" ADDED!";update();
+});
+makeGrid();
+update();
+
+</script>
+
+<script>
+(function(){
+  const WA='03245799008';
+  function addStyles(){
+    const css=`*{ -webkit-tap-highlight-color:transparent } img,canvas,video{max-width:100%}
+    @media(max-width:760px){
+      html,body{width:100%;max-width:100%;overflow-x:hidden}
+      body{min-height:100svh}
+      button,input,select{font-size:16px}
+      main,.container,.app-container,.game-container,.game-wrapper{max-width:100%;min-width:0}
+      .app-container{padding-left:7px!important;padding-right:7px!important}
+      .game-board,.stage-wrapper{max-width:100%}
+    }
+    .knp-tools{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;padding:7px;background:#101827;border-bottom:1px solid #334155;font:600 12px Arial}
+    .knp-tools button,.knp-tools a{border:1px solid #64748b;border-radius:20px;padding:7px 12px;background:#1e293b;color:#fff;text-decoration:none}
+    .knp-tools a{background:#075e54;border-color:#0d9488}`;
+    const st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  }
+  function sound(){
+    let on=localStorage.getItem('knpSound')==='on', ac;
+    const bar=document.createElement('div');bar.className='knp-tools';
+    const b=document.createElement('button');
+    const wa=document.createElement('a');wa.href='https://wa.me/92'+WA.slice(1);wa.target='_blank';wa.rel='noopener';wa.textContent='Admin WhatsApp';
+    const acct=document.createElement('a');acct.href='./account.html';acct.textContent='Account';
+    b.textContent=on?'🔊 Sound ON':'🔇 Sound OFF';
+    b.onclick=()=>{on=!on;localStorage.setItem('knpSound',on?'on':'off');b.textContent=on?'🔊 Sound ON':'🔇 Sound OFF';if(on)tone(660,.07)};
+    function tone(f,d){if(!on)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;g.gain.value=.025;o.connect(g);g.connect(ac.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.stop(ac.currentTime+d)}catch(e){}}
+    document.addEventListener('click',e=>{if(e.target.closest('button'))tone(520,.045)},true);
+    bar.append(b,wa,acct);
+    const header=document.querySelector('header');
+    if(header)header.insertAdjacentElement('afterend',bar);else document.body.prepend(bar);
+  }
+  addStyles(); if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sound);else sound();
+})();
+</script>
+
+<script>if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));</script></body>
+</html>
