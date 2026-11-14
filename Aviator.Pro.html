@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +9,8 @@
 body{background:#0d1117;color:white;min-height:100vh;display:flex;flex-direction:column}
 header{background:#161b22;padding:8px;text-align:center;border-bottom:1px solid #30363d;font-weight:bold}
 .balance-bar{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 12px;background:#21262d;border-bottom:1px solid #30363d;font-size:.9rem}
-.app-container{display:flex;flex:1;padding:10px;gap:10px;align-items:stretch}
+.app-container{display:flex;flex:1;min-width:0;padding:10px;gap:10px;align-items:stretch}
+.game-main,.stage-wrapper,.controls-wrapper{min-width:0}
 .history-sidebar,#live-bets-sidebar{width:150px;background:#161b22;padding:8px;border:1px solid #30363d;border-radius:6px;display:flex;flex-direction:column;gap:5px}
 .history-title,.live-bets-title{font-weight:bold;border-bottom:1px solid #30363d;padding-bottom:5px;text-align:center}
 #historyList,#liveBetsList{display:flex;flex-direction:column;gap:5px;overflow-y:auto;flex:1}
@@ -20,6 +20,7 @@ header{background:#161b22;padding:8px;text-align:center;border-bottom:1px solid 
 .mult-low{background:#30363d;color:#c9d1d9}
 .game-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
 .stage-wrapper{position:relative;background:#0d1117;border:1px solid #30363d;border-radius:6px;flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:220px}
+#aviatorCanvas{display:block}
 #aviatorCanvas{width:100%;height:100%;position:absolute;inset:0}
 .multiplier-display{position:absolute;font-size:3rem;font-weight:900;color:white;text-shadow:0 0 10px #000;z-index:10;display:none}
 .status-msg{position:absolute;font-size:2rem;font-weight:bold;text-shadow:0 0 10px #000;z-index:10;display:none}
@@ -39,12 +40,12 @@ button:disabled{cursor:not-allowed;opacity:.6}
 .live-bet-item.cashed{color:#3fb950;font-weight:bold}
 
 @media(max-width:760px){
-.app-container{flex-direction:column;padding:8px;gap:8px}
+.app-container{flex-direction:column;padding:7px;gap:8px}
 .game-main{order:0;width:100%;min-width:0}
-.stage-wrapper{height:42vh;min-height:230px;max-height:420px;flex:none}
-.controls-wrapper{width:100%;gap:8px}
-.bet-panel{width:50%;padding:7px}
-.history-sidebar,#live-bets-sidebar{width:100%;min-height:95px;max-height:170px}
+.stage-wrapper{width:100%;height:38vh;height:38svh;min-height:220px;max-height:360px;flex:none}
+.controls-wrapper{width:100%;gap:7px;align-items:stretch}
+.bet-panel{width:50%;flex:1;padding:7px;min-width:0}
+.history-sidebar,#live-bets-sidebar{width:100%;min-height:75px;max-height:125px}
 #historyList,#liveBetsList{flex-direction:row;flex-wrap:wrap}
 .history-item{min-width:60px;flex:1}
 .live-bet-item{flex:1 1 120px}
@@ -411,20 +412,68 @@ animationId=requestAnimationFrame(animateFlight);
 }
 
 function drawAircraft(context,x,y){
-  context.save();context.translate(x,y);context.rotate(-.20);
-  context.shadowColor='rgba(80,170,255,.85)';context.shadowBlur=18;
-  const flame=10+Math.sin(visualTick*.45)*4;
-  const grad=context.createLinearGradient(-55,0,-18,0);
-  grad.addColorStop(0,'rgba(255,120,30,0)');grad.addColorStop(.6,'rgba(255,170,55,.9)');grad.addColorStop(1,'rgba(120,210,255,.8)');
-  context.fillStyle=grad;context.beginPath();context.moveTo(-22,-5);context.lineTo(-22-flame,-2);context.lineTo(-22-flame*.7,3);context.lineTo(-22,5);context.closePath();context.fill();
-  const body=context.createLinearGradient(0,-12,0,13);body.addColorStop(0,'#fff');body.addColorStop(.5,'#b9d9f7');body.addColorStop(1,'#527da8');
-  context.fillStyle=body;context.beginPath();context.moveTo(39,0);context.quadraticCurveTo(22,-7,-18,-5);context.lineTo(-34,-3);context.lineTo(-43,0);context.lineTo(-34,3);context.lineTo(-18,5);context.quadraticCurveTo(22,7,39,0);context.fill();
-  context.fillStyle='#78aee2';
-  context.beginPath();context.moveTo(5,-2);context.lineTo(-12,-24);context.lineTo(-20,-23);context.lineTo(-12,-2);context.closePath();context.fill();
-  context.beginPath();context.moveTo(5,2);context.lineTo(-12,24);context.lineTo(-20,23);context.lineTo(-12,2);context.closePath();context.fill();
-  context.fillStyle='#d7eaff';context.beginPath();context.moveTo(-25,-2);context.lineTo(-36,-13);context.lineTo(-40,-12);context.lineTo(-36,0);context.closePath();context.fill();
-  context.beginPath();context.moveTo(-25,2);context.lineTo(-36,13);context.lineTo(-40,12);context.lineTo(-36,0);context.closePath();context.fill();
-  context.fillStyle='#173b5d';context.beginPath();context.ellipse(15,-3,8,3,-.15,0,Math.PI*2);context.fill();
+  context.save();
+  context.translate(x,y);
+  context.rotate(-.20);
+  const pulse=1+Math.sin(visualTick*.18)*.035;
+  context.scale(pulse,pulse);
+
+  // Bright exhaust trail
+  context.shadowColor='rgba(70,170,255,.95)';
+  context.shadowBlur=22;
+  const flame=15+Math.sin(visualTick*.5)*5;
+  const flameGrad=context.createLinearGradient(-65,0,-20,0);
+  flameGrad.addColorStop(0,'rgba(255,90,20,0)');
+  flameGrad.addColorStop(.45,'rgba(255,145,35,.95)');
+  flameGrad.addColorStop(1,'rgba(110,210,255,.95)');
+  context.fillStyle=flameGrad;
+  context.beginPath();
+  context.moveTo(-22,-6);context.lineTo(-22-flame,-2);
+  context.lineTo(-22-flame*.75,3);context.lineTo(-22,6);
+  context.closePath();context.fill();
+
+  // Main fuselage
+  context.shadowBlur=12;
+  const body=context.createLinearGradient(0,-16,0,16);
+  body.addColorStop(0,'#ffffff');
+  body.addColorStop(.42,'#c9e6ff');
+  body.addColorStop(1,'#477cae');
+  context.fillStyle=body;
+  context.beginPath();
+  context.moveTo(48,0);
+  context.quadraticCurveTo(28,-10,-20,-7);
+  context.lineTo(-43,-4);context.lineTo(-52,0);
+  context.lineTo(-43,4);context.lineTo(-20,7);
+  context.quadraticCurveTo(28,10,48,0);
+  context.closePath();context.fill();
+
+  // Wings and tailplane
+  context.fillStyle='#6fa9dc';
+  context.beginPath();
+  context.moveTo(9,-3);context.lineTo(-12,-34);
+  context.lineTo(-25,-31);context.lineTo(-13,-2);
+  context.closePath();context.fill();
+  context.beginPath();
+  context.moveTo(9,3);context.lineTo(-12,34);
+  context.lineTo(-25,31);context.lineTo(-13,2);
+  context.closePath();context.fill();
+
+  context.fillStyle='#d9efff';
+  context.beginPath();
+  context.moveTo(-29,-3);context.lineTo(-43,-18);
+  context.lineTo(-49,-16);context.lineTo(-40,0);
+  context.closePath();context.fill();
+  context.beginPath();
+  context.moveTo(-29,3);context.lineTo(-43,18);
+  context.lineTo(-49,16);context.lineTo(-40,0);
+  context.closePath();context.fill();
+
+  // Cockpit and nose highlight
+  context.fillStyle='#153a5d';
+  context.beginPath();context.ellipse(22,-4,10,4,-.15,0,Math.PI*2);context.fill();
+  context.strokeStyle='rgba(255,255,255,.8)';
+  context.lineWidth=1.5;
+  context.beginPath();context.moveTo(38,-1);context.lineTo(47,0);context.stroke();
   context.restore();
 }
 
@@ -539,6 +588,15 @@ container.appendChild(div);
 
 initBots();
 updateUI();
+function fitAviatorCanvas(){
+  const rect=canvas.getBoundingClientRect();
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  canvas.width=Math.max(1,Math.round(rect.width*dpr));
+  canvas.height=Math.max(1,Math.round(rect.height*dpr));
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+fitAviatorCanvas();
+window.addEventListener('resize',fitAviatorCanvas);
 waitingTimer=setTimeout(startRound,4000);
 </script>
 </body>
