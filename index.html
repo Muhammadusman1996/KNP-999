@@ -9,60 +9,143 @@
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;min-height:100vh;font-family:Arial,sans-serif;
+ margin:0;
+ min-height:100vh;
+ font-family:Arial,sans-serif;
  color:#f7f4e9;
  background:radial-gradient(circle at 50% 0,#25365e 0,#101a32 42%,#070b16 100%);
 }
 header{text-align:center;padding:35px 18px 20px}
-h1{margin:0;color:#f6d778;font-size:clamp(30px,6vw,54px);letter-spacing:2px}
+h1{
+ margin:0;
+ color:#f6d778;
+ font-size:clamp(30px,6vw,54px);
+ letter-spacing:2px
+}
 header p{color:#c4cbe0;margin:12px auto 0}
 nav,.toolbar{
- display:flex;justify-content:center;align-items:center;
- gap:10px;flex-wrap:wrap;padding:12px
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ gap:10px;
+ flex-wrap:wrap;
+ padding:12px
 }
-nav{background:#101827;border-bottom:1px solid #334155}
+nav{
+ background:#101827;
+ border-bottom:1px solid #334155
+}
 nav a,nav button,.toolbar button{
- color:#fff;text-decoration:none;padding:9px 15px;
- border:1px solid #64748b;border-radius:20px;
- background:#1e293b;cursor:pointer;font-weight:bold
+ color:#fff;
+ text-decoration:none;
+ padding:9px 15px;
+ border:1px solid #64748b;
+ border-radius:20px;
+ background:#1e293b;
+ cursor:pointer;
+ font-weight:bold
 }
-nav a.admin{background:#713f12;border-color:#ca8a04}
-nav a.user{background:#075e54;border-color:#0d9488}
+nav a.admin{
+ background:#713f12;
+ border-color:#ca8a04
+}
+nav a.user{
+ background:#075e54;
+ border-color:#0d9488
+}
 main{
- width:min(1100px,92%);margin:25px auto 60px;
- display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ width:min(1100px,92%);
+ margin:25px auto 60px;
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
  gap:18px
 }
 a.card{
- display:flex;min-height:170px;flex-direction:column;
- justify-content:space-between;padding:23px;
- text-decoration:none;color:inherit;border:1px solid #65749b80;
- border-radius:18px;background:linear-gradient(145deg,#1c2948,#10182d);
- box-shadow:0 12px 28px #0006;transition:.2s
+ display:flex;
+ min-height:170px;
+ flex-direction:column;
+ justify-content:space-between;
+ padding:23px;
+ text-decoration:none;
+ color:inherit;
+ border:1px solid #65749b80;
+ border-radius:18px;
+ background:linear-gradient(145deg,#1c2948,#10182d);
+ box-shadow:0 12px 28px #0006;
+ transition:.2s
 }
-a.card:hover{transform:translateY(-5px);border-color:#f6d778}
-.num{font-size:12px;color:#f6d778;letter-spacing:1.5px}
-.name{font-size:23px;font-weight:700;margin:14px 0}
-.desc{font-size:13px;color:#b8c3dc;line-height:1.45}
-.open{margin-top:20px;color:#f6d778;font-weight:bold}
-footer{text-align:center;color:#8d9ab7;font-size:12px;padding:20px}
+a.card:hover{
+ transform:translateY(-5px);
+ border-color:#f6d778
+}
+.num{
+ font-size:12px;
+ color:#f6d778;
+ letter-spacing:1.5px
+}
+.name{
+ font-size:23px;
+ font-weight:700;
+ margin:14px 0
+}
+.desc{
+ font-size:13px;
+ color:#b8c3dc;
+ line-height:1.45
+}
+.open{
+ margin-top:20px;
+ color:#f6d778;
+ font-weight:bold
+}
+footer{
+ text-align:center;
+ color:#8d9ab7;
+ font-size:12px;
+ padding:20px
+}
 #loading,#loginRequired{
- text-align:center;padding:60px 20px;color:#f6d778
+ text-align:center;
+ padding:60px 20px;
+ color:#f6d778
 }
 #loginRequired a{color:#f6d778}
 #hub{display:none}
 #userPanel{
- width:min(92%,700px);margin:20px auto;padding:18px;
- background:#17233d;border:1px solid #53617e;border-radius:15px;
+ width:min(92%,700px);
+ margin:20px auto;
+ padding:18px;
+ background:#17233d;
+ border:1px solid #53617e;
+ border-radius:15px;
  text-align:center
 }
-#balance{font-size:25px;color:#f6d778;font-weight:bold;margin:12px}
+#balance{
+ font-size:25px;
+ color:#f6d778;
+ font-weight:bold;
+ margin:12px
+}
 #userName{color:#fff}
-#message{color:#f6d778;font-size:13px;overflow-wrap:anywhere}
-button:disabled{opacity:.6;cursor:not-allowed}
+#message{
+ color:#f6d778;
+ font-size:13px;
+ overflow-wrap:anywhere;
+ line-height:1.5
+}
+button:disabled{
+ opacity:.6;
+ cursor:not-allowed
+}
 @media(max-width:600px){
- main{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
- a.card{padding:15px;min-height:155px}
+ main{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px
+ }
+ a.card{
+  padding:15px;
+  min-height:155px
+ }
  .name{font-size:18px}
 }
 </style>
@@ -72,7 +155,9 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <body>
 
-<div id="loading">Checking your account...</div>
+<div id="loading">
+ Checking your account...
+</div>
 
 <div id="loginRequired" style="display:none">
  <h2>Login Required</h2>
@@ -95,26 +180,46 @@ button:disabled{opacity:.6;cursor:not-allowed}
 
 <nav>
  <a class="user" href="#userPanel">User Panel</a>
- <a class="admin" id="adminLink" href="./admin.html" style="display:none">
+
+ <a class="admin"
+  id="adminLink"
+  href="./admin.html"
+  style="display:none">
   Admin Panel
  </a>
- <button id="logoutBtn" type="button">LOGOUT</button>
+
+ <button id="logoutBtn" type="button">
+  LOGOUT
+ </button>
 </nav>
 
 <section id="userPanel">
  <h2>USER PANEL</h2>
- <p>Welcome, <strong id="userName">Player</strong></p>
+
+ <p>
+  Welcome,
+  <strong id="userName">Player</strong>
+ </p>
+
  <p>Available Coins</p>
+
  <div id="balance">Loading...</div>
+
  <p id="message" role="status" aria-live="polite"></p>
 </section>
 
 <div class="toolbar">
- <button id="soundBtn" type="button">🔇 Sound OFF</button>
+
+ <button id="soundBtn" type="button">
+  🔇 Sound OFF
+ </button>
+
  <a style="color:#fff;text-decoration:none"
-  href="https://wa.me/923245799008" target="_blank" rel="noopener">
+  href="https://wa.me/923245799008"
+  target="_blank" rel="noopener">
   Admin WhatsApp
  </a>
+
 </div>
 
 <main>
@@ -194,13 +299,18 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </main>
 
 <footer>KNP-999 GAME HUB</footer>
+
 </div>
 
-<script src="./firebase-config.js?v=20261115-hub2"></script>
+<script src="./firebase-config.js?v=20261115-hub3"></script>
 
 <script type="module">
-import {initializeApp}
-from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+
+import {
+ initializeApp,
+ getApps,
+ getApp
+} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 
 import {
  getAuth,
@@ -221,17 +331,22 @@ import {
 
 const $ = id => document.getElementById(id);
 
+let app = null;
 let auth = null;
 let db = null;
-let app = null;
-let currentUid = null;
-let authCheckNumber = 0;
 let getWallet = null;
 
+let currentUid = null;
+let authCheckNumber = 0;
+
 const cfg = window.KNP_FIREBASE_CONFIG;
-const adminEmail = (window.KNP_ADMIN_EMAIL || '').trim().toLowerCase();
+
+const adminEmail =
+ (window.KNP_ADMIN_EMAIL || '').trim().toLowerCase();
+
 
 function showLogin(message){
+
  $('loading').style.display = 'none';
  $('hub').style.display = 'none';
  $('loginRequired').style.display = 'block';
@@ -241,83 +356,147 @@ function showLogin(message){
  }
 }
 
+
 function showHub(){
+
  $('loading').style.display = 'none';
  $('loginRequired').style.display = 'none';
  $('hub').style.display = 'block';
+
 }
+
 
 function showMessage(message){
  $('message').textContent = message || '';
 }
 
+
+/* Load player profile and wallet separately */
+
 async function loadUserData(user, checkNumber){
- $('userName').textContent = user.displayName || 'Player';
+
+ $('userName').textContent =
+  user.displayName || 'Player';
+
  $('balance').textContent = 'Loading...';
+
  showMessage('');
 
- // Admin link is only a display convenience.
- // Actual admin permissions must be checked by Cloud Functions.
  const email = (user.email || '').toLowerCase();
+
  $('adminLink').style.display =
   email && adminEmail && email === adminEmail
    ? 'inline-block'
    : 'none';
 
- // Load profile separately. A profile read failure
- // must not prevent the wallet callable from running.
+
+ /* Profile is optional for displaying the hub */
+
  try{
+
   const profileSnapshot = await getDoc(
-   doc(db, 'users', user.uid)
+   doc(db,'users',user.uid)
   );
 
-  if(checkNumber !== authCheckNumber || currentUid !== user.uid) return;
+  if(
+   checkNumber !== authCheckNumber ||
+   currentUid !== user.uid
+  ) return;
 
   if(profileSnapshot.exists()){
+
    const data = profileSnapshot.data();
+
    $('userName').textContent =
     data.name || user.displayName || 'Player';
+
   }else{
-   showMessage('Player profile was not found. Please contact admin.');
+
+   showMessage(
+    'Profile not found. Please contact admin if your wallet is missing.'
+   );
+
   }
+
  }catch(error){
-  console.error('Profile loading error:', error);
-  if(checkNumber === authCheckNumber && currentUid === user.uid){
-   showMessage('Profile could not be loaded. Wallet will still be checked.');
+
+  console.error('Profile error:',error);
+
+  if(
+   checkNumber === authCheckNumber &&
+   currentUid === user.uid
+  ){
+   showMessage(
+    'Profile could not be loaded. Checking wallet...'
+   );
   }
  }
 
- if(checkNumber !== authCheckNumber || currentUid !== user.uid) return;
 
- // Load the wallet from the secured server function.
+ if(
+  checkNumber !== authCheckNumber ||
+  currentUid !== user.uid
+ ) return;
+
+
+ /* Get shared wallet from Firebase Cloud Function */
+
  try{
+
   const result = await getWallet();
 
-  if(checkNumber !== authCheckNumber || currentUid !== user.uid) return;
+  if(
+   checkNumber !== authCheckNumber ||
+   currentUid !== user.uid
+  ) return;
 
   const coins = Number(result?.data?.coins);
 
   if(!Number.isFinite(coins)){
-   throw new Error('Invalid wallet response from server.');
+   throw new Error('Invalid wallet response.');
   }
 
-  $('balance').textContent = coins.toLocaleString() + ' Coins';
+  $('balance').textContent =
+   coins.toLocaleString() + ' Coins';
 
  }catch(error){
-  console.error('Wallet loading error:', error);
 
-  if(checkNumber === authCheckNumber && currentUid === user.uid){
+  console.error('Wallet error:',error);
+
+  if(
+   checkNumber === authCheckNumber &&
+   currentUid === user.uid
+  ){
+
    $('balance').textContent = 'Unavailable';
-   showMessage('Wallet service error: ' + (error.message || 'Unknown error'));
+
+   showMessage(
+    'Wallet service error: ' +
+    (error.message || 'Unknown error')
+   );
+
   }
  }
+
 }
 
+
+/* Firebase initialization */
+
 if(!cfg || !cfg.apiKey || cfg.apiKey.startsWith('PASTE_')){
- showLogin('Firebase configuration missing. Check firebase-config.js.');
+
+ showLogin(
+  'Firebase configuration missing. Check firebase-config.js.'
+ );
+
 }else{
+
  try{
-  app = initializeApp(cfg);
+
+  app = getApps().length
+   ? getApp()
+   : initializeApp(cfg);
+
   auth = getAuth(app);
   db = getFirestore(app);
 
@@ -326,57 +505,101 @@ if(!cfg || !cfg.apiKey || cfg.apiKey.startsWith('PASTE_')){
    'getWallet'
   );
 
-  onAuthStateChanged(auth, async user => {
+
+  /* Authentication state */
+
+  onAuthStateChanged(auth,async user => {
+
    const checkNumber = ++authCheckNumber;
 
    if(!user){
+
     currentUid = null;
-    showLogin('Please login to access KNP-999 games.');
+
+    showLogin(
+     'Please login to access KNP-999 games.'
+    );
+
     return;
    }
 
    currentUid = user.uid;
+
    showHub();
 
-   await loadUserData(user, checkNumber);
+   await loadUserData(user,checkNumber);
+
   });
 
  }catch(error){
-  console.error('Firebase initialization error:', error);
-  showLogin('Firebase error: ' + (error.message || 'Unable to initialize.'));
+
+  console.error('Firebase initialization error:',error);
+
+  showLogin(
+   'Firebase error: ' +
+   (error.message || 'Unable to initialize Firebase.')
+  );
+
  }
+
 }
 
+
+/* Logout */
+
 $('logoutBtn').onclick = async () => {
+
  const button = $('logoutBtn');
+
  button.disabled = true;
 
  try{
+
   if(auth){
    await signOut(auth);
   }
+
   window.location.replace('./account.html');
+
  }catch(error){
-  alert('Logout error: ' + (error.message || 'Unknown error'));
+
+  alert(
+   'Logout error: ' +
+   (error.message || 'Unknown error')
+  );
+
   button.disabled = false;
+
  }
+
 };
 
-// Sound control
-let soundOn = localStorage.getItem('knpSound') === 'on';
+
+/* Sound control */
+
+let soundOn =
+ localStorage.getItem('knpSound') === 'on';
+
 let audio = null;
 
+
 function updateSound(){
+
  $('soundBtn').textContent =
   soundOn ? '🔊 Sound ON' : '🔇 Sound OFF';
+
 }
 
+
 function playTone(){
+
  if(!soundOn) return;
 
  try{
+
   audio = audio || new(
-   window.AudioContext || window.webkitAudioContext
+   window.AudioContext ||
+   window.webkitAudioContext
   )();
 
   if(audio.state === 'suspended'){
@@ -393,34 +616,53 @@ function playTone(){
   gain.connect(audio.destination);
 
   oscillator.start();
+
   gain.gain.exponentialRampToValueAtTime(
    .001,
    audio.currentTime + .06
   );
+
   oscillator.stop(audio.currentTime + .06);
 
  }catch(error){
-  console.warn('Sound unavailable:', error);
+
+  console.warn('Sound unavailable:',error);
+
  }
+
 }
 
+
 $('soundBtn').onclick = () => {
+
  soundOn = !soundOn;
- localStorage.setItem('knpSound', soundOn ? 'on' : 'off');
+
+ localStorage.setItem(
+  'knpSound',
+  soundOn ? 'on' : 'off'
+ );
+
  updateSound();
  playTone();
+
 };
 
 updateSound();
+
 </script>
 
 <script>
 if('serviceWorker' in navigator){
+
  window.addEventListener('load',()=>{
-  navigator.serviceWorker.register('./sw.js').catch(error=>{
-   console.warn('Service worker registration failed:', error);
-  });
+
+  navigator.serviceWorker.register('./sw.js')
+   .catch(error=>{
+    console.warn('Service worker error:',error);
+   });
+
  });
+
 }
 </script>
 
