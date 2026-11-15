@@ -12,7 +12,7 @@ table{width:100%;border-collapse:collapse;min-width:600px}th,td{padding:10px;bor
 <p class="muted">Create the admin user in Firebase Authentication first. Firestore security rules must also contain that exact admin email. Do not rely on hiding this page as security.</p></div>
 <div class="panel" id="dashboard" style="display:none"><h2>Registered Users</h2><button id="refresh">Refresh Users</button><div class="tablebox"><table><thead><tr><th>Name</th><th>Mobile</th><th>Email</th><th>Coins</th><th>Add Coins</th></tr></thead><tbody id="users"></tbody></table></div></div>
 <p><a href="./index.html" style="color:#f6d778">Back to game hub</a></p></div>
-<script src="./firebase-config.js"></script><script type="module">
+<script src="./firebase-config.js?v=20261115-fix1"></script><script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import{getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import{getFirestore,collection,getDocs}from'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
