@@ -56,6 +56,8 @@ $('submit').onclick=async()=>{
    const profile=await getDoc(doc(db,'users',cred.user.uid));
    msg.textContent=profile.exists()?'Welcome '+(profile.data().name||'')+'. Login successful.':'Login successful.';
   }
+  msg.textContent='Login successful.';
+window.location.href='./index.html';
  }catch(e){msg.textContent=e.code==='auth/email-already-in-use'?'This mobile number is already registered. Please login.':e.code==='auth/invalid-credential'?'Mobile number or password is incorrect.':e.message}
 };
 </script></body></html>
