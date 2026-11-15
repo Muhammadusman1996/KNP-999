@@ -42,7 +42,7 @@ $('submit').onclick=async()=>{
  try{
   if(!auth||!db)throw Error('Firebase is not configured yet.');
   const phone=cleanPhone($('phone').value),password=$('password').value;
-  if(!/^(\+?92|0)?3\d{9}$/.test(phone))throw Error('Enter a valid Pakistan mobile number, e.g. 03XXXXXXXXX.');
+  if(!/^(\+?92|0)?3\d{9}$/.test(phone))throw Error('Enter a valid Pakistan mobile number, e.g. 0324-5799008.');
   if(password.length<6)throw Error('Password must be at least 6 characters.');
   const alias=authAlias(phone);
   if(mode==='create'){
