@@ -1,4 +1,4 @@
-const CACHE = 'knp999-v2-firebase-fix';
+const CACHE = 'knp999-v3-account-redirect-fix';
 const FILES = [
   './',
   './index.html',
@@ -38,6 +38,23 @@ self.addEventListener('fetch', event => {
   }
 
   event.respondWith((async () => {
+    // Always try the live HTML page first so login fixes are not hidden
+    // behind an older cached account.html or index.html.
+    if (event.request.mode === 'navigate') {
+      try {
+        const fresh = await fetch(new Request(event.request, { cache: 'no-store' }));
+        if (fresh && fresh.ok) {
+          const cache = await caches.open(CACHE);
+          cache.put(event.request, fresh.clone());
+        }
+        return fresh;
+      } catch (error) {
+        const cachedPage = await caches.match(event.request);
+        if (cachedPage) return cachedPage;
+        throw error;
+      }
+    }
+
     const cached = await caches.match(event.request);
     if (cached) return cached;
     return fetch(event.request);
