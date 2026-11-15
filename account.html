@@ -158,6 +158,15 @@ function showMessage(message){
  $('msg').textContent = message;
 }
 
+
+/* Reliable redirect after successful authentication */
+function openGameHub(){
+  const target = new URL('./index.html', window.location.href).href;
+  window.location.replace(target);
+  // Fallback in case replace is blocked by an unusual browser/webview state.
+  window.location.href = target;
+}
+
 function setMode(next){
 
  mode = next;
@@ -419,7 +428,7 @@ btn.onclick = async () => {
     'Account ready. Opening KNP-999...'
    );
 
-   window.location.replace('./index.html');
+   openGameHub();
    return;
   }
 
@@ -443,7 +452,7 @@ btn.onclick = async () => {
    'Login successful. Opening games...'
   );
 
-  window.location.replace('./index.html');
+  openGameHub();
   return;
 
 
